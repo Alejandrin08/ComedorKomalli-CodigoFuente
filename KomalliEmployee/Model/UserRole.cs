@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace KomalliEmployee.Model {
-    internal enum UserRole {
+    public enum UserRole {
         Cajero,
         JefeCocina,
         PersonalCocina,

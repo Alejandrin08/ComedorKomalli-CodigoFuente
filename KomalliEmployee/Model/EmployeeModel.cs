@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace KomalliEmployee.Model {
-    internal class EmployeeModel { 
+    public class EmployeeModel { 
         public string Email { get; set; }
         public string Password { get; set; }
         public UserRole Role { get; set; }

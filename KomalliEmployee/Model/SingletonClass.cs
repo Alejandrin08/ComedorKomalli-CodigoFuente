@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace KomalliEmployee.Model {
-    internal class SingletonClass {
+    public class SingletonClass {
 
         private static SingletonClass _instance;
         public static SingletonClass Instance {

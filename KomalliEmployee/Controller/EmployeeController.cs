@@ -12,7 +12,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace KomalliEmployee.Controller {
-    internal class EmployeeController : IEmployee {
+    public class EmployeeController : IEmployee {
+
+        /**
+         * <summary>
+         * Este método se encarga de actualizar la contraseña de un usuario así como cambiar su estado lógico.
+         * </summary>
+         * <param name="email">Correo del usuario</param>
+         * <param name="password">Nueva contraseña</param>
+         * <returns>Regresa 1 si se realizo la actualización de la contraseña correctamente, 0 si no.</returns>
+         */
         public int UpdatePassword(string email, string password) {
             const int USER_NEW = 1;
             int result = 0;
@@ -31,6 +40,14 @@ namespace KomalliEmployee.Controller {
             return result;
         }
 
+        /**
+         * <summary>
+         * Este método se encarga de validar el usuario y contraseña proporcionados llamando a un procedimiento almacenado.
+         * </summary>
+         * <param name="email">Correo del usuario</param>
+         * <param name="password">Contraseña del usuario</param>
+         * <returns>Regresa un diccionario con el rol del usuario y su estado lógico.</returns>
+         */
         public Dictionary<UserRole, int> ValidateUser(string email, string password) {
             const int USER_INVALID = -1;
             Dictionary<UserRole, int> result = new Dictionary<UserRole, int>();
@@ -39,7 +56,7 @@ namespace KomalliEmployee.Controller {
                     ObjectParameter userRole = new ObjectParameter("UserRole", typeof(string));
                     ObjectParameter userAvailable = new ObjectParameter("UserAvailable", typeof(int));
 
-                    int userValidation = context.ValidateUserLogin(email, password, userRole, userAvailable);
+                    context.ValidateUserLogin(email, password, userRole, userAvailable);
 
                     string userRoleValue = userRole.Value != DBNull.Value ? userRole.Value.ToString() : null;
 
