@@ -41,5 +41,17 @@ namespace KomalliEmployee.Views {
                 MessageBox.Show("Passwords do not match");
             }
         }
+
+        private void KeyDownChangePasswordBox(object sender, KeyEventArgs e) {
+            if (e.Key == Key.Enter) {
+                pssConfirmPassword.Focus();
+            }
+        }
+
+        private void KeyDownChangePasswordBoxConfirm(object sender, KeyEventArgs e) {
+            if (e.Key == Key.Enter) {
+                ClickUpdatePassword(sender, e);
+            }
+        }
     }
 }
