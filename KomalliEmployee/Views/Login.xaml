@@ -11,117 +11,111 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Login">
 
-    <Viewbox Stretch="Fill">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <Image x:Name="imageConfetti" 
-                   gif:ImageBehavior.AnimatedSource="/Resources/Images/KomalliGif.gif" 
-                   gif:ImageBehavior.AnimationSpeedRatio="1" Width="30" Height="30"
-            />
+        <Image x:Name="imageConfetti" 
+               gif:ImageBehavior.AnimatedSource="/Resources/Images/KomalliGif.gif" 
+               gif:ImageBehavior.AnimationSpeedRatio="1" 
+               Width="300" 
+               Height="300"/>
 
-            <Grid Grid.Column="1" Background="#2C6C74">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+        <Grid Grid.Column="1" Background="#2C6C74">
+            <Viewbox>
+                <StackPanel>
+                    <TextBlock Text="Bienvenido"
+                               HorizontalAlignment="Center"
+                               FontFamily="Bahnschrift" 
+                               FontWeight="Bold" 
+                               FontSize="60"/>
 
-                <TextBlock Text="Bienvenido"
-                    FontFamily="Bahnschrift" 
-                    HorizontalAlignment="Center" 
-                    FontWeight="Bold" 
-                    FontSize="7"
-                    Margin="0,10,0,0"
-                />
+                    <TextBlock Text="Inicio de sesión"
+                               HorizontalAlignment="Center"
+                               FontSize="50"
+                               Margin="25,0,25,30"/>
 
-                <TextBlock Text="Inicio de sesión"
-                    Grid.Row="1"
-                    HorizontalAlignment="Center"
-                    FontSize="6"
-                />
+                    <StackPanel Orientation="Horizontal" 
+                                Margin="10" 
+                                HorizontalAlignment="Center">
+                        <Image Source="/Resources/Images/UserIcon.png"
+                               Width="35"
+                               Height="35"
+                               Margin="2,0"/>
+                        <TextBox x:Name="txtEmail"
+                                 TextChanged="TextChangedValidateTextBox"
+                                 Background="#D9D9D9"
+                                 BorderBrush="#000000"
+                                 SelectionBrush="#000000"
+                                 FontFamily="Bahnschrift"
+                                 HorizontalContentAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 FontSize="20"
+                                 Width="280"
+                                 Height="40"
+                                 KeyDown="KeyDownLoginTextBox"
+                                 Margin="10,0">
+                            <TextBox.Text>
+                                <Binding Path="Email" 
+                                         UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validation:EmailValidationRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <TextBox.Style>
+                                <Style TargetType="TextBox" 
+                                       BasedOn="{StaticResource {x:Type TextBox}}">
+                                    <Style.Triggers>
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="ToolTip" 
+                                                    Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                                                    Path=(Validation.Errors)/ErrorContent}"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="3">
-                    <Image Source="/Resources/Images/UserIcon.png"
-                        Width="7"
-                        Height="7"
-                        Margin="2,0"
-                     />
-                    <TextBox x:Name="txtEmail"
-                        TextChanged="TextChangedValidateTextBox"
-                        Background="#D9D9D9"
-                        BorderBrush="#000000"
-                        SelectionBrush="#000000"
-                        FontFamily="Bahnschrift"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        FontSize="3"
-                        Width="41"
-                        Height="6" KeyDown="KeyDownLoginTextBox"
-                        
-                    >
-                        <TextBox.Text>
-                            <Binding Path="Email"
-                            UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <validation:EmailValidationRule/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                        <TextBox.Style>
-                            <Style TargetType="TextBox">
-                                <Style.Triggers>
-                                    <Trigger Property="Validation.HasError" Value="True">
-                                        <Setter Property="ToolTip" 
-                                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                                            Path=(Validation.Errors)/ErrorContent}"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                    <StackPanel Orientation="Horizontal" 
+                                Margin="5" 
+                                HorizontalAlignment="Center">
+                        <Image Source="/Resources/Images/PasswordIcon.png"
+                               Width="35"
+                               Height="35"
+                               Margin="2,0"/>
+                        <PasswordBox x:Name="pssUser"
+                                     Background="#D9D9D9"
+                                     BorderBrush="#000000"
+                                     SelectionBrush="#000000"
+                                     FontFamily="Bahnschrift"
+                                     HorizontalContentAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     FontSize="20"
+                                     Width="280"
+                                     Height="40"
+                                     KeyDown="KeyDownLoginPasswordBox"
+                                     Margin="10,0"/>
+                    </StackPanel>
+
+                    <Button x:Name="btnLogin"
+                            Content="Iniciar sesión"
+                            HorizontalAlignment="Center"
+                            Background="#1E1E1E"
+                            BorderBrush="#000000"
+                            Foreground="#FFFFFF"
+                            Width="160"
+                            Height="40"
+                            FontSize="25"
+                            FontFamily="Bahnschrift"
+                            Cursor="Hand"
+                            Margin="0,40,0,0"
+                            Click="ClickLogin"/>
                 </StackPanel>
-
-                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="3">
-                    <Image Source="/Resources/Images/PasswordIcon.png"
-                        Width="7"
-                        Height="7"
-                        Margin="2,0"
-                    />
-                    <PasswordBox x:Name="pssUser"
-                        Background="#D9D9D9"
-                        BorderBrush="#000000"
-                        SelectionBrush="#000000"
-                        FontFamily="Bahnschrift"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        FontSize="3"
-                        Width="41"
-                        Height="6"
-                        KeyDown="KeyDownLoginPasswordBox"
-                    />
-                </StackPanel>
-
-                <Button x:Name="btnLogin"
-                        Content="Iniciar sesión"
-                        HorizontalAlignment="Center"
-                        Grid.Row="4"
-                        Background="#1E1E1E"
-                        BorderBrush="#000000"
-                        Foreground="#FFFFFF"
-                        Width="35"
-                        FontSize="3"
-                        FontFamily="Bahnschrift"
-                        Cursor="Hand"
-                        Margin="0,5,0,5"
-                        Click="ClickLogin" Grid.RowSpan="2"
-                />
-            </Grid>
+            </Viewbox>
         </Grid>
-    </Viewbox>
+    </Grid>
 </Page>
