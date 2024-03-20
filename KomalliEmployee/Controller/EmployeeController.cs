@@ -1,5 +1,5 @@
 ﻿using KomalliEmployee.Contracts;
-using KomalliEmployee.Model;
+using KomalliEmployee.Model.Utilities;
 using KomalliServer;
 using System;
 using System.Collections.Generic;

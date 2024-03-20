@@ -1,5 +1,6 @@
 ﻿using KomalliEmployee.Controller;
 using KomalliEmployee.Model;
+using KomalliEmployee.Model.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -16,12 +16,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KomalliEmployee.Views {
+namespace KomalliEmployee.Views.Pages {
     /// <summary>
     /// Lógica de interacción para Login.xaml
     /// </summary>
     public partial class Login : Page {
-
         public Login() {
             InitializeComponent();
             DataContext = new EmployeeModel();
@@ -60,7 +59,6 @@ namespace KomalliEmployee.Views {
                 }
             }
         }
-
         private void TextChangedValidateTextBox(object sender, TextChangedEventArgs e) {
             bool isEmailValid = !Validation.GetHasError(txtEmail) && !string.IsNullOrEmpty(txtEmail.Text);
             if (isEmailValid) {
@@ -69,13 +67,11 @@ namespace KomalliEmployee.Views {
                 btnLogin.IsEnabled = false;
             }
         }
-
         private void KeyDownLoginPasswordBox(object sender, KeyEventArgs e) {
             if (e.Key == Key.Enter) {
                 ClickLogin(sender, e);
             }
         }
-
         private void KeyDownLoginTextBox(object sender, KeyEventArgs e) {
             if (e.Key == Key.Enter) {
                 ClickLogin(sender, e);

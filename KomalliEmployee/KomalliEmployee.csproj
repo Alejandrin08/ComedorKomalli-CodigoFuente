@@ -78,15 +78,30 @@
     <Compile Include="Contracts\IEmployee.cs" />
     <Compile Include="Controller\EmployeeController.cs" />
     <Compile Include="Model\EmployeeModel.cs" />
-    <Compile Include="Model\LoggerManager.cs" />
-    <Compile Include="Model\SingletonClass.cs" />
-    <Compile Include="Model\UserRole.cs" />
+    <Compile Include="Model\Utilities\LoggerManager.cs" />
+    <Compile Include="Model\Utilities\SingletonClass.cs" />
+    <Compile Include="Model\Utilities\UserRole.cs" />
     <Compile Include="Model\Validations\EmailValidationRule.cs" />
-    <Compile Include="Views\ChangePassword.xaml.cs">
+    <Compile Include="Views\Pages\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Login.xaml.cs">
+    <Compile Include="Views\Pages\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\CommentCard.xaml.cs">
+      <DependentUpon>CommentCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\HomeCashier.xaml.cs">
+      <DependentUpon>HomeCashier.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\HomeHeadChef.xaml.cs">
+      <DependentUpon>HomeHeadChef.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\HomeKichenStaff.xaml.cs">
+      <DependentUpon>HomeKichenStaff.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\HomeManager.xaml.cs">
+      <DependentUpon>HomeManager.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -100,11 +115,35 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ChangePassword.xaml">
+    <Page Include="Resources\Styles\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Login.xaml">
+    <Page Include="Views\Pages\ChangePassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\CommentCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\HomeCashier.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\HomeHeadChef.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\HomeKichenStaff.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\HomeManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,6 +188,7 @@
     <Resource Include="Resources\Images\PasswordIcon.png" />
     <Resource Include="Resources\Images\UserIcon.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

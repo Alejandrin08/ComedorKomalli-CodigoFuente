@@ -1,5 +1,5 @@
 ﻿using KomalliEmployee.Controller;
-using KomalliEmployee.Model;
+using KomalliEmployee.Model.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KomalliEmployee.Views {
+namespace KomalliEmployee.Views.Pages {
     /// <summary>
     /// Lógica de interacción para ChangePassword.xaml
     /// </summary>
@@ -23,7 +23,6 @@ namespace KomalliEmployee.Views {
         public ChangePassword() {
             InitializeComponent();
         }
-
         private void ClickUpdatePassword(object sender, RoutedEventArgs e) {
             string newPassword = pssNewPassword.Password;
             string confirmPassword = pssConfirmPassword.Password;

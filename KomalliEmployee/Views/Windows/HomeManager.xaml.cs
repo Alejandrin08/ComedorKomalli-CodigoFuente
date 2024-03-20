@@ -1,5 +1,4 @@
-﻿using KomalliEmployee.Views.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,17 +10,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KomalliEmployee {
+namespace KomalliEmployee.Views.Windows {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para HomeManager.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-        public MainWindow() {
+    public partial class HomeManager : Window {
+        public HomeManager() {
             InitializeComponent();
-            MainFrame.NavigationService.Navigate(new Login());
         }
     }
 }

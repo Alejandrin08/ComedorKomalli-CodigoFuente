@@ -4,6 +4,7 @@ using System;
 using System.Transactions;
 using System.Data.Entity.Core;
 using System.Collections.Generic;
+using KomalliEmployee.Model.Utilities;
 
 namespace KomalliTest.Employee {
     [TestClass]
