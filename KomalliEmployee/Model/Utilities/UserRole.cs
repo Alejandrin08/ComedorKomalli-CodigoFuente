@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KomalliEmployee.Model {
+namespace KomalliEmployee.Model.Utilities {
     public enum UserRole {
         Cajero,
         JefeCocina,

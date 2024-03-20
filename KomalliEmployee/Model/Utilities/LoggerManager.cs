@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
-namespace KomalliEmployee.Model {
+namespace KomalliEmployee.Model.Utilities {
 
     public class LoggerManager {
 
