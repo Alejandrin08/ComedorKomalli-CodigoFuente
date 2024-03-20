@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KomalliEmployee", "..\Komal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KomalliServer", "..\KomalliServer\KomalliServer.csproj", "{18E7AEB5-9637-4E65-801C-F8727FAA8BD3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KomalliTest", "..\KomalliTest\KomalliTest.csproj", "{08BB2568-E463-4D98-97F0-EDE8E0A1CC76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{18E7AEB5-9637-4E65-801C-F8727FAA8BD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18E7AEB5-9637-4E65-801C-F8727FAA8BD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18E7AEB5-9637-4E65-801C-F8727FAA8BD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08BB2568-E463-4D98-97F0-EDE8E0A1CC76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08BB2568-E463-4D98-97F0-EDE8E0A1CC76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08BB2568-E463-4D98-97F0-EDE8E0A1CC76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08BB2568-E463-4D98-97F0-EDE8E0A1CC76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

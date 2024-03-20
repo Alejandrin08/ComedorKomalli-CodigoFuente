@@ -11,5 +11,8 @@ namespace KomalliEmployee {
     /// Lógica de interacción para App.xaml
     /// </summary>
     public partial class App : Application {
+        public static void ShowMessageError(string message, string title) {
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }

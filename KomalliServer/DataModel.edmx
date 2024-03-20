@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BDKomalliModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="KomalliModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="NoPersonal" />
@@ -15,7 +15,7 @@
           <Property Name="UserEmail" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'BD_Komalli.dbo.Employee_FoodOrder' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+advertencia 6002: La tabla o vista 'Komalli.dbo.Employee_FoodOrder' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Employee_FoodOrder">
           <Key>
             <PropertyRef Name="NoPersonalEmployee" />
@@ -25,7 +25,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.Employee_FoodOrder' no tiene 
           <Property Name="IDFoodOrderFoodOrder" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'BD_Komalli.dbo.Employee_Ingredient' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+advertencia 6002: La tabla o vista 'Komalli.dbo.Employee_Ingredient' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Employee_Ingredient">
           <Key>
             <PropertyRef Name="NoPersonalEmployee" />
@@ -48,7 +48,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.Employee_Ingredient' no tiene
           <Property Name="Total" Type="int" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_MenuCard' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_MenuCard' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="FoodOrder_MenuCard">
           <Key>
             <PropertyRef Name="IDFoodOrderFoodOrder" />
@@ -62,7 +62,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_MenuCard' no tiene 
           <Property Name="SellingPrice" Type="int" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="FoodOrder_SetMenu">
           <Key>
             <PropertyRef Name="IDFoodOrderFoodOrder" />
@@ -245,7 +245,13 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BDKomalliModelStoreContainer">
+        <Function Name="ValidateUserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserEmail" Type="varchar" Mode="In" />
+          <Parameter Name="UserPassword" Type="varchar" Mode="In" />
+          <Parameter Name="UserRole" Type="varchar" Mode="InOut" />
+          <Parameter Name="UserAvailable" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="KomalliModelStoreContainer">
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FoodOrder" EntityType="Self.FoodOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ingredient" EntityType="Self.Ingredient" Schema="dbo" store:Type="Tables" />
@@ -327,7 +333,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BDKomalliModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="KomalliModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="NoPersonal" />
@@ -550,7 +556,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="BDKomalliEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="KomalliEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="FoodOrder" EntityType="Self.FoodOrder" />
           <EntitySet Name="Ingredient" EntityType="Self.Ingredient" />
@@ -597,15 +603,21 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
             <End Role="Employee" EntitySet="Employee" />
             <End Role="FoodOrder" EntitySet="FoodOrder" />
           </AssociationSet>
+          <FunctionImport Name="ValidateUserLogin">
+            <Parameter Name="UserEmail" Mode="In" Type="String" />
+            <Parameter Name="UserPassword" Mode="In" Type="String" />
+            <Parameter Name="UserRole" Mode="InOut" Type="String" />
+            <Parameter Name="UserAvailable" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BDKomalliModelStoreContainer" CdmEntityContainer="BDKomalliEntities">
+        <EntityContainerMapping StorageEntityContainer="KomalliModelStoreContainer" CdmEntityContainer="KomalliEntities">
           <EntitySetMapping Name="Employee">
-            <EntityTypeMapping TypeName="BDKomalliModel.Employee">
+            <EntityTypeMapping TypeName="KomalliModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="NoPersonal" ColumnName="NoPersonal" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
@@ -615,7 +627,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FoodOrder">
-            <EntityTypeMapping TypeName="BDKomalliModel.FoodOrder">
+            <EntityTypeMapping TypeName="KomalliModel.FoodOrder">
               <MappingFragment StoreEntitySet="FoodOrder">
                 <ScalarProperty Name="IDFoodOrder" ColumnName="IDFoodOrder" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -627,7 +639,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ingredient">
-            <EntityTypeMapping TypeName="BDKomalliModel.Ingredient">
+            <EntityTypeMapping TypeName="KomalliModel.Ingredient">
               <MappingFragment StoreEntitySet="Ingredient">
                 <ScalarProperty Name="KeyIngredient" ColumnName="KeyIngredient" />
                 <ScalarProperty Name="NameIngredient" ColumnName="NameIngredient" />
@@ -638,7 +650,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Logbook">
-            <EntityTypeMapping TypeName="BDKomalliModel.Logbook">
+            <EntityTypeMapping TypeName="KomalliModel.Logbook">
               <MappingFragment StoreEntitySet="Logbook">
                 <ScalarProperty Name="IDCommentary" ColumnName="IDCommentary" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -648,7 +660,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MenuCard">
-            <EntityTypeMapping TypeName="BDKomalliModel.MenuCard">
+            <EntityTypeMapping TypeName="KomalliModel.MenuCard">
               <MappingFragment StoreEntitySet="MenuCard">
                 <ScalarProperty Name="KeyCard" ColumnName="KeyCard" />
                 <ScalarProperty Name="NameFood" ColumnName="NameFood" />
@@ -658,7 +670,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SetMenu">
-            <EntityTypeMapping TypeName="BDKomalliModel.SetMenu">
+            <EntityTypeMapping TypeName="KomalliModel.SetMenu">
               <MappingFragment StoreEntitySet="SetMenu">
                 <ScalarProperty Name="KeySetMenu" ColumnName="KeySetMenu" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -673,7 +685,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="BDKomalliModel.User">
+            <EntityTypeMapping TypeName="KomalliModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -682,7 +694,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee_Ingredient">
-            <EntityTypeMapping TypeName="BDKomalliModel.Employee_Ingredient">
+            <EntityTypeMapping TypeName="KomalliModel.Employee_Ingredient">
               <MappingFragment StoreEntitySet="Employee_Ingredient">
                 <ScalarProperty Name="NoPersonalEmployee" ColumnName="NoPersonalEmployee" />
                 <ScalarProperty Name="KeyIngredientIngredient" ColumnName="KeyIngredientIngredient" />
@@ -691,7 +703,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FoodOrder_MenuCard">
-            <EntityTypeMapping TypeName="BDKomalliModel.FoodOrder_MenuCard">
+            <EntityTypeMapping TypeName="KomalliModel.FoodOrder_MenuCard">
               <MappingFragment StoreEntitySet="FoodOrder_MenuCard">
                 <ScalarProperty Name="IDFoodOrderFoodOrder" ColumnName="IDFoodOrderFoodOrder" />
                 <ScalarProperty Name="KeyCardMenuCard" ColumnName="KeyCardMenuCard" />
@@ -701,7 +713,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FoodOrder_SetMenu">
-            <EntityTypeMapping TypeName="BDKomalliModel.FoodOrder_SetMenu">
+            <EntityTypeMapping TypeName="KomalliModel.FoodOrder_SetMenu">
               <MappingFragment StoreEntitySet="FoodOrder_SetMenu">
                 <ScalarProperty Name="IDFoodOrderFoodOrder" ColumnName="IDFoodOrderFoodOrder" />
                 <ScalarProperty Name="KeySetMenuSetMenu" ColumnName="KeySetMenuSetMenu" />
@@ -710,7 +722,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Employee_FoodOrder" TypeName="BDKomalliModel.Employee_FoodOrder" StoreEntitySet="Employee_FoodOrder">
+          <AssociationSetMapping Name="Employee_FoodOrder" TypeName="KomalliModel.Employee_FoodOrder" StoreEntitySet="Employee_FoodOrder">
             <EndProperty Name="Employee">
               <ScalarProperty Name="NoPersonal" ColumnName="NoPersonalEmployee" />
             </EndProperty>
@@ -718,6 +730,7 @@ advertencia 6002: La tabla o vista 'BD_Komalli.dbo.FoodOrder_SetMenu' no tiene d
               <ScalarProperty Name="IDFoodOrder" ColumnName="IDFoodOrderFoodOrder" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="ValidateUserLogin" FunctionName="KomalliModel.Store.ValidateUserLogin" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -12,11 +12,13 @@ namespace KomalliServer
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
-    public partial class BDKomalliEntities : DbContext
+    public partial class KomalliEntities : DbContext
     {
-        public BDKomalliEntities()
-            : base("name=BDKomalliEntities")
+        public KomalliEntities()
+            : base("name=KomalliEntities")
         {
         }
     
@@ -35,5 +37,18 @@ namespace KomalliServer
         public virtual DbSet<Employee_Ingredient> Employee_Ingredient { get; set; }
         public virtual DbSet<FoodOrder_MenuCard> FoodOrder_MenuCard { get; set; }
         public virtual DbSet<FoodOrder_SetMenu> FoodOrder_SetMenu { get; set; }
+    
+        public virtual int ValidateUserLogin(string userEmail, string userPassword, ObjectParameter userRole, ObjectParameter userAvailable)
+        {
+            var userEmailParameter = userEmail != null ?
+                new ObjectParameter("UserEmail", userEmail) :
+                new ObjectParameter("UserEmail", typeof(string));
+    
+            var userPasswordParameter = userPassword != null ?
+                new ObjectParameter("UserPassword", userPassword) :
+                new ObjectParameter("UserPassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ValidateUserLogin", userEmailParameter, userPasswordParameter, userRole, userAvailable);
+        }
     }
 }
