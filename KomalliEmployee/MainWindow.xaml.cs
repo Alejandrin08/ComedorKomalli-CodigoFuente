@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KomalliEmployee.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace KomalliEmployee {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+            MainFrame.NavigationService.Navigate(new Login());
         }
     }
 }
