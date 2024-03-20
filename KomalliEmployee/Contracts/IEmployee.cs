@@ -1,4 +1,4 @@
-﻿using KomalliEmployee.Model;
+﻿using KomalliEmployee.Model.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
