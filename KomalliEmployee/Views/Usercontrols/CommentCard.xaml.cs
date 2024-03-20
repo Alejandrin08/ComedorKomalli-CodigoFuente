@@ -1,5 +1,4 @@
-﻿using KomalliEmployee.Views.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KomalliEmployee {
+namespace KomalliEmployee.Views.Usercontrols {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para CommentCard.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-        public MainWindow() {
+    public partial class CommentCard : UserControl {
+        public CommentCard() {
             InitializeComponent();
-            MainFrame.NavigationService.Navigate(new Login());
         }
     }
 }
