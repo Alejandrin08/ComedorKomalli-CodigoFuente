@@ -20,5 +20,58 @@ namespace KomalliEmployee.Views.Windows {
         public HomeManager() {
             InitializeComponent();
         }
+
+        private void ClickSubMenuUsers(object sender, RoutedEventArgs e) {
+            if (stpSubMenuUsers.Visibility == Visibility.Collapsed) {
+                stpSubMenuUsers.Visibility = Visibility.Visible;
+            } else {
+                stpSubMenuUsers.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ClickConsultUsers(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void ClickRegisterUser(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void ClickSubMenuReports(object sender, RoutedEventArgs e) {
+            if (stpSubMenuReports.Visibility == Visibility.Collapsed) {
+                stpSubMenuReports.Visibility = Visibility.Visible;
+            } else {
+                stpSubMenuReports.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ClickInventoryReport(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void ClickLogbookReport(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void ClickDailyTransactions(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void ClickClose(object sender, RoutedEventArgs e) {
+            Close();
+        }
+
+        private void ClickRestore(object sender, RoutedEventArgs e) {
+            if (WindowState == WindowState.Normal) {
+                WindowState = WindowState.Maximized;
+            } else {
+                WindowState = WindowState.Normal;
+            }
+
+        }
+
+        private void ClickMinimize(object sender, RoutedEventArgs e) {
+            WindowState = WindowState.Minimized;
+        }
     }
 }

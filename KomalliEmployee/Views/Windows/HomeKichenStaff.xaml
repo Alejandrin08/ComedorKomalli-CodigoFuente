@@ -5,8 +5,274 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KomalliEmployee.Views.Windows"
         mc:Ignorable="d"
-        Title="HomeKichenStaff" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="HomeKichenStaff" 
+        Height="650" 
+        Width="1000"
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None"
+        Background="Transparent" 
+        AllowsTransparency="True"
+        ResizeMode="NoResize" 
+        WindowState="Normal">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                    Source="/Resources/Styles/Styles.xaml"/>
+                <ResourceDictionary 
+                    Source="/Resources/Styles/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border 
+        CornerRadius="8" 
+        Background="{DynamicResource PrimaryBackgroundColor}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition 
+                    Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border 
+                CornerRadius="8 0 0 8" 
+                Background="{DynamicResource SecundaryBackgroundColor}">
+                <Grid 
+                    x:Name="grdMenu" 
+                    Width="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition 
+                            Height="60"/>
+                        <RowDefinition 
+                            Height="80"/>
+                        <RowDefinition 
+                            Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel 
+                        Grid.Row="1" 
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Top">
+                        <Image 
+                            Source="/Resources/Images/komalli.png" 
+                            Width="40" 
+                            Margin="10"/>
+                        <Label 
+                            Content="Komalli" 
+                            Foreground="{DynamicResource PrimaryBlueColor}" 
+                            FontWeight="Bold" 
+                            FontSize="20" 
+                            VerticalAlignment="Center" 
+                            HorizontalContentAlignment="Left" 
+                            HorizontalAlignment="Left" 
+                            Margin="14 0 0 0"/>
+                    </StackPanel>
+
+                    <ToggleButton 
+                        x:Name="btnMenu"  
+                        HorizontalAlignment="Right" 
+                        BorderThickness="0" 
+                        Background="Transparent" 
+                        VerticalAlignment="Center" 
+                        Style="{StaticResource MenuIconStyle}" 
+                        Margin="0 0 15 0">
+                        <ToggleButton.Triggers>
+                            <EventTrigger 
+                                RoutedEvent="ToggleButton.Unchecked">
+                                <BeginStoryboard>
+                                    <Storyboard 
+                                        x:Name="stbHideStackPanel">
+                                        <DoubleAnimation 
+                                            Storyboard.TargetName="grdMenu" 
+                                            Storyboard.TargetProperty="Width" 
+                                            BeginTime="0:0:0" 
+                                            From="200" 
+                                            To="60" 
+                                            Duration="0:0:0.3">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger 
+                                RoutedEvent="ToggleButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard 
+                                        x:Name="stbShowStackPanel">
+                                        <DoubleAnimation 
+                                            Storyboard.TargetName="grdMenu" 
+                                            Storyboard.TargetProperty="Width" 
+                                            BeginTime="0:0:0" 
+                                            From="60" 
+                                            To="200" 
+                                            Duration="0:0:0.3">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ToggleButton.Triggers>
+                    </ToggleButton>
+
+                    <StackPanel Grid.Row="3">
+                        <RadioButton 
+                            x:Name="rbtOrders" 
+                            IsChecked="True" 
+                            Content="Pedidos" 
+                            Style="{DynamicResource MenuRadioButtonStyle}" 
+                            Tag="{DynamicResource Orders}" 
+                            Margin="0 5 0 5"                            
+                            Click="ClickOrders"/>
+                       
+                        <RadioButton 
+                            x:Name="rbtMenu" 
+                            Content="Menu" 
+                            Style="{DynamicResource MenuRadioButtonStyle}" 
+                            Tag="{DynamicResource Menu}" 
+                            Margin="0 5 0 5" 
+                            Click="ClickSubMenu"/>
+                        <StackPanel
+                            x:Name="stpSubMenu"
+                            Visibility="Collapsed">
+                            <RadioButton 
+                                x:Name="rbtPublish" 
+                                Content="Publicar" 
+                                Style="{DynamicResource MenuRadioButtonStyle}"
+                                Click="ClickPublish"/>
+                            <RadioButton 
+                                x:Name="rbtModify" 
+                                Content="Modificar" 
+                                Style="{DynamicResource MenuRadioButtonStyle}"
+                                Click="ClickModify"/>
+                            <RadioButton 
+                                x:Name="rbtDelete" 
+                                Content="Eliminar" 
+                                Style="{DynamicResource MenuRadioButtonStyle}"
+                                Click="ClickDelete"/>
+                            <RadioButton 
+                                x:Name="rbtShowMenu" 
+                                Content="Ver menú" 
+                                Style="{DynamicResource MenuRadioButtonStyle}"
+                                Click="ClickShowMenu"/>
+                        </StackPanel>
+
+                        <RadioButton 
+                            x:Name="rbtLogbook" 
+                            Content="Bitácora" 
+                            Style="{DynamicResource MenuRadioButtonStyle}" 
+                            Tag="{DynamicResource Log}" 
+                            Margin="0 5 0 5" 
+                            Click="ClickSubMenuLogbook"/>
+                        <StackPanel
+                            x:Name="stpSubMenuLogbook"
+                            Visibility="Collapsed">
+                            <RadioButton 
+                                x:Name="rbtAddLogbook" 
+                                Content="Añadir bitácora" 
+                                Style="{DynamicResource MenuRadioButtonStyle}"
+                                Click="ClickAddLogbook"/>
+                            <RadioButton 
+                                x:Name="rbtComments" 
+                                Content="Comentarios" 
+                                Style="{DynamicResource MenuRadioButtonStyle}"
+                                Click="ClickComments"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel 
+                        Grid.Row="3" 
+                        VerticalAlignment="Bottom" 
+                        Orientation="Horizontal" 
+                        Width="200" 
+                        Margin="0 0 0 20">
+                        <Ellipse 
+                            Width="40" 
+                            Height="40" 
+                            Margin="10 0 0 0">
+                            <Ellipse.Fill>
+                                <ImageBrush 
+                                    ImageSource="/Resources/Images/UserIcon.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <StackPanel 
+                            Orientation="Vertical" 
+                            Margin="10 10 0 0">
+                            <TextBlock 
+                                x:Name="txbNameUser"
+                                Text="alejandrin"
+                                Foreground="{DynamicResource TextPrimaryColor}" 
+                                FontSize="14" 
+                                FontWeight="SemiBold"                                 
+                                HorizontalAlignment="Left"
+                                />
+
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Grid 
+                Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition 
+                        Height="60"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel   
+                    Grid.Row="0"   
+                    Grid.Column="4"   
+                    HorizontalAlignment="Right"  
+                    VerticalAlignment="Top"  
+                    Margin="0,5,10,0"  
+                    Height="30"   
+                    Orientation="Horizontal"   
+                    FlowDirection="RightToLeft">
+                    <Button  
+                        x:Name="btnClose"  
+                        Style="{StaticResource IconButtonsStyle}"   
+                        Content="{DynamicResource Close}"   
+                        Tag="IsCloseButton"
+                        Click="ClickClose"/>
+                    <Button   
+                        x:Name="btnRestore" 
+                        Margin="5,0" 
+                        Click="ClickRestore">
+                        <Button.Style>
+                            <Style  
+                                TargetType="{x:Type Button}"  
+                                BasedOn="{StaticResource IconButtonsStyle}">
+                                <Setter  
+                                    Property="Content"  
+                                    Value="{DynamicResource Maximize}"/>
+                                <Style.Triggers>
+                                    <DataTrigger 
+                                        Binding="{Binding ElementName=home, Path=WindowState}"   
+                                        Value="Maximized">
+                                        <Setter 
+                                            Property="Content" 
+                                            Value="{DynamicResource Restore}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button  
+                        x:Name="btnMinimize"  
+                        Style="{DynamicResource IconButtonsStyle}" 
+                        Content="{DynamicResource Minimize}"
+                        Click="ClickMinimize"/>
+                </StackPanel>
+
+                <Border 
+                    Grid.Row="1" 
+                    Margin="10">
+                    <Frame  
+                        x:Name="fraPages" 
+                        NavigationUIVisibility="Hidden">
+                    </Frame>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>
