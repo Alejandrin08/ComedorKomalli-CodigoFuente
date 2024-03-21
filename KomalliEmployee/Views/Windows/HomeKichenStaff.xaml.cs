@@ -20,5 +20,67 @@ namespace KomalliEmployee.Views.Windows {
         public HomeKichenStaff() {
             InitializeComponent();
         }
+
+
+        private void ClickClose(object sender, RoutedEventArgs e) {
+            Close();
+        }
+
+        private void ClickRestore(object sender, RoutedEventArgs e) {
+            if (WindowState == WindowState.Normal) {
+                WindowState = WindowState.Maximized;
+            } else {
+                WindowState = WindowState.Normal;
+            }
+
+        }
+
+        private void ClickMinimize(object sender, RoutedEventArgs e) {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void ClickOrders(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void ClickSubMenu(object sender, RoutedEventArgs e) {
+            if (stpSubMenu.Visibility == Visibility.Collapsed) {
+                stpSubMenu.Visibility = Visibility.Visible;
+            } else {
+                stpSubMenu.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ClickPublish(object sender, RoutedEventArgs e) {
+
+        }        
+
+        private void ClickDelete(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void ClickShowMenu(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void ClickModify(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void ClickSubMenuLogbook(object sender, RoutedEventArgs e) {
+            if (stpSubMenuLogbook.Visibility == Visibility.Collapsed) {
+                stpSubMenuLogbook.Visibility = Visibility.Visible;
+            } else {
+                stpSubMenuLogbook.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ClickAddLogbook(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void ClickComments(object sender, RoutedEventArgs e) {
+
+        }
     }
 }

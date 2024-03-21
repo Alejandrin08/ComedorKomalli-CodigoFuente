@@ -9,7 +9,8 @@ namespace KomalliEmployee.Model.Utilities {
         Cajero,
         JefeCocina,
         PersonalCocina,
-        Invalid
+        Invalid,
+        Gerente
     }
 }
 

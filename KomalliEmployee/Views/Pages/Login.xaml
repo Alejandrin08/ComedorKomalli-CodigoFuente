@@ -23,7 +23,7 @@
                Height="300"/>
 
         <Grid Grid.Column="1" Background="#2C6C74">
-            <Viewbox>
+            <Viewbox Stretch="Uniform">
                 <StackPanel>
                     <TextBlock Text="Bienvenido"
                                HorizontalAlignment="Center"
