@@ -1,6 +1,7 @@
 ﻿using KomalliEmployee.Controller;
 using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
+using KomalliEmployee.Views.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,14 +45,21 @@ namespace KomalliEmployee.Views.Pages {
                     NavigationService.Navigate(new ChangePassword());
                 } else if (userValidation.Values.First() == 1) {
                     switch (userValidation.Keys.First()) {
-                        case UserRole.Cajero:
-                            MessageBox.Show("Welcome Cajero");
+                        case UserRole.Cajero:                        
+                            HomeCashier homeCashier = new HomeCashier();
+                            homeCashier.Show();
                             break;
                         case UserRole.PersonalCocina:
-                            MessageBox.Show("Welcome Personal de cocina");
+                            HomeKichenStaff homeKichenStaff = new HomeKichenStaff();
+                            homeKichenStaff.Show();
                             break;
                         case UserRole.JefeCocina:
-                            MessageBox.Show("Welcome Jefe de cocina");
+                            HomeHeadChef homeHeadChef = new HomeHeadChef();
+                            homeHeadChef.Show();
+                            break;
+                        case UserRole.Gerente:
+                            HomeManager homeManager = new HomeManager();
+                            homeManager.Show();
                             break;
                     }
                 } else {

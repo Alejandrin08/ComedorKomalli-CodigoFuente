@@ -22,6 +22,8 @@ namespace KomalliEmployee {
         public MainWindow() {
             InitializeComponent();
             MainFrame.NavigationService.Navigate(new Login());
+            
+
         }
     }
 }
