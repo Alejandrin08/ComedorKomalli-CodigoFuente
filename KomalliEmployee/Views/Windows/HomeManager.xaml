@@ -11,7 +11,7 @@
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None"
         Background="Transparent" 
-        AllowsTransparency="True"
+        AllowsTransparency="False"
         ResizeMode="NoResize" 
         WindowState="Normal">
 
@@ -257,6 +257,7 @@
                     <Frame  
                         x:Name="fraPages" 
                         NavigationUIVisibility="Hidden">
+                      
                     </Frame>
                 </Border>
             </Grid>
