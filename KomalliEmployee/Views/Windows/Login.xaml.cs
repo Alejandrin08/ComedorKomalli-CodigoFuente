@@ -1,7 +1,6 @@
 ﻿using KomalliEmployee.Controller;
-using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
-using KomalliEmployee.Views.Windows;
+using KomalliEmployee.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +16,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KomalliEmployee.Views.Pages {
+namespace KomalliEmployee.Views.Windows {
     /// <summary>
     /// Lógica de interacción para Login.xaml
     /// </summary>
-    public partial class Login : Page {
+    public partial class Login : Window {
         public Login() {
             InitializeComponent();
             DataContext = new EmployeeModel();
@@ -42,24 +41,30 @@ namespace KomalliEmployee.Views.Pages {
             } else {
                 if (userValidation.Values.First() == 0) {
                     SingletonClass.Instance.Email = employeeModel.Email;
-                    NavigationService.Navigate(new ChangePassword());
+                    ChangePassword changePassword = new ChangePassword();
+                    changePassword.Show();
+                    this.Close();
                 } else if (userValidation.Values.First() == 1) {
                     switch (userValidation.Keys.First()) {
-                        case UserRole.Cajero:                        
+                        case UserRole.Cajero:
                             HomeCashier homeCashier = new HomeCashier();
                             homeCashier.Show();
+                            this.Close();
                             break;
                         case UserRole.PersonalCocina:
                             HomeKichenStaff homeKichenStaff = new HomeKichenStaff();
                             homeKichenStaff.Show();
+                            this.Close();
                             break;
                         case UserRole.JefeCocina:
                             HomeHeadChef homeHeadChef = new HomeHeadChef();
                             homeHeadChef.Show();
+                            this.Close();
                             break;
                         case UserRole.Gerente:
                             HomeManager homeManager = new HomeManager();
                             homeManager.Show();
+                            this.Close();
                             break;
                     }
                 } else {
@@ -84,6 +89,21 @@ namespace KomalliEmployee.Views.Pages {
             if (e.Key == Key.Enter) {
                 ClickLogin(sender, e);
             }
+        }
+        private void ClickClose(object sender, RoutedEventArgs e) {
+            Close();
+        }
+
+        private void ClickRestore(object sender, RoutedEventArgs e) {
+            if (WindowState == WindowState.Normal) {
+                WindowState = WindowState.Maximized;
+            } else {
+                WindowState = WindowState.Normal;
+            }
+        }
+
+        private void ClickMinimize(object sender, RoutedEventArgs e) {
+            WindowState = WindowState.Minimized;
         }
     }
 }

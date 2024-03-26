@@ -46,7 +46,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickInventoryReport(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/InventoryReport.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickLogbookReport(object sender, RoutedEventArgs e) {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KomalliEmployee.Views.Windows;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -11,6 +12,11 @@ namespace KomalliEmployee {
     /// Lógica de interacción para App.xaml
     /// </summary>
     public partial class App : Application {
+
+        public App() {
+            Login login = new Login();
+            login.Show();
+        }
         public static void ShowMessageError(string message, string title) {
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
         }

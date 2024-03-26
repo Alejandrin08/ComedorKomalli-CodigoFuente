@@ -15,14 +15,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KomalliEmployee.Views.Pages {
+namespace KomalliEmployee.Views.Windows {
     /// <summary>
     /// Lógica de interacción para ChangePassword.xaml
     /// </summary>
-    public partial class ChangePassword : Page {
+    public partial class ChangePassword : Window {
         public ChangePassword() {
             InitializeComponent();
         }
+
         private void ClickUpdatePassword(object sender, RoutedEventArgs e) {
             string newPassword = pssNewPassword.Password;
             string confirmPassword = pssConfirmPassword.Password;
@@ -32,7 +33,9 @@ namespace KomalliEmployee.Views.Pages {
                 int result = employeeController.UpdatePassword(SingletonClass.Instance.Email, newPassword);
                 if (result > 0) {
                     MessageBox.Show("Password updated successfully");
-                    NavigationService.Navigate(new Login());
+                    Login login = new Login();
+                    login.Show();
+                    this.Close();
                 } else {
                     MessageBox.Show("Error updating password");
                 }
@@ -51,6 +54,23 @@ namespace KomalliEmployee.Views.Pages {
             if (e.Key == Key.Enter) {
                 ClickUpdatePassword(sender, e);
             }
+        }
+
+        private void ClickClose(object sender, RoutedEventArgs e) {
+            Close();
+        }
+
+        private void ClickRestore(object sender, RoutedEventArgs e) {
+            if (WindowState == WindowState.Normal) {
+                WindowState = WindowState.Maximized;
+            } else {
+                WindowState = WindowState.Normal;
+            }
+
+        }
+
+        private void ClickMinimize(object sender, RoutedEventArgs e) {
+            WindowState = WindowState.Minimized;
         }
     }
 }
