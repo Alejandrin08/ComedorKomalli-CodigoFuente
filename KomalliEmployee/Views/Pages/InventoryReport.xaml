@@ -10,7 +10,6 @@
       Title="InventoryReport"
       Loaded="LoadReport" 
       >
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -34,12 +33,12 @@
                 Cursor="Hand"/>
 
         <WindowsFormsHost Grid.Row="2"
-                          Margin="40,20,40,20" 
-        >
+                          Margin="40,20,40,20"
+            >
             <wf:ReportViewer x:Name="rpv" 
                              ShowToolBar="False"
-                             ZoomMode="FullPage"
-            />
+                             ZoomMode="PageWidth"
+                />
         </WindowsFormsHost>
     </Grid>
 </Page>

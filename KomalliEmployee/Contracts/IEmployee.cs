@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 namespace KomalliEmployee.Contracts {
     public interface IEmployee {
 
-        public Dictionary<UserRole, int> ValidateUser(string email, string password);
         public int UpdatePassword(string email, string password);
+
+        public UserRole GetUserRule(string email);
+
+        public int ValidateUser(string email, string password);
     }
 }

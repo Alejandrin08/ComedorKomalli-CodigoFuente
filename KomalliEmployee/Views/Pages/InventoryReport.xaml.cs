@@ -40,7 +40,7 @@ namespace KomalliEmployee.Views.Pages {
                 if (saveFileDialog.ShowDialog() == DialogResult.OK) {
                     string fileName = saveFileDialog.FileName;
                     System.IO.File.WriteAllBytes(fileName, bytes);
-                    MessageBox.Show("Reporte descargado con éxito", "Descarga exitosa", (MessageBoxButtons)MessageBoxButton.OK, (MessageBoxIcon)MessageBoxImage.Information);
+                    App.ShowMessageInformation("Reporte descargado correctamente", "Descarga de reporte");
                 }
             } catch (Exception ex) {
                 App.ShowMessageError("Error al descargar el reporte", "Error al descargar");
