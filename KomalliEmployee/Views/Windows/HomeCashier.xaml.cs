@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KomalliEmployee.Model.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace KomalliEmployee.Views.Windows {
     public partial class HomeCashier : Window {
         public HomeCashier() {
             InitializeComponent();
+            txbNameUser.Text = SingletonClass.Instance.NameUser;
         }
 
         private void ClickSubMenuCash(object sender, RoutedEventArgs e) {
@@ -31,7 +33,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickMakeOrder(object sender, RoutedEventArgs e) {
-            fraPages.Navigate(new System.Uri("/Views/Pages/Login.xaml", UriKind.RelativeOrAbsolute));
+           
         }
 
         private void ClickConsultOrders(object sender, RoutedEventArgs e) {

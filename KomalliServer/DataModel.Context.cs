@@ -38,17 +38,17 @@ namespace KomalliServer
         public virtual DbSet<FoodOrder_MenuCard> FoodOrder_MenuCard { get; set; }
         public virtual DbSet<FoodOrder_SetMenu> FoodOrder_SetMenu { get; set; }
     
-        public virtual int ValidateUserLogin(string userEmail, string userPassword, ObjectParameter userRole, ObjectParameter userAvailable)
+        public virtual int ValidateUserLogin(string p_email, string p_password, ObjectParameter p_role, ObjectParameter p_available)
         {
-            var userEmailParameter = userEmail != null ?
-                new ObjectParameter("UserEmail", userEmail) :
-                new ObjectParameter("UserEmail", typeof(string));
+            var p_emailParameter = p_email != null ?
+                new ObjectParameter("p_email", p_email) :
+                new ObjectParameter("p_email", typeof(string));
     
-            var userPasswordParameter = userPassword != null ?
-                new ObjectParameter("UserPassword", userPassword) :
-                new ObjectParameter("UserPassword", typeof(string));
+            var p_passwordParameter = p_password != null ?
+                new ObjectParameter("p_password", p_password) :
+                new ObjectParameter("p_password", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ValidateUserLogin", userEmailParameter, userPasswordParameter, userRole, userAvailable);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ValidateUserLogin", p_emailParameter, p_passwordParameter, p_role, p_available);
         }
     }
 }

@@ -80,10 +80,10 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             <PropertyRef Name="KeyIngredient" />
           </Key>
           <Property Name="KeyIngredient" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="NameIngredient" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="NameIngredient" Type="varchar" MaxLength="30" />
           <Property Name="Quantity" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Measurement" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Barcode" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="Barcode" Type="varchar" MaxLength="13" />
         </EntityType>
         <EntityType Name="Logbook">
           <Key>
@@ -246,10 +246,10 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
           </ReferentialConstraint>
         </Association>
         <Function Name="ValidateUserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserEmail" Type="varchar" Mode="In" />
-          <Parameter Name="UserPassword" Type="varchar" Mode="In" />
-          <Parameter Name="UserRole" Type="varchar" Mode="InOut" />
-          <Parameter Name="UserAvailable" Type="int" Mode="InOut" />
+          <Parameter Name="p_email" Type="varchar" Mode="In" />
+          <Parameter Name="p_password" Type="varchar" Mode="In" />
+          <Parameter Name="p_role" Type="varchar" Mode="InOut" />
+          <Parameter Name="p_available" Type="int" Mode="InOut" />
         </Function>
         <EntityContainer Name="KomalliModelStoreContainer">
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
@@ -366,10 +366,10 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             <PropertyRef Name="KeyIngredient" />
           </Key>
           <Property Name="KeyIngredient" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NameIngredient" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NameIngredient" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Quantity" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Measurement" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Barcode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Barcode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Employee_Ingredient" Relationship="Self.FK_Employee_Ingredient_Ingredient" FromRole="Ingredient" ToRole="Employee_Ingredient" />
         </EntityType>
         <EntityType Name="Logbook">
@@ -604,10 +604,10 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             <End Role="FoodOrder" EntitySet="FoodOrder" />
           </AssociationSet>
           <FunctionImport Name="ValidateUserLogin">
-            <Parameter Name="UserEmail" Mode="In" Type="String" />
-            <Parameter Name="UserPassword" Mode="In" Type="String" />
-            <Parameter Name="UserRole" Mode="InOut" Type="String" />
-            <Parameter Name="UserAvailable" Mode="InOut" Type="Int32" />
+            <Parameter Name="p_email" Mode="In" Type="String" />
+            <Parameter Name="p_password" Mode="In" Type="String" />
+            <Parameter Name="p_role" Mode="InOut" Type="String" />
+            <Parameter Name="p_available" Mode="InOut" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
       </Schema>

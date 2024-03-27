@@ -185,13 +185,20 @@
                             Orientation="Vertical" 
                             Margin="10 10 0 0">
                             <TextBlock 
-                                x:Name="txbNameUser"
-                                Text="alejandrin"
+                                x:Name="txbNameUser"                                
                                 Foreground="{DynamicResource TextPrimaryColor}" 
                                 FontSize="14" 
                                 FontWeight="SemiBold"                                 
                                 HorizontalAlignment="Left"
                                 />
+                            <TextBlock 
+                                x:Name="txbRole"                                
+                                Foreground="{DynamicResource TextPrimaryColor}" 
+                                FontSize="12" 
+                                FontWeight="SemiBold"                                 
+                                HorizontalAlignment="Left"
+                                Text="Gerente General"
+                            />
 
                         </StackPanel>
                     </StackPanel>

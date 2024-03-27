@@ -39,6 +39,8 @@ namespace KomalliEmployee.Views.Pages {
 
             if (userValidation.Count == 0) {
                 MessageBox.Show("Usuario no encontrado");
+                HomeManager h = new HomeManager();
+                h.Show();
             } else {
                 if (userValidation.Values.First() == 0) {
                     SingletonClass.Instance.Email = employeeModel.Email;
