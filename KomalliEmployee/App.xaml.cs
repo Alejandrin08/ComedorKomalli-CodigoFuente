@@ -20,5 +20,13 @@ namespace KomalliEmployee {
         public static void ShowMessageError(string message, string title) {
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        public static void ShowMessageInformation(string message, string title) {
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        public static void ShowMessageWarning(string message, string title) {
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using KomalliEmployee.Controller;
 using KomalliEmployee.Model.Utilities;
+using KomalliEmployee.Model.Validations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,26 +33,27 @@ namespace KomalliEmployee.Views.Windows {
                 EmployeeController employeeController = new EmployeeController();
                 int result = employeeController.UpdatePassword(SingletonClass.Instance.Email, newPassword);
                 if (result > 0) {
-                    MessageBox.Show("Password updated successfully");
+                    App.ShowMessageInformation("Contraseña actualizada correctamente", "Actualización de contraseña");
                     Login login = new Login();
                     login.Show();
                     this.Close();
                 } else {
-                    MessageBox.Show("Error updating password");
+                    App.ShowMessageError("Error al actualizar la contraseña", "Actualización de contraseña");
+                    LoggerManager.Instance.LogInfo("Error al actualizar la contraseña");
                 }
             } else {
-                MessageBox.Show("Passwords do not match");
+                App.ShowMessageWarning("Las contraseñas no coinciden", "Actualización de contraseña");
             }
         }
 
         private void KeyDownChangePasswordBox(object sender, KeyEventArgs e) {
-            if (e.Key == Key.Enter) {
-                pssConfirmPassword.Focus();
+            if (e.Key == Key.Enter && btnChangePassword.IsEnabled) {
+                ClickUpdatePassword(sender, e);
             }
         }
 
         private void KeyDownChangePasswordBoxConfirm(object sender, KeyEventArgs e) {
-            if (e.Key == Key.Enter) {
+            if (e.Key == Key.Enter && btnChangePassword.IsEnabled) {
                 ClickUpdatePassword(sender, e);
             }
         }
@@ -71,6 +73,44 @@ namespace KomalliEmployee.Views.Windows {
 
         private void ClickMinimize(object sender, RoutedEventArgs e) {
             WindowState = WindowState.Minimized;
+        }
+
+        private void PasswordChangedValidatePasswordConfirm(object sender, RoutedEventArgs e) {
+            PasswordBox passwordBox = (PasswordBox)sender;
+
+            ValidationResult validationResult = new PasswordValidation().Validate(passwordBox.Password, null);
+
+            if (!validationResult.IsValid) {
+                pssUserIconConfirm.Visibility = Visibility.Visible;
+                pssUserPasswordConfirm.Visibility = Visibility.Visible;
+                btnChangePassword.IsEnabled = false;
+                pssUserPasswordConfirm.Text = "Contraseña invalida, debe de ser máximo 15 caracteres con\n" +
+                    " al menos una mayúscula, un número y un caracter especial";
+            } else {
+                pssUserIconConfirm.Visibility = Visibility.Collapsed;
+                pssUserPasswordConfirm.Visibility = Visibility.Collapsed;
+                btnChangePassword.IsEnabled = true;
+                pssUserPasswordConfirm.Text = string.Empty;
+            }
+        }
+
+        private void PasswordChangedValidatePassword(object sender, RoutedEventArgs e) {
+            PasswordBox passwordBox = (PasswordBox)sender;
+
+            ValidationResult validationResult = new PasswordValidation().Validate(passwordBox.Password, null);
+
+            if (!validationResult.IsValid) {
+                pssUserIcon.Visibility = Visibility.Visible;
+                pssUserPassword.Visibility = Visibility.Visible;
+                btnChangePassword.IsEnabled = false;
+                pssUserPassword.Text = "Contraseña invalida, debe de ser máximo 15 caracteres con\n" +
+                    " al menos una mayúscula, un número y un caracter especial";
+            } else {
+                pssUserIcon.Visibility = Visibility.Collapsed;
+                pssUserPassword.Visibility = Visibility.Collapsed;
+                btnChangePassword.IsEnabled = true;
+                pssUserPassword.Text = string.Empty;
+            }
         }
     }
 }
