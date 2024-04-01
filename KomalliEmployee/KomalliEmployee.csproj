@@ -76,17 +76,27 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Contracts\IEmployee.cs" />
+    <Compile Include="Contracts\IIngredient.cs" />
     <Compile Include="Controller\EmployeeController.cs" />
+    <Compile Include="Controller\IngredientController.cs" />
     <Compile Include="Model\EmployeeModel.cs" />
+    <Compile Include="Model\IngredientModel.cs" />
     <Compile Include="Model\Utilities\LoggerManager.cs" />
     <Compile Include="Model\Utilities\SingletonClass.cs" />
+    <Compile Include="Model\Utilities\TypeQuantity.cs" />
     <Compile Include="Model\Utilities\UserRole.cs" />
     <Compile Include="Model\Validations\EmailValidationRule.cs" />
     <Compile Include="Views\Pages\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\IngredientInventory.xaml.cs">
+      <DependentUpon>IngredientInventory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\RegisterIngredient.xaml.cs">
+      <DependentUpon>RegisterIngredient.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Usercontrols\CommentCard.xaml.cs">
       <DependentUpon>CommentCard.xaml</DependentUpon>
@@ -123,7 +133,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\IngredientInventory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\RegisterIngredient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,7 +206,12 @@
     <Resource Include="Resources\Images\PasswordIcon.png" />
     <Resource Include="Resources\Images\UserIcon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Return.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
