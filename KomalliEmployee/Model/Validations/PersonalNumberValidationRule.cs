@@ -1,23 +1,28 @@
 ﻿using KomalliEmployee.Model.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace KomalliEmployee.Model.Validations {
-    public class EmailValidation : ValidationRule {
-        public static TextBlock ErrorTextBlock { get; set; }
 
+    public class PersonalNumberValidationRule : ValidationRule {
+
+        public static TextBlock ErrorTextBlock { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo) {
             ValidationResult result = ValidationResult.ValidResult;
             const int TIMEOUT = 10;
             try {
-                Regex regex = new Regex(@"^(?i)([a-z0-9._%+-]+)@((uv\.mx|estudiantes\.uv\.mx|gmail\.com|hotmail\.com|outlook\.com|edu\.mx))$", RegexOptions.None, TimeSpan.FromSeconds(TIMEOUT));
+                Regex regex = new Regex(@"^(?=.*\d)\d{0,5}$|^$", RegexOptions.None, TimeSpan.FromSeconds(TIMEOUT));
                 if (!regex.IsMatch(value.ToString())) {
-                    result = new ValidationResult(false, "Email invalido");
+                    result = new ValidationResult(false, "Numero de personal inválido");
                     if (ErrorTextBlock != null) {
                         ErrorTextBlock.Visibility = System.Windows.Visibility.Visible;
-                        ErrorTextBlock.Text = "Email invalido";
+                        ErrorTextBlock.Text = "N. personal inválido, solo pueden ser números.";
                     }
                 } else {
                     if (ErrorTextBlock != null) {
@@ -26,8 +31,8 @@ namespace KomalliEmployee.Model.Validations {
                     }
                 }
             } catch (RegexMatchTimeoutException ex) {
-                App.ShowMessageError("Error al validar el email", "Validación de correo");
-                LoggerManager.Instance.LogError("Error en el regex al validar el email", ex);
+                App.ShowMessageError("Error al validar el numero de personal", "Validación de numero de personal");
+                LoggerManager.Instance.LogError("Error en el regex al validar el número de personal", ex);
             }
             return result;
         }

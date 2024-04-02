@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KomalliEmployee.Model.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace KomalliEmployee.Views.Windows {
     public partial class HomeHeadChef : Window {
         public HomeHeadChef() {
             InitializeComponent();
+            txbNameUser.Text = SingletonClass.Instance.NameUser;
         }
 
         private void ClickInventory(object sender, RoutedEventArgs e) {

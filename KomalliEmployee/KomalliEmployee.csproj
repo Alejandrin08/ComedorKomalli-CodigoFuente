@@ -108,8 +108,11 @@
     <Compile Include="Model\Utilities\LoggerManager.cs" />
     <Compile Include="Model\Utilities\SingletonClass.cs" />
     <Compile Include="Model\Utilities\UserRole.cs" />
-    <Compile Include="Model\Validations\EmailValidation.cs" />
+    <Compile Include="Model\Validations\EmailValidationRule.cs" />
+    <Compile Include="Model\Validations\NameValidationRule.cs" />
     <Compile Include="Model\Validations\PasswordValidation.cs" />
+    <Compile Include="Model\Validations\PersonalNumberValidationRule.cs" />
+    <Compile Include="Model\Validations\RoleValidationRule.cs" />
     <Compile Include="Resources\DatasetsDB\DataReports.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -117,6 +120,9 @@
     </Compile>
     <Compile Include="Views\Pages\InventoryReport.xaml.cs">
       <DependentUpon>InventoryReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\RegisterUser.xaml.cs">
+      <DependentUpon>RegisterUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Usercontrols\CommentCard.xaml.cs">
       <DependentUpon>CommentCard.xaml</DependentUpon>
@@ -152,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\InventoryReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\RegisterUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,7 +13,8 @@
         Background="Transparent" 
         AllowsTransparency="False"
         ResizeMode="NoResize" 
-        WindowState="Normal">
+        WindowState="Normal"
+        Loaded="ClickConsultUsers">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -183,15 +184,24 @@
                         </Ellipse>
                         <StackPanel 
                             Orientation="Vertical" 
-                            Margin="10 10 0 0">
+                            Margin="10 3 0 0">
                             <TextBlock 
-                                x:Name="txbNameUser"
-                                Text="alejandrin"
+                                x:Name="txbNameUser"                               
                                 Foreground="{DynamicResource TextPrimaryColor}" 
                                 FontSize="14" 
+                                Width="130"
                                 FontWeight="SemiBold"                                 
                                 HorizontalAlignment="Left"
-                                />
+                                TextWrapping="Wrap"
+                            />
+                            <TextBlock 
+                                x:Name="txbRole"                                
+                                Foreground="{DynamicResource TextPrimaryColor}" 
+                                FontSize="12" 
+                                FontWeight="SemiBold"                                 
+                                HorizontalAlignment="Left"
+                                Text="Gerente General"
+                            />
 
                         </StackPanel>
                     </StackPanel>
@@ -202,7 +212,7 @@
                 Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition 
-                        Height="60"/>
+                        Height="40"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 

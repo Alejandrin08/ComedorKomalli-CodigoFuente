@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KomalliEmployee.Model.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace KomalliEmployee.Views.Windows {
     public partial class HomeManager : Window {
         public HomeManager() {
             InitializeComponent();
+            txbNameUser.Text = SingletonClass.Instance.NameUser;
         }
 
         private void ClickSubMenuUsers(object sender, RoutedEventArgs e) {
@@ -34,6 +36,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickRegisterUser(object sender, RoutedEventArgs e) {
+            fraPages.Navigate(new System.Uri("/Views/Pages/RegisterUser.xaml", UriKind.RelativeOrAbsolute));
 
         }
 

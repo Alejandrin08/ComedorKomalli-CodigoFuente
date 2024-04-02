@@ -25,8 +25,8 @@ namespace KomalliEmployee.Views.Windows {
         public Login() {
             InitializeComponent();
             DataContext = new EmployeeModel();
-            var emailValidationRule = new EmailValidation();
-            EmailValidation.ErrorTextBlock = txtEmailValidationMessage;
+            var emailValidationRule = new EmailValidationRule();
+            EmailValidationRule.ErrorTextBlock = txtEmailValidationMessage;
         }
 
         private void ClickLogin(object sender, RoutedEventArgs e) {
@@ -45,6 +45,7 @@ namespace KomalliEmployee.Views.Windows {
                 changePassword.Show();
                 this.Close();
             } else if (userValidation  == 1) {
+                SingletonClass.Instance.NameUser = employeeController.GetNameUser(txbEmailUser.Text);
                 switch (employeeController.GetUserRule(employeeModel.Email)) {
                     case UserRole.Cajero:
                         HomeCashier homeCashier = new HomeCashier();

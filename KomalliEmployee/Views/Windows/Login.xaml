@@ -90,7 +90,7 @@
                                     <Binding Path="Email"
                                              UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
-                                            <validation:EmailValidation/>
+                                            <validation:EmailValidationRule/>
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>
