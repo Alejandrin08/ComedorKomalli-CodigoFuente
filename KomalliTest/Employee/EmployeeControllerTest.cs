@@ -208,14 +208,15 @@ namespace KomalliTest.Employee {
         public void GetNameUser_Sucessfull() {
 
             KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
-
+            
             string email = "ares@gmail.com";
 
             string resultExpected = "Ares Judda Rivera Soto";
             string result = test.GetNameUser(email);
             Assert.AreEqual(resultExpected, result);
 
-        }
+                Assert.IsFalse(keyExists, $"El rol '{kvp.Key}' está presente en el resultado, pero no debería estarlo");
+            }
 
         [TestMethod]
         public void GetNameUser_Failed() {

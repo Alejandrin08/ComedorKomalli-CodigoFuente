@@ -30,7 +30,7 @@
     <Border 
         CornerRadius="8" 
         Background="{DynamicResource PrimaryBackgroundColor}">
-        <Grid>
+    <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition 
                     Width="Auto"/>
@@ -166,7 +166,7 @@
                                 Click="ClickDailyTransactions"/>
                         </StackPanel>
                     </StackPanel>
-
+        
                     <StackPanel 
                         Grid.Row="3" 
                         VerticalAlignment="Bottom" 
@@ -205,7 +205,7 @@
 
                         </StackPanel>
                     </StackPanel>
-                </Grid>
+    </Grid>
             </Border>
 
             <Grid 

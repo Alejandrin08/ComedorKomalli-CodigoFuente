@@ -30,7 +30,7 @@
     <Border 
         CornerRadius="8" 
         Background="{DynamicResource PrimaryBackgroundColor}">
-        <Grid>
+    <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition 
                     Width="Auto"/>
@@ -259,7 +259,7 @@
                         Content="{DynamicResource Minimize}"
                         Click="ClickMinimize"/>
                 </StackPanel>
-
+        
                 <Border 
                     Grid.Row="1" 
                     Margin="10">
@@ -269,6 +269,6 @@
                     </Frame>
                 </Border>
             </Grid>
-        </Grid>
+    </Grid>
     </Border>
 </Window>

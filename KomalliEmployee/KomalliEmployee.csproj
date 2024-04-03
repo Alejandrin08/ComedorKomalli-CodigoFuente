@@ -103,10 +103,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Contracts\IEmployee.cs" />
+    <Compile Include="Contracts\IIngredient.cs" />
     <Compile Include="Controller\EmployeeController.cs" />
+    <Compile Include="Controller\IngredientController.cs" />
     <Compile Include="Model\EmployeeModel.cs" />
+    <Compile Include="Model\IngredientModel.cs" />
     <Compile Include="Model\Utilities\LoggerManager.cs" />
     <Compile Include="Model\Utilities\SingletonClass.cs" />
+    <Compile Include="Model\Utilities\TypeQuantity.cs" />
     <Compile Include="Model\Utilities\UserRole.cs" />
     <Compile Include="Model\Validations\EmailValidationRule.cs" />
     <Compile Include="Model\Validations\NameValidationRule.cs" />
@@ -120,6 +124,8 @@
     </Compile>
     <Compile Include="Views\Pages\InventoryReport.xaml.cs">
       <DependentUpon>InventoryReport.xaml</DependentUpon>
+    <Compile Include="Views\Pages\IngredientInventory.xaml.cs">
+      <DependentUpon>IngredientInventory.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\RegisterUser.xaml.cs">
       <DependentUpon>RegisterUser.xaml</DependentUpon>
@@ -158,6 +164,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\InventoryReport.xaml">
+    <Page Include="Views\Pages\IngredientInventory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,6 +172,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\RegisterIngredient.xaml">
     <Page Include="Views\Usercontrols\CommentCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -248,6 +256,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\komalli.png" />
+    <Resource Include="Resources\Images\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Return.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

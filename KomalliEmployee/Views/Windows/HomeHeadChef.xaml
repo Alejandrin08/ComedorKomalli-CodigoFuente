@@ -30,7 +30,7 @@
     <Border 
         CornerRadius="8" 
         Background="{DynamicResource PrimaryBackgroundColor}">
-        <Grid>
+    <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition 
                     Width="Auto"/>
@@ -183,10 +183,10 @@
                                 HorizontalAlignment="Left"
                                 Text="Jefe de cocina"
                             />
-
+        
                         </StackPanel>
                     </StackPanel>
-                </Grid>
+    </Grid>
             </Border>
 
             <Grid 
