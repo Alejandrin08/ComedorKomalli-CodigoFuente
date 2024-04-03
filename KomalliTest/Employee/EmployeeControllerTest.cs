@@ -214,8 +214,6 @@ namespace KomalliTest.Employee {
             string resultExpected = "Ares Judda Rivera Soto";
             string result = test.GetNameUser(email);
             Assert.AreEqual(resultExpected, result);
-
-                Assert.IsFalse(keyExists, $"El rol '{kvp.Key}' está presente en el resultado, pero no debería estarlo");
             }
 
         [TestMethod]

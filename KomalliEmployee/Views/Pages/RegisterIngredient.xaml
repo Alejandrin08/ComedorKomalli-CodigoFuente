@@ -10,11 +10,17 @@
 
 
     <Page.Resources>
-        <Style x:Key="ComboBoxItemStyle" TargetType="ComboBoxItem">
-            <Setter Property="FontFamily" Value="Segoe UI" />
-            <Setter Property="FontStyle" Value="Italic" />
-            <Setter Property="FontSize" Value="15" />
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                Source="/Resources/Styles/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="ComboBoxItemStyle" TargetType="ComboBoxItem">
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="FontStyle" Value="Italic" />
+                <Setter Property="FontSize" Value="15" />
+            </Style>
+        </ResourceDictionary>
     </Page.Resources>
 
     <Viewbox Stretch = "Fill">
@@ -36,10 +42,9 @@
 
             </Rectangle>
 
-            <Image Source = "\Resources\Images\Return.png" 
-               Margin = "30,8,741,410"
-               MouseLeftButtonDown="ClickGoBack"
-
+            <Image Source="\Resources\Images\Return.png"
+                   Margin="30,8,741,410"
+                   MouseLeftButtonDown="ClickGoBack"
             />
 
             <Label x:Name = "lblRegisterIngredient"
@@ -159,9 +164,9 @@
                   Background="#FEFFFE"
                   ItemContainerStyle="{StaticResource ComboBoxItemStyle}"
                   BorderThickness="0">
-                    <ComboBoxItem Content="Lts" />
-                    <ComboBoxItem Content="Kg" />
-                    <ComboBoxItem Content="Unidades" />
+                <ComboBoxItem Content="Lts" />
+                <ComboBoxItem Content="Kg" />
+                <ComboBoxItem Content="Unidades" />
             </ComboBox>
 
             <TextBox x:Name = "txbBarCode" 
@@ -193,18 +198,14 @@
             </TextBox>
 
             <Button x:Name = "btnRegisterIngredient"
-                    Margin = "314,389,339,31"
-                    Content = "Registrar Ingrediente"
-                    FontFamily = "Segoe UI"
-                    FontSize = "13"
-                    BorderBrush = "#2C6C74"
-                    FontWeight = "Bold"
-                    Background = "#D9D9D9" 
-                    Click="ClickBtnRegisterIngredient" 
-                    Visibility="Hidden"
-                    >
-            </Button>
-
+                Margin = "314,389,339,31"
+                Content = "Registrar Ingrediente"                   
+                FontSize = "13"
+                FontWeight = "Bold"
+                Style="{StaticResource ButtonStyle}"
+                IsEnabled="False"
+                Click="ClicKRegisterIngredient"
+            />
         </Grid>
     </Viewbox>
 </Page>

@@ -124,8 +124,12 @@
     </Compile>
     <Compile Include="Views\Pages\InventoryReport.xaml.cs">
       <DependentUpon>InventoryReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\IngredientInventory.xaml.cs">
       <DependentUpon>IngredientInventory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\RegisterIngredient.xaml.cs">
+      <DependentUpon>RegisterIngredient.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\RegisterUser.xaml.cs">
       <DependentUpon>RegisterUser.xaml</DependentUpon>
@@ -164,7 +168,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\InventoryReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\IngredientInventory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\RegisterIngredient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,7 +183,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\RegisterIngredient.xaml">
     <Page Include="Views\Usercontrols\CommentCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

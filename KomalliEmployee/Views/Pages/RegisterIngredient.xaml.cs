@@ -17,12 +17,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KomalliEmployee.Views.Pages{
+namespace KomalliEmployee.Views.Pages
+{
     /// <summary>
     /// Interaction logic for RegisterIngredient.xaml
     /// </summary>
-    public partial class RegisterIngredient : Page{
-        public RegisterIngredient(){
+    public partial class RegisterIngredient : Page
+    {
+        public RegisterIngredient()
+        {
             InitializeComponent();
             txbNameIngredient.TextChanged += FieldsChanged;
             txbQuotaIngredient.TextChanged += FieldsChanged;
@@ -31,7 +34,8 @@ namespace KomalliEmployee.Views.Pages{
             btnRegisterIngredient.Visibility = Visibility.Collapsed;
         }
 
-        private void FieldsChanged(object sender, RoutedEventArgs e){
+        private void FieldsChanged(object sender, RoutedEventArgs e)
+        {
             bool allFieldsFilled = !string.IsNullOrWhiteSpace(txbNameIngredient.Text) &&
                                    !string.IsNullOrWhiteSpace(txbQuotaIngredient.Text) &&
                                    cbxTipeQuota.SelectedItem != null;
@@ -39,16 +43,21 @@ namespace KomalliEmployee.Views.Pages{
             btnRegisterIngredient.Visibility = allFieldsFilled ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void ClickGoBack(object sender, RoutedEventArgs e){
+        private void ClickGoBack(object sender, RoutedEventArgs e)
+        {
             this.NavigationService.GoBack();
         }
 
-        private void ClickBtnRegisterIngredient(object sender, RoutedEventArgs e){
+        private void ClicKRegisterIngredient(object sender, RoutedEventArgs e)
+        {
             Ingredient ingredient = CreateIngredient();
             IngredientController ingredientControler = new IngredientController();
-            if (!VerifyNameIngredient(ingredient.NameIngredient)){
-                if(ingredient.Barcode == null || !VerifyBarCode(ingredient.Barcode)){
-                    switch (ingredientControler.AddIngredient(ingredient)){
+            if (!VerifyNameIngredient(ingredient.NameIngredient))
+            {
+                if (ingredient.Barcode == null || !VerifyBarCode(ingredient.Barcode))
+                {
+                    switch (ingredientControler.AddIngredient(ingredient))
+                    {
                         case 0:
                             MessageBox.Show("Ocurrio un error al agregar un ingrediente porfavor intenta más tarde");
                             break;
@@ -62,7 +71,7 @@ namespace KomalliEmployee.Views.Pages{
                             break;
                     }
                 }
-            }  
+            }
         }
 
         private Ingredient CreateIngredient()
@@ -70,17 +79,20 @@ namespace KomalliEmployee.Views.Pages{
             Ingredient ingredient = new Ingredient();
             ingredient.NameIngredient = txbNameIngredient.Text;
             ingredient.Quantity = txbQuotaIngredient.Text;
-            if (string.IsNullOrEmpty(txbBarCode.Text)){
+            if (string.IsNullOrEmpty(txbBarCode.Text))
+            {
                 ingredient.Barcode = null;
             }
-            else{
-                ingredient.Barcode=txbBarCode.Text;
+            else
+            {
+                ingredient.Barcode = txbBarCode.Text;
             }
             ingredient.Barcode = txbBarCode.Text;
             ingredient.KeyIngredient = GenerateKey(txbNameIngredient.Text);
             ComboBoxItem selectedItem = (ComboBoxItem)cbxTipeQuota.SelectedItem;
             string selectedContent = selectedItem.Content.ToString();
-            switch (selectedContent){
+            switch (selectedContent)
+            {
                 case "Kg":
                     ingredient.Measurement = TypeQuantity.Kg.ToString();
                     break;
@@ -94,23 +106,27 @@ namespace KomalliEmployee.Views.Pages{
             return ingredient;
         }
 
-        private string GenerateKey(string name){
+        private string GenerateKey(string name)
+        {
             string namePrefix = name.Length >= 4 ?
                                 name.Substring(0, 4).ToUpper() :
                                 name.ToUpper();
             Random random = new Random();
             string randomNumber = "";
-            for (int i = 0; i < 4; i++){
+            for (int i = 0; i < 4; i++)
+            {
                 randomNumber += random.Next(0, 10);
             }
             string keyIngredient = namePrefix + randomNumber;
             return keyIngredient;
         }
 
-        private bool VerifyNameIngredient(string nameIngredient){
+        private bool VerifyNameIngredient(string nameIngredient)
+        {
             bool result = true;
             IngredientController ingredientControler = new IngredientController();
-            switch (ingredientControler.IsNameIngredientExisting(nameIngredient)){
+            switch (ingredientControler.IsNameIngredientExisting(nameIngredient))
+            {
                 case 0:
                     MessageBox.Show("Ya existe un ingrediente con ese nombre dentro del sistema verifica tus datos");
                     break;
