@@ -6,7 +6,54 @@
              xmlns:local="clr-namespace:KomalliEmployee.Views.Usercontrols"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <Border CornerRadius = "10"
+            Margin="0,319,300,0"
+            Background="#DCDCDC">
+        <Grid Margin="0,0,0,1" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+
+            <Button x:Name="btnEdit"
+                Margin="216,2,200,103"
+                Background="#DCDCDC"
+                BorderBrush="#DCDCDC" 
+                Foreground="#454546">
+
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="\Resources\Images\EditIcon.png" 
+                       Width="15" Height="15" Margin="0,0,5,0"/>
+                    <TextBlock Text="Editar"/>
+                </StackPanel>
+            </Button>
+
+            <Label x:Name="lblUserName"
+               Content="Paloma Osiris Báez Lara" 
+               Margin="28,0,277,103"
+               Foreground="#666666"/>
+
+
+            <Label x:Name="lblDate"
+               Content="Fecha" 
+               Margin="334,0,83,103"
+               Foreground="#666666"/>
+
+            <Label x:Name="lblDateComent"
+                    Content="dd-mm-yy" 
+                    Margin="374,0,43,103"
+                    Foreground="#666666"/>
+
+            <Label x:Name="lblContentComent"
+               Content="Comentario..." 
+               Margin="28,40,28,43"
+               Foreground="#000000"/>
+
+        </Grid>
+    </Border>
+
 </UserControl>

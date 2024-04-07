@@ -167,7 +167,7 @@
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Clave" Binding="{Binding KeyIngredient}" Width="100" />
-                    <DataGridTextColumn Header="Nombre" Binding="{Binding Nameingredient}"  Width="120"/>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding NameIngredient}"  Width="120"/>
                     <DataGridTextColumn Header="Cantidad" Binding="{Binding Quantity}" Width="130"/>
                     <DataGridTextColumn Header="Medida" Binding="{Binding Measurement}" Width="130"/>
                     <DataGridTextColumn Header="Actualización" Binding="{Binding Update}" Width="181"/>

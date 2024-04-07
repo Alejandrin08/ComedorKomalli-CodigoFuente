@@ -1,4 +1,4 @@
-﻿using KomalliServer;
+﻿using KomalliEmployee.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +13,8 @@ namespace KomalliEmployee.Contracts
 
         public int IsBarCodeExisting(string barCodeIngredient);
 
-        public int AddIngredient(Ingredient ingredient);
+        public int AddIngredient(IngredientModel ingredient);
 
-        public List<Ingredient> ConsultIngredients();
-
-
+        public List<IngredientModel> ConsultIngredients();
     }
 }

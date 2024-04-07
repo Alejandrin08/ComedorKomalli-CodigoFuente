@@ -1,4 +1,5 @@
 ﻿using KomalliEmployee.Controller;
+using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
 using KomalliServer;
 using System;
@@ -50,57 +51,57 @@ namespace KomalliEmployee.Views.Pages
 
         private void ClicKRegisterIngredient(object sender, RoutedEventArgs e)
         {
-            Ingredient ingredient = CreateIngredient();
+            IngredientModel ingredient = CreateIngredient();
             IngredientController ingredientControler = new IngredientController();
             if (!VerifyNameIngredient(ingredient.NameIngredient))
             {
-                if (ingredient.Barcode == null || !VerifyBarCode(ingredient.Barcode))
+                if (ingredient.BarCode == null || !VerifyBarCode(ingredient.BarCode))
                 {
                     switch (ingredientControler.AddIngredient(ingredient))
                     {
                         case 0:
-                            MessageBox.Show("Ocurrio un error al agregar un ingrediente porfavor intenta más tarde");
+                            App.ShowMessageWarning("Ocurrio un error al agregar un ingrediente porfavor intenta más tarde", "Error al agregar ingrediente");
                             break;
                         case 1:
-                            MessageBox.Show("El ingrediente fue agregado correctamente");
+                            App.ShowMessageInformation("El ingrediente fue agregado correctamente", "Ingrediente agregado");
                             FoodInventory foodInventoryView = new FoodInventory();
                             this.NavigationService.Navigate(foodInventoryView);
                             break;
-                        case 2:
-                            MessageBox.Show("Lo sentimos, ocurrio un problema con la conexion a la base de datos, favor de intentarlo más tarde");
+                        case -1:
+                            App.ShowMessageWarning("Ocurrio un error al agregar un ingrediente porfavor intenta más tarde", "Error al agregar ingrediente");
                             break;
                     }
                 }
             }
         }
 
-        private Ingredient CreateIngredient()
+        private IngredientModel CreateIngredient()
         {
-            Ingredient ingredient = new Ingredient();
+            IngredientModel ingredient = new IngredientModel();
             ingredient.NameIngredient = txbNameIngredient.Text;
             ingredient.Quantity = txbQuotaIngredient.Text;
             if (string.IsNullOrEmpty(txbBarCode.Text))
             {
-                ingredient.Barcode = null;
+                ingredient.BarCode = null;
             }
             else
             {
-                ingredient.Barcode = txbBarCode.Text;
+                ingredient.BarCode = txbBarCode.Text;
             }
-            ingredient.Barcode = txbBarCode.Text;
+            ingredient.BarCode = txbBarCode.Text;
             ingredient.KeyIngredient = GenerateKey(txbNameIngredient.Text);
             ComboBoxItem selectedItem = (ComboBoxItem)cbxTipeQuota.SelectedItem;
             string selectedContent = selectedItem.Content.ToString();
             switch (selectedContent)
             {
                 case "Kg":
-                    ingredient.Measurement = TypeQuantity.Kg.ToString();
+                    ingredient.Measurement = TypeQuantity.Kg;
                     break;
                 case "Lts":
-                    ingredient.Measurement = TypeQuantity.Lts.ToString();
+                    ingredient.Measurement = TypeQuantity.Lts;
                     break;
                 case "Unidades":
-                    ingredient.Measurement = TypeQuantity.Unidades.ToString();
+                    ingredient.Measurement = TypeQuantity.Unidades;
                     break;
             }
             return ingredient;
@@ -128,13 +129,13 @@ namespace KomalliEmployee.Views.Pages
             switch (ingredientControler.IsNameIngredientExisting(nameIngredient))
             {
                 case 0:
-                    MessageBox.Show("Ya existe un ingrediente con ese nombre dentro del sistema verifica tus datos");
+                    App.ShowMessageWarning("Ya existe un ingrediente con ese nombre dentro del sistema verifica tus datos", "Ingrediente existente");
                     break;
                 case 1:
                     result = false;
                     break;
-                case 2:
-                    MessageBox.Show("Lo sentimos, ocurrio un problema con la conexion a la base de datos, favor de intentarlo más tarde");
+                case -1:
+                    App.ShowMessageWarning("Lo sentimos, ocurrio un problema con la conexion a la base de datos, favor de intentarlo más tarde", "Error de conexion");
                     break;
             }
             return result;
@@ -147,13 +148,13 @@ namespace KomalliEmployee.Views.Pages
             switch (ingredientControler.IsBarCodeExisting(barCodeIngredient))
             {
                 case 0:
-                    MessageBox.Show("Ya existe un ingrediente con ese codigo de barras dentro del sistema verifica tus datos");
+                    App.ShowMessageWarning("Ya existe un ingrediente con ese codigo de barras dentro del sistema verifica tus datos", "Codigo de barras existente");
                     break;
                 case 1:
                     result = false;
                     break;
-                case 2:
-                    MessageBox.Show("Lo sentimos, ocurrio un problema con la conexion a la base de datos, favor de intentarlo más tarde");
+                case -1:
+                    App.ShowMessageWarning("Lo sentimos, ocurrio un problema con la conexion a la base de datos, favor de intentarlo más tarde", "Error de conexion");
                     break;
             }
             return result;

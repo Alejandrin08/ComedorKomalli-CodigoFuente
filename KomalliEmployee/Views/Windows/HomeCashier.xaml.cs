@@ -21,7 +21,7 @@ namespace KomalliEmployee.Views.Windows {
     public partial class HomeCashier : Window {
         public HomeCashier() {
             InitializeComponent();
-            txbNameUser.Text = SingletonClass.Instance.NameUser;
+            txbNameUser.Text = SingletonClass.Instance.UserName;
         }
 
         private void ClickSubMenuCash(object sender, RoutedEventArgs e) {
@@ -53,7 +53,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickAddLogbook(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/Logbook.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickComments(object sender, RoutedEventArgs e) {

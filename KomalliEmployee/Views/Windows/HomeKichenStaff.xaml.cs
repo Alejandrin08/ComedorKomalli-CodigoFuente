@@ -20,7 +20,7 @@ namespace KomalliEmployee.Views.Windows {
     public partial class HomeKichenStaff : Window {
         public HomeKichenStaff() {
             InitializeComponent();
-            txbNameUser.Text = SingletonClass.Instance.NameUser;
+            txbNameUser.Text = SingletonClass.Instance.UserName;
         }
 
 
@@ -78,7 +78,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickAddLogbook(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/Logbook.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickComments(object sender, RoutedEventArgs e) {

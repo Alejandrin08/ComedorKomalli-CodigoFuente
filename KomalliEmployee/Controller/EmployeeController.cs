@@ -146,7 +146,6 @@ namespace KomalliEmployee.Controller {
                 LoggerManager.Instance.LogError("Error en AddEmployee", ex);
             }
             return result;
-
         }
 
         /**
@@ -193,7 +192,6 @@ namespace KomalliEmployee.Controller {
                     if (validateNoPersonal != null) {
                         result = 1;
                     }
-
                 }
             } catch (EntityException ex) {
                 LoggerManager.Instance.LogError("Error en ValidateNoPersonal", ex);
@@ -219,12 +217,26 @@ namespace KomalliEmployee.Controller {
                     if (getName != null) {
                         nameResult = getName.Name;
                     }
-
                 }
             } catch (EntityException ex) {
                 LoggerManager.Instance.LogError("Error en obtener el nombre de usuario", ex);
             }
             return nameResult;
+        }
+
+        public int GetNoPersonalEmployee(string email) {
+            int noPersonal = -1;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var query = context.Employee.Where(employee => employee.UserEmail == email).FirstOrDefault();
+                    if (query != null) {
+                        noPersonal = int.Parse(query.NoPersonal);
+                    }
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error al obtener el número de personal del empleado", ex);
+            }
+            return noPersonal;
         }
     }
 }

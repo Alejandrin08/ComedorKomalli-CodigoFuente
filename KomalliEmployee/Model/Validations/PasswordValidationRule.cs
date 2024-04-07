@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace KomalliEmployee.Model.Validations {
-    public class PasswordValidation : ValidationRule {
+    public class PasswordValidationRule : ValidationRule {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo) {
             ValidationResult result = new ValidationResult(true, null);
             const int TIMEOUT = 10;

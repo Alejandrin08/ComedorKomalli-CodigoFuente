@@ -18,12 +18,13 @@ namespace KomalliTest.Employee
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })){
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
-                Ingredient ingredient = new Ingredient();
-                ingredient.KeyIngredient = "SABR0256";
-                ingredient.NameIngredient = "Sabritas Originales";
-                ingredient.Barcode = "1326784590214";
-                ingredient.Quantity = "10";
-                ingredient.Measurement = "Unidades";
+                IngredientModel ingredient = new IngredientModel {
+                    KeyIngredient = "SABR0256",
+                    NameIngredient = "Sabritas Originales",
+                    BarCode = "1326784590214",
+                    Quantity = "10",
+                    Measurement = TypeQuantity.Unidades
+                };
                 int resultExpected = 1;
                 int result = test.AddIngredient(ingredient);
                 Assert.AreEqual(resultExpected, result);
@@ -35,13 +36,14 @@ namespace KomalliTest.Employee
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })){
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
-                Ingredient ingredient = new Ingredient();
-                ingredient.KeyIngredient = "TOMA0541";
-                ingredient.NameIngredient = "Tomate En Bola";
-                ingredient.Barcode = null;
-                ingredient.Quantity = "20";
-                ingredient.Measurement = "Kg";
-                int resultExpected = 2;
+                IngredientModel ingredient = new IngredientModel {
+                    KeyIngredient = "TOMA0541",
+                    NameIngredient = "Tomate En Bola",
+                    BarCode = null,
+                    Quantity = "20",
+                    Measurement = TypeQuantity.Kg
+                };
+                int resultExpected = -1;
                 int result = test.AddIngredient(ingredient);
                 Assert.AreEqual(resultExpected, result);
             }

@@ -45,7 +45,8 @@ namespace KomalliEmployee.Views.Windows {
                 changePassword.Show();
                 this.Close();
             } else if (userValidation  == 1) {
-                SingletonClass.Instance.NameUser = employeeController.GetNameUser(txbEmailUser.Text);
+                SingletonClass.Instance.UserName = employeeController.GetNameUser(txbEmailUser.Text);
+                SingletonClass.Instance.Email = txbEmailUser.Text;
                 switch (employeeController.GetUserRule(employeeModel.Email)) {
                     case UserRole.Cajero:
                         HomeCashier homeCashier = new HomeCashier();

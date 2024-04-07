@@ -110,10 +110,10 @@ namespace KomalliEmployee.Views.Pages {
                 int resultAdduser = employeeController.AddUser(employeeModel);
                 int resultAddEmployee = employeeController.AddEmployee(employeeModel);
                 if (resultAdduser > 0 && resultAddEmployee > 0) {
-                    MessageBox.Show("Registro exitoso");
+                    App.ShowMessageInformation("Registro exitoso", "Registro de empleado");
                     CleanTextBoxes();
                 } else {
-                    MessageBox.Show("Error al registrar el empleado");
+                    App.ShowMessageWarning("Error al registrar el empleado", "Registro de empleado");
                 }
             }
         }

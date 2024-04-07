@@ -203,7 +203,6 @@
                 FontSize = "13"
                 FontWeight = "Bold"
                 Style="{StaticResource ButtonStyle}"
-                IsEnabled="False"
                 Click="ClicKRegisterIngredient"
             />
         </Grid>

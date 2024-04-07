@@ -1,4 +1,5 @@
 ﻿using KomalliEmployee.Contracts;
+using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
 using KomalliServer;
 using System;
@@ -27,35 +28,31 @@ namespace KomalliEmployee.Controller
          * <param name="ingredient">objeto ingrediente contodos los satos necesarios</param>
          * <returns>Regresa 1 si se realizo la operacion correctamente, 0 si no.</returns>
          */
-        public int AddIngredient(Ingredient ingredient){
+        public int AddIngredient(IngredientModel ingredientModel) {
             int result = 0;
             try { 
-                using (var context = new KomalliEntities())
-                {
-                    var newIngredient = new KomalliServer.Ingredient
-                    {
-                        KeyIngredient = ingredient.KeyIngredient,
-                        Barcode = ingredient.Barcode,
-                        NameIngredient = ingredient.NameIngredient,
-                        Quantity = ingredient.Quantity,
-                        Measurement = ingredient.Measurement
+                using (var context = new KomalliEntities()) {
+                    var newIngredient = new Ingredient {
+                        KeyIngredient = ingredientModel.KeyIngredient,
+                        Barcode = ingredientModel.BarCode,
+                        NameIngredient = ingredientModel.NameIngredient,
+                        Quantity = ingredientModel.Quantity,
+                        Measurement = ingredientModel.Measurement.ToString()
                     };
 
                     context.Ingredient.Add(newIngredient);
-                    context.SaveChanges();
-                    result = 1;
-
+                    result = context.SaveChanges();
                 }
-                return result;
             }
-            catch (DbUpdateException){
-                result = 2;
-                return result;
+            catch (DbUpdateException ex) {
+                result = -1;
+                LoggerManager.Instance.LogError("Error al agregar un ingrediente", ex);
             }
-            catch (EntityException){
-                result = 2;
-                return result;
+            catch (EntityException ex) {
+                result = -1;
+                LoggerManager.Instance.LogError("Error al agregar un ingrediente", ex);
             }
+            return result;
         }
 
         /**
@@ -64,19 +61,32 @@ namespace KomalliEmployee.Controller
          * </summary>
          * <returns> Regresa la lista de los ingredientes obtenidos en la base de datos.</returns>
          */
-        public List<Ingredient> ConsultIngredients(){
-            List<Ingredient> ingredients = new List<Ingredient> ();
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
-                    ingredients = context.Ingredient.ToList(); 
+        public List<IngredientModel> ConsultIngredients() {
+            List<IngredientModel> ingredients = new List<IngredientModel>();
+            try {
+                using (var context = new KomalliEntities()) {
+                    var query = context.Ingredient.Select(ingredient => new {
+                        ingredient.KeyIngredient,
+                        ingredient.NameIngredient,
+                        ingredient.Quantity,
+                        ingredient.Measurement,
+                        ingredient.Barcode
+                    }).ToList() 
+                    .Select(ingredient => new IngredientModel {
+                        KeyIngredient = ingredient.KeyIngredient,
+                        NameIngredient = ingredient.NameIngredient,
+                        Quantity = ingredient.Quantity,
+                        Measurement = (TypeQuantity)Enum.Parse(typeof(TypeQuantity), ingredient.Measurement),
+                        BarCode = ingredient.Barcode
+                    }).ToList();
+
+                    ingredients = query;
                 }
-                return ingredients;
+            } catch (EntityException ex) {
+                ingredients = null;
+                LoggerManager.Instance.LogError("Error al consultar un ingrediente", ex);
             }
-            catch (EntityException){
-                return null;
-            }
+            return ingredients;
         }
 
         /**
@@ -87,24 +97,21 @@ namespace KomalliEmployee.Controller
          * <returns>Regresa 1 si existe un ingrediente con ese codigo de barras, 0 si no.</returns>
          */
 
-        public int IsBarCodeExisting(string barCodeIngredient){
+        public int IsBarCodeExisting(string barCodeIngredient) {
             int result = 0;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
+            try {
+                using (var context = new KomalliEntities()) {
                     var query = context.Ingredient.Where(ingredient => ingredient.Barcode == barCodeIngredient).FirstOrDefault();
-                    if (query != null)
-                    {
+                    if (query != null) {
                         result = 1;
                     }
                 }
-                return result;
             }
-            catch (EntityException){
-                result = 2;
-                return result;
+            catch (EntityException ex) {
+                result = -1;
+                LoggerManager.Instance.LogError("Error al validar la existenciia de un código de barras", ex);
             }
+            return result;
         }
 
         /**
@@ -115,25 +122,21 @@ namespace KomalliEmployee.Controller
          * <returns>Regresa 1 si existe un ingrediente con ese nombre, 0 si no.</returns>
          */
 
-        public int IsNameIngredientExisting(string nameIngredient){
+        public int IsNameIngredientExisting(string nameIngredient) {
             int result = 0;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
+            try {
+                using (var context = new KomalliEntities()) {
                     var query = context.Ingredient.Where(ingredient => ingredient.NameIngredient == nameIngredient).FirstOrDefault();
-                    if (query == null)
-                    {
+                    if (query == null) {
                         result = 1;
                     }
                 }
-                return result;
             }
-            catch (EntityException)
-            {
-                result = 2;
-                return result;
+            catch (EntityException ex) {
+                result = -1;
+                LoggerManager.Instance.LogError("Error al validar la existencia del nombre de un ingrediente", ex);
             }
+            return result;
         }
     }
 }

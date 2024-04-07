@@ -78,7 +78,7 @@ namespace KomalliEmployee.Views.Windows {
         private void PasswordChangedValidatePasswordConfirm(object sender, RoutedEventArgs e) {
             PasswordBox passwordBox = (PasswordBox)sender;
 
-            ValidationResult validationResult = new PasswordValidation().Validate(passwordBox.Password, null);
+            ValidationResult validationResult = new PasswordValidationRule().Validate(passwordBox.Password, null);
 
             if (!validationResult.IsValid) {
                 pssUserIconConfirm.Visibility = Visibility.Visible;
@@ -97,7 +97,7 @@ namespace KomalliEmployee.Views.Windows {
         private void PasswordChangedValidatePassword(object sender, RoutedEventArgs e) {
             PasswordBox passwordBox = (PasswordBox)sender;
 
-            ValidationResult validationResult = new PasswordValidation().Validate(passwordBox.Password, null);
+            ValidationResult validationResult = new PasswordValidationRule().Validate(passwordBox.Password, null);
 
             if (!validationResult.IsValid) {
                 pssUserIcon.Visibility = Visibility.Visible;

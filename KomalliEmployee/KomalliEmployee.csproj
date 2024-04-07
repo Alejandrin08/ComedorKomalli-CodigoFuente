@@ -104,17 +104,20 @@
     </ApplicationDefinition>
     <Compile Include="Contracts\IEmployee.cs" />
     <Compile Include="Contracts\IIngredient.cs" />
+    <Compile Include="Contracts\ILogbook.cs" />
     <Compile Include="Controller\EmployeeController.cs" />
     <Compile Include="Controller\IngredientController.cs" />
+    <Compile Include="Controller\LogbookController.cs" />
     <Compile Include="Model\EmployeeModel.cs" />
     <Compile Include="Model\IngredientModel.cs" />
+    <Compile Include="Model\LogbookModel.cs" />
     <Compile Include="Model\Utilities\LoggerManager.cs" />
     <Compile Include="Model\Utilities\SingletonClass.cs" />
     <Compile Include="Model\Utilities\TypeQuantity.cs" />
     <Compile Include="Model\Utilities\UserRole.cs" />
     <Compile Include="Model\Validations\EmailValidationRule.cs" />
     <Compile Include="Model\Validations\NameValidationRule.cs" />
-    <Compile Include="Model\Validations\PasswordValidation.cs" />
+    <Compile Include="Model\Validations\PasswordValidationRule.cs" />
     <Compile Include="Model\Validations\PersonalNumberValidationRule.cs" />
     <Compile Include="Model\Validations\RoleValidationRule.cs" />
     <Compile Include="Resources\DatasetsDB\DataReports.Designer.cs">
@@ -127,6 +130,9 @@
     </Compile>
     <Compile Include="Views\Pages\IngredientInventory.xaml.cs">
       <DependentUpon>IngredientInventory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Logbook.xaml.cs">
+      <DependentUpon>Logbook.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\RegisterIngredient.xaml.cs">
       <DependentUpon>RegisterIngredient.xaml</DependentUpon>
@@ -172,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\IngredientInventory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Logbook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

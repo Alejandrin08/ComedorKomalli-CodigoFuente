@@ -20,7 +20,7 @@ namespace KomalliEmployee.Views.Windows {
     public partial class HomeManager : Window {
         public HomeManager() {
             InitializeComponent();
-            txbNameUser.Text = SingletonClass.Instance.NameUser;
+            txbNameUser.Text = SingletonClass.Instance.UserName;
         }
 
         private void ClickSubMenuUsers(object sender, RoutedEventArgs e) {

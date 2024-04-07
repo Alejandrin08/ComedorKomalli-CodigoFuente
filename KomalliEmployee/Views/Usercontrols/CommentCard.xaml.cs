@@ -1,4 +1,7 @@
-﻿using System;
+﻿using KomalliEmployee.Controller;
+using KomalliEmployee.Model;
+using KomalliEmployee.Model.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +23,14 @@ namespace KomalliEmployee.Views.Usercontrols {
     public partial class CommentCard : UserControl {
         public CommentCard() {
             InitializeComponent();
+        }
+
+        public void setDataCard(LogbookModel logbook) {
+            lblContentComent.Content = logbook.Commentary;
+            string employeeName = SingletonClass.Instance.UserName;
+            lblUserName.Content = employeeName;
+            lblUserName.Content = logbook.NoPersonalEmployee;
+            lblDateComent.Content = logbook.Date;
         }
     }
 }

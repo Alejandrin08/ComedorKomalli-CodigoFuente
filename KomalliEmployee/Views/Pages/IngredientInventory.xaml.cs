@@ -36,7 +36,7 @@ namespace KomalliEmployee.Views.Pages{
 
         private void InitializeInventary()
         {
-            List<Ingredient> ingredients; 
+            List<IngredientModel> ingredients; 
             IngredientController ingredientControler = new IngredientController();
             ingredients = ingredientControler.ConsultIngredients();
             dgIngredientInventory.ItemsSource = ingredients;

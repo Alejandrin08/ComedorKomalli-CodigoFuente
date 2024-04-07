@@ -13,5 +13,7 @@ namespace KomalliEmployee.Contracts {
         public UserRole GetUserRule(string email);
 
         public int ValidateUser(string email, string password);
+
+        public int GetNoPersonalEmployee(string email);
     }
 }
