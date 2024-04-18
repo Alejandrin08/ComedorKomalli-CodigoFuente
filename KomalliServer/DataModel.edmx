@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KomalliModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="komallidbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="NoPersonal" />
@@ -15,7 +15,7 @@
           <Property Name="UserEmail" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Komalli.dbo.Employee_FoodOrder' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+advertencia 6002: La tabla o vista 'komallidb.dbo.Employee_FoodOrder' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Employee_FoodOrder">
           <Key>
             <PropertyRef Name="NoPersonalEmployee" />
@@ -25,7 +25,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.Employee_FoodOrder' no tiene def
           <Property Name="IDFoodOrderFoodOrder" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Komalli.dbo.Employee_Ingredient' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+advertencia 6002: La tabla o vista 'komallidb.dbo.Employee_Ingredient' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Employee_Ingredient">
           <Key>
             <PropertyRef Name="NoPersonalEmployee" />
@@ -48,7 +48,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.Employee_Ingredient' no tiene de
           <Property Name="Total" Type="int" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_MenuCard' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+advertencia 6002: La tabla o vista 'komallidb.dbo.FoodOrder_MenuCard' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="FoodOrder_MenuCard">
           <Key>
             <PropertyRef Name="IDFoodOrderFoodOrder" />
@@ -62,7 +62,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_MenuCard' no tiene def
           <Property Name="SellingPrice" Type="int" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+advertencia 6002: La tabla o vista 'komallidb.dbo.FoodOrder_SetMenu' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="FoodOrder_SetMenu">
           <Key>
             <PropertyRef Name="IDFoodOrderFoodOrder" />
@@ -80,7 +80,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             <PropertyRef Name="KeyIngredient" />
           </Key>
           <Property Name="KeyIngredient" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="NameIngredient" Type="varchar" MaxLength="30" />
+          <Property Name="NameIngredient" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Quantity" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Measurement" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Barcode" Type="varchar" MaxLength="13" />
@@ -89,7 +89,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
           <Key>
             <PropertyRef Name="IDCommentary" />
           </Key>
-          <Property Name="IDCommentary" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="IDCommentary" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Commentary" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="NoPersonalEmployee" Type="varchar" MaxLength="5" Nullable="false" />
@@ -234,7 +234,9 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Employee">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -245,7 +247,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="KomalliModelStoreContainer">
+        <EntityContainer Name="komallidbModelStoreContainer">
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FoodOrder" EntityType="Self.FoodOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ingredient" EntityType="Self.Ingredient" Schema="dbo" store:Type="Tables" />
@@ -327,7 +329,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="KomalliModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="komallidbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="NoPersonal" />
@@ -360,7 +362,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             <PropertyRef Name="KeyIngredient" />
           </Key>
           <Property Name="KeyIngredient" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NameIngredient" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NameIngredient" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Quantity" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Measurement" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Barcode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
@@ -370,7 +372,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
           <Key>
             <PropertyRef Name="IDCommentary" />
           </Key>
-          <Property Name="IDCommentary" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDCommentary" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Commentary" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NoPersonalEmployee" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
@@ -475,7 +477,9 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Employee">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -603,9 +607,9 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="KomalliModelStoreContainer" CdmEntityContainer="KomalliEntities">
+        <EntityContainerMapping StorageEntityContainer="komallidbModelStoreContainer" CdmEntityContainer="KomalliEntities">
           <EntitySetMapping Name="Employee">
-            <EntityTypeMapping TypeName="KomalliModel.Employee">
+            <EntityTypeMapping TypeName="komallidbModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="NoPersonal" ColumnName="NoPersonal" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
@@ -615,7 +619,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FoodOrder">
-            <EntityTypeMapping TypeName="KomalliModel.FoodOrder">
+            <EntityTypeMapping TypeName="komallidbModel.FoodOrder">
               <MappingFragment StoreEntitySet="FoodOrder">
                 <ScalarProperty Name="IDFoodOrder" ColumnName="IDFoodOrder" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -627,7 +631,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ingredient">
-            <EntityTypeMapping TypeName="KomalliModel.Ingredient">
+            <EntityTypeMapping TypeName="komallidbModel.Ingredient">
               <MappingFragment StoreEntitySet="Ingredient">
                 <ScalarProperty Name="KeyIngredient" ColumnName="KeyIngredient" />
                 <ScalarProperty Name="NameIngredient" ColumnName="NameIngredient" />
@@ -638,7 +642,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Logbook">
-            <EntityTypeMapping TypeName="KomalliModel.Logbook">
+            <EntityTypeMapping TypeName="komallidbModel.Logbook">
               <MappingFragment StoreEntitySet="Logbook">
                 <ScalarProperty Name="IDCommentary" ColumnName="IDCommentary" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -648,7 +652,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MenuCard">
-            <EntityTypeMapping TypeName="KomalliModel.MenuCard">
+            <EntityTypeMapping TypeName="komallidbModel.MenuCard">
               <MappingFragment StoreEntitySet="MenuCard">
                 <ScalarProperty Name="KeyCard" ColumnName="KeyCard" />
                 <ScalarProperty Name="NameFood" ColumnName="NameFood" />
@@ -658,7 +662,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SetMenu">
-            <EntityTypeMapping TypeName="KomalliModel.SetMenu">
+            <EntityTypeMapping TypeName="komallidbModel.SetMenu">
               <MappingFragment StoreEntitySet="SetMenu">
                 <ScalarProperty Name="KeySetMenu" ColumnName="KeySetMenu" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -673,7 +677,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="KomalliModel.User">
+            <EntityTypeMapping TypeName="komallidbModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -682,7 +686,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee_Ingredient">
-            <EntityTypeMapping TypeName="KomalliModel.Employee_Ingredient">
+            <EntityTypeMapping TypeName="komallidbModel.Employee_Ingredient">
               <MappingFragment StoreEntitySet="Employee_Ingredient">
                 <ScalarProperty Name="NoPersonalEmployee" ColumnName="NoPersonalEmployee" />
                 <ScalarProperty Name="KeyIngredientIngredient" ColumnName="KeyIngredientIngredient" />
@@ -691,7 +695,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FoodOrder_MenuCard">
-            <EntityTypeMapping TypeName="KomalliModel.FoodOrder_MenuCard">
+            <EntityTypeMapping TypeName="komallidbModel.FoodOrder_MenuCard">
               <MappingFragment StoreEntitySet="FoodOrder_MenuCard">
                 <ScalarProperty Name="IDFoodOrderFoodOrder" ColumnName="IDFoodOrderFoodOrder" />
                 <ScalarProperty Name="KeyCardMenuCard" ColumnName="KeyCardMenuCard" />
@@ -701,7 +705,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FoodOrder_SetMenu">
-            <EntityTypeMapping TypeName="KomalliModel.FoodOrder_SetMenu">
+            <EntityTypeMapping TypeName="komallidbModel.FoodOrder_SetMenu">
               <MappingFragment StoreEntitySet="FoodOrder_SetMenu">
                 <ScalarProperty Name="IDFoodOrderFoodOrder" ColumnName="IDFoodOrderFoodOrder" />
                 <ScalarProperty Name="KeySetMenuSetMenu" ColumnName="KeySetMenuSetMenu" />
@@ -710,7 +714,7 @@ advertencia 6002: La tabla o vista 'Komalli.dbo.FoodOrder_SetMenu' no tiene defi
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Employee_FoodOrder" TypeName="KomalliModel.Employee_FoodOrder" StoreEntitySet="Employee_FoodOrder">
+          <AssociationSetMapping Name="Employee_FoodOrder" TypeName="komallidbModel.Employee_FoodOrder" StoreEntitySet="Employee_FoodOrder">
             <EndProperty Name="Employee">
               <ScalarProperty Name="NoPersonal" ColumnName="NoPersonalEmployee" />
             </EndProperty>

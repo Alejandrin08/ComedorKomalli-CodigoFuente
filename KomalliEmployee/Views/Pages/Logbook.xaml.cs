@@ -34,10 +34,8 @@ namespace KomalliEmployee.Views.Pages {
                 EmployeeController employeeController = new EmployeeController();
                 DateTime currentDateTime = DateTime.Now;
                 LogbookController logbookController = new LogbookController();
-
-                int idCommentary = logbookController.GetLastIdCommentary() + 1;
+                
                 LogbookModel logbookModel = new LogbookModel {
-                    IdCommentary = idCommentary.ToString(),
                     Date = currentDateTime,
                     Commentary = txtAddCommentary.Text,
                     NoPersonalEmployee = employeeController.GetNoPersonalEmployee(SingletonClass.Instance.Email).ToString()

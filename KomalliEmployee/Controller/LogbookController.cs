@@ -34,7 +34,6 @@ namespace KomalliEmployee.Controller {
                 using (var context = new KomalliEntities())
                 using (var transaction = context.Database.BeginTransaction()) {
                     var comment = new KomalliServer.Logbook() {
-                        IDCommentary = logbookModel.IdCommentary,
                         Date = logbookModel.Date,
                         Commentary = logbookModel.Commentary,
                         NoPersonalEmployee = logbookModel.NoPersonalEmployee
@@ -80,21 +79,6 @@ namespace KomalliEmployee.Controller {
                 comments = null;
             }
             return comments;
-        }
-
-        public int GetLastIdCommentary() {
-            int lastId = 0;
-            try {
-                using (var context = new KomalliEntities()) {
-                    var query = context.Logbook
-                        .OrderByDescending(comment => comment.IDCommentary)
-                        .FirstOrDefault();
-                    lastId = int.Parse(query.IDCommentary);
-                }
-            } catch (EntityException ex) {
-                LoggerManager.Instance.LogFatal("Error al obtener el último ID de comentario", ex);
-            }
-            return lastId;
         }
     }
 }

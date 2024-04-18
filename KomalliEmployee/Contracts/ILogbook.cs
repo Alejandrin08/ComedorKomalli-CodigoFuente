@@ -10,7 +10,5 @@ namespace KomalliEmployee.Contracts {
 
         public int AddCommentary(LogbookModel logbookModel);
         public List<LogbookModel> GetEmployeeComments(string noPersonal);
-
-        public int GetLastIdCommentary();
     }
 }

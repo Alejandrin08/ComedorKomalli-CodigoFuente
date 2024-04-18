@@ -14,7 +14,7 @@ namespace KomalliServer
     
     public partial class Logbook
     {
-        public string IDCommentary { get; set; }
+        public int IDCommentary { get; set; }
         public System.DateTime Date { get; set; }
         public string Commentary { get; set; }
         public string NoPersonalEmployee { get; set; }

@@ -49,12 +49,17 @@ namespace KomalliEmployee.Views.Pages {
         }
 
         private void LoadReport(object sender, RoutedEventArgs e) {
-            rpv.Reset();
-            DataReports dataReports = new DataReports();
-            IngredientTableAdapter ingredientTableAdapter = new IngredientTableAdapter();
-            ingredientTableAdapter.Fill(dataReports.Ingredient);
-            BindReport(dataReports);
-            rpv.RefreshReport();
+            try {
+                rpv.Reset();
+                DataReports dataReports = new DataReports();
+                IngredientTableAdapter ingredientTableAdapter = new IngredientTableAdapter();
+                ingredientTableAdapter.Fill(dataReports.Ingredient);
+                BindReport(dataReports);
+                rpv.RefreshReport();
+            } catch (SqlException ex) {
+                App.ShowMessageError("Error al cargar el reporte", "Error al cargar");
+                LoggerManager.Instance.LogError("Error al cargar el reporte", ex);
+            }
         }
     }
 }
