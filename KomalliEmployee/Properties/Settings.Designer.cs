@@ -34,5 +34,17 @@ namespace KomalliEmployee.Properties {
                 return ((string)(this["KomalliConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=komalli.database.windows.net;Initial Catalog=komallidb;Persist Securi" +
+            "ty Info=True;User ID=userComedorKomalli;Password=qm2CnbZdxj$ECUj;TrustServerCert" +
+            "ificate=True")]
+        public string KomalliDBConnectionString {
+            get {
+                return ((string)(this["KomalliDBConnectionString"]));
+            }
+        }
     }
 }
