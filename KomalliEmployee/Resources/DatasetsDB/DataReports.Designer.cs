@@ -447,6 +447,7 @@ namespace KomalliEmployee.Resources.DatasetsDB {
                 this.columnKeyIngredient.AllowDBNull = false;
                 this.columnKeyIngredient.Unique = true;
                 this.columnKeyIngredient.MaxLength = 10;
+                this.columnNameIngredient.AllowDBNull = false;
                 this.columnNameIngredient.MaxLength = 30;
                 this.columnQuantity.AllowDBNull = false;
                 this.columnQuantity.MaxLength = 10;
@@ -607,12 +608,7 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string NameIngredient {
                 get {
-                    try {
-                        return ((string)(this[this.tableIngredient.NameIngredientColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'NameIngredient\' de la tabla \'Ingredient\' es DBNull.", e);
-                    }
+                    return ((string)(this[this.tableIngredient.NameIngredientColumn]));
                 }
                 set {
                     this[this.tableIngredient.NameIngredientColumn] = value;
@@ -639,18 +635,6 @@ namespace KomalliEmployee.Resources.DatasetsDB {
                 set {
                     this[this.tableIngredient.MeasurementColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsNameIngredientNull() {
-                return this.IsNull(this.tableIngredient.NameIngredientColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetNameIngredientNull() {
-                this[this.tableIngredient.NameIngredientColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -732,7 +716,7 @@ namespace KomalliEmployee.Resources.DatasetsDB.DataReportsTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public global::System.Data.SqlClient.SqlConnection Connection {
+        internal global::System.Data.SqlClient.SqlConnection Connection {
             get {
                 if ((this._connection == null)) {
                     this.InitConnection();
@@ -820,17 +804,18 @@ namespace KomalliEmployee.Resources.DatasetsDB.DataReportsTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Ingredient] WHERE (([KeyIngredient] = @Original_KeyIngredient) AND ((@IsNull_NameIngredient = 1 AND [NameIngredient] IS NULL) OR ([NameIngredient] = @Original_NameIngredient)) AND ([Quantity] = @Original_Quantity) AND ([Measurement] = @Original_Measurement))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Ingredient] WHERE (([KeyIngredient] = @Original_KeyIngredient)" +
+                " AND ([NameIngredient] = @Original_NameIngredient) AND ([Quantity] = @Original_Q" +
+                "uantity) AND ([Measurement] = @Original_Measurement))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_KeyIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyIngredient", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_NameIngredient", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NameIngredient", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_NameIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NameIngredient", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Quantity", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Measurement", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Measurement", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Ingredient] ([KeyIngredient], [NameIngredient], [Quantity], [Measurement]) VALUES (@KeyIngredient, @NameIngredient, @Quantity, @Measurement);
-SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHERE (KeyIngredient = @KeyIngredient)";
+SELECT TOP (1000) KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHERE (KeyIngredient = @KeyIngredient)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@KeyIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyIngredient", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@NameIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NameIngredient", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -838,15 +823,14 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Measurement", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Measurement", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Ingredient] SET [KeyIngredient] = @KeyIngredient, [NameIngredient] = @NameIngredient, [Quantity] = @Quantity, [Measurement] = @Measurement WHERE (([KeyIngredient] = @Original_KeyIngredient) AND ((@IsNull_NameIngredient = 1 AND [NameIngredient] IS NULL) OR ([NameIngredient] = @Original_NameIngredient)) AND ([Quantity] = @Original_Quantity) AND ([Measurement] = @Original_Measurement));
-SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHERE (KeyIngredient = @KeyIngredient)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Ingredient] SET [KeyIngredient] = @KeyIngredient, [NameIngredient] = @NameIngredient, [Quantity] = @Quantity, [Measurement] = @Measurement WHERE (([KeyIngredient] = @Original_KeyIngredient) AND ([NameIngredient] = @Original_NameIngredient) AND ([Quantity] = @Original_Quantity) AND ([Measurement] = @Original_Measurement));
+SELECT TOP (1000) KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHERE (KeyIngredient = @KeyIngredient)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@KeyIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyIngredient", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@NameIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NameIngredient", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Quantity", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Measurement", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Measurement", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_KeyIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyIngredient", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_NameIngredient", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NameIngredient", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_NameIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NameIngredient", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Quantity", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Measurement", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Measurement", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -856,7 +840,7 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::KomalliEmployee.Properties.Settings.Default.KomalliConnectionString;
+            this._connection.ConnectionString = global::KomalliEmployee.Properties.Settings.Default.KomalliDBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -865,8 +849,8 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT [KeyIngredient]\r\n      ,[NameIngredient]\r\n      ,[Quantity]\r\n      ,[Measu" +
-                "rement]\r\n  FROM [dbo].[Ingredient]";
+            this._commandCollection[0].CommandText = "SELECT TOP (1000) [KeyIngredient]\r\n      ,[NameIngredient]\r\n      ,[Quantity]\r\n  " +
+                "    ,[Measurement]\r\n  FROM [dbo].[Ingredient]";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -935,24 +919,22 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
                 this.Adapter.DeleteCommand.Parameters[0].Value = ((string)(Original_KeyIngredient));
             }
             if ((Original_NameIngredient == null)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_NameIngredient");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_NameIngredient));
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_NameIngredient));
             }
             if ((Original_Quantity == null)) {
                 throw new global::System.ArgumentNullException("Original_Quantity");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((string)(Original_Quantity));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_Quantity));
             }
             if ((Original_Measurement == null)) {
                 throw new global::System.ArgumentNullException("Original_Measurement");
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_Measurement));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((string)(Original_Measurement));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -982,7 +964,7 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(KeyIngredient));
             }
             if ((NameIngredient == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("NameIngredient");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(NameIngredient));
@@ -1027,7 +1009,7 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(KeyIngredient));
             }
             if ((NameIngredient == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("NameIngredient");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(NameIngredient));
@@ -1051,24 +1033,22 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
                 this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_KeyIngredient));
             }
             if ((Original_NameIngredient == null)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("Original_NameIngredient");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_NameIngredient));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_NameIngredient));
             }
             if ((Original_Quantity == null)) {
                 throw new global::System.ArgumentNullException("Original_Quantity");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_Quantity));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_Quantity));
             }
             if ((Original_Measurement == null)) {
                 throw new global::System.ArgumentNullException("Original_Measurement");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_Measurement));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_Measurement));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
