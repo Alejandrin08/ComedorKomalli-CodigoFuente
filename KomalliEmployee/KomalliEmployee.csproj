@@ -120,6 +120,9 @@
     <Compile Include="Model\Validations\PasswordValidationRule.cs" />
     <Compile Include="Model\Validations\PersonalNumberValidationRule.cs" />
     <Compile Include="Model\Validations\RoleValidationRule.cs" />
+    <Compile Include="Resources\DatasetsDB\DataReports.cs">
+      <DependentUpon>DataReports.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Resources\DatasetsDB\DataReports.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
