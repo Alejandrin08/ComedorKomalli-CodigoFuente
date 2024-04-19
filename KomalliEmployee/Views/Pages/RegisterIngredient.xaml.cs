@@ -147,10 +147,10 @@ namespace KomalliEmployee.Views.Pages
             IngredientController ingredientControler = new IngredientController();
             switch (ingredientControler.IsBarCodeExisting(barCodeIngredient))
             {
-                case 0:
+                case 1:
                     App.ShowMessageWarning("Ya existe un ingrediente con ese codigo de barras dentro del sistema verifica tus datos", "Codigo de barras existente");
                     break;
-                case 1:
+                case 0:
                     result = false;
                     break;
                 case -1:
