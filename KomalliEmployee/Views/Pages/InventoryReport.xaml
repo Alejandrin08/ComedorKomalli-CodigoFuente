@@ -47,6 +47,7 @@
             <wf:ReportViewer x:Name="rpv" 
                              ShowToolBar="False"
                              ZoomMode="PageWidth"
+                             
                 />
         </WindowsFormsHost>
     </Grid>
