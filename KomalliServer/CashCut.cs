@@ -12,13 +12,13 @@ namespace KomalliServer
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee_Ingredient
+    public partial class CashCut
     {
-        public string NoPersonalEmployee { get; set; }
-        public string KeyIngredientIngredient { get; set; }
-        public System.DateTime ReplenishmentDate { get; set; }
-    
-        public virtual Employee Employee { get; set; }
-        public virtual Ingredient Ingredient { get; set; }
+        public int id { get; set; }
+        public Nullable<System.DateTime> fecha { get; set; }
+        public Nullable<int> initial_balance { get; set; }
+        public int total_entries { get; set; }
+        public int total_exits { get; set; }
+        public int balance { get; set; }
     }
 }
