@@ -137,6 +137,9 @@
     <Compile Include="Views\Pages\Logbook.xaml.cs">
       <DependentUpon>Logbook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\LogbookReport.xaml.cs">
+      <DependentUpon>LogbookReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\RegisterIngredient.xaml.cs">
       <DependentUpon>RegisterIngredient.xaml</DependentUpon>
     </Compile>
@@ -185,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Logbook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\LogbookReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -244,6 +251,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\KomalliReports\InventoryReport.rdlc" />
+    <EmbeddedResource Include="Resources\KomalliReports\LogbookReport.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
