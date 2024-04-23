@@ -128,6 +128,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataReports.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\DailyTransactionsReport.xaml.cs">
+      <DependentUpon>DailyTransactionsReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\InventoryReport.xaml.cs">
       <DependentUpon>InventoryReport.xaml</DependentUpon>
     </Compile>
@@ -176,6 +179,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\DailyTransactionsReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -250,6 +257,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\KomalliReports\DailyTransactionsReport.rdlc" />
     <EmbeddedResource Include="Resources\KomalliReports\InventoryReport.rdlc" />
     <EmbeddedResource Include="Resources\KomalliReports\LogbookReport.rdlc" />
     <None Include="packages.config" />
