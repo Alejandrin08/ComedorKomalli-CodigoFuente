@@ -16,5 +16,8 @@ namespace KomalliEmployee.Contracts
         public int AddIngredient(IngredientModel ingredient);
 
         public List<IngredientModel> ConsultIngredients();
+
+        public int ModifyIngredients(List<IngredientModel> ingredients);
+
     }
 }

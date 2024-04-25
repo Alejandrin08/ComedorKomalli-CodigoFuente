@@ -23,7 +23,8 @@ namespace KomalliTest.Employee
                     NameIngredient = "Sabritas Originales",
                     BarCode = "1326784590214",
                     Quantity = "10",
-                    Measurement = TypeQuantity.Unidades
+                    Measurement = TypeQuantity.Unidades,
+                    ReplenishmentDate = null
                 };
                 int resultExpected = 1;
                 int result = test.AddIngredient(ingredient);
@@ -37,11 +38,12 @@ namespace KomalliTest.Employee
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
                 IngredientModel ingredient = new IngredientModel {
-                    KeyIngredient = "TOMA0541",
-                    NameIngredient = "Tomate En Bola",
+                    KeyIngredient = "TOMA8861",
+                    NameIngredient = "Tomate Bola",
                     BarCode = null,
                     Quantity = "20",
-                    Measurement = TypeQuantity.Kg
+                    Measurement = TypeQuantity.Kg,
+                    ReplenishmentDate = null
                 };
                 int resultExpected = -1;
                 int result = test.AddIngredient(ingredient);
@@ -54,7 +56,7 @@ namespace KomalliTest.Employee
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })){
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
-                string nameIngredient = "Tomate En Bola";
+                string nameIngredient = "Tomate Bola";
                 int resultExpected = 1;
                 int result = test.IsNameIngredientExisting(nameIngredient);
                 Assert.AreEqual(resultExpected, result);
@@ -78,7 +80,7 @@ namespace KomalliTest.Employee
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })){
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
-                string barCodeIngredient = "1326784590214";
+                string barCodeIngredient = "1234567890123";
                 int resultExpected = 1;
                 int result = test.IsBarCodeExisting(barCodeIngredient);
                 Assert.AreEqual(resultExpected, result);
@@ -86,7 +88,7 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void IsBarCodeExisting_failed()
+        public void IsBarCodeExisting_Failed()
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
@@ -98,6 +100,49 @@ namespace KomalliTest.Employee
                 Assert.AreEqual(resultExpected, result);
             }
         }
+
+        [TestMethod]
+        public void ModifyIngredients_Sucessfull()
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
+
+                List<IngredientModel> listIngredientsModified = new List<IngredientModel>();
+                IngredientModel ingredientTest1 = new IngredientModel();
+                ingredientTest1.KeyIngredient = "TOMA8861";
+                ingredientTest1.NameIngredient = "Tomate Bola";
+                ingredientTest1.Measurement = TypeQuantity.Kg;
+                ingredientTest1.BarCode = null;
+                ingredientTest1.Quantity = "30";
+                listIngredientsModified.Add(ingredientTest1);
+                int resultExpected = 1;
+                int result = test.ModifyIngredients(listIngredientsModified);
+                Assert.AreEqual(resultExpected, result);
+            }
+        }
+
+        [TestMethod]
+        public void ModifyIngredients_Failed()
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
+
+                List<IngredientModel> listIngredientsModified = new List<IngredientModel>();
+                IngredientModel ingredientTest1 = new IngredientModel();
+                ingredientTest1.KeyIngredient = "TOMA8860";
+                ingredientTest1.NameIngredient = "Tomate Bola";
+                ingredientTest1.Measurement = TypeQuantity.Kg;
+                ingredientTest1.BarCode = null;
+                ingredientTest1.Quantity = "30";
+                listIngredientsModified.Add(ingredientTest1);
+                int resultExpected = 1;
+                int result = test.ModifyIngredients(listIngredientsModified);
+                Assert.AreEqual(resultExpected, result);
+            }
+        }
+
 
     }
 }

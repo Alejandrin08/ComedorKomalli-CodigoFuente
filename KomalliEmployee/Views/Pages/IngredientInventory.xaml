@@ -7,6 +7,23 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FoodInventory">
+
+    <Page.Resources>
+        <Style x:Key="TextCellStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        
+        <Style x:Key="ComboBoxCellStyle" TargetType="ComboBox">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="auto"/>
+            <Setter Property="Height" Value="auto"/>
+            <Setter Property="ItemsSource" Value="{Binding DataContext.MeasurementOptions, RelativeSource={RelativeSource AncestorType=Page}}"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        </Style>
+    </Page.Resources>
+
     <Viewbox Stretch = "Fill">
         <Grid Height="450"
               Width="800">
@@ -75,7 +92,8 @@
                     FontSize = "13"
                     BorderBrush = "#2C6C74"
                     FontWeight = "Bold"
-                    Background = "#D9D9D9" Click="ClickAddIngredient"
+                    Background = "#D9D9D9" 
+                    Click="ClickAddIngredient"
             />
 
             <Button x:Name = "btnModifyInventory"
@@ -85,11 +103,24 @@
                     FontSize = "13"
                     BorderBrush = "#2C6C74"
                     FontWeight = "Bold"
-                    Background = "#D9D9D9"
+                    Background = "#D9D9D9" 
+                    Click="ClickModifyInventory"
+            />
+
+            <Button x:Name = "btnSaveChanges"
+                    Margin = "467,33,198,387"
+                    Content = "Guardar cambios"
+                    FontFamily = "Segoe UI"
+                    FontSize = "13"
+                    BorderBrush = "#2C6C74"
+                    FontWeight = "Bold"
+                    Background = "#D9D9D9" 
+                    Click="ClickBtnSaveChanges"
+                    Visibility="Hidden"
             />
 
             <DataGrid x:Name="dgIngredientInventory" 
-                      Margin="60,133,60,40"
+                      Margin="60,133,60,62"
                       Background="#7ea5a4"
                       AutoGenerateColumns="False"
                       RowHeaderWidth="0"
@@ -97,7 +128,9 @@
                       RowHeight="30"
                       GridLinesVisibility="None"
                       BorderThickness="0"
-                      IsReadOnly="True">
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      CellEditEnding="dgIngredientInventory_CellEditEnding">
                 <DataGrid.Resources>
                     <Style TargetType="DataGridCell">
                         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -166,11 +199,43 @@
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Clave" Binding="{Binding KeyIngredient}" Width="100" />
-                    <DataGridTextColumn Header="Nombre" Binding="{Binding NameIngredient}"  Width="120"/>
-                    <DataGridTextColumn Header="Cantidad" Binding="{Binding Quantity}" Width="130"/>
-                    <DataGridTextColumn Header="Medida" Binding="{Binding Measurement}" Width="130"/>
-                    <DataGridTextColumn Header="Actualización" Binding="{Binding Update}" Width="181"/>
+                    <DataGridTextColumn x:Name="dgtKeyIngredient" Header="Clave" 
+                        Binding="{Binding KeyIngredient}" 
+                        Width="100" />
+                    <DataGridTextColumn x:Name="dgtNameIngredient" 
+                        Header="Nombre" 
+                        Binding="{Binding NameIngredient}"  
+                        Width="120"/>
+                    <DataGridTextColumn x:Name="dgtQuantityIngredient" 
+                        Header="Cantidad" 
+                        Binding="{Binding Quantity}" 
+                        Width="130"/>
+
+                    <DataGridTemplateColumn x:Name="dgtTypeMeasurementIngredient" Header="Medida" Width="130">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Measurement}" Style="{StaticResource TextCellStyle}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ComboBox SelectedItem="{Binding Measurement, Mode=TwoWay}" Style="{StaticResource ComboBoxCellStyle}" ItemsSource="{Binding DataContext.MeasurementOptions, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn x:Name="dgtUpdateIngredient" Header="Actualización" Width="181">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ReplenishmentDate, StringFormat=\{0:dd/MM/yyyy\}}" Style="{StaticResource TextCellStyle}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <DatePicker SelectedDate="{Binding ReplenishmentDate, Mode=TwoWay}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

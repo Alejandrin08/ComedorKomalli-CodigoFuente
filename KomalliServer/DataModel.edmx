@@ -35,18 +35,6 @@ warning 6002: The table/view 'komallidb.dbo.Employee_FoodOrder' does not have a 
           <Property Name="NoPersonalEmployee" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="IDFoodOrderFoodOrder" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'komallidb.dbo.Employee_Ingredient' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="Employee_Ingredient">
-          <Key>
-            <PropertyRef Name="NoPersonalEmployee" />
-            <PropertyRef Name="KeyIngredientIngredient" />
-            <PropertyRef Name="ReplenishmentDate" />
-          </Key>
-          <Property Name="NoPersonalEmployee" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="KeyIngredientIngredient" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="ReplenishmentDate" Type="date" Nullable="false" />
-        </EntityType>
         <EntityType Name="FoodOrder">
           <Key>
             <PropertyRef Name="IDFoodOrder" />
@@ -55,8 +43,8 @@ warning 6002: The table/view 'komallidb.dbo.Employee_Ingredient' does not have a
           <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="ClientName" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
-          <Property Name="Enrollment" Type="varchar" MaxLength="8" />
           <Property Name="Total" Type="int" Nullable="false" />
+          <Property Name="NumberDishes" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'komallidb.dbo.FoodOrder_MenuCard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -95,6 +83,7 @@ warning 6002: The table/view 'komallidb.dbo.FoodOrder_SetMenu' does not have a p
           <Property Name="Quantity" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Measurement" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Barcode" Type="varchar" MaxLength="13" />
+          <Property Name="ReplenishmentDate" Type="date" />
         </EntityType>
         <EntityType Name="Logbook">
           <Key>
@@ -157,30 +146,6 @@ warning 6002: The table/view 'komallidb.dbo.FoodOrder_SetMenu' does not have a p
             </Principal>
             <Dependent Role="Employee_FoodOrder">
               <PropertyRef Name="IDFoodOrderFoodOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Ingredient_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="Employee_Ingredient" Type="Self.Employee_Ingredient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="NoPersonal" />
-            </Principal>
-            <Dependent Role="Employee_Ingredient">
-              <PropertyRef Name="NoPersonalEmployee" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Ingredient_Ingredient">
-          <End Role="Ingredient" Type="Self.Ingredient" Multiplicity="1" />
-          <End Role="Employee_Ingredient" Type="Self.Employee_Ingredient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ingredient">
-              <PropertyRef Name="KeyIngredient" />
-            </Principal>
-            <Dependent Role="Employee_Ingredient">
-              <PropertyRef Name="KeyIngredientIngredient" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -273,13 +238,6 @@ warning 6002: The table/view 'komallidb.dbo.FoodOrder_SetMenu' does not have a p
     [Employee_FoodOrder].[IDFoodOrderFoodOrder] AS [IDFoodOrderFoodOrder]
     FROM [dbo].[Employee_FoodOrder] AS [Employee_FoodOrder]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="Employee_Ingredient" EntityType="Self.Employee_Ingredient" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Employee_Ingredient].[NoPersonalEmployee] AS [NoPersonalEmployee], 
-    [Employee_Ingredient].[KeyIngredientIngredient] AS [KeyIngredientIngredient], 
-    [Employee_Ingredient].[ReplenishmentDate] AS [ReplenishmentDate]
-    FROM [dbo].[Employee_Ingredient] AS [Employee_Ingredient]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="FoodOrder_MenuCard" EntityType="Self.FoodOrder_MenuCard" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [FoodOrder_MenuCard].[IDFoodOrderFoodOrder] AS [IDFoodOrderFoodOrder], 
@@ -303,14 +261,6 @@ warning 6002: The table/view 'komallidb.dbo.FoodOrder_SetMenu' does not have a p
           <AssociationSet Name="FK_Employee_FoodOrder_FoodOrder" Association="Self.FK_Employee_FoodOrder_FoodOrder">
             <End Role="FoodOrder" EntitySet="FoodOrder" />
             <End Role="Employee_FoodOrder" EntitySet="Employee_FoodOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Ingredient_Employee" Association="Self.FK_Employee_Ingredient_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Employee_Ingredient" EntitySet="Employee_Ingredient" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Ingredient_Ingredient" Association="Self.FK_Employee_Ingredient_Ingredient">
-            <End Role="Ingredient" EntitySet="Ingredient" />
-            <End Role="Employee_Ingredient" EntitySet="Employee_Ingredient" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_Logbook" Association="Self.FK_Employee_Logbook">
             <End Role="Employee" EntitySet="Employee" />
@@ -341,278 +291,45 @@ warning 6002: The table/view 'komallidb.dbo.FoodOrder_SetMenu' does not have a p
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="komallidbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Employee">
-          <Key>
-            <PropertyRef Name="NoPersonal" />
-          </Key>
-          <Property Name="NoPersonal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UserEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Employee_Ingredient" Relationship="Self.FK_Employee_Ingredient_Employee" FromRole="Employee" ToRole="Employee_Ingredient" />
-          <NavigationProperty Name="Logbook" Relationship="Self.FK_Employee_Logbook" FromRole="Employee" ToRole="Logbook" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Employee" FromRole="Employee" ToRole="User" />
-          <NavigationProperty Name="FoodOrder" Relationship="Self.Employee_FoodOrder" FromRole="Employee" ToRole="FoodOrder" />
-        </EntityType>
-        <EntityType Name="FoodOrder">
-          <Key>
-            <PropertyRef Name="IDFoodOrder" />
-          </Key>
-          <Property Name="IDFoodOrder" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ClientName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Enrollment" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="Total" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FoodOrder_MenuCard" Relationship="Self.FK_FoodOrder_MenuCard_FoodOrder" FromRole="FoodOrder" ToRole="FoodOrder_MenuCard" />
-          <NavigationProperty Name="FoodOrder_SetMenu" Relationship="Self.FK_FoodOrder_SetMenu_FoodOrder" FromRole="FoodOrder" ToRole="FoodOrder_SetMenu" />
-          <NavigationProperty Name="Employee" Relationship="Self.Employee_FoodOrder" FromRole="FoodOrder" ToRole="Employee" />
-        </EntityType>
-        <EntityType Name="Ingredient">
-          <Key>
-            <PropertyRef Name="KeyIngredient" />
-          </Key>
-          <Property Name="KeyIngredient" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NameIngredient" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Quantity" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Measurement" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Barcode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Employee_Ingredient" Relationship="Self.FK_Employee_Ingredient_Ingredient" FromRole="Ingredient" ToRole="Employee_Ingredient" />
-        </EntityType>
-        <EntityType Name="Logbook">
-          <Key>
-            <PropertyRef Name="IDCommentary" />
-          </Key>
-          <Property Name="IDCommentary" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Commentary" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NoPersonalEmployee" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Logbook" FromRole="Logbook" ToRole="Employee" />
-        </EntityType>
-        <EntityType Name="MenuCard">
-          <Key>
-            <PropertyRef Name="KeyCard" />
-          </Key>
-          <Property Name="KeyCard" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NameFood" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Section" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Price" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FoodOrder_MenuCard" Relationship="Self.FK_FoodOrder_MenuCard_MenuCard" FromRole="MenuCard" ToRole="FoodOrder_MenuCard" />
-        </EntityType>
-        <EntityType Name="SetMenu">
-          <Key>
-            <PropertyRef Name="KeySetMenu" />
-          </Key>
-          <Property Name="KeySetMenu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Starter" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="MainFood" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SideDish" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Salad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Drink" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StudentPrice" Type="Int32" Nullable="false" />
-          <Property Name="GeneralPrice" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FoodOrder_SetMenu" Relationship="Self.FK_FoodOrder_SetMenu_SetMenu" FromRole="SetMenu" ToRole="FoodOrder_SetMenu" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Email" />
-          </Key>
-          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Available" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_User_Employee" FromRole="User" ToRole="Employee" />
-        </EntityType>
-        <EntityType Name="Employee_Ingredient">
-          <Key>
-            <PropertyRef Name="NoPersonalEmployee" />
-            <PropertyRef Name="KeyIngredientIngredient" />
-            <PropertyRef Name="ReplenishmentDate" />
-          </Key>
-          <Property Name="NoPersonalEmployee" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="KeyIngredientIngredient" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ReplenishmentDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Ingredient_Employee" FromRole="Employee_Ingredient" ToRole="Employee" />
-          <NavigationProperty Name="Ingredient" Relationship="Self.FK_Employee_Ingredient_Ingredient" FromRole="Employee_Ingredient" ToRole="Ingredient" />
-        </EntityType>
-        <EntityType Name="FoodOrder_MenuCard">
-          <Key>
-            <PropertyRef Name="IDFoodOrderFoodOrder" />
-            <PropertyRef Name="KeyCardMenuCard" />
-            <PropertyRef Name="Quantity" />
-            <PropertyRef Name="SellingPrice" />
-          </Key>
-          <Property Name="IDFoodOrderFoodOrder" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="KeyCardMenuCard" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="SellingPrice" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FoodOrder" Relationship="Self.FK_FoodOrder_MenuCard_FoodOrder" FromRole="FoodOrder_MenuCard" ToRole="FoodOrder" />
-          <NavigationProperty Name="MenuCard" Relationship="Self.FK_FoodOrder_MenuCard_MenuCard" FromRole="FoodOrder_MenuCard" ToRole="MenuCard" />
-        </EntityType>
-        <EntityType Name="FoodOrder_SetMenu">
-          <Key>
-            <PropertyRef Name="IDFoodOrderFoodOrder" />
-            <PropertyRef Name="KeySetMenuSetMenu" />
-            <PropertyRef Name="Quantity" />
-            <PropertyRef Name="SellingPrice" />
-          </Key>
-          <Property Name="IDFoodOrderFoodOrder" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="KeySetMenuSetMenu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="SellingPrice" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FoodOrder" Relationship="Self.FK_FoodOrder_SetMenu_FoodOrder" FromRole="FoodOrder_SetMenu" ToRole="FoodOrder" />
-          <NavigationProperty Name="SetMenu" Relationship="Self.FK_FoodOrder_SetMenu_SetMenu" FromRole="FoodOrder_SetMenu" ToRole="SetMenu" />
-        </EntityType>
-        <Association Name="FK_Employee_Ingredient_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="Employee_Ingredient" Type="Self.Employee_Ingredient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="NoPersonal" />
-            </Principal>
-            <Dependent Role="Employee_Ingredient">
-              <PropertyRef Name="NoPersonalEmployee" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Logbook">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="Logbook" Type="Self.Logbook" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="NoPersonal" />
-            </Principal>
-            <Dependent Role="Logbook">
-              <PropertyRef Name="NoPersonalEmployee" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_Employee">
-          <End Role="User" Type="Self.User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Email" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="UserEmail" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FoodOrder_MenuCard_FoodOrder">
-          <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="1" />
-          <End Role="FoodOrder_MenuCard" Type="Self.FoodOrder_MenuCard" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FoodOrder">
-              <PropertyRef Name="IDFoodOrder" />
-            </Principal>
-            <Dependent Role="FoodOrder_MenuCard">
-              <PropertyRef Name="IDFoodOrderFoodOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FoodOrder_SetMenu_FoodOrder">
-          <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="1" />
-          <End Role="FoodOrder_SetMenu" Type="Self.FoodOrder_SetMenu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FoodOrder">
-              <PropertyRef Name="IDFoodOrder" />
-            </Principal>
-            <Dependent Role="FoodOrder_SetMenu">
-              <PropertyRef Name="IDFoodOrderFoodOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Ingredient_Ingredient">
-          <End Role="Ingredient" Type="Self.Ingredient" Multiplicity="1" />
-          <End Role="Employee_Ingredient" Type="Self.Employee_Ingredient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ingredient">
-              <PropertyRef Name="KeyIngredient" />
-            </Principal>
-            <Dependent Role="Employee_Ingredient">
-              <PropertyRef Name="KeyIngredientIngredient" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FoodOrder_MenuCard_MenuCard">
-          <End Role="MenuCard" Type="Self.MenuCard" Multiplicity="1" />
-          <End Role="FoodOrder_MenuCard" Type="Self.FoodOrder_MenuCard" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MenuCard">
-              <PropertyRef Name="KeyCard" />
-            </Principal>
-            <Dependent Role="FoodOrder_MenuCard">
-              <PropertyRef Name="KeyCardMenuCard" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FoodOrder_SetMenu_SetMenu">
-          <End Role="SetMenu" Type="Self.SetMenu" Multiplicity="1" />
-          <End Role="FoodOrder_SetMenu" Type="Self.FoodOrder_SetMenu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SetMenu">
-              <PropertyRef Name="KeySetMenu" />
-            </Principal>
-            <Dependent Role="FoodOrder_SetMenu">
-              <PropertyRef Name="KeySetMenuSetMenu" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Employee_FoodOrder">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="KomalliEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Employee" EntityType="Self.Employee" />
-          <EntitySet Name="FoodOrder" EntityType="Self.FoodOrder" />
-          <EntitySet Name="Ingredient" EntityType="Self.Ingredient" />
-          <EntitySet Name="Logbook" EntityType="Self.Logbook" />
-          <EntitySet Name="MenuCard" EntityType="Self.MenuCard" />
-          <EntitySet Name="SetMenu" EntityType="Self.SetMenu" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="Employee_Ingredient" EntityType="Self.Employee_Ingredient" />
-          <EntitySet Name="FoodOrder_MenuCard" EntityType="Self.FoodOrder_MenuCard" />
-          <EntitySet Name="FoodOrder_SetMenu" EntityType="Self.FoodOrder_SetMenu" />
-          <AssociationSet Name="FK_Employee_Ingredient_Employee" Association="Self.FK_Employee_Ingredient_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Employee_Ingredient" EntitySet="Employee_Ingredient" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Logbook" Association="Self.FK_Employee_Logbook">
+          <EntitySet Name="CashCut" EntityType="komallidbModel.CashCut" />
+          <EntitySet Name="Employee" EntityType="komallidbModel.Employee" />
+          <EntitySet Name="FoodOrder" EntityType="komallidbModel.FoodOrder" />
+          <EntitySet Name="Ingredient" EntityType="komallidbModel.Ingredient" />
+          <EntitySet Name="Logbook" EntityType="komallidbModel.Logbook" />
+          <EntitySet Name="MenuCard" EntityType="komallidbModel.MenuCard" />
+          <EntitySet Name="SetMenu" EntityType="komallidbModel.SetMenu" />
+          <EntitySet Name="User" EntityType="komallidbModel.User" />
+          <EntitySet Name="FoodOrder_MenuCard" EntityType="komallidbModel.FoodOrder_MenuCard" />
+          <EntitySet Name="FoodOrder_SetMenu" EntityType="komallidbModel.FoodOrder_SetMenu" />
+          <AssociationSet Name="FK_Employee_Logbook" Association="komallidbModel.FK_Employee_Logbook">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Logbook" EntitySet="Logbook" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Employee" Association="Self.FK_User_Employee">
+          <AssociationSet Name="FK_User_Employee" Association="komallidbModel.FK_User_Employee">
             <End Role="User" EntitySet="User" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK_FoodOrder_MenuCard_FoodOrder" Association="Self.FK_FoodOrder_MenuCard_FoodOrder">
+          <AssociationSet Name="FK_FoodOrder_MenuCard_FoodOrder" Association="komallidbModel.FK_FoodOrder_MenuCard_FoodOrder">
             <End Role="FoodOrder" EntitySet="FoodOrder" />
             <End Role="FoodOrder_MenuCard" EntitySet="FoodOrder_MenuCard" />
           </AssociationSet>
-          <AssociationSet Name="FK_FoodOrder_SetMenu_FoodOrder" Association="Self.FK_FoodOrder_SetMenu_FoodOrder">
+          <AssociationSet Name="FK_FoodOrder_SetMenu_FoodOrder" Association="komallidbModel.FK_FoodOrder_SetMenu_FoodOrder">
             <End Role="FoodOrder" EntitySet="FoodOrder" />
             <End Role="FoodOrder_SetMenu" EntitySet="FoodOrder_SetMenu" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_Ingredient_Ingredient" Association="Self.FK_Employee_Ingredient_Ingredient">
-            <End Role="Ingredient" EntitySet="Ingredient" />
-            <End Role="Employee_Ingredient" EntitySet="Employee_Ingredient" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FoodOrder_MenuCard_MenuCard" Association="Self.FK_FoodOrder_MenuCard_MenuCard">
+          <AssociationSet Name="FK_FoodOrder_MenuCard_MenuCard" Association="komallidbModel.FK_FoodOrder_MenuCard_MenuCard">
             <End Role="MenuCard" EntitySet="MenuCard" />
             <End Role="FoodOrder_MenuCard" EntitySet="FoodOrder_MenuCard" />
           </AssociationSet>
-          <AssociationSet Name="FK_FoodOrder_SetMenu_SetMenu" Association="Self.FK_FoodOrder_SetMenu_SetMenu">
+          <AssociationSet Name="FK_FoodOrder_SetMenu_SetMenu" Association="komallidbModel.FK_FoodOrder_SetMenu_SetMenu">
             <End Role="SetMenu" EntitySet="SetMenu" />
             <End Role="FoodOrder_SetMenu" EntitySet="FoodOrder_SetMenu" />
           </AssociationSet>
-          <AssociationSet Name="Employee_FoodOrder" Association="Self.Employee_FoodOrder">
+          <AssociationSet Name="Employee_FoodOrder" Association="komallidbModel.Employee_FoodOrder">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="FoodOrder" EntitySet="FoodOrder" />
           </AssociationSet>
-          <EntitySet Name="CashCut" EntityType="komallidbModel.CashCut" />
         </EntityContainer>
         <EntityType Name="CashCut">
           <Key>
@@ -625,126 +342,199 @@ warning 6002: The table/view 'komallidb.dbo.FoodOrder_SetMenu' does not have a p
           <Property Name="total_exits" Type="Int32" Nullable="false" />
           <Property Name="balance" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="NoPersonal" />
+          </Key>
+          <Property Name="NoPersonal" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Logbook" Relationship="komallidbModel.FK_Employee_Logbook" FromRole="Employee" ToRole="Logbook" />
+          <NavigationProperty Name="User" Relationship="komallidbModel.FK_User_Employee" FromRole="Employee" ToRole="User" />
+          <NavigationProperty Name="FoodOrder" Relationship="komallidbModel.Employee_FoodOrder" FromRole="Employee" ToRole="FoodOrder" />
+        </EntityType>
+        <EntityType Name="FoodOrder">
+          <Key>
+            <PropertyRef Name="IDFoodOrder" />
+          </Key>
+          <Property Name="IDFoodOrder" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Total" Type="Int32" Nullable="false" />
+          <Property Name="NumberDishes" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodOrder_MenuCard" Relationship="komallidbModel.FK_FoodOrder_MenuCard_FoodOrder" FromRole="FoodOrder" ToRole="FoodOrder_MenuCard" />
+          <NavigationProperty Name="FoodOrder_SetMenu" Relationship="komallidbModel.FK_FoodOrder_SetMenu_FoodOrder" FromRole="FoodOrder" ToRole="FoodOrder_SetMenu" />
+          <NavigationProperty Name="Employee" Relationship="komallidbModel.Employee_FoodOrder" FromRole="FoodOrder" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Ingredient">
+          <Key>
+            <PropertyRef Name="KeyIngredient" />
+          </Key>
+          <Property Name="KeyIngredient" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NameIngredient" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Measurement" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Barcode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="ReplenishmentDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Logbook">
+          <Key>
+            <PropertyRef Name="IDCommentary" />
+          </Key>
+          <Property Name="IDCommentary" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Commentary" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NoPersonalEmployee" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="komallidbModel.FK_Employee_Logbook" FromRole="Logbook" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="MenuCard">
+          <Key>
+            <PropertyRef Name="KeyCard" />
+          </Key>
+          <Property Name="KeyCard" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NameFood" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Section" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodOrder_MenuCard" Relationship="komallidbModel.FK_FoodOrder_MenuCard_MenuCard" FromRole="MenuCard" ToRole="FoodOrder_MenuCard" />
+        </EntityType>
+        <EntityType Name="SetMenu">
+          <Key>
+            <PropertyRef Name="KeySetMenu" />
+          </Key>
+          <Property Name="KeySetMenu" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Starter" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MainFood" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SideDish" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Salad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Drink" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StudentPrice" Type="Int32" Nullable="false" />
+          <Property Name="GeneralPrice" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodOrder_SetMenu" Relationship="komallidbModel.FK_FoodOrder_SetMenu_SetMenu" FromRole="SetMenu" ToRole="FoodOrder_SetMenu" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="61" FixedLength="false" Unicode="false" />
+          <Property Name="Available" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="komallidbModel.FK_User_Employee" FromRole="User" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="FoodOrder_MenuCard">
+          <Key>
+            <PropertyRef Name="IDFoodOrderFoodOrder" />
+            <PropertyRef Name="KeyCardMenuCard" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="SellingPrice" />
+          </Key>
+          <Property Name="IDFoodOrderFoodOrder" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="KeyCardMenuCard" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="SellingPrice" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodOrder" Relationship="komallidbModel.FK_FoodOrder_MenuCard_FoodOrder" FromRole="FoodOrder_MenuCard" ToRole="FoodOrder" />
+          <NavigationProperty Name="MenuCard" Relationship="komallidbModel.FK_FoodOrder_MenuCard_MenuCard" FromRole="FoodOrder_MenuCard" ToRole="MenuCard" />
+        </EntityType>
+        <EntityType Name="FoodOrder_SetMenu">
+          <Key>
+            <PropertyRef Name="IDFoodOrderFoodOrder" />
+            <PropertyRef Name="KeySetMenuSetMenu" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="SellingPrice" />
+          </Key>
+          <Property Name="IDFoodOrderFoodOrder" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="KeySetMenuSetMenu" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="SellingPrice" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodOrder" Relationship="komallidbModel.FK_FoodOrder_SetMenu_FoodOrder" FromRole="FoodOrder_SetMenu" ToRole="FoodOrder" />
+          <NavigationProperty Name="SetMenu" Relationship="komallidbModel.FK_FoodOrder_SetMenu_SetMenu" FromRole="FoodOrder_SetMenu" ToRole="SetMenu" />
+        </EntityType>
+        <Association Name="FK_Employee_Logbook">
+          <End Type="komallidbModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="komallidbModel.Logbook" Role="Logbook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="NoPersonal" />
+            </Principal>
+            <Dependent Role="Logbook">
+              <PropertyRef Name="NoPersonalEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Employee">
+          <End Type="komallidbModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="komallidbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodOrder_MenuCard_FoodOrder">
+          <End Type="komallidbModel.FoodOrder" Role="FoodOrder" Multiplicity="1" />
+          <End Type="komallidbModel.FoodOrder_MenuCard" Role="FoodOrder_MenuCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodOrder">
+              <PropertyRef Name="IDFoodOrder" />
+            </Principal>
+            <Dependent Role="FoodOrder_MenuCard">
+              <PropertyRef Name="IDFoodOrderFoodOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodOrder_SetMenu_FoodOrder">
+          <End Type="komallidbModel.FoodOrder" Role="FoodOrder" Multiplicity="1" />
+          <End Type="komallidbModel.FoodOrder_SetMenu" Role="FoodOrder_SetMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodOrder">
+              <PropertyRef Name="IDFoodOrder" />
+            </Principal>
+            <Dependent Role="FoodOrder_SetMenu">
+              <PropertyRef Name="IDFoodOrderFoodOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodOrder_MenuCard_MenuCard">
+          <End Type="komallidbModel.MenuCard" Role="MenuCard" Multiplicity="1" />
+          <End Type="komallidbModel.FoodOrder_MenuCard" Role="FoodOrder_MenuCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuCard">
+              <PropertyRef Name="KeyCard" />
+            </Principal>
+            <Dependent Role="FoodOrder_MenuCard">
+              <PropertyRef Name="KeyCardMenuCard" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodOrder_SetMenu_SetMenu">
+          <End Type="komallidbModel.SetMenu" Role="SetMenu" Multiplicity="1" />
+          <End Type="komallidbModel.FoodOrder_SetMenu" Role="FoodOrder_SetMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SetMenu">
+              <PropertyRef Name="KeySetMenu" />
+            </Principal>
+            <Dependent Role="FoodOrder_SetMenu">
+              <PropertyRef Name="KeySetMenuSetMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Employee_FoodOrder">
+          <End Type="komallidbModel.Employee" Role="Employee" Multiplicity="*" />
+          <End Type="komallidbModel.FoodOrder" Role="FoodOrder" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="komallidbModelStoreContainer" CdmEntityContainer="KomalliEntities">
-          <EntitySetMapping Name="Employee">
-            <EntityTypeMapping TypeName="komallidbModel.Employee">
-              <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="NoPersonal" ColumnName="NoPersonal" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FoodOrder">
-            <EntityTypeMapping TypeName="komallidbModel.FoodOrder">
-              <MappingFragment StoreEntitySet="FoodOrder">
-                <ScalarProperty Name="IDFoodOrder" ColumnName="IDFoodOrder" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Enrollment" ColumnName="Enrollment" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Ingredient">
-            <EntityTypeMapping TypeName="komallidbModel.Ingredient">
-              <MappingFragment StoreEntitySet="Ingredient">
-                <ScalarProperty Name="KeyIngredient" ColumnName="KeyIngredient" />
-                <ScalarProperty Name="NameIngredient" ColumnName="NameIngredient" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Measurement" ColumnName="Measurement" />
-                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Logbook">
-            <EntityTypeMapping TypeName="komallidbModel.Logbook">
-              <MappingFragment StoreEntitySet="Logbook">
-                <ScalarProperty Name="IDCommentary" ColumnName="IDCommentary" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Commentary" ColumnName="Commentary" />
-                <ScalarProperty Name="NoPersonalEmployee" ColumnName="NoPersonalEmployee" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MenuCard">
-            <EntityTypeMapping TypeName="komallidbModel.MenuCard">
-              <MappingFragment StoreEntitySet="MenuCard">
-                <ScalarProperty Name="KeyCard" ColumnName="KeyCard" />
-                <ScalarProperty Name="NameFood" ColumnName="NameFood" />
-                <ScalarProperty Name="Section" ColumnName="Section" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SetMenu">
-            <EntityTypeMapping TypeName="komallidbModel.SetMenu">
-              <MappingFragment StoreEntitySet="SetMenu">
-                <ScalarProperty Name="KeySetMenu" ColumnName="KeySetMenu" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Starter" ColumnName="Starter" />
-                <ScalarProperty Name="MainFood" ColumnName="MainFood" />
-                <ScalarProperty Name="SideDish" ColumnName="SideDish" />
-                <ScalarProperty Name="Salad" ColumnName="Salad" />
-                <ScalarProperty Name="Drink" ColumnName="Drink" />
-                <ScalarProperty Name="StudentPrice" ColumnName="StudentPrice" />
-                <ScalarProperty Name="GeneralPrice" ColumnName="GeneralPrice" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="komallidbModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Available" ColumnName="Available" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employee_Ingredient">
-            <EntityTypeMapping TypeName="komallidbModel.Employee_Ingredient">
-              <MappingFragment StoreEntitySet="Employee_Ingredient">
-                <ScalarProperty Name="NoPersonalEmployee" ColumnName="NoPersonalEmployee" />
-                <ScalarProperty Name="KeyIngredientIngredient" ColumnName="KeyIngredientIngredient" />
-                <ScalarProperty Name="ReplenishmentDate" ColumnName="ReplenishmentDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FoodOrder_MenuCard">
-            <EntityTypeMapping TypeName="komallidbModel.FoodOrder_MenuCard">
-              <MappingFragment StoreEntitySet="FoodOrder_MenuCard">
-                <ScalarProperty Name="IDFoodOrderFoodOrder" ColumnName="IDFoodOrderFoodOrder" />
-                <ScalarProperty Name="KeyCardMenuCard" ColumnName="KeyCardMenuCard" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FoodOrder_SetMenu">
-            <EntityTypeMapping TypeName="komallidbModel.FoodOrder_SetMenu">
-              <MappingFragment StoreEntitySet="FoodOrder_SetMenu">
-                <ScalarProperty Name="IDFoodOrderFoodOrder" ColumnName="IDFoodOrderFoodOrder" />
-                <ScalarProperty Name="KeySetMenuSetMenu" ColumnName="KeySetMenuSetMenu" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="Employee_FoodOrder" TypeName="komallidbModel.Employee_FoodOrder" StoreEntitySet="Employee_FoodOrder">
-            <EndProperty Name="Employee">
-              <ScalarProperty Name="NoPersonal" ColumnName="NoPersonalEmployee" />
-            </EndProperty>
-            <EndProperty Name="FoodOrder">
-              <ScalarProperty Name="IDFoodOrder" ColumnName="IDFoodOrderFoodOrder" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="CashCut">
             <EntityTypeMapping TypeName="komallidbModel.CashCut">
               <MappingFragment StoreEntitySet="CashCut">
@@ -757,6 +547,112 @@ warning 6002: The table/view 'komallidb.dbo.FoodOrder_SetMenu' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="komallidbModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="NoPersonal" ColumnName="NoPersonal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodOrder">
+            <EntityTypeMapping TypeName="komallidbModel.FoodOrder">
+              <MappingFragment StoreEntitySet="FoodOrder">
+                <ScalarProperty Name="NumberDishes" ColumnName="NumberDishes" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IDFoodOrder" ColumnName="IDFoodOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingredient">
+            <EntityTypeMapping TypeName="komallidbModel.Ingredient">
+              <MappingFragment StoreEntitySet="Ingredient">
+                <ScalarProperty Name="ReplenishmentDate" ColumnName="ReplenishmentDate" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Measurement" ColumnName="Measurement" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="NameIngredient" ColumnName="NameIngredient" />
+                <ScalarProperty Name="KeyIngredient" ColumnName="KeyIngredient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logbook">
+            <EntityTypeMapping TypeName="komallidbModel.Logbook">
+              <MappingFragment StoreEntitySet="Logbook">
+                <ScalarProperty Name="NoPersonalEmployee" ColumnName="NoPersonalEmployee" />
+                <ScalarProperty Name="Commentary" ColumnName="Commentary" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IDCommentary" ColumnName="IDCommentary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuCard">
+            <EntityTypeMapping TypeName="komallidbModel.MenuCard">
+              <MappingFragment StoreEntitySet="MenuCard">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="NameFood" ColumnName="NameFood" />
+                <ScalarProperty Name="KeyCard" ColumnName="KeyCard" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SetMenu">
+            <EntityTypeMapping TypeName="komallidbModel.SetMenu">
+              <MappingFragment StoreEntitySet="SetMenu">
+                <ScalarProperty Name="GeneralPrice" ColumnName="GeneralPrice" />
+                <ScalarProperty Name="StudentPrice" ColumnName="StudentPrice" />
+                <ScalarProperty Name="Drink" ColumnName="Drink" />
+                <ScalarProperty Name="Salad" ColumnName="Salad" />
+                <ScalarProperty Name="SideDish" ColumnName="SideDish" />
+                <ScalarProperty Name="MainFood" ColumnName="MainFood" />
+                <ScalarProperty Name="Starter" ColumnName="Starter" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="KeySetMenu" ColumnName="KeySetMenu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="komallidbModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodOrder_MenuCard">
+            <EntityTypeMapping TypeName="komallidbModel.FoodOrder_MenuCard">
+              <MappingFragment StoreEntitySet="FoodOrder_MenuCard">
+                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="KeyCardMenuCard" ColumnName="KeyCardMenuCard" />
+                <ScalarProperty Name="IDFoodOrderFoodOrder" ColumnName="IDFoodOrderFoodOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodOrder_SetMenu">
+            <EntityTypeMapping TypeName="komallidbModel.FoodOrder_SetMenu">
+              <MappingFragment StoreEntitySet="FoodOrder_SetMenu">
+                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="KeySetMenuSetMenu" ColumnName="KeySetMenuSetMenu" />
+                <ScalarProperty Name="IDFoodOrderFoodOrder" ColumnName="IDFoodOrderFoodOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Employee_FoodOrder" TypeName="komallidbModel.Employee_FoodOrder" StoreEntitySet="Employee_FoodOrder">
+            <EndProperty Name="FoodOrder">
+              <ScalarProperty Name="IDFoodOrder" ColumnName="IDFoodOrderFoodOrder" />
+            </EndProperty>
+            <EndProperty Name="Employee">
+              <ScalarProperty Name="NoPersonal" ColumnName="NoPersonalEmployee" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

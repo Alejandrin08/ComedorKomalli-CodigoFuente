@@ -88,7 +88,6 @@ namespace KomalliEmployee.Views.Pages
             {
                 ingredient.BarCode = txbBarCode.Text;
             }
-            ingredient.BarCode = txbBarCode.Text;
             ingredient.KeyIngredient = GenerateKey(txbNameIngredient.Text);
             ComboBoxItem selectedItem = (ComboBoxItem)cbxTipeQuota.SelectedItem;
             string selectedContent = selectedItem.Content.ToString();
@@ -128,10 +127,10 @@ namespace KomalliEmployee.Views.Pages
             IngredientController ingredientControler = new IngredientController();
             switch (ingredientControler.IsNameIngredientExisting(nameIngredient))
             {
-                case 0:
+                case 1:
                     App.ShowMessageWarning("Ya existe un ingrediente con ese nombre dentro del sistema verifica tus datos", "Ingrediente existente");
                     break;
-                case 1:
+                case 0:
                     result = false;
                     break;
                 case -1:

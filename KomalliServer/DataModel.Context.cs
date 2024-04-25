@@ -25,6 +25,7 @@ namespace KomalliServer
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CashCut> CashCut { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<FoodOrder> FoodOrder { get; set; }
         public virtual DbSet<Ingredient> Ingredient { get; set; }
@@ -32,9 +33,7 @@ namespace KomalliServer
         public virtual DbSet<MenuCard> MenuCard { get; set; }
         public virtual DbSet<SetMenu> SetMenu { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<Employee_Ingredient> Employee_Ingredient { get; set; }
         public virtual DbSet<FoodOrder_MenuCard> FoodOrder_MenuCard { get; set; }
         public virtual DbSet<FoodOrder_SetMenu> FoodOrder_SetMenu { get; set; }
-        public virtual DbSet<CashCut> CashCut { get; set; }
     }
 }

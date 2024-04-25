@@ -17,7 +17,6 @@ namespace KomalliServer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
         {
-            this.Employee_Ingredient = new HashSet<Employee_Ingredient>();
             this.Logbook = new HashSet<Logbook>();
             this.FoodOrder = new HashSet<FoodOrder>();
         }
@@ -27,8 +26,6 @@ namespace KomalliServer
         public string Name { get; set; }
         public string UserEmail { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee_Ingredient> Employee_Ingredient { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Logbook> Logbook { get; set; }
         public virtual User User { get; set; }

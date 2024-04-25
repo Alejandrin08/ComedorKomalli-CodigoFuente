@@ -70,14 +70,16 @@ namespace KomalliEmployee.Controller
                         ingredient.NameIngredient,
                         ingredient.Quantity,
                         ingredient.Measurement,
-                        ingredient.Barcode
+                        ingredient.Barcode,
+                        ingredient.ReplenishmentDate
                     }).ToList() 
                     .Select(ingredient => new IngredientModel {
                         KeyIngredient = ingredient.KeyIngredient,
                         NameIngredient = ingredient.NameIngredient,
                         Quantity = ingredient.Quantity,
                         Measurement = (TypeQuantity)Enum.Parse(typeof(TypeQuantity), ingredient.Measurement),
-                        BarCode = ingredient.Barcode
+                        BarCode = ingredient.Barcode,
+                        ReplenishmentDate = ingredient.ReplenishmentDate
                     }).ToList();
 
                     ingredients = query;
@@ -127,7 +129,7 @@ namespace KomalliEmployee.Controller
             try {
                 using (var context = new KomalliEntities()) {
                     var query = context.Ingredient.Where(ingredient => ingredient.NameIngredient == nameIngredient).FirstOrDefault();
-                    if (query == null) {
+                    if (query != null) {
                         result = 1;
                     }
                 }
@@ -135,6 +137,43 @@ namespace KomalliEmployee.Controller
             catch (EntityException ex) {
                 result = -1;
                 LoggerManager.Instance.LogError("Error al validar la existencia del nombre de un ingrediente", ex);
+            }
+            return result;
+        }
+
+        public int ModifyIngredients(List<IngredientModel> ingredients)
+        {
+            int result = 0;
+            DateTime replenishmentDate = DateTime.Now.Date;
+            try
+            {
+                using (var context = new KomalliEntities())
+                {
+                    foreach (var ingredient in ingredients)
+                    {
+                        var existingIngredient = context.Ingredient.FirstOrDefault(i => i.KeyIngredient == ingredient.KeyIngredient);
+                        if (existingIngredient != null)
+                        {
+                            existingIngredient.NameIngredient = ingredient.NameIngredient;
+                            existingIngredient.Quantity = ingredient.Quantity;
+                            existingIngredient.Measurement = ingredient.Measurement.ToString();
+                            existingIngredient.Barcode = ingredient.BarCode;
+                            existingIngredient.ReplenishmentDate = replenishmentDate;
+                        }
+                    }
+                    context.SaveChanges();
+                    result = 1;
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                result = -1;
+                LoggerManager.Instance.LogError("Error al actualizar información de ingredientes", ex);
+            }
+            catch (EntityException ex)
+            {
+                result = -1;
+                LoggerManager.Instance.LogError("Error al actualizar información de ingredientes", ex);
             }
             return result;
         }

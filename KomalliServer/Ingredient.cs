@@ -14,19 +14,11 @@ namespace KomalliServer
     
     public partial class Ingredient
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ingredient()
-        {
-            this.Employee_Ingredient = new HashSet<Employee_Ingredient>();
-        }
-    
         public string KeyIngredient { get; set; }
         public string NameIngredient { get; set; }
         public string Quantity { get; set; }
         public string Measurement { get; set; }
         public string Barcode { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee_Ingredient> Employee_Ingredient { get; set; }
+        public Nullable<System.DateTime> ReplenishmentDate { get; set; }
     }
 }
