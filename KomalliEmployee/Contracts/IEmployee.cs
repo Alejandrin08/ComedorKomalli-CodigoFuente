@@ -1,4 +1,5 @@
-﻿using KomalliEmployee.Model.Utilities;
+﻿using KomalliEmployee.Model;
+using KomalliEmployee.Model.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,20 @@ namespace KomalliEmployee.Contracts {
 
         public int ValidateUser(string email, string password);
 
+        public int AddUser(EmployeeModel employeeModel);
+
+        public int AddEmployee(EmployeeModel employeeModel);
+
+        public int ValidateEmail(string email);
+
+        public int ValidatePersonalNumber(string personalNumber);
+
+        public string GetNameUser(string email);
+
+
         public int GetNoPersonalEmployee(string email);
+
+
+        public List<EmployeeModel> ConsultUsers();
     }
 }

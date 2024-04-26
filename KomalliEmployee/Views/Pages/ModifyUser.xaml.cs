@@ -1,7 +1,5 @@
-﻿using KomalliEmployee.Controller;
+﻿using KomalliEmployee.Model.Validations;
 using KomalliEmployee.Model;
-using KomalliEmployee.Model.Utilities;
-using KomalliEmployee.Model.Validations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -17,19 +14,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KomalliEmployee.Controller;
+using KomalliEmployee.Model.Utilities;
 
 namespace KomalliEmployee.Views.Pages {
     /// <summary>
-    /// Lógica de interacción para RegisterUser.xaml
+    /// Lógica de interacción para ModifyUser.xaml
     /// </summary>
-    public partial class RegisterUser : Page {
+    public partial class ModifyUser : Page {
 
         bool EmailValid = false;
         bool PersonalNumberValid = false;
         bool NameValid = false;
         bool RoleValid = false;
-
-        public RegisterUser() {
+        bool AvailabilityValid = false;
+        public ModifyUser() {
             InitializeComponent();
             DataContext = new EmployeeModel();
 
@@ -45,6 +44,8 @@ namespace KomalliEmployee.Views.Pages {
             var roleValidation = new RoleValidationRule();
             RoleValidationRule.ErrorTextBlock = txbRoleValidationMessage;
 
+           // var availabilityValidation = new AvailabilityValidationRule();
+           // AvailabilityValidationRuleErrorTextBlock = txbAvailabilityValidationMessage;
         }
 
         private void TextChangedValidateEmail(object sender, TextChangedEventArgs e) {
@@ -61,8 +62,11 @@ namespace KomalliEmployee.Views.Pages {
             NameValid = ValidateRuleTextBox(txtNameUser, txbNameValidationMessage);
             EnableButton();
         }
-
-
+        
+        private void TextChangedValidateAvailability(object sender, TextChangedEventArgs e) {
+            AvailabilityValid = ValidateRuleTextBox(txtAvailability, txbAvailabilityValidationMessage);
+            EnableButton();
+        }
 
         private void TextChangedValidateRole(object sender, TextChangedEventArgs e) {
             RoleValid = ValidateRuleTextBox(txtRoleUser, txbRoleValidationMessage);
@@ -87,15 +91,15 @@ namespace KomalliEmployee.Views.Pages {
         }
 
         private void EnableButton() {
-            if (EmailValid && NameValid && PersonalNumberValid && RoleValid) {
-                btnRegisterUser.IsEnabled = true;
+            if (EmailValid && NameValid && PersonalNumberValid && RoleValid && AvailabilityValid) {
+                btnModifyUser.IsEnabled = true;
             } else {
-                btnRegisterUser.IsEnabled = false;
+                btnModifyUser.IsEnabled = false;
             }
         }
 
-        private void ClicKRegisterUser(object sender, RoutedEventArgs e) {
-            btnRegisterUser.IsEnabled = false;
+        private void ClicKModifyUser(object sender, RoutedEventArgs e) {
+            btnModifyUser.IsEnabled = false;
             int emailValid = ValidateEmailDuplicity();
             int noPersonalValid = ValidateNoPersonalDuplicity();
             if (emailValid != 0 && noPersonalValid != 0) {
@@ -177,9 +181,9 @@ namespace KomalliEmployee.Views.Pages {
             return result;
         }
 
-        private void KeyDownRegisterUser(object sender, KeyEventArgs e) {
+        private void KeyDownModifyUser(object sender, KeyEventArgs e) {
             if (e.Key == Key.Enter) {
-                ClicKRegisterUser(sender, e);
+                ClicKModifyUser(sender, e);
             }
         }
     }

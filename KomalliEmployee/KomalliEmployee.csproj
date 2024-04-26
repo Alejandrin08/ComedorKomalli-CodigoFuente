@@ -128,6 +128,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataReports.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\ConsultUsers.xaml.cs">
+      <DependentUpon>ConsultUsers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\InventoryReport.xaml.cs">
       <DependentUpon>InventoryReport.xaml</DependentUpon>
     </Compile>
@@ -136,6 +139,9 @@
     </Compile>
     <Compile Include="Views\Pages\Logbook.xaml.cs">
       <DependentUpon>Logbook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ModifyUser.xaml.cs">
+      <DependentUpon>ModifyUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\RegisterIngredient.xaml.cs">
       <DependentUpon>RegisterIngredient.xaml</DependentUpon>
@@ -176,6 +182,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\ConsultUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\InventoryReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -185,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Logbook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ModifyUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -283,6 +297,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Return.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\PointsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\iconSearch.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

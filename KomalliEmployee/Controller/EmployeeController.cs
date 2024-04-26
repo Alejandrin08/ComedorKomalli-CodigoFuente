@@ -2,6 +2,7 @@
 using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
 using KomalliServer;
+using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -104,7 +105,8 @@ namespace KomalliEmployee.Controller {
             int result = 0;
             try {
                 using (var context = new KomalliEntities()) {
-                    var user = new User {
+                    var user = new KomalliServer.User
+                    {
                         Email = employeeModel.Email,
                         Password = BCrypt.Net.BCrypt.HashPassword(employeeModel.Password),
                         Available = NEW_REGISTER,
@@ -182,7 +184,7 @@ namespace KomalliEmployee.Controller {
          * <returns>Regresa -1 si no hay registros de ese numero de personal, 1 si los hay.</returns>
          */
 
-        public int ValidateNoPersonal(string personalNumber) {
+        public int ValidatePersonalNumber(string personalNumber) {
             int result = -1;
             try {
                 using (var context = new KomalliEntities()) {
@@ -194,7 +196,7 @@ namespace KomalliEmployee.Controller {
                     }
                 }
             } catch (EntityException ex) {
-                LoggerManager.Instance.LogError("Error en ValidateNoPersonal", ex);
+                LoggerManager.Instance.LogError("Error en validar el numero de personal", ex);
             }
             return result;
         }
@@ -203,7 +205,7 @@ namespace KomalliEmployee.Controller {
          * <summary>
          * Este método se encarga de regresar el nombre de un usuario.
          * </summary>
-         * <param email="email">Correo del usuario.. </param>
+         * <param name="email">Correo del usuario.. </param>
          * <returns>Regresa el nombre si es que lo encuntra, si no un regresa null.</returns>
          */
 
@@ -224,6 +226,14 @@ namespace KomalliEmployee.Controller {
             return nameResult;
         }
 
+        /**
+         * <summary>
+         * Este método se encarga de regresar el numero de personal de un empleado.
+         * </summary>
+         * <param name="email">Correo del usuario.. </param>
+         * <returns>Regresa el numero de personal si es que lo encuntra, si no un regresa menos uno.</returns>
+         */
+
         public int GetNoPersonalEmployee(string email) {
             int noPersonal = -1;
             try {
@@ -238,5 +248,70 @@ namespace KomalliEmployee.Controller {
             }
             return noPersonal;
         }
+
+        /**
+        * <summary>
+        * Este método se encarga de obtener datos de cada usuario registrado en la base de datos.
+        * </summary>
+        * <returns> Regresa la lista de los usuarios obtenidos en la base de datos.</returns>
+        */
+        public List<EmployeeModel> ConsultUsers() {
+            List<EmployeeModel> users = new List<EmployeeModel>();
+            users = null;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var query = (from employee in context.Employee
+                                join user in context.User on employee.UserEmail equals user.Email
+                                select new {
+                                    employee.NoPersonal,
+                                    user.Email,
+                                    employee.Role,
+                                    user.Available,
+                                    employee.Name
+                                }).ToList()
+                    .Select(result => new EmployeeModel {
+                        PersonalNumber = result.NoPersonal,
+                        Email = result.Email,
+                        Role = (UserRole)Enum.Parse(typeof(UserRole), result.Role),
+                        Availability = GetAvailability(result.Available),
+                        Name = result.Name
+                    }).ToList();
+
+                    users = query;
+                }
+            } catch (EntityException ex) {
+                users = null;
+                LoggerManager.Instance.LogError("Error al consultar los usuarios", ex);
+            }
+            return users;
+        }
+
+        /**
+         * <summary>
+         * Este método se encarga de definir lo que significa cada numero dentro de la base de datos en la columna de disponibilidad.
+         * </summary>
+         * <param name="result">Numero que retorna la consulta sobre obtener disponibilidad de un usuario. </param>
+         * <returns>Regresa lo que significa el numero ingresado.</returns>
+         */
+
+        private string GetAvailability(int result) {
+            string availability = "";
+            switch (result) {
+                case 0:
+                    availability = "Nuevo";
+                    break;
+                case 1:
+                    availability = "Activo";
+                    break;
+                case 2:
+                    availability = "Inactivo";
+                    break;
+                default:
+                    break;
+            }
+            return availability;
+        }
     }
+
+    
 }
