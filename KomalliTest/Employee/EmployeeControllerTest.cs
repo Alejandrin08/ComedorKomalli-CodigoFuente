@@ -205,28 +205,48 @@ namespace KomalliTest.Employee {
         }
 
         [TestMethod]
-        public void GetNameUser_Sucessfull() {
+        public void GetUserName_Sucessfull() {
 
             KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
             
             string email = "ares@gmail.com";
 
             string resultExpected = "Ares Judda Rivera Soto";
-            string result = test.GetNameUser(email);
+            string result = test.GetUserName(email);
             Assert.AreEqual(resultExpected, result);
             }
 
         [TestMethod]
-        public void GetNameUser_Failed() {
+        public void GetUserName_Failed() {
 
             KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
 
             string email = "momaosiris@gmail.com";
 
             string resultExpected = "Ares Judda Rivera Soto";
-            string result = test.GetNameUser(email);
+            string result = test.GetUserName(email);
             Assert.AreNotEqual(resultExpected, result);
 
+        }
+
+        [TestMethod]
+        public void GetNoPersonalEmployee_Sucessfull() {
+            KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
+
+            string email = "ares@gmail.com";
+            string resultExpected = "111";
+            string result = test.GetNoPersonalEmployee(email);
+            Assert.AreEqual(resultExpected, result);
+        }
+
+        [TestMethod]
+        public void GetNoPersonalEmployee_Failed() {
+            KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
+
+            string email = "ares@gmail.com";
+            string resultExpected = "777";
+            string result = test.GetNoPersonalEmployee(email);
+            Assert.AreNotEqual(resultExpected, result);
         }
     }
 }

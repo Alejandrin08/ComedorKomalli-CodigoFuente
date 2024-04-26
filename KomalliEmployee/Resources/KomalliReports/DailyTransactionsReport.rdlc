@@ -446,7 +446,7 @@
         <Top>0.77095cm</Top>
         <Left>1.49955cm</Left>
         <Height>2cm</Height>
-        <Width>26.35532cm</Width>
+        <Width>26.35531cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -595,7 +595,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>="$" &amp; First(Fields!balance.Value, "DataSetCashCutFoodOrder")</Value>
+                      <Value>="$" &amp; First(Fields!Balance.Value, "DataSetCashCutFoodOrder")</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>16pt</FontSize>
@@ -679,7 +679,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>="$" &amp; First(Fields!initial_balance.Value, "DataSetCashCutFoodOrder")</Value>
+                      <Value>="$" &amp; First(Fields!InitialBalance.Value, "DataSetCashCutFoodOrder")</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>16pt</FontSize>
@@ -748,7 +748,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>="$" &amp; First(Fields!total_entries.Value, "DataSetCashCutFoodOrder")</Value>
+                      <Value>="$" &amp; First(Fields!TotalEntries.Value, "DataSetCashCutFoodOrder")</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>16pt</FontSize>
@@ -817,7 +817,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>="$" &amp; First(Fields!total_exits.Value, "DataSetCashCutFoodOrder")</Value>
+                      <Value>="$" &amp; First(Fields!TotalExits.Value, "DataSetCashCutFoodOrder")</Value>
                       <Style>
                         <FontFamily>Segoe UI</FontFamily>
                         <FontSize>16pt</FontSize>
@@ -940,7 +940,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>35b58620-d3e0-437f-b151-4dafdf5b4013</rd:DataSourceID>
+      <rd:DataSourceID>0bb68b39-fc3a-4be9-8250-0be6163da004</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -950,20 +950,20 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="initial_balance">
-          <DataField>initial_balance</DataField>
+        <Field Name="InitialBalance">
+          <DataField>InitialBalance</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="total_entries">
-          <DataField>total_entries</DataField>
+        <Field Name="TotalEntries">
+          <DataField>TotalEntries</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="total_exits">
-          <DataField>total_exits</DataField>
+        <Field Name="TotalExits">
+          <DataField>TotalExits</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="balance">
-          <DataField>balance</DataField>
+        <Field Name="Balance">
+          <DataField>Balance</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="IDFoodOrder">

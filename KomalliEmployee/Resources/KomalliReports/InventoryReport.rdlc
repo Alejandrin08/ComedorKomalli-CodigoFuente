@@ -216,6 +216,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -327,7 +328,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -543,7 +543,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>882c6e91-affc-40f7-bebd-1bd9e02a864c</rd:DataSourceID>
+      <rd:DataSourceID>c803a8dc-4b7f-43be-b6c0-4462c24771ef</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -572,7 +572,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DataReports</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\alexs\OneDrive\Escritorio\Komalli\KomalliEmployee\Resources\DataSets\DataReports.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\alexs\OneDrive\Escritorio\Komalli\KomalliEmployee\Resources\DatasetsDB\DataReports.xsd</rd:SchemaPath>
         <rd:TableName>Ingredient</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

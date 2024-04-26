@@ -261,7 +261,7 @@
                 </StackPanel>
         
                 <Border 
-                    Grid.Row="1" 
+                    Grid.Row="1"
                     Margin="10">
                     <Frame  
                         x:Name="fraPages" 
