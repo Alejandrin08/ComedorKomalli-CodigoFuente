@@ -207,7 +207,7 @@ namespace KomalliEmployee.Controller {
          * <returns>Regresa el nombre si es que lo encuntra, si no un regresa null.</returns>
          */
 
-        public string GetNameUser(string email) {
+        public string GetUserName(string email) {
             string nameResult = null;
             try {
                 using (var context = new KomalliEntities()) {
@@ -224,16 +224,24 @@ namespace KomalliEmployee.Controller {
             return nameResult;
         }
 
-        public int GetNoPersonalEmployee(string email) {
-            int noPersonal = -1;
+        /**
+         * <summary>
+         * Este método se encarga de obtener el número de personal de un empleado.
+         * </summary>
+         * <param email="email">Correo del empleado.. </param>
+         * <returns>Regresa el número de personal si es que lo encuntra, si no un regresa -1.</returns>
+         */
+        public string GetNoPersonalEmployee(string email) {
+            string noPersonal = "";
             try {
                 using (var context = new KomalliEntities()) {
                     var query = context.Employee.Where(employee => employee.UserEmail == email).FirstOrDefault();
                     if (query != null) {
-                        noPersonal = int.Parse(query.NoPersonal);
+                        noPersonal = query.NoPersonal;
                     }
                 }
             } catch (EntityException ex) {
+                noPersonal = null;
                 LoggerManager.Instance.LogError("Error al obtener el número de personal del empleado", ex);
             }
             return noPersonal;

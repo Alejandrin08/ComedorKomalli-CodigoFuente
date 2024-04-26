@@ -102,13 +102,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Contracts\ICashCut.cs" />
     <Compile Include="Contracts\IEmployee.cs" />
+    <Compile Include="Contracts\IFoodOrder.cs" />
     <Compile Include="Contracts\IIngredient.cs" />
     <Compile Include="Contracts\ILogbook.cs" />
+    <Compile Include="Controller\CashCutController.cs" />
     <Compile Include="Controller\EmployeeController.cs" />
+    <Compile Include="Controller\FoodOrderController.cs" />
     <Compile Include="Controller\IngredientController.cs" />
     <Compile Include="Controller\LogbookController.cs" />
+    <Compile Include="Model\CashCutModel.cs" />
     <Compile Include="Model\EmployeeModel.cs" />
+    <Compile Include="Model\FoodOrderModel.cs" />
     <Compile Include="Model\IngredientModel.cs" />
     <Compile Include="Model\LogbookModel.cs" />
     <Compile Include="Model\Utilities\LoggerManager.cs" />
@@ -128,6 +134,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataReports.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\DailyTransactionsReport.xaml.cs">
+      <DependentUpon>DailyTransactionsReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\InventoryReport.xaml.cs">
       <DependentUpon>InventoryReport.xaml</DependentUpon>
     </Compile>
@@ -136,6 +145,12 @@
     </Compile>
     <Compile Include="Views\Pages\Logbook.xaml.cs">
       <DependentUpon>Logbook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\LogbookReport.xaml.cs">
+      <DependentUpon>LogbookReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\RegisterCashCut.xaml.cs">
+      <DependentUpon>RegisterCashCut.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\RegisterIngredient.xaml.cs">
       <DependentUpon>RegisterIngredient.xaml</DependentUpon>
@@ -176,6 +191,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\DailyTransactionsReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\InventoryReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -185,6 +204,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Logbook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\LogbookReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\RegisterCashCut.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,7 +270,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\KomalliReports\DailyTransactionsReport.rdlc" />
     <EmbeddedResource Include="Resources\KomalliReports\InventoryReport.rdlc" />
+    <EmbeddedResource Include="Resources\KomalliReports\LogbookReport.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -41,7 +41,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickCashRegisterCutting(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/RegisterCashCut.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickSubMenuLogbook(object sender, RoutedEventArgs e) {

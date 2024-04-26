@@ -346,8 +346,6 @@
         </Style.Triggers>
     </Style>
 
-
-
     <!-- Background Colors -->
     <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#f9f9ea"/>
     <SolidColorBrush x:Key="SecundaryBackgroundColor" Color="#2C6C74"/>
