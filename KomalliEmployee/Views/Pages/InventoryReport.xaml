@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="InventoryReport"
-      Loaded="LoadReport" 
+      Background="#F9F9EA"
       >
 
     <Page.Resources>
@@ -42,11 +42,11 @@
                 />
 
         <WindowsFormsHost Grid.Row="2"
-                          Margin="40,20,40,20"
+                          Margin="40,40,40,20"
             >
             <wf:ReportViewer x:Name="rpv" 
                              ShowToolBar="False"
-                             ZoomMode="PageWidth"
+                             ZoomMode="Percent"
                              
                 />
         </WindowsFormsHost>
