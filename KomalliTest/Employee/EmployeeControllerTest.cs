@@ -257,7 +257,7 @@ namespace KomalliTest.Employee {
             string email = "ares@gmail.com";
 
             string resultExpected = "Ares Judda Rivera Soto";
-            string result = test.GetNameUser(email);
+            string result = test.GetUserName(email);
             Assert.AreEqual(resultExpected, result);
         }
 
@@ -269,7 +269,7 @@ namespace KomalliTest.Employee {
             string email = "momaosiris@gmail.com";
 
             string resultExpected = "Ares Judda Rivera Soto";
-            string result = test.GetNameUser(email);
+            string result = test.GetUserName(email);
             Assert.AreNotEqual(resultExpected, result);
 
         }
