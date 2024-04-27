@@ -35,6 +35,12 @@
                 <Rectangle.RadiusY>20</Rectangle.RadiusY>
             </Rectangle>
 
+            <Image Source="\Resources\Images\iconGoBack.png"
+                Margin="37,22,727,395"
+                MouseDown="MouseDownGoBack"
+                Cursor="Hand"
+            />
+
             <TextBlock x:Name = "tbkModifyUser"
                Text = "Modificar usuario"
                FontFamily = "Segoe UI Black"
