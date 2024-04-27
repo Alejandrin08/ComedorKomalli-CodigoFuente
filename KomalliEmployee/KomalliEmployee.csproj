@@ -121,6 +121,7 @@
     <Compile Include="Model\Utilities\SingletonClass.cs" />
     <Compile Include="Model\Utilities\TypeQuantity.cs" />
     <Compile Include="Model\Utilities\UserRole.cs" />
+    <Compile Include="Model\Validations\AvailabilityValidationRule.cs" />
     <Compile Include="Model\Validations\EmailValidationRule.cs" />
     <Compile Include="Model\Validations\NameValidationRule.cs" />
     <Compile Include="Model\Validations\PasswordValidationRule.cs" />
@@ -134,6 +135,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataReports.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\ConsultUsers.xaml.cs">
+      <DependentUpon>ConsultUsers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\DailyTransactionsReport.xaml.cs">
       <DependentUpon>DailyTransactionsReport.xaml</DependentUpon>
     </Compile>
@@ -145,6 +149,9 @@
     </Compile>
     <Compile Include="Views\Pages\Logbook.xaml.cs">
       <DependentUpon>Logbook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ModifyUser.xaml.cs">
+      <DependentUpon>ModifyUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\LogbookReport.xaml.cs">
       <DependentUpon>LogbookReport.xaml</DependentUpon>
@@ -195,6 +202,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\ConsultUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\InventoryReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -212,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\RegisterCashCut.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ModifyUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -312,6 +327,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Return.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\PointsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\iconSearch.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

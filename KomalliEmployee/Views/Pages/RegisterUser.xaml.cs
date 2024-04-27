@@ -167,7 +167,7 @@ namespace KomalliEmployee.Views.Pages {
             if (type == "Email") {
                 isValidData = employeeController.ValidateEmail(textBox.Text);
             } else if (type == "PersonalNumber") {
-                isValidData = employeeController.ValidateNoPersonal(textBox.Text);
+                isValidData = employeeController.ValidatePersonalNumber(textBox.Text);
             }
             if (isValidData == 1) {
                 textBlockMessage.Visibility = Visibility.Visible;

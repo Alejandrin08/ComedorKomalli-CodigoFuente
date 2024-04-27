@@ -2,6 +2,7 @@
 using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
 using KomalliServer;
+using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -104,7 +105,8 @@ namespace KomalliEmployee.Controller {
             int result = 0;
             try {
                 using (var context = new KomalliEntities()) {
-                    var user = new User {
+                    var user = new KomalliServer.User
+                    {
                         Email = employeeModel.Email,
                         Password = BCrypt.Net.BCrypt.HashPassword(employeeModel.Password),
                         Available = NEW_REGISTER,
@@ -182,7 +184,7 @@ namespace KomalliEmployee.Controller {
          * <returns>Regresa -1 si no hay registros de ese numero de personal, 1 si los hay.</returns>
          */
 
-        public int ValidateNoPersonal(string personalNumber) {
+        public int ValidatePersonalNumber(string personalNumber) {
             int result = -1;
             try {
                 using (var context = new KomalliEntities()) {
@@ -194,7 +196,7 @@ namespace KomalliEmployee.Controller {
                     }
                 }
             } catch (EntityException ex) {
-                LoggerManager.Instance.LogError("Error en ValidateNoPersonal", ex);
+                LoggerManager.Instance.LogError("Error en validar el numero de personal", ex);
             }
             return result;
         }
@@ -203,7 +205,7 @@ namespace KomalliEmployee.Controller {
          * <summary>
          * Este método se encarga de regresar el nombre de un usuario.
          * </summary>
-         * <param email="email">Correo del usuario.. </param>
+         * <param name="email">Correo del usuario.. </param>
          * <returns>Regresa el nombre si es que lo encuntra, si no un regresa null.</returns>
          */
 
@@ -246,5 +248,149 @@ namespace KomalliEmployee.Controller {
             }
             return noPersonal;
         }
+
+        /**
+        * <summary>
+        * Este método se encarga de obtener datos de cada usuario registrado en la base de datos.
+        * </summary>
+        * <returns> Regresa la lista de los usuarios obtenidos en la base de datos.</returns>
+        */
+        public List<EmployeeModel> ConsultUsers() {
+            List<EmployeeModel> users = new List<EmployeeModel>();
+            users = null;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var query = (from employee in context.Employee
+                                join user in context.User on employee.UserEmail equals user.Email
+                                select new {
+                                    employee.NoPersonal,                                    
+                                    employee.Role,
+                                    user.Available,
+                                    employee.Name
+                                }).ToList()
+                    .Select(result => new EmployeeModel {
+                        PersonalNumber = result.NoPersonal,                       
+                        Role = (UserRole)Enum.Parse(typeof(UserRole), result.Role),
+                        Availability = GetAvailabilityToString(result.Available),
+                        Name = result.Name
+                    }).ToList();
+
+                    users = query;
+                }
+            } catch (EntityException ex) {
+                users = null;
+                LoggerManager.Instance.LogError("Error al consultar los usuarios", ex);
+            }
+            return users;
+        }
+
+
+        /**
+         * <summary>
+         * Este método se encarga de definir lo que significa cada numero dentro de la base de datos en la columna de disponibilidad.
+         * </summary>
+         * <param name="result">Numero que retorna la consulta sobre obtener disponibilidad de un usuario. </param>
+         * <returns>Regresa lo que significa el numero ingresado.</returns>
+         */
+
+        private string GetAvailabilityToString(int result) {
+            string availability = "";
+            switch (result) {
+                case 0:
+                    availability = "Activo";
+                    break;
+                case 1:
+                    availability = "Activo";
+                    break;
+                case 2:
+                    availability = "Inactivo";
+                    break;
+                default:
+                    break;
+            }
+            return availability;
+        }
+
+        private int GetAvailabilityToInt(string result) {
+            int availability = -1;
+            switch (result) {
+                case "Activo":
+                    availability = 1;
+                    break;
+                case "Inactivo":
+                    availability = 2;
+                    break;
+                default:
+                    break;
+            }
+            return availability;
+        }
+
+        public EmployeeModel GetUserInfo(string personalNumber) {
+            EmployeeModel employeeModel = null;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var userFound = (from employee in context.Employee
+                                    join user in context.User on employee.UserEmail equals user.Email
+                                    where employee.NoPersonal == personalNumber select new {
+                                        employee.NoPersonal,
+                                        user.Email,
+                                        employee.Role,
+                                        user.Available,
+                                        employee.Name                            
+                                    }).FirstOrDefault();
+                    employeeModel = new EmployeeModel();
+                    if (userFound != null) {
+                        employeeModel.Name = userFound.Name;
+                        employeeModel.Availability = GetAvailabilityToString(userFound.Available);
+                        employeeModel.Role = (UserRole)Enum.Parse(typeof(UserRole), userFound.Role);
+                        employeeModel.Email = userFound.Email;
+                        employeeModel.PersonalNumber = userFound.NoPersonal;
+                    }
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en obtener los datos del usuario", ex);
+            }
+            return employeeModel;
+        }
+
+        public int UpdateUserInfo (EmployeeModel employeeModel, string email) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var user = context.User.Where(user => user.Email == email).FirstOrDefault();
+                    
+                    if (user != null) {
+                        user.Email = employeeModel.Email;
+                        user.Available = GetAvailabilityToInt(employeeModel.Availability);
+                    }
+                    result = context.SaveChanges();
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en actualizar los datos de usuario", ex);
+            }
+            return result;
+        }
+
+        public int UpdateEmployeeInfo(EmployeeModel employeeModel, string email) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var employee = context.Employee.Where(employee => employee.UserEmail == email).FirstOrDefault();
+
+                    if (employee != null) {
+                        employee.NoPersonal = employeeModel.PersonalNumber;
+                        employee.Role = employeeModel.Role.ToString();
+                        employee.Name = employeeModel.Name;
+                    }
+                    result = context.SaveChanges();
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en actualizar los datos del empleado", ex);
+            }
+            return result;
+        }
     }
+
+    
 }
