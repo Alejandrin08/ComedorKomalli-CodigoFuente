@@ -10,6 +10,6 @@ namespace KomalliEmployee.Contracts {
 
         public int RegisterCashCutNextDay(int initialBalance);
         public int? GetLastInitialBalance();
-        public int UpdateDailyCashCut(int? initialBalance);
+        public int UpdateDailyCashCut(CashCutModel cashCutModel);
     }
 }

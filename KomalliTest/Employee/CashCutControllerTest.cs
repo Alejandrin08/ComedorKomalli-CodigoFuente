@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using KomalliEmployee.Model;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Transactions;
 
@@ -40,7 +41,7 @@ namespace KomalliTest.Employee {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.CashCutController test = new KomalliEmployee.Controller.CashCutController();
 
-                int initialBalance = 500;
+                int initialBalance = -32;
                 int result = -1;
                 int resultExpected = test.RegisterCashCutNextDay(initialBalance);
                 Assert.AreNotEqual(resultExpected, result);
@@ -52,9 +53,14 @@ namespace KomalliTest.Employee {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.CashCutController test = new KomalliEmployee.Controller.CashCutController();
 
-                int? initialBalance = 1000;
+                CashCutModel cashCutModel = new CashCutModel {
+                    InitialBalance = (int)1000,
+                    TotalEntries = 287,
+                    TotalExits = 113,
+                    Balance = 1174
+                };
                 int result = 1;
-                int resultExpected = test.UpdateDailyCashCut(initialBalance);
+                int resultExpected = test.UpdateDailyCashCut(cashCutModel);
                 Assert.AreEqual(resultExpected, result);
             }
         }
@@ -64,9 +70,14 @@ namespace KomalliTest.Employee {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.CashCutController test = new KomalliEmployee.Controller.CashCutController();
 
-                int? initialBalance = 2000;
+                CashCutModel cashCutModel = new CashCutModel {
+                    InitialBalance = (int)1000,
+                    TotalEntries = 200,
+                    TotalExits = 100,
+                    Balance = 1000
+                };
                 int result = -1;
-                int resultExpected = test.UpdateDailyCashCut(initialBalance);
+                int resultExpected = test.UpdateDailyCashCut(cashCutModel);
                 Assert.AreNotEqual(resultExpected, result);
             }
         }

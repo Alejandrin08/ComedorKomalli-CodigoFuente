@@ -20,18 +20,32 @@ namespace KomalliEmployee.Views.Pages {
     /// Lógica de interacción para RegisterCashCut.xaml
     /// </summary>
     public partial class RegisterCashCut : Page {
+
         public RegisterCashCut() {
             InitializeComponent();
             InitializeFoodOrder();
 
             CashCutController cashCutController = new CashCutController();
+            FoodOrderController foodOrderController = new FoodOrderController();
 
             txtbCashCutDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
-            txtbInitialBalance.Text = new CashCutController().GetLastInitialBalance().ToString();
-            txtbTotalEntries.Text = new FoodOrderController().CalculateTotalDailyEntries().ToString();
-            txtbTotalDepartures.Text = new FoodOrderController().CalculateTotalDailyChange().ToString();
+
+            int? initialBalance = cashCutController.GetLastInitialBalance();
+            int totalEntries = foodOrderController.CalculateTotalDailyEntries();
+            int totalDepartures = foodOrderController.CalculateTotalDailyChange();
+            int balance = initialBalance.Value + totalEntries - totalDepartures;
+
+            txtbInitialBalance.Text = initialBalance.ToString();
+            txtbTotalEntries.Text = totalEntries.ToString();
+            txtbTotalDepartures.Text = totalDepartures.ToString();
             
-            int resultUpdate = cashCutController.UpdateDailyCashCut(cashCutController.GetLastInitialBalance());
+            CashCutModel cashCutModel = new CashCutModel() {
+                InitialBalance = (int)initialBalance,
+                TotalEntries = totalEntries,
+                TotalExits = totalDepartures,
+                Balance = balance
+            };
+            int resultUpdate = cashCutController.UpdateDailyCashCut(cashCutModel);
             if (resultUpdate < 0) {
                 App.ShowMessageError("Error al actualizar el corte de caja", "Corte de caja");
             }
