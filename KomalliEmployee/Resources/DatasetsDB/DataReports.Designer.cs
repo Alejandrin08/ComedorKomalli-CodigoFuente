@@ -2218,7 +2218,7 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
                 "mployee INNER JOIN\r\n                  Logbook ON Employee.NoPersonal = Logbook.N" +
                 "oPersonalEmployee\r\nWHERE  (Logbook.Date = @Param1)\r\n";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Param1", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Param1", global::System.Data.SqlDbType.Date, 20, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -17,9 +17,9 @@ namespace KomalliServer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FoodOrder()
         {
+            this.Employee_FoodOrder = new HashSet<Employee_FoodOrder>();
             this.FoodOrder_MenuCard = new HashSet<FoodOrder_MenuCard>();
             this.FoodOrder_SetMenu = new HashSet<FoodOrder_SetMenu>();
-            this.Employee = new HashSet<Employee>();
         }
     
         public string IDFoodOrder { get; set; }
@@ -31,10 +31,10 @@ namespace KomalliServer
         public int Change { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_FoodOrder> Employee_FoodOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FoodOrder_MenuCard> FoodOrder_MenuCard { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FoodOrder_SetMenu> FoodOrder_SetMenu { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employee { get; set; }
     }
 }

@@ -12,11 +12,11 @@ namespace KomalliServer
     using System;
     using System.Collections.Generic;
     
-    public partial class Logbook
+    public partial class Employee_FoodOrder
     {
-        public int IDCommentary { get; set; }
-        public System.DateTime Date { get; set; }
-        public string Commentary { get; set; }
-        public string NoPersonalEmployee { get; set; }
+        public string Employee_NoPersonal { get; set; }
+        public string FoodOrder_IDFoodOrder { get; set; }
+    
+        public virtual FoodOrder FoodOrder { get; set; }
     }
 }
