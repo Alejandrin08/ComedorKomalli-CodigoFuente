@@ -27,6 +27,7 @@ namespace KomalliServer
     
         public virtual DbSet<CashCut> CashCut { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
+        public virtual DbSet<Employee_FoodOrder> Employee_FoodOrder { get; set; }
         public virtual DbSet<FoodOrder> FoodOrder { get; set; }
         public virtual DbSet<FoodOrder_MenuCard> FoodOrder_MenuCard { get; set; }
         public virtual DbSet<FoodOrder_SetMenu> FoodOrder_SetMenu { get; set; }

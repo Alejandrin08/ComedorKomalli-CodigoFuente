@@ -14,21 +14,10 @@ namespace KomalliServer
     
     public partial class Employee
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employee()
-        {
-            this.Logbook = new HashSet<Logbook>();
-            this.FoodOrder = new HashSet<FoodOrder>();
-        }
-    
+        public int IdEmployee { get; set; }
         public string NoPersonal { get; set; }
         public string Role { get; set; }
         public string Name { get; set; }
         public string UserEmail { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Logbook> Logbook { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FoodOrder> FoodOrder { get; set; }
     }
 }
