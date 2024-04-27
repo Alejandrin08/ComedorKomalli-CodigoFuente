@@ -120,7 +120,6 @@
     <Compile Include="Model\Utilities\LoggerManager.cs" />
     <Compile Include="Model\Utilities\SingletonClass.cs" />
     <Compile Include="Model\Utilities\TypeQuantity.cs" />
-    <Compile Include="Model\Utilities\UserRole.cs" />
     <Compile Include="Model\Validations\AvailabilityValidationRule.cs" />
     <Compile Include="Model\Validations\EmailValidationRule.cs" />
     <Compile Include="Model\Validations\NameValidationRule.cs" />

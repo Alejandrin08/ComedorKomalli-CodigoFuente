@@ -86,13 +86,11 @@ namespace KomalliEmployee.Views.Pages {
         }
 
         private void CalculateBalance() {
-            if (txtbTotalEntries.Text != "0" || txtbTotalDepartures.Text != "0")  {
-                int initialBalance = int.Parse(txtbInitialBalance.Text);
-                int totalEntries = int.Parse(txtbTotalEntries.Text);
-                int totalDepartures = int.Parse(txtbTotalDepartures.Text);
-                int balance = initialBalance + totalEntries - totalDepartures;
-                txtbBalance.Text = balance.ToString();
-            }
+            int initialBalance = int.Parse(txtbInitialBalance.Text);
+            int totalEntries = int.Parse(txtbTotalEntries.Text);
+            int totalDepartures = int.Parse(txtbTotalDepartures.Text);
+            int balance = initialBalance + totalEntries - totalDepartures;
+            txtbBalance.Text = balance.ToString();     
         }
 
         private void TextChangedValidateInitialBalance(object sender, TextChangedEventArgs e) {

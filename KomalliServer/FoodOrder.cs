@@ -28,7 +28,7 @@ namespace KomalliServer
         public System.DateTime Date { get; set; }
         public int Total { get; set; }
         public int NumberDishes { get; set; }
-        public int Change { get; set; }
+        public Nullable<int> Change { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee_FoodOrder> Employee_FoodOrder { get; set; }

@@ -940,7 +940,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>cd754fe3-114e-417d-b0b5-9859bddbc671</rd:DataSourceID>
+      <rd:DataSourceID>7fdc449f-a626-4adf-9060-ffd76c688080</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>

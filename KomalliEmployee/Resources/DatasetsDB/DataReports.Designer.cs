@@ -1893,7 +1893,7 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT [KeyIngredient]\r\n      ,[NameIngredient]\r\n      ,[Quantity]\r\n      ,[Measu" +
-                "rement]\r\n  FROM [dbo].[Ingredient]";
+                "rement]\r\n  FROM [dbo].[Ingredient]\r\n";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -2409,7 +2409,7 @@ FROM     CashCut INNER JOIN
                   FoodOrder ON CashCut.Date = FoodOrder.Date
 WHERE  (FoodOrder.Date = @Param1)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Param1", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Param1", global::System.Data.SqlDbType.Date, 20, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

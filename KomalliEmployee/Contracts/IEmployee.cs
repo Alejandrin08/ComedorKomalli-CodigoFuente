@@ -10,7 +10,7 @@ namespace KomalliEmployee.Contracts {
     public interface IEmployee {
 
         public int UpdatePassword(string email, string password);
-        public UserRole GetUserRule(string email);
+        public string GetUserRule(string email);
         public int AddUser(EmployeeModel employeeModel);
         public int AddEmployee(EmployeeModel employeeModel);
         public int ValidateEmail(string email);

@@ -542,7 +542,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>bea80501-cdad-4913-8656-de54a26005e1</rd:DataSourceID>
+      <rd:DataSourceID>74298aef-45f9-4ef3-8d44-f26a57b9e7b6</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>

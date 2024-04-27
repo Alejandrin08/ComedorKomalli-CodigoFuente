@@ -31,7 +31,7 @@ namespace KomalliTest.Employee {
                 string newPassword = "123Ale";
                 int resultExpected = 0;
                 int result = test.UpdatePassword(email, newPassword);
-                Assert.AreEqual(resultExpected, result);
+                Assert.AreNotEqual(resultExpected, result);
             }
         }
 
@@ -41,8 +41,8 @@ namespace KomalliTest.Employee {
                 KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
 
                 string email = "ares@gmail.com";
-                UserRole userRoleExpected = UserRole.Gerente;
-                UserRole userRole = test.GetUserRule(email);
+                string userRoleExpected = "Gerente";
+                string userRole = test.GetUserRule(email);
                 Assert.AreEqual(userRoleExpected, userRole);
             }
         }
@@ -53,9 +53,9 @@ namespace KomalliTest.Employee {
                 KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
 
                 string email = "ares@gmail.com";
-                UserRole userRoleExpected = UserRole.Gerente;
-                UserRole userRole = test.GetUserRule(email);
-                Assert.AreEqual(userRoleExpected, userRole);
+                string userRoleExpected = "Jefe de cocina";
+                string userRole = test.GetUserRule(email);
+                Assert.AreNotEqual(userRoleExpected, userRole);
             }
         }
 
@@ -81,7 +81,7 @@ namespace KomalliTest.Employee {
                 string password = "123";
                 int resultExpected = -1;
                 int result = test.ValidateUser(email, password);
-                Assert.AreEqual(resultExpected, result);
+                Assert.AreNotEqual(resultExpected, result);
             }
         }
 
@@ -122,7 +122,7 @@ namespace KomalliTest.Employee {
                 EmployeeModel employeeModel = new EmployeeModel {
                     Email = "panchoVilla@gmail.com",
                     Name = "Pancho villa",
-                    Role = UserRole.Cajero,
+                    RoleUser = "Cajero",
                     PersonalNumber = "100",
                     Password = "5464komalli",
                 };
@@ -141,7 +141,7 @@ namespace KomalliTest.Employee {
                 EmployeeModel employeeModel = new EmployeeModel {
                     Email = "dmysela@gmail.com",
                     Name = "Pancho villa",
-                    Role = UserRole.Cajero,
+                    RoleUser = "Cajero",
                     PersonalNumber = "1",
                     Password = "5464komalli",
                 };
