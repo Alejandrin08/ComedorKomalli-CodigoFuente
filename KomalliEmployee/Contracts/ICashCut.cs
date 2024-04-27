@@ -9,6 +9,7 @@ namespace KomalliEmployee.Contracts {
     public interface ICashCut {
 
         public int RegisterCashCutNextDay(int initialBalance);
-        public int GetLastInitialBalance();
+        public int? GetLastInitialBalance();
+        public int UpdateDailyCashCut(int? initialBalance);
     }
 }
