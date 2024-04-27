@@ -10,11 +10,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date" Type="datetime" />
+          <Property Name="Date" Type="date" />
           <Property Name="InitialBalance" Type="int" />
-          <Property Name="TotalEntries" Type="int" Nullable="false" />
-          <Property Name="TotalExits" Type="int" Nullable="false" />
-          <Property Name="Balance" Type="int" Nullable="false" />
+          <Property Name="TotalEntries" Type="int" />
+          <Property Name="TotalExits" Type="int" />
+          <Property Name="Balance" Type="int" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -40,7 +40,7 @@
           <Property Name="IDFoodOrder" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="ClientName" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Total" Type="int" Nullable="false" />
           <Property Name="NumberDishes" Type="int" Nullable="false" />
           <Property Name="Change" Type="int" Nullable="false" />
@@ -78,14 +78,14 @@
           <Property Name="Quantity" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Measurement" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Barcode" Type="varchar" MaxLength="13" />
-          <Property Name="ReplenishmentDate" Type="datetime" />
+          <Property Name="ReplenishmentDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Logbook">
           <Key>
             <PropertyRef Name="IDCommentary" />
           </Key>
           <Property Name="IDCommentary" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Commentary" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="NoPersonalEmployee" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
@@ -103,7 +103,7 @@
             <PropertyRef Name="KeySetMenu" />
           </Key>
           <Property Name="KeySetMenu" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Starter" Type="varchar" MaxLength="20" />
           <Property Name="MainFood" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="SideDish" Type="varchar" MaxLength="20" />
@@ -114,8 +114,9 @@
         </EntityType>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="Email" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="61" Nullable="false" />
           <Property Name="Available" Type="int" Nullable="false" />
@@ -204,20 +205,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Employee">
-          <End Role="User" Type="Self.User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Email" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="UserEmail" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <!--Errores durante la generación:
+advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <Association Name="FK_User_Employee" />-->
         <EntityContainer Name="KomalliModelStoreContainer">
           <EntitySet Name="CashCut" EntityType="Self.CashCut" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
@@ -258,10 +248,6 @@
             <End Role="SetMenu" EntitySet="SetMenu" />
             <End Role="FoodOrder_SetMenu" EntitySet="FoodOrder_SetMenu" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Employee" Association="Self.FK_User_Employee">
-            <End Role="User" EntitySet="User" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -273,11 +259,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="InitialBalance" Type="Int32" />
-          <Property Name="TotalEntries" Type="Int32" Nullable="false" />
-          <Property Name="TotalExits" Type="Int32" Nullable="false" />
-          <Property Name="Balance" Type="Int32" Nullable="false" />
+          <Property Name="TotalEntries" Type="Int32" />
+          <Property Name="TotalExits" Type="Int32" />
+          <Property Name="Balance" Type="Int32" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -288,7 +274,6 @@
           <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Logbook" Relationship="Self.FK_Employee_Logbook" FromRole="Employee" ToRole="Logbook" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Employee" FromRole="Employee" ToRole="User" />
           <NavigationProperty Name="FoodOrder" Relationship="Self.Employee_FoodOrder" FromRole="Employee" ToRole="FoodOrder" />
         </EntityType>
         <EntityType Name="FoodOrder">
@@ -298,7 +283,7 @@
           <Property Name="IDFoodOrder" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ClientName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Total" Type="Int32" Nullable="false" />
           <Property Name="NumberDishes" Type="Int32" Nullable="false" />
           <Property Name="Change" Type="Int32" Nullable="false" />
@@ -343,14 +328,14 @@
           <Property Name="Quantity" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Measurement" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Barcode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
-          <Property Name="ReplenishmentDate" Type="DateTime" Precision="3" />
+          <Property Name="ReplenishmentDate" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="Logbook">
           <Key>
             <PropertyRef Name="IDCommentary" />
           </Key>
           <Property Name="IDCommentary" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Commentary" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NoPersonalEmployee" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Logbook" FromRole="Logbook" ToRole="Employee" />
@@ -370,7 +355,7 @@
             <PropertyRef Name="KeySetMenu" />
           </Key>
           <Property Name="KeySetMenu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Starter" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="MainFood" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SideDish" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -382,12 +367,12 @@
         </EntityType>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="Email" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Available" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_User_Employee" FromRole="User" ToRole="Employee" />
         </EntityType>
         <Association Name="FK_Employee_Logbook">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
@@ -398,20 +383,6 @@
             </Principal>
             <Dependent Role="Logbook">
               <PropertyRef Name="NoPersonalEmployee" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_Employee">
-          <End Role="User" Type="Self.User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Email" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="UserEmail" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -481,10 +452,6 @@
           <AssociationSet Name="FK_Employee_Logbook" Association="Self.FK_Employee_Logbook">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Logbook" EntitySet="Logbook" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Employee" Association="Self.FK_User_Employee">
-            <End Role="User" EntitySet="User" />
-            <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_FoodOrder_MenuCard_FoodOrder" Association="Self.FK_FoodOrder_MenuCard_FoodOrder">
             <End Role="FoodOrder" EntitySet="FoodOrder" />
@@ -618,6 +585,7 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="KomalliModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Available" ColumnName="Available" />

@@ -9,6 +9,15 @@
       Title="RegisterCashCut"
       Background="#F9F9EA"
       >
+    
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                Source="/Resources/Styles/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Viewbox Stretch="Fill">
         <Grid Height="450"
@@ -162,11 +171,13 @@
                     <TextBox Grid.Row="1"
                      Grid.Column="2"
                      x:Name="txtbxInitialBalance"
-                     Text="0.00"
                      FontSize="20"
                      Margin="10,18"
+                     MaxLength="6"
                      TextAlignment="Center" 
                      PreviewTextInput="PreviewTextInputOnlyNumbers" 
+                     TextChanged="TextChangedValidateInitialBalance"
+                     KeyDown="KeyDownRegisterCashCut"
                              />
 
                     <Button Grid.Row="2"
@@ -174,6 +185,8 @@
                     x:Name="btnMakeCashCut"
                     Content="Realizar corte"
                     FontSize="20"
+                    Style="{StaticResource ButtonStyle}"
+                    IsEnabled="False"
                     Margin="10,18"
                     Background="#D9D9D9"
                     Cursor="Hand"

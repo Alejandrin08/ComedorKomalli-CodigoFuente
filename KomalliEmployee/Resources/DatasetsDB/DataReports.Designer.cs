@@ -1187,9 +1187,6 @@ namespace KomalliEmployee.Resources.DatasetsDB {
                 base.Columns.Add(this.columnTotal);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnIDFoodOrder}, true));
-                this.columnTotalEntries.AllowDBNull = false;
-                this.columnTotalExits.AllowDBNull = false;
-                this.columnBalance.AllowDBNull = false;
                 this.columnIDFoodOrder.AllowDBNull = false;
                 this.columnIDFoodOrder.Unique = true;
                 this.columnIDFoodOrder.MaxLength = 10;
@@ -1477,7 +1474,12 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public int TotalEntries {
                 get {
-                    return ((int)(this[this.tableCashCutFoodOrder.TotalEntriesColumn]));
+                    try {
+                        return ((int)(this[this.tableCashCutFoodOrder.TotalEntriesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TotalEntries\' de la tabla \'CashCutFoodOrder\' es DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCashCutFoodOrder.TotalEntriesColumn] = value;
@@ -1488,7 +1490,12 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public int TotalExits {
                 get {
-                    return ((int)(this[this.tableCashCutFoodOrder.TotalExitsColumn]));
+                    try {
+                        return ((int)(this[this.tableCashCutFoodOrder.TotalExitsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TotalExits\' de la tabla \'CashCutFoodOrder\' es DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCashCutFoodOrder.TotalExitsColumn] = value;
@@ -1499,7 +1506,12 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public int Balance {
                 get {
-                    return ((int)(this[this.tableCashCutFoodOrder.BalanceColumn]));
+                    try {
+                        return ((int)(this[this.tableCashCutFoodOrder.BalanceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Balance\' de la tabla \'CashCutFoodOrder\' es DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCashCutFoodOrder.BalanceColumn] = value;
@@ -1571,6 +1583,42 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetInitialBalanceNull() {
                 this[this.tableCashCutFoodOrder.InitialBalanceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTotalEntriesNull() {
+                return this.IsNull(this.tableCashCutFoodOrder.TotalEntriesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTotalEntriesNull() {
+                this[this.tableCashCutFoodOrder.TotalEntriesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTotalExitsNull() {
+                return this.IsNull(this.tableCashCutFoodOrder.TotalExitsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTotalExitsNull() {
+                this[this.tableCashCutFoodOrder.TotalExitsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsBalanceNull() {
+                return this.IsNull(this.tableCashCutFoodOrder.BalanceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetBalanceNull() {
+                this[this.tableCashCutFoodOrder.BalanceColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1816,15 +1864,6 @@ namespace KomalliEmployee.Resources.DatasetsDB.DataReportsTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_NameIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NameIngredient", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Quantity", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Measurement", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Measurement", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Ingredient] ([KeyIngredient], [NameIngredient], [Quantity], [Measurement]) VALUES (@KeyIngredient, @NameIngredient, @Quantity, @Measurement);
-SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHERE (KeyIngredient = @KeyIngredient)";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@KeyIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyIngredient", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@NameIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NameIngredient", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Quantity", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Measurement", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Measurement", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Ingredient] SET [KeyIngredient] = @KeyIngredient, [NameIngredient] = @NameIngredient, [Quantity] = @Quantity, [Measurement] = @Measurement WHERE (([KeyIngredient] = @Original_KeyIngredient) AND ([NameIngredient] = @Original_NameIngredient) AND ([Quantity] = @Original_Quantity) AND ([Measurement] = @Original_Measurement));
@@ -1854,7 +1893,7 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT [KeyIngredient]\r\n      ,[NameIngredient]\r\n      ,[Quantity]\r\n      ,[Measu" +
-                "rement]\r\n  FROM [dbo].[Ingredient]\r\n\r\n";
+                "rement]\r\n  FROM [dbo].[Ingredient]";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -1952,51 +1991,6 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
             finally {
                 if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
                     this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string KeyIngredient, string NameIngredient, string Quantity, string Measurement) {
-            if ((KeyIngredient == null)) {
-                throw new global::System.ArgumentNullException("KeyIngredient");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(KeyIngredient));
-            }
-            if ((NameIngredient == null)) {
-                throw new global::System.ArgumentNullException("NameIngredient");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(NameIngredient));
-            }
-            if ((Quantity == null)) {
-                throw new global::System.ArgumentNullException("Quantity");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Quantity));
-            }
-            if ((Measurement == null)) {
-                throw new global::System.ArgumentNullException("Measurement");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Measurement));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
                 }
             }
         }

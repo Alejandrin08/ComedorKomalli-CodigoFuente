@@ -19,6 +19,6 @@ namespace KomalliServer
         public string Quantity { get; set; }
         public string Measurement { get; set; }
         public string Barcode { get; set; }
-        public Nullable<System.DateTime> ReplenishmentDate { get; set; }
+        public System.DateTime ReplenishmentDate { get; set; }
     }
 }
