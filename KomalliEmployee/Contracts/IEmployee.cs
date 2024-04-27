@@ -20,5 +20,8 @@ namespace KomalliEmployee.Contracts {
         public string GetNoPersonalEmployee(string email);
         public List<EmployeeModel> ConsultUsers();
         public EmployeeModel GetUserInfo(string personalNumber);
+        public int UpdateUserInfo(EmployeeModel employeeModel, string email);
+        public int UpdateEmployeeInfo(EmployeeModel employeeModel, string email);
+
     }
 }

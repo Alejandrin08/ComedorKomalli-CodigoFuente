@@ -32,7 +32,10 @@ namespace KomalliEmployee.Views.Pages {
         public RegisterUser() {
             InitializeComponent();
             DataContext = new EmployeeModel();
+            InitializeValidations();         
+        }
 
+        private void InitializeValidations() {
             var emailValidation = new EmailValidationRule();
             EmailValidationRule.ErrorTextBlock = txbEmailValidationMessage;
 
@@ -44,7 +47,6 @@ namespace KomalliEmployee.Views.Pages {
 
             var roleValidation = new RoleValidationRule();
             RoleValidationRule.ErrorTextBlock = txbRoleValidationMessage;
-
         }
 
         private void TextChangedValidateEmail(object sender, TextChangedEventArgs e) {
@@ -102,7 +104,7 @@ namespace KomalliEmployee.Views.Pages {
                 EmployeeModel employeeModel = new EmployeeModel {
                     Name = txtNameUser.Text,
                     Email = txtEmailUser.Text,
-                    Role = GetRole(txtRoleUser.Text),
+                    RoleUser = txtRoleUser.Text,
                     PersonalNumber = txtPersonalNumberUser.Text,
                     Password = txtPersonalNumberUser.Text + "komalli",
                 };
@@ -119,32 +121,16 @@ namespace KomalliEmployee.Views.Pages {
         }
 
         private void CleanTextBoxes() {
-
             ResetTextBoxes(txtNameUser, TextChangedValidateName);
             ResetTextBoxes(txtEmailUser, TextChangedValidateEmail);
             ResetTextBoxes(txtRoleUser, TextChangedValidateRole);
             ResetTextBoxes(txtPersonalNumberUser, TextChangedValidatePersonalNumber);
-
         }
 
         private void ResetTextBoxes(TextBox textBox, TextChangedEventHandler textChange) {
             textBox.TextChanged -= textChange;
             textBox.Text = "";
             textBox.TextChanged += textChange;
-        }
-
-        private UserRole GetRole(string roleName) {
-            UserRole userRole = new UserRole();
-            if (roleName == "Cajero") {
-                userRole = UserRole.Cajero;
-            }
-            if (roleName == "Personal de cocina") {
-                userRole = UserRole.PersonalCocina;
-            }
-            if (roleName == "Jefe de cocina") {
-                userRole = UserRole.JefeCocina;
-            }
-            return userRole;
         }
 
         private int ValidateEmailDuplicity() {

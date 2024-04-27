@@ -90,7 +90,7 @@
                                         Binding="{Binding Name}"  
                                         Width="170"/>
                     <DataGridTextColumn Header="Rol" 
-                                        Binding="{Binding Role}" 
+                                        Binding="{Binding RoleUser}" 
                                         Width="150"/>
                     <DataGridTextColumn Header="Estatus" 
                                         Binding="{Binding Availability}" 
