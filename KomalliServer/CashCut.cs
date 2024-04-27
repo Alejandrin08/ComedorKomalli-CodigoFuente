@@ -17,8 +17,8 @@ namespace KomalliServer
         public int Id { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> InitialBalance { get; set; }
-        public int TotalEntries { get; set; }
-        public int TotalExits { get; set; }
-        public int Balance { get; set; }
+        public Nullable<int> TotalEntries { get; set; }
+        public Nullable<int> TotalExits { get; set; }
+        public Nullable<int> Balance { get; set; }
     }
 }
