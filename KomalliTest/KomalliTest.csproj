@@ -62,6 +62,8 @@
     <Compile Include="Employee\EmployeeControllerTest.cs" />
     <Compile Include="Employee\IngredientControllerTest.cs" />
     <Compile Include="Employee\LogbookControllerTest.cs" />
+    <Compile Include="Employee\FoodOrderControllerTest.cs" />
+    <Compile Include="Employee\CashCutControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

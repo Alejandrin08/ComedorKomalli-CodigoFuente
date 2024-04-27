@@ -71,6 +71,9 @@
     <Compile Include="Employee.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Employee_FoodOrder.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="FoodOrder.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
