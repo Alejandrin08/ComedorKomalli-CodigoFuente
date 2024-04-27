@@ -72,19 +72,17 @@ namespace KomalliEmployee.Controller {
          * <param name="initialBalance">Saldo inicial</param>
          * <returns>Regresa el número de registros afectados</returns>
          */
-        public int UpdateDailyCashCut(int? initialBalance) {
+        public int UpdateDailyCashCut(CashCutModel cashCutModel) {
             int result = 0;
-            int totalEntries = new FoodOrderController().CalculateTotalDailyEntries();
-            int totalExits = new FoodOrderController().CalculateTotalDailyChange();
             try {
                 using (var context = new KomalliEntities()) {
                     CashCut cashCut = context.CashCut.OrderByDescending(cashCut => cashCut.Id).FirstOrDefault();
                     if (cashCut != null) {
                         cashCut.Date = DateTime.Now;
-                        cashCut.InitialBalance = initialBalance;
-                        cashCut.TotalEntries = totalEntries;
-                        cashCut.TotalExits = totalExits;
-                        cashCut.Balance = initialBalance + totalEntries - totalExits;
+                        cashCut.InitialBalance = cashCutModel.InitialBalance;
+                        cashCut.TotalEntries = cashCutModel.TotalEntries;
+                        cashCut.TotalExits = cashCutModel.TotalExits;
+                        cashCut.Balance = cashCutModel.Balance;
                         result = context.SaveChanges();
                     }
                 }

@@ -25,13 +25,13 @@ namespace KomalliEmployee.Controller {
          * <param name="email">Correo del usuario</param>
          * <returns>Regresa el rol del usuario</returns>
          */
-        public UserRole GetUserRule(string email) {
-            UserRole userRole = UserRole.Invalid;
+        public string GetUserRule(string email) {
+            string userRole = "";
             try {
                 using (var context = new KomalliEntities()) {
                     var query = context.Employee.Where(user => user.UserEmail == email).FirstOrDefault();
                     if (query != null) {
-                        userRole = (UserRole)Enum.Parse(typeof(UserRole), query.Role);   
+                        userRole = query.Role;   
                     }
                 }
             } catch (EntityException ex) {

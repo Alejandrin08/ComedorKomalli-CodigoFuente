@@ -44,7 +44,7 @@
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Total" Type="int" Nullable="false" />
           <Property Name="NumberDishes" Type="int" Nullable="false" />
-          <Property Name="Change" Type="int" Nullable="false" />
+          <Property Name="Change" Type="int" />
         </EntityType>
         <EntityType Name="FoodOrder_MenuCard">
           <Key>
@@ -269,7 +269,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Total" Type="Int32" Nullable="false" />
           <Property Name="NumberDishes" Type="Int32" Nullable="false" />
-          <Property Name="Change" Type="Int32" Nullable="false" />
+          <Property Name="Change" Type="Int32" />
           <NavigationProperty Name="Employee_FoodOrder" Relationship="Self.FK_Employee_FoodOrder_FoodOrder" FromRole="FoodOrder" ToRole="Employee_FoodOrder" />
           <NavigationProperty Name="FoodOrder_MenuCard" Relationship="Self.FK_FoodOrder_MenuCard_FoodOrder" FromRole="FoodOrder" ToRole="FoodOrder_MenuCard" />
           <NavigationProperty Name="FoodOrder_SetMenu" Relationship="Self.FK_FoodOrder_SetMenu_FoodOrder" FromRole="FoodOrder" ToRole="FoodOrder_SetMenu" />
