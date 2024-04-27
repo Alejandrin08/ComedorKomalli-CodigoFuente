@@ -181,7 +181,7 @@
                     Tag="Cajero, Personal de cocina, Jefe de cocina"                  
                     >
                 <TextBox.Text>
-                    <Binding Path="Password" 
+                    <Binding Path="RoleUser" 
                             UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validation:RoleValidationRule/>

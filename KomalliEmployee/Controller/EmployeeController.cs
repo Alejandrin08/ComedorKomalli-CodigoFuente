@@ -5,6 +5,7 @@ using KomalliServer;
 using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity.Core;
 using System.Data.Entity.Core.Objects;
@@ -23,7 +24,7 @@ namespace KomalliEmployee.Controller {
          * </summary>
          * <param name="email">Correo del usuario</param>
          * <returns>Regresa el rol del usuario</returns>
-         */                                                
+         */
         public UserRole GetUserRule(string email) {
             UserRole userRole = UserRole.Invalid;
             try {
@@ -138,7 +139,7 @@ namespace KomalliEmployee.Controller {
                     var user = new Employee {
                         NoPersonal = employeeModel.PersonalNumber,
                         UserEmail = employeeModel.Email,
-                        Role = employeeModel.Role.ToString(),
+                        Role = employeeModel.RoleUser,
                         Name = employeeModel.Name,
                     };
                     context.Employee.Add(user);
@@ -262,6 +263,7 @@ namespace KomalliEmployee.Controller {
                 using (var context = new KomalliEntities()) {
                     var query = (from employee in context.Employee
                                 join user in context.User on employee.UserEmail equals user.Email
+                                where !employee.Role.Contains("Gerente")
                                 select new {
                                     employee.NoPersonal,                                    
                                     employee.Role,
@@ -270,7 +272,7 @@ namespace KomalliEmployee.Controller {
                                 }).ToList()
                     .Select(result => new EmployeeModel {
                         PersonalNumber = result.NoPersonal,                       
-                        Role = (UserRole)Enum.Parse(typeof(UserRole), result.Role),
+                        RoleUser =  result.Role,
                         Availability = GetAvailabilityToString(result.Available),
                         Name = result.Name
                     }).ToList();
@@ -311,6 +313,14 @@ namespace KomalliEmployee.Controller {
             return availability;
         }
 
+        /**
+         * <summary>
+         * Este método se encarga de definir lo que significa cada palabra de disponibilidad para almacenarlo en la base de datos del sistema.
+         * </summary>
+         * <param name="result">Palabra que indica la disponibilidad de un usuario. </param>
+         * <returns>Regresa lo que significa la palabra ingresada.</returns>
+         */
+
         private int GetAvailabilityToInt(string result) {
             int availability = -1;
             switch (result) {
@@ -325,6 +335,14 @@ namespace KomalliEmployee.Controller {
             }
             return availability;
         }
+
+        /**
+         * <summary>
+         * Este método se encarga obtener todos los datos de un usuario a partir de su numero de personal.
+         * </summary>
+         * <param name="personalNumber">Numero de personal del usuario. </param>
+         * <returns>Regresa todos los datos del usuario.</returns>
+         */
 
         public EmployeeModel GetUserInfo(string personalNumber) {
             EmployeeModel employeeModel = null;
@@ -343,7 +361,7 @@ namespace KomalliEmployee.Controller {
                     if (userFound != null) {
                         employeeModel.Name = userFound.Name;
                         employeeModel.Availability = GetAvailabilityToString(userFound.Available);
-                        employeeModel.Role = (UserRole)Enum.Parse(typeof(UserRole), userFound.Role);
+                        employeeModel.RoleUser =  userFound.Role;
                         employeeModel.Email = userFound.Email;
                         employeeModel.PersonalNumber = userFound.NoPersonal;
                     }
@@ -353,6 +371,15 @@ namespace KomalliEmployee.Controller {
             }
             return employeeModel;
         }
+
+        /**
+         * <summary>
+         * Este método se encarga de modificar los datos de un usuario en la tabla User de la base de datos.
+         * </summary>
+         * <param name="employeeModel">Objeto que contiene los nuevos datos con  los que se modificara el registro del usuario. </param>
+         * <param name="email">Correo del usuario para identificarlo en la base de datos. </param>
+         * <returns>Regresa 1 si se actualiza correctamente, 0 si ocurre un error..</returns>
+         */
 
         public int UpdateUserInfo (EmployeeModel employeeModel, string email) {
             int result = 0;
@@ -372,6 +399,15 @@ namespace KomalliEmployee.Controller {
             return result;
         }
 
+        /**
+         * <summary>
+         * Este método se encarga de modificar los datos de un usuario en la tabla Employee de la base de datos.
+         * </summary>
+         * <param name="employeeModel">Objeto que contiene los nuevos datos con  los que se modificara el registro del usuario. </param>
+         * <param name="email">Correo del usuario para identificarlo en la base de datos. </param>
+         * <returns>Regresa 1 si se actualiza correctamente, 0 si ocurre un error..</returns>
+         */
+
         public int UpdateEmployeeInfo(EmployeeModel employeeModel, string email) {
             int result = 0;
             try {
@@ -380,7 +416,7 @@ namespace KomalliEmployee.Controller {
 
                     if (employee != null) {
                         employee.NoPersonal = employeeModel.PersonalNumber;
-                        employee.Role = employeeModel.Role.ToString();
+                        employee.Role = employeeModel.RoleUser;
                         employee.Name = employeeModel.Name;
                     }
                     result = context.SaveChanges();

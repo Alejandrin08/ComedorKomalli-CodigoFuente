@@ -33,7 +33,11 @@ namespace KomalliEmployee.Views.Pages {
         public ModifyUser() {
             InitializeComponent();
             DataContext = new EmployeeModel();
+            InitializeValidations();
+            SetInfo();
+        }
 
+        private void InitializeValidations() {
             var emailValidation = new EmailValidationRule();
             EmailValidationRule.ErrorTextBlock = txbEmailValidationMessage;
 
@@ -48,8 +52,6 @@ namespace KomalliEmployee.Views.Pages {
 
             var availabilityValidation = new AvailabilityValidationRule();
             AvailabilityValidationRule.ErrorTextBlock = txbAvailabilityValidationMessage;
-
-            SetInfo();
         }
 
         public void SetInfo() {
@@ -60,26 +62,9 @@ namespace KomalliEmployee.Views.Pages {
             txtNameUser.Text = employeeModel.Name;
             txtPersonalNumberUser.Text = employeeModel.PersonalNumber;
             txtEmailUser.Text = employeeModel.Email;
-            txtAvailability.Text = employeeModel.Availability;
-            employeeModel.RoleUser = GetRole(employeeModel.Role);
+            txtAvailability.Text = employeeModel.Availability;           
             txtRoleUser.Text = employeeModel.RoleUser;
             this.DataContext = employeeModel;
-        }
-
-        public string GetRole(UserRole userRole) {
-            string role = "";
-            switch (userRole) {
-                case UserRole.JefeCocina:
-                    role = "Jefe de cocina";
-                    break;
-                case UserRole.PersonalCocina:
-                    role = "Personal de cocina";
-                    break;
-                default:
-                    role = userRole.ToString();
-                    break;
-            }
-            return role;
         }
 
         private void TextChangedValidateEmail(object sender, TextChangedEventArgs e) {
@@ -128,8 +113,6 @@ namespace KomalliEmployee.Views.Pages {
 
             EmployeeController employeeController = new EmployeeController();
             EmployeeModel employeeModel = employeeController.GetUserInfo(SingletonClass.Instance.PersonalNumberUserSelected);
-            employeeModel.RoleUser = GetRole(employeeModel.Role);
-
             if (txtNameUser.Text == employeeModel.Name &&
                 txtPersonalNumberUser.Text == employeeModel.PersonalNumber &&
                 txtEmailUser.Text == employeeModel.Email &&
@@ -152,18 +135,11 @@ namespace KomalliEmployee.Views.Pages {
             int emailValid = ValidateEmailDuplicity();
             int noPersonalValid = ValidateNoPersonalDuplicity();
             if (emailValid != 0 && noPersonalValid != 0) {
-                EmployeeModel employeeModel = new EmployeeModel {
-                    Name = txtNameUser.Text,
-                    Email = txtEmailUser.Text,
-                    Role = GetRole(txtRoleUser.Text),
-                    PersonalNumber = txtPersonalNumberUser.Text,
-                    Availability = txtAvailability.Text,
-                };
+                EmployeeModel employeeModel = GetInfo();
                 EmployeeController employeeController = new EmployeeController();
                 int resultUpdateUser = 1;
-                int resultUpdateEmployee = 1;
-                /*
-                if (txtEmailUser.Text == SingletonClass.Instance.EmailUserSelected || txtAvailability.Text == SingletonClass.Instance.AvailabilityUserSelected) {
+                int resultUpdateEmployee = 1;                
+                if (txtEmailUser.Text == SingletonClass.Instance.EmailUserSelected && txtAvailability.Text == SingletonClass.Instance.AvailabilityUserSelected) {
                     resultUpdateEmployee = employeeController.UpdateEmployeeInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
                 } else {
                     if(txtEmailUser.Text == SingletonClass.Instance.EmailUserSelected) {
@@ -172,14 +148,9 @@ namespace KomalliEmployee.Views.Pages {
                     } else {
                         resultUpdateUser = employeeController.UpdateUserInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
                         resultUpdateEmployee = employeeController.UpdateEmployeeInfo(employeeModel, txtEmailUser.Text);
-                    }
-                   
-                }
-                */
-                resultUpdateUser = employeeController.UpdateUserInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
-                Console.WriteLine("bdlgd" + resultUpdateEmployee + "fgld" + resultUpdateUser);
-                if (resultUpdateUser > 0 && resultUpdateEmployee > 0) {
-                    
+                    }                   
+                }             
+                if (resultUpdateUser > 0 && resultUpdateEmployee > 0) {                    
                     App.ShowMessageInformation("Actualización exitosa", "Modificación de empleado");
                     this.NavigationService.GoBack();
                 } else {
@@ -188,20 +159,15 @@ namespace KomalliEmployee.Views.Pages {
             }
         }
 
-        
-
-        private UserRole GetRole(string roleName) {
-            UserRole userRole = new UserRole();
-            if (roleName == "Cajero") {
-                userRole = UserRole.Cajero;
-            }
-            if (roleName == "Personal de cocina") {
-                userRole = UserRole.PersonalCocina;
-            }
-            if (roleName == "Jefe de cocina") {
-                userRole = UserRole.JefeCocina;
-            }
-            return userRole;
+        private EmployeeModel GetInfo() {
+            EmployeeModel employeeModel = new EmployeeModel {
+                Name = txtNameUser.Text,
+                Email = txtEmailUser.Text,
+                RoleUser = txtRoleUser.Text,
+                PersonalNumber = txtPersonalNumberUser.Text,
+                Availability = txtAvailability.Text,
+            };
+            return employeeModel;
         }
 
         private int ValidateEmailDuplicity() {
@@ -249,6 +215,10 @@ namespace KomalliEmployee.Views.Pages {
             if (e.Key == Key.Enter) {
                 ClicKModifyUser(sender, e);
             }
+        }
+
+        private void MouseDownGoBack(object sender, MouseButtonEventArgs e) {
+            this.NavigationService.GoBack();
         }
     }
 }
