@@ -19,5 +19,9 @@ namespace KomalliEmployee.Model.Utilities {
 
         public string Email { get; set; }
         public string UserName { get; set; }
+        public string PersonalNumberUserSelected { get; set; }
+        public string EmailUserSelected { get; set; }
+
+        public string AvailabilityUserSelected { get; set; }
     }
 }

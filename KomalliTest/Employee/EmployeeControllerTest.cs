@@ -179,27 +179,27 @@ namespace KomalliTest.Employee {
         }
 
         [TestMethod]
-        public void ValidateNoPersonal_Sucessfull() {
+        public void ValidatePersonalNumber_Sucessfull() {
 
             KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
 
             string personalNumber = "43";
 
             int resultExpected = -1;
-            int result = test.ValidateNoPersonal(personalNumber);
+            int result = test.ValidatePersonalNumber(personalNumber);
             Assert.AreEqual(resultExpected, result);
 
         }
 
         [TestMethod]
-        public void ValidateNoPersonal_Failed() {
+        public void ValidatePersonalNumber_Failed() {
 
             KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
 
             string personalNumber = "1";
 
             int resultExpected = -1;
-            int result = test.ValidateNoPersonal(personalNumber);
+            int result = test.ValidatePersonalNumber(personalNumber);
             Assert.AreNotEqual(resultExpected, result);
 
         }
@@ -247,6 +247,31 @@ namespace KomalliTest.Employee {
             string resultExpected = "777";
             string result = test.GetNoPersonalEmployee(email);
             Assert.AreNotEqual(resultExpected, result);
+        }
+
+        [TestMethod]
+        public void ConsultUsers_Sucessfull() {
+
+            KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
+
+            string email = "ares@gmail.com";
+
+            string resultExpected = "Ares Judda Rivera Soto";
+            string result = test.GetUserName(email);
+            Assert.AreEqual(resultExpected, result);
+        }
+
+        [TestMethod]
+        public void ConsultUsers_Failed() {
+
+            KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
+
+            string email = "momaosiris@gmail.com";
+
+            string resultExpected = "Ares Judda Rivera Soto";
+            string result = test.GetUserName(email);
+            Assert.AreNotEqual(resultExpected, result);
+
         }
     }
 }

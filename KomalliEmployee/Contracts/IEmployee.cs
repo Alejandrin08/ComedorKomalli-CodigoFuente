@@ -15,8 +15,10 @@ namespace KomalliEmployee.Contracts {
         public int AddEmployee(EmployeeModel employeeModel);
         public int ValidateEmail(string email);
         public int ValidateUser(string email, string password);
-        public int ValidateNoPersonal(string personalNumber);
+        public int ValidatePersonalNumber(string personalNumber);
         public string GetUserName(string email);
         public string GetNoPersonalEmployee(string email);
+        public List<EmployeeModel> ConsultUsers();
+        public EmployeeModel GetUserInfo(string personalNumber);
     }
 }
