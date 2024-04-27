@@ -40,6 +40,8 @@ namespace KomalliEmployee.Views.Pages {
                 var personalNumber = rowObject.PersonalNumber;
                 SingletonClass.Instance.PersonalNumberUserSelected = personalNumber;
             }
+            ModifyUser modifyUser = new ModifyUser();
+            this.NavigationService.Navigate(modifyUser);
         }
 
         private void TextChangedSearchUser (object sender, TextChangedEventArgs e) {

@@ -263,17 +263,15 @@ namespace KomalliEmployee.Controller {
                     var query = (from employee in context.Employee
                                 join user in context.User on employee.UserEmail equals user.Email
                                 select new {
-                                    employee.NoPersonal,
-                                    user.Email,
+                                    employee.NoPersonal,                                    
                                     employee.Role,
                                     user.Available,
                                     employee.Name
                                 }).ToList()
                     .Select(result => new EmployeeModel {
-                        PersonalNumber = result.NoPersonal,
-                        Email = result.Email,
+                        PersonalNumber = result.NoPersonal,                       
                         Role = (UserRole)Enum.Parse(typeof(UserRole), result.Role),
-                        Availability = GetAvailability(result.Available),
+                        Availability = GetAvailabilityToString(result.Available),
                         Name = result.Name
                     }).ToList();
 
@@ -286,6 +284,7 @@ namespace KomalliEmployee.Controller {
             return users;
         }
 
+
         /**
          * <summary>
          * Este método se encarga de definir lo que significa cada numero dentro de la base de datos en la columna de disponibilidad.
@@ -294,11 +293,11 @@ namespace KomalliEmployee.Controller {
          * <returns>Regresa lo que significa el numero ingresado.</returns>
          */
 
-        private string GetAvailability(int result) {
+        private string GetAvailabilityToString(int result) {
             string availability = "";
             switch (result) {
                 case 0:
-                    availability = "Nuevo";
+                    availability = "Activo";
                     break;
                 case 1:
                     availability = "Activo";
@@ -310,6 +309,86 @@ namespace KomalliEmployee.Controller {
                     break;
             }
             return availability;
+        }
+
+        private int GetAvailabilityToInt(string result) {
+            int availability = -1;
+            switch (result) {
+                case "Activo":
+                    availability = 1;
+                    break;
+                case "Inactivo":
+                    availability = 2;
+                    break;
+                default:
+                    break;
+            }
+            return availability;
+        }
+
+        public EmployeeModel GetUserInfo(string personalNumber) {
+            EmployeeModel employeeModel = null;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var userFound = (from employee in context.Employee
+                                    join user in context.User on employee.UserEmail equals user.Email
+                                    where employee.NoPersonal == personalNumber select new {
+                                        employee.NoPersonal,
+                                        user.Email,
+                                        employee.Role,
+                                        user.Available,
+                                        employee.Name                            
+                                    }).FirstOrDefault();
+                    employeeModel = new EmployeeModel();
+                    if (userFound != null) {
+                        employeeModel.Name = userFound.Name;
+                        employeeModel.Availability = GetAvailabilityToString(userFound.Available);
+                        employeeModel.Role = (UserRole)Enum.Parse(typeof(UserRole), userFound.Role);
+                        employeeModel.Email = userFound.Email;
+                        employeeModel.PersonalNumber = userFound.NoPersonal;
+                    }
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en obtener los datos del usuario", ex);
+            }
+            return employeeModel;
+        }
+
+        public int UpdateUserInfo (EmployeeModel employeeModel, string email) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var user = context.User.Where(user => user.Email == email).FirstOrDefault();
+                    
+                    if (user != null) {
+                        user.Email = employeeModel.Email;
+                        user.Available = GetAvailabilityToInt(employeeModel.Availability);
+                    }
+                    result = context.SaveChanges();
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en actualizar los datos de usuario", ex);
+            }
+            return result;
+        }
+
+        public int UpdateEmployeeInfo(EmployeeModel employeeModel, string email) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var employee = context.Employee.Where(employee => employee.UserEmail == email).FirstOrDefault();
+
+                    if (employee != null) {
+                        employee.NoPersonal = employeeModel.PersonalNumber;
+                        employee.Role = employeeModel.Role.ToString();
+                        employee.Name = employeeModel.Name;
+                    }
+                    result = context.SaveChanges();
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en actualizar los datos del empleado", ex);
+            }
+            return result;
         }
     }
 

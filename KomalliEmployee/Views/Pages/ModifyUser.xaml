@@ -179,7 +179,7 @@
                     <Binding Path="Availability" 
                         UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <validation:RoleValidationRule/>
+                            <validation:AvailabilityValidationRule/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -214,7 +214,7 @@
                 Tag="Cajero, Personal de cocina, Jefe de cocina"                  
                 >
                 <TextBox.Text>
-                    <Binding Path="Password" 
+                    <Binding Path="RoleUser" 
                         UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validation:RoleValidationRule/>

@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KomalliEmployee.Controller;
 using KomalliEmployee.Model.Utilities;
+using System.ComponentModel.DataAnnotations;
 
 namespace KomalliEmployee.Views.Pages {
     /// <summary>
@@ -28,6 +29,7 @@ namespace KomalliEmployee.Views.Pages {
         bool NameValid = false;
         bool RoleValid = false;
         bool AvailabilityValid = false;
+
         public ModifyUser() {
             InitializeComponent();
             DataContext = new EmployeeModel();
@@ -44,8 +46,40 @@ namespace KomalliEmployee.Views.Pages {
             var roleValidation = new RoleValidationRule();
             RoleValidationRule.ErrorTextBlock = txbRoleValidationMessage;
 
-           // var availabilityValidation = new AvailabilityValidationRule();
-           // AvailabilityValidationRuleErrorTextBlock = txbAvailabilityValidationMessage;
+            var availabilityValidation = new AvailabilityValidationRule();
+            AvailabilityValidationRule.ErrorTextBlock = txbAvailabilityValidationMessage;
+
+            SetInfo();
+        }
+
+        public void SetInfo() {
+            EmployeeController employeeController = new EmployeeController();
+            EmployeeModel employeeModel = employeeController.GetUserInfo(SingletonClass.Instance.PersonalNumberUserSelected);
+            SingletonClass.Instance.EmailUserSelected = employeeModel.Email;
+            SingletonClass.Instance.AvailabilityUserSelected = employeeModel.Availability;
+            txtNameUser.Text = employeeModel.Name;
+            txtPersonalNumberUser.Text = employeeModel.PersonalNumber;
+            txtEmailUser.Text = employeeModel.Email;
+            txtAvailability.Text = employeeModel.Availability;
+            employeeModel.RoleUser = GetRole(employeeModel.Role);
+            txtRoleUser.Text = employeeModel.RoleUser;
+            this.DataContext = employeeModel;
+        }
+
+        public string GetRole(UserRole userRole) {
+            string role = "";
+            switch (userRole) {
+                case UserRole.JefeCocina:
+                    role = "Jefe de cocina";
+                    break;
+                case UserRole.PersonalCocina:
+                    role = "Personal de cocina";
+                    break;
+                default:
+                    role = userRole.ToString();
+                    break;
+            }
+            return role;
         }
 
         private void TextChangedValidateEmail(object sender, TextChangedEventArgs e) {
@@ -62,7 +96,7 @@ namespace KomalliEmployee.Views.Pages {
             NameValid = ValidateRuleTextBox(txtNameUser, txbNameValidationMessage);
             EnableButton();
         }
-        
+
         private void TextChangedValidateAvailability(object sender, TextChangedEventArgs e) {
             AvailabilityValid = ValidateRuleTextBox(txtAvailability, txbAvailabilityValidationMessage);
             EnableButton();
@@ -91,10 +125,25 @@ namespace KomalliEmployee.Views.Pages {
         }
 
         private void EnableButton() {
-            if (EmailValid && NameValid && PersonalNumberValid && RoleValid && AvailabilityValid) {
-                btnModifyUser.IsEnabled = true;
-            } else {
+
+            EmployeeController employeeController = new EmployeeController();
+            EmployeeModel employeeModel = employeeController.GetUserInfo(SingletonClass.Instance.PersonalNumberUserSelected);
+            employeeModel.RoleUser = GetRole(employeeModel.Role);
+
+            if (txtNameUser.Text == employeeModel.Name &&
+                txtPersonalNumberUser.Text == employeeModel.PersonalNumber &&
+                txtEmailUser.Text == employeeModel.Email &&
+                txtAvailability.Text == employeeModel.Availability &&
+                txtRoleUser.Text == employeeModel.RoleUser) {
+
                 btnModifyUser.IsEnabled = false;
+
+            } else {
+                if (EmailValid && NameValid && PersonalNumberValid && RoleValid && AvailabilityValid) {
+                    btnModifyUser.IsEnabled = true;
+                } else {
+                    btnModifyUser.IsEnabled = false;
+                }
             }
         }
 
@@ -108,34 +157,38 @@ namespace KomalliEmployee.Views.Pages {
                     Email = txtEmailUser.Text,
                     Role = GetRole(txtRoleUser.Text),
                     PersonalNumber = txtPersonalNumberUser.Text,
-                    Password = txtPersonalNumberUser.Text + "komalli",
+                    Availability = txtAvailability.Text,
                 };
                 EmployeeController employeeController = new EmployeeController();
-                int resultAdduser = employeeController.AddUser(employeeModel);
-                int resultAddEmployee = employeeController.AddEmployee(employeeModel);
-                if (resultAdduser > 0 && resultAddEmployee > 0) {
-                    App.ShowMessageInformation("Registro exitoso", "Registro de empleado");
-                    CleanTextBoxes();
+                int resultUpdateUser = 1;
+                int resultUpdateEmployee = 1;
+                /*
+                if (txtEmailUser.Text == SingletonClass.Instance.EmailUserSelected || txtAvailability.Text == SingletonClass.Instance.AvailabilityUserSelected) {
+                    resultUpdateEmployee = employeeController.UpdateEmployeeInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
                 } else {
-                    App.ShowMessageWarning("Error al registrar el empleado", "Registro de empleado");
+                    if(txtEmailUser.Text == SingletonClass.Instance.EmailUserSelected) {
+                        resultUpdateUser = employeeController.UpdateUserInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
+                        resultUpdateEmployee = employeeController.UpdateEmployeeInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
+                    } else {
+                        resultUpdateUser = employeeController.UpdateUserInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
+                        resultUpdateEmployee = employeeController.UpdateEmployeeInfo(employeeModel, txtEmailUser.Text);
+                    }
+                   
+                }
+                */
+                resultUpdateUser = employeeController.UpdateUserInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
+                Console.WriteLine("bdlgd" + resultUpdateEmployee + "fgld" + resultUpdateUser);
+                if (resultUpdateUser > 0 && resultUpdateEmployee > 0) {
+                    
+                    App.ShowMessageInformation("Actualización exitosa", "Modificación de empleado");
+                    this.NavigationService.GoBack();
+                } else {
+                    App.ShowMessageWarning("Error al actualizar los datos del empleado", "Modificación de empleado");
                 }
             }
         }
 
-        private void CleanTextBoxes() {
-
-            ResetTextBoxes(txtNameUser, TextChangedValidateName);
-            ResetTextBoxes(txtEmailUser, TextChangedValidateEmail);
-            ResetTextBoxes(txtRoleUser, TextChangedValidateRole);
-            ResetTextBoxes(txtPersonalNumberUser, TextChangedValidatePersonalNumber);
-
-        }
-
-        private void ResetTextBoxes(TextBox textBox, TextChangedEventHandler textChange) {
-            textBox.TextChanged -= textChange;
-            textBox.Text = "";
-            textBox.TextChanged += textChange;
-        }
+        
 
         private UserRole GetRole(string roleName) {
             UserRole userRole = new UserRole();
@@ -152,14 +205,24 @@ namespace KomalliEmployee.Views.Pages {
         }
 
         private int ValidateEmailDuplicity() {
-            int result = ValidateDuplicity(txtEmailUser, txbEmailValidationMessage, "Email");
-            EmailValid = result != 0;
+            int result = -0; 
+            if(txtEmailUser.Text == SingletonClass.Instance.EmailUserSelected) {
+                result = 1;
+            } else {
+                result = ValidateDuplicity(txtEmailUser, txbEmailValidationMessage, "Email");
+                EmailValid = result != 0;
+            }            
             return result;
         }
 
         private int ValidateNoPersonalDuplicity() {
-            int result = ValidateDuplicity(txtPersonalNumberUser, txbPersonalNumberValidationMessage, "PersonalNumber");
-            PersonalNumberValid = result != 0;
+            int result = -0;
+            if (txtPersonalNumberUser.Text == SingletonClass.Instance.PersonalNumberUserSelected) {
+                result = 1;
+            } else {
+                result = ValidateDuplicity(txtPersonalNumberUser, txbPersonalNumberValidationMessage, "PersonalNumber");
+                PersonalNumberValid = result != 0;
+            }
             return result;
         }
 
@@ -169,6 +232,7 @@ namespace KomalliEmployee.Views.Pages {
             EmployeeController employeeController = new EmployeeController();
 
             if (type == "Email") {
+
                 isValidData = employeeController.ValidateEmail(textBox.Text);
             } else if (type == "PersonalNumber") {
                 isValidData = employeeController.ValidatePersonalNumber(textBox.Text);
