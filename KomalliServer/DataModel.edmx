@@ -98,6 +98,7 @@
           <Property Name="NameFood" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="Section" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="Image" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="SetMenu">
           <Key>
@@ -330,6 +331,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
           <Property Name="NameFood" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Section" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="FoodOrder_MenuCard" Relationship="Self.FK_FoodOrder_MenuCard_MenuCard" FromRole="MenuCard" ToRole="FoodOrder_MenuCard" />
         </EntityType>
         <EntityType Name="SetMenu">
@@ -548,6 +550,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
                 <ScalarProperty Name="NameFood" ColumnName="NameFood" />
                 <ScalarProperty Name="Section" ColumnName="Section" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

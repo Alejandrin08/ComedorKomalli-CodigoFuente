@@ -21,7 +21,8 @@ namespace KomalliEmployee.Model.Utilities {
         public string UserName { get; set; }
         public string PersonalNumberUserSelected { get; set; }
         public string EmailUserSelected { get; set; }
-
         public string AvailabilityUserSelected { get; set; }
+
+        public string IdFoodOrderSelected {  get; set; } 
     }
 }

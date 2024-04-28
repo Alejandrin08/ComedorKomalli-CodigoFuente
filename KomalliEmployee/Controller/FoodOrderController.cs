@@ -85,5 +85,42 @@ namespace KomalliEmployee.Controller {
             }
             return foodOrderModels;
         }
+
+        /**
+        * <summary>
+        * Este método se encarga de obtener datos de pedidos realizados desde kiosko.
+        * </summary>
+        * <returns> Regresa la lista de los pedidos obtenidos en la base de datos.</returns>
+        */
+        public List<FoodOrderModel> ConsultFoodOrdersKiosko() {
+            List<FoodOrderModel> foodOrder = new List<FoodOrderModel>();
+            foodOrder = null;
+            //DbFunctions.TruncateTime(foodOrders.Date) == today &&
+            try {
+                using (var context = new KomalliEntities()) {
+                    var today = DateTime.Now.Date;
+                    var query = (from foodOrders in context.FoodOrder
+                                 where  foodOrders.IDFoodOrder.StartsWith("Kio")
+                                 select new  {
+                                     foodOrders.IDFoodOrder,
+                                     foodOrders.ClientName,
+                                     foodOrders.NumberDishes,
+                                     foodOrders.Total
+                                 }).ToList()
+                    .Select(result => new FoodOrderModel {
+                        IdFoodOrder = result.IDFoodOrder,
+                        ClientName = result.ClientName,
+                        NumberDishes = result.NumberDishes,
+                        Total = result.Total
+                    }).ToList();
+
+                    foodOrder = query;
+                }
+            } catch (EntityException ex) {
+                foodOrder = null;
+                LoggerManager.Instance.LogError("Error al consultar los pedidos de kiosko", ex);
+            }
+            return foodOrder;
+        }
     }
 }

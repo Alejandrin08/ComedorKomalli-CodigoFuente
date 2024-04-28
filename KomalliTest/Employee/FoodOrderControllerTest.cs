@@ -124,5 +124,73 @@ namespace KomalliTest.Employee {
                 Assert.AreNotEqual(foodOrdersExpected[i].Total, foodOrdersResult[i].Total);
             }
         }
+
+        [TestMethod]
+        public void ConsultFoodOrdersKiosko_Sucessfull() {
+            KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+
+            var foodOrdersExpected = new List<FoodOrderModel> {
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio003",
+                    ClientName = "Alejandro",
+                    NumberDishes = 2,
+                    Total = 60
+                },
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio004",
+                    ClientName = "Paloma",
+                    NumberDishes = 1,
+                    Total = 30
+                },
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio005",                    
+                    ClientName = "Ares",
+                    NumberDishes = 3,
+                    Total = 80
+                }
+            };
+
+            var foodOrdersResult = test.ConsultFoodOrdersKiosko();
+
+            Assert.AreEqual(foodOrdersExpected.Count, foodOrdersResult.Count);
+            for (int i = 0; i < foodOrdersExpected.Count; i++) {
+                Assert.AreEqual(foodOrdersExpected[i].IdFoodOrder, foodOrdersResult[i].IdFoodOrder);
+                Assert.AreEqual(foodOrdersExpected[i].ClientName, foodOrdersResult[i].ClientName);
+                Assert.AreEqual(foodOrdersExpected[i].NumberDishes, foodOrdersResult[i].NumberDishes);
+                Assert.AreEqual(foodOrdersExpected[i].Total, foodOrdersResult[i].Total);
+            }
+
+        }
+
+        [TestMethod]
+        public void ConsultFoodOrdersKiosko_Failed() {
+            KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+
+            var foodOrdersExpected = new List<FoodOrderModel> {
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio013",
+                    ClientName = "Alejandro Sánchez",
+                    NumberDishes = 6,
+                    Total = 70
+                },
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio504",
+                    ClientName = "Ysela",
+                    NumberDishes = 3,
+                    Total = 350
+                }
+            };
+
+            var foodOrdersResult = test.ConsultFoodOrdersKiosko();
+
+            Assert.AreNotEqual(foodOrdersExpected.Count, foodOrdersResult.Count);
+            for (int i = 0; i < foodOrdersExpected.Count; i++) {
+                Assert.AreNotEqual(foodOrdersExpected[i].IdFoodOrder, foodOrdersResult[i].IdFoodOrder);
+                Assert.AreNotEqual(foodOrdersExpected[i].ClientName, foodOrdersResult[i].ClientName);
+                Assert.AreNotEqual(foodOrdersExpected[i].NumberDishes, foodOrdersResult[i].NumberDishes);
+                Assert.AreNotEqual(foodOrdersExpected[i].Total, foodOrdersResult[i].Total);
+            }
+
+        }
     }
 }

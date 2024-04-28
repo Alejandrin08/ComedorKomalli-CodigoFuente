@@ -134,6 +134,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataReports.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\ConsultFoodOrdersKiosko.xaml.cs">
+      <DependentUpon>ConsultFoodOrdersKiosko.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\ConsultUsers.xaml.cs">
       <DependentUpon>ConsultUsers.xaml</DependentUpon>
     </Compile>
@@ -194,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ConsultFoodOrdersKiosko.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

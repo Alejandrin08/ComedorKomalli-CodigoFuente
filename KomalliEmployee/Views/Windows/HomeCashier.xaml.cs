@@ -37,6 +37,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickConsultOrders(object sender, RoutedEventArgs e) {
+            fraPages.Navigate(new System.Uri("/Views/Pages/ConsultFoodOrdersKiosko.xaml", UriKind.RelativeOrAbsolute));
 
         }
 

@@ -11,5 +11,6 @@ namespace KomalliEmployee.Contracts {
         public List<FoodOrderModel> DailyFoodOrders();
         public int CalculateTotalDailyEntries();
         public int CalculateTotalDailyChange();
+        public List<FoodOrderModel> ConsultFoodOrdersKiosko();
     }
 }
