@@ -21,5 +21,25 @@ namespace KomalliClient {
         public MainWindow() {
             InitializeComponent();
         }
+
+        private void ClickClose(object sender, RoutedEventArgs e) {
+            Close();
+        }
+
+        private void ClickRestore(object sender, RoutedEventArgs e) {
+            if (WindowState == WindowState.Normal) {
+                WindowState = WindowState.Maximized;
+            } else {
+                WindowState = WindowState.Normal;
+            }
+        }
+
+        private void ClickMinimize(object sender, RoutedEventArgs e) {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void fraPages_Initialized(object sender, EventArgs e) {
+
+        }
     }
 }
