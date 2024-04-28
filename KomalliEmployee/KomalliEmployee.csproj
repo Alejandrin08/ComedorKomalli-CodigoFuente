@@ -152,6 +152,9 @@
     <Compile Include="Views\Pages\Logbook.xaml.cs">
       <DependentUpon>Logbook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\MakeCollection.xaml.cs">
+      <DependentUpon>MakeCollection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\ModifyUser.xaml.cs">
       <DependentUpon>ModifyUser.xaml</DependentUpon>
     </Compile>
@@ -225,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\LogbookReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\MakeCollection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

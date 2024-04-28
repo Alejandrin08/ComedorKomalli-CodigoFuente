@@ -40,8 +40,8 @@ namespace KomalliEmployee.Views.Pages {
                 var idFoodOrder = rowObject.IdFoodOrder;
                 SingletonClass.Instance.IdFoodOrderSelected = idFoodOrder;
             }
-            //ModifyUser modifyUser = new ModifyUser();
-            //this.NavigationService.Navigate(modifyUser);
+            MakeCollection modifyUser = new MakeCollection();
+            this.NavigationService.Navigate(modifyUser);
         }
 
         private void TextChangedSearchFoodOrder(object sender, TextChangedEventArgs e) {

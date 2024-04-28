@@ -54,7 +54,6 @@
                     Margin = "227,124,460,284"
                     Foreground = "Black" 
                     FontWeight="Normal"
-
             />
 
             <TextBox x:Name = "txtNameUser"
