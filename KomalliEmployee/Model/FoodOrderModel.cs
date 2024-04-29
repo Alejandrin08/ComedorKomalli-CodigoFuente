@@ -13,6 +13,9 @@ namespace KomalliEmployee.Model {
         public int Total {  get; set; }
         public int NumberDishes { get; set; }
 
+        public string Status { get; set; }
+        public int Change {  get; set; }
+
         public string DateFormat {
             get {
                 return Date.Value.ToShortDateString();

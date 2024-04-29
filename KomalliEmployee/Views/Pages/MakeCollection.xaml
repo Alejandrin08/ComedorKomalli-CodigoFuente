@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:validation="clr-namespace:KomalliEmployee.Model.Validations"
       xmlns:local="clr-namespace:KomalliEmployee.Views.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="580" d:DesignWidth="850"
@@ -35,6 +36,12 @@
                 <Rectangle.RadiusY>20</Rectangle.RadiusY>
 
             </Rectangle>
+
+            <Image Source="\Resources\Images\iconGoBack.png"
+                Margin="34,24,764,514"
+                MouseDown="MouseDownGoBack"
+                Cursor="Hand"
+            />
 
             <Rectangle Margin="30,110,345,30">
 
@@ -70,14 +77,15 @@
                 HorizontalAlignment="Center"  
             />
 
-            <DataGrid x:Name="dgFoodOrder" 
-                Margin="40,125,354,110"
-                Style="{StaticResource DataGridStyle}">
+            <DataGrid x:Name="dgDishOrder" 
+                Margin="40,125,354,110"                      
+                Style="{StaticResource DataGridStyle}"
+                RowHeight="50">
                 <DataGrid.Resources>
                     <Style TargetType="DataGridCell">
                         <Setter Property="HorizontalAlignment" Value="Center"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
-                    </Style>
+                    </Style>                    
                 </DataGrid.Resources>
                 <DataGrid.ColumnHeaderStyle>
                     <StaticResource ResourceKey="DataGridColumnHeaderStyle"/>
@@ -86,18 +94,23 @@
                     <StaticResource ResourceKey="DataGridRowStyle"/>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Platillo" 
-                                Binding="{Binding IdFoodOrder}"                                
-                                Width="104"/>
+                    <DataGridTemplateColumn Header="Platillo" Width="118">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DishName}" 
+                                           TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Cantidad" 
-                                Binding="{Binding ClientName}"  
-                                Width="124"/>
+                                Binding="{Binding NumberDishes}"  
+                                Width="120"/>
                     <DataGridTextColumn Header="P. Unitario" 
-                                Binding="{Binding NumberDishes}" 
-                                Width="144"/>
+                                Binding="{Binding UnitPrice}" 
+                                Width="140"/>
                     <DataGridTextColumn Header="Total" 
                                 Binding="{Binding Total}" 
-                                Width="70"/>
+                                Width="65"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -160,6 +173,7 @@
                 Text = "$ 000.00"
                 FontFamily = "Segoe UI"
                 FontSize = "28" 
+                HorizontalAlignment="Center"
                 Margin = "612,160,120,385"
                 Foreground = "Black" 
                 FontWeight="Bold"
@@ -175,7 +189,6 @@
             />
 
             <TextBox x:Name = "txtReceive"
-                     
                      HorizontalAlignment = "Right" 
                      VerticalAlignment = "Top"
                      FontSize = "20"                      
@@ -183,7 +196,10 @@
                      Width = "131" 
                      Margin = "0,242,89,0"
                      MaxLength="4"
-                     Style="{StaticResource TextBoxStyle}">
+                     Style="{StaticResource TextBoxStyle}" 
+                     TextChanged="TextChangedValidateReceive" 
+                     PreviewTextInput="PreviewTextInputOnlyNumber"
+                     KeyDown="KeyDownEnterReceive">
             </TextBox>
 
             <TextBlock 
@@ -195,6 +211,14 @@
                     FontWeight="Normal"
             />
 
+            <TextBlock x:Name="txbReceiveValidationMessage"
+                       Text="Campo obligatorio"
+               Foreground="Red"
+               Margin="630,281,89,277"
+               FontSize="12"
+               Visibility="Collapsed"
+            />
+
             <TextBlock x:Name = "tbkChange"
                     Text = "Cambio:"
                     FontFamily = "Segoe UI"
@@ -202,10 +226,11 @@
                     Margin = "545,317,210,223"
                     Foreground = "Black" 
                     FontWeight="Normal"
+                       Visibility="Collapsed"
             />
 
             <TextBox x:Name = "txtChange"
-                     
+                     Visibility="Collapsed"
                      HorizontalAlignment = "Right" 
                      VerticalAlignment = "Top"
                      FontSize = "20"                      
@@ -213,20 +238,24 @@
                      Width = "121" 
                      Margin = "0,320,89,0"
                      MaxLength="6"
-                     Style="{StaticResource TextBoxStyle}">
+                     IsEnabled="False"
+                     Style="{StaticResource TextBoxStyle}"                     
+                     PreviewTextInput="PreviewTextInputOnlyNumber">
             </TextBox>
 
-            <TextBlock 
+            <TextBlock x:Name="tbkMxn"
                     Text = "MXN"
                     FontFamily = "Segoe UI"
                     FontSize = "20" 
                     Margin = "762,324,43,230"
                     Foreground = "Black" 
                     FontWeight="Normal"
+                    Visibility="Collapsed"
             />
 
             <TextBlock x:Name = "tbkName"
                     Text = "Nombre:"
+                    Visibility="Collapsed"
                     FontFamily = "Segoe UI"
                     FontSize = "25" 
                     Margin = "545,406,210,134"
@@ -235,16 +264,33 @@
             />
 
             <TextBox x:Name = "txtClientName"
-                    
+                    TextChanged="TextChangedValidateName"
                      HorizontalAlignment = "Right" 
+                     IsEnabled="False"
                      VerticalAlignment = "Top"
+                     Visibility="Collapsed"
                      FontSize = "20"                      
                      Height = "34"
                      Width = "160" 
                      Margin = "0,409,43,0"
                      MaxLength="50"
                      Style="{StaticResource TextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="ClientName" 
+                            UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validation:NameValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
             </TextBox>
+
+            <TextBlock x:Name="txbNameValidationMessage"
+               Foreground="Red"
+               Margin="647,448,45,110"
+               FontSize="12"
+               Visibility="Collapsed"
+            />
 
             <Button x:Name = "btnConfirmOrder"
                     Margin = "612,488,102,56"
@@ -252,11 +298,8 @@
                     FontSize = "13"
                     Style="{StaticResource ButtonStyle}"
                     IsEnabled="False"
-                    Click="ClicKRegisterUser"
-                    KeyDown="KeyDownRegisterUser"
+                    Click="ClickConfirmOrder"                   
             />
-
-
         </Grid>
     </Viewbox>
 </Page>

@@ -59,6 +59,7 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Employee\DishOrderControllerTest.cs" />
     <Compile Include="Employee\EmployeeControllerTest.cs" />
     <Compile Include="Employee\IngredientControllerTest.cs" />
     <Compile Include="Employee\LogbookControllerTest.cs" />

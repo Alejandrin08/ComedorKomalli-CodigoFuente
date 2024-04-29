@@ -103,17 +103,23 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Contracts\ICashCut.cs" />
+    <Compile Include="Contracts\IDishOrder.cs" />
     <Compile Include="Contracts\IEmployee.cs" />
+    <Compile Include="Contracts\IFood.cs" />
     <Compile Include="Contracts\IFoodOrder.cs" />
     <Compile Include="Contracts\IIngredient.cs" />
     <Compile Include="Contracts\ILogbook.cs" />
     <Compile Include="Controller\CashCutController.cs" />
+    <Compile Include="Controller\DishOrderController.cs" />
     <Compile Include="Controller\EmployeeController.cs" />
+    <Compile Include="Controller\FoodController.cs" />
     <Compile Include="Controller\FoodOrderController.cs" />
     <Compile Include="Controller\IngredientController.cs" />
     <Compile Include="Controller\LogbookController.cs" />
     <Compile Include="Model\CashCutModel.cs" />
+    <Compile Include="Model\DishOrderModel.cs" />
     <Compile Include="Model\EmployeeModel.cs" />
+    <Compile Include="Model\FoodModel.cs" />
     <Compile Include="Model\FoodOrderModel.cs" />
     <Compile Include="Model\IngredientModel.cs" />
     <Compile Include="Model\LogbookModel.cs" />

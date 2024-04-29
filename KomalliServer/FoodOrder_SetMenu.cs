@@ -18,6 +18,7 @@ namespace KomalliServer
         public string KeySetMenuSetMenu { get; set; }
         public int Quantity { get; set; }
         public int SellingPrice { get; set; }
+        public Nullable<int> UnitPrice { get; set; }
     
         public virtual FoodOrder FoodOrder { get; set; }
         public virtual SetMenu SetMenu { get; set; }
