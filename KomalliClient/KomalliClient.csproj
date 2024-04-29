@@ -73,14 +73,39 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Contracts\IFood.cs" />
+    <Compile Include="Contracts\IMenu.cs" />
     <Compile Include="Controller\FoodController.cs" />
+    <Compile Include="Controller\MenuController.cs" />
     <Compile Include="Model\FoodModel.cs" />
+    <Compile Include="Model\MenuModel.cs" />
     <Compile Include="Model\Utilities\LoggerManager.cs" />
+    <Compile Include="Model\Utilities\SingletonClass.cs" />
+    <Compile Include="Views\Pages\Antojitos.xaml.cs">
+      <DependentUpon>Antojitos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Desserts.xaml.cs">
+      <DependentUpon>Desserts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Drinks.xaml.cs">
+      <DependentUpon>Drinks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Garnish.xaml.cs">
+      <DependentUpon>Garnish.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\HomeMenu.xaml.cs">
       <DependentUpon>HomeMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\Others.xaml.cs">
+      <DependentUpon>Others.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\Packages.xaml.cs">
       <DependentUpon>Packages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Sandwhiches.xaml.cs">
+      <DependentUpon>Sandwhiches.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\FoodDetails.xaml.cs">
+      <DependentUpon>FoodDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\FoodUserControl.xaml.cs">
       <DependentUpon>FoodUserControl.xaml</DependentUpon>
@@ -105,11 +130,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\Antojitos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Desserts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Drinks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Garnish.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\HomeMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\Others.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\Packages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Sandwhiches.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\FoodDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +236,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Popcorn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\iconGoBack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\AddFood.png" />
+    <Resource Include="Resources\Images\Trash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

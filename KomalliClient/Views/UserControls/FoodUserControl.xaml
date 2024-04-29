@@ -51,7 +51,7 @@
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <TextBlock Text="$11"
@@ -68,8 +68,9 @@
                                 Width="60"
                                 Height="25"
                                 HorizontalAlignment="Center"
-                                Margin="10,0"
-                                Style="{DynamicResource ButtonStyleUserControl}"/>
+                                Margin="10,0,0,5"
+                                Style="{DynamicResource ButtonStyleUserControl}" Click="ClickAddFood"
+                                />
                     </Grid>
                 </Grid>
             </Grid>

@@ -18,6 +18,12 @@
                        Margin="30,30,30,500"
                        RadiusX="8"
                        RadiusY="8"/>
+ 
+            <Image Source="\Resources\Images\iconGoBack.png"
+                   Margin="50,42,595,507"
+                   MouseDown="MouseDownGoBack"
+                   Cursor="Hand"
+            />
 
             <TextBlock Text="Paquetes"
                        FontSize="40"
