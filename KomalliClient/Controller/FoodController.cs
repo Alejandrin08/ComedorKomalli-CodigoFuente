@@ -11,6 +11,13 @@ using System.Threading.Tasks;
 
 namespace KomalliClient.Controller {
     public class FoodController : IFood {
+        /**
+          * <summary>
+          * Este método obtiene los alimentos por sección.
+          * </summary>
+          * <param name="sectionName">Nombre de la sección.</param>
+          * <returns>Lista de alimentos.</returns>
+          */
         public List<FoodModel> GetFoodsPerSection(string sectionName) {
             List<FoodModel> foods = new List<FoodModel>();
             try {

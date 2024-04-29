@@ -1,6 +1,4 @@
 ﻿using KomalliClient.Controller;
-using KomalliClient.Model;
-using KomalliClient.Model.Utilities;
 using KomalliClient.Views.UserControls;
 using System;
 using System.Collections.Generic;
@@ -19,37 +17,29 @@ using System.Windows.Shapes;
 
 namespace KomalliClient.Views.Pages {
     /// <summary>
-    /// Lógica de interacción para Packages.xaml
+    /// Lógica de interacción para Sandwhiches.xaml
     /// </summary>
-    public partial class Packages : Page {
-        public Packages() {
+    public partial class Sandwhiches : Page {
+        public Sandwhiches() {
             InitializeComponent();
             ShowPackages();
         }
+
         private void ShowPackages() {
-            var foods = new FoodController().GetFoodsPerSection("Paquetes");
+            var foods = new FoodController().GetFoodsPerSection("Tortas");
 
             if (foods != null) {
                 var wrapPanel = new WrapPanel { Orientation = Orientation.Horizontal };
-
-                bool menuSelected = SingletonClass.Instance.SelectedFoods.Any(food => food.Name == "Menú Comida" || food.Name == "Menú Desayuno");
 
                 foreach (var food in foods) {
                     var foodControl = new FoodUserControl { Food = food };
                     foodControl.BindData();
                     foodControl.Margin = new Thickness(8);
-
-                    if (food.Name == "Pechuga a la plancha") {
-                        foodControl.Margin = new Thickness(8, 25, 0, 0);
-                    } else {
-                        foodControl.IsEnabled = menuSelected;
-                        foodControl.Opacity = menuSelected ? 1.0 : 0.5;
-                    }
                     wrPFood.Children.Add(foodControl);
                 }
                 grdContent.Children.Add(wrapPanel);
             } else {
-                App.ShowMessageError("No se pudo recuperar los paquetes", "Error");
+                App.ShowMessageError("No se pudo recuperar el menú de comida", "Error");
             }
         }
 

@@ -53,7 +53,6 @@
                        Margin="25,10"
                        RadiusX="8"
                        RadiusY="8"
-                       Cursor="Hand"
                 />
 
                 <Grid>
@@ -63,11 +62,45 @@
                     </Grid.RowDefinitions>
 
                     <Rectangle Grid.Row="0"
+                               x:Name="rctBreakfast"
                                Fill="#ACD49C"
                                Margin="37,25,37,5"
                                RadiusX="8"
                                RadiusY="8"
+                               Cursor="Hand"
+                               MouseDown="MouseDownBreakfast"
                     />
+
+                    <ListBox x:Name="lstBreakfast" 
+                             Grid.Row="1" 
+                             Margin="37,5,37,20" 
+                             Background="#74AC64" 
+                             BorderThickness="0"
+                             ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"
+                             >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Starter}" 
+                                               Margin="20,5"
+                                               FontSize="15"/>
+                                    <TextBlock Text="{Binding MainFood}" 
+                                               Margin="20,5"
+                                               FontSize="15"/>
+                                    <TextBlock Text="{Binding SideDish}" 
+                                               Margin="20,5"
+                                               FontSize="15"/>
+                                    <TextBlock Text="{Binding Salad}" 
+                                               Margin="20,5"
+                                               FontSize="15"/>
+                                    <TextBlock Text="{Binding Drink}" 
+                                               Margin="20,5"
+                                               FontSize="15"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
 
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
@@ -92,7 +125,6 @@
                            Margin="25,10"
                            RadiusX="8"
                            RadiusY="8"
-                           Cursor="Hand"
                 />
 
                 <Grid Grid.Row="1">
@@ -103,10 +135,43 @@
 
                     <Rectangle Grid.Row="0"
                                Fill="#ACD49C"
+                               x:Name="rctFood"
                                Margin="37,25,37,5"
                                RadiusX="8"
                                RadiusY="8"
+                               Cursor="Hand"
+                               MouseDown="MouseDownFood"
                     />
+
+                    <ListBox x:Name="lstFood" 
+                             Grid.Row="1" 
+                             Margin="37,5,37,20" 
+                             Background="#74AC64" 
+                             BorderThickness="0"
+                             ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"
+                             >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Starter}" 
+                                               Margin="20,5"
+                                               FontSize="15"/>
+                                    <TextBlock Text="{Binding MainFood}" 
+                                               Margin="20,5"
+                                               FontSize="15"/>
+                                    <TextBlock Text="{Binding SideDish}" 
+                                               Margin="20,5"
+                                               FontSize="15"/>
+                                    <TextBlock Text="{Binding Salad}" 
+                                               Margin="20,5"
+                                               FontSize="15"/>
+                                    <TextBlock Text="{Binding Drink}" 
+                                               Margin="20,5"
+                                               FontSize="15"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
@@ -189,6 +254,7 @@
                            RadiusX="8"
                            RadiusY="8"
                            Cursor="Hand"
+                           MouseDown="MouseDownAntojitos"
                 />
 
                 <TextBlock Text="Antojitos"
@@ -220,6 +286,7 @@
                            RadiusX="8"
                            RadiusY="8"
                            Cursor="Hand"
+                           MouseDown="MouseDownGarnish"
                 />
 
                 <TextBlock Text="Guarniciones"
@@ -251,6 +318,7 @@
                            RadiusX="8"
                            RadiusY="8"
                            Cursor="Hand"
+                           MouseDown="MouseDownSandwhiches"
                 />
 
                 <TextBlock Text="Sandwiches"
@@ -282,6 +350,7 @@
                            RadiusX="8"
                            RadiusY="8"
                            Cursor="Hand"
+                           MouseDown="MouseDownDrinks"
                 />
 
                 <TextBlock Text="Bebidas"
@@ -313,6 +382,7 @@
                            RadiusX="8"
                            RadiusY="8"
                            Cursor="Hand"
+                           MouseDown="MouseDownDesserts"
                 />
 
                 <TextBlock Text="Postres"
@@ -344,6 +414,7 @@
                            RadiusX="8"
                            RadiusY="8"
                            Cursor="Hand"
+                           MouseDown="MouseDownOthers"
                 />
 
                 <TextBlock Text="Otros"
