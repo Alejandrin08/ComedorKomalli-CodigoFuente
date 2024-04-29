@@ -137,7 +137,17 @@
         </Setter>
     </Style>
 
-    <!-- Background Colors -->
+    <Style TargetType="ListBoxItem" x:Key="ListBoxItemNoSelectionStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <ContentPresenter />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+        <!-- Background Colors -->
     <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#f9f9ea"/>
     <SolidColorBrush x:Key="SecundaryBackgroundColor" Color="#2C6C74"/>
     <SolidColorBrush x:Key="ThirdBackgroundColor" Color="#DCFCE4"/>

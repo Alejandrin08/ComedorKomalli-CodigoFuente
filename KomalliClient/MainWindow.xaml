@@ -29,7 +29,7 @@
     <Border 
      CornerRadius="8" 
      Background="{DynamicResource PrimaryBackgroundColor}">
-        <Grid>
+        <Grid x:Name="grdMain">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition 
                  Width="Auto"/>
@@ -102,8 +102,13 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    
-                                    
+                                    <ListView x:Name="lstSelectedFoods"
+                                              Background="#FBFBFF"
+                                              BorderThickness="0"
+                                              Margin="7"
+                                              ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"
+                                    />
+
                                     <Grid Grid.Row="1">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"/>
@@ -119,7 +124,8 @@
                                                    FontWeight="Bold"
                                                    Margin="10,0"
                                                    VerticalAlignment="Center"/>
-                                        <TextBlock Text="$0.0"
+                                        <TextBlock Text="$0"
+                                                   x:Name="txtbTotalPrice"
                                                    FontSize="17"
                                                    FontWeight="Bold"
                                                    HorizontalAlignment="Right"
