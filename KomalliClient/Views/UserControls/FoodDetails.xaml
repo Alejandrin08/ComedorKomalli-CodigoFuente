@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:KomalliClient.Views.UserControls"
+             xmlns:local="clr-namespace:KomalliClient.Views.UserControls" 
+             xmlns:model="clr-namespace:KomalliClient.Model" 
+             d:DataContext="{d:DesignInstance Type=model:FoodModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -47,15 +49,17 @@
 
         <Image Grid.Column="1"
                x:Name="imgDeleteFood"
-               Source="/Resources/Images/Trash.png"
+               Source="/Resources/Images/Substract.png"
                Width="20"
                Cursor="Hand"
-               Height="15"/>
+               Height="15" 
+               MouseDown="MouseDownDeleteFood"
+               />
 
         <TextBlock Grid.Column="2"
                    x:Name="txtbQuantityFood"
                    FontSize="15"
-                   Text="1"
+                   Text="{Binding Quantity}"
                    Margin="6,0"
                    HorizontalAlignment="Center"/>
 
@@ -70,7 +74,8 @@
                Cursor="Hand"
                Source="/Resources/Images/AddFood.png"
                Width="20"
-               Height="15"/>
+               Height="15" 
+               MouseDown="MouseDownAddFood"/>
 
         <TextBlock Grid.Row="1"
                    x:Name="txtbFoodPrice"

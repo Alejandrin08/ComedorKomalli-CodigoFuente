@@ -27,9 +27,10 @@ namespace KomalliClient {
             InitializeComponent(); 
             SingletonClass.Instance.SelectedFoods.CollectionChanged += SelectedFoodsCollectionChanged;
         }
+
         private void SelectedFoodsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
             lstSelectedFoods.Items.Clear();
-            
+
             WrapPanel wrapPanel = FindWrapPanel(this);
 
             foreach (FoodModel food in SingletonClass.Instance.SelectedFoods) {
@@ -37,16 +38,14 @@ namespace KomalliClient {
                 foodDetails.BindData(food);
                 lstSelectedFoods.Items.Add(foodDetails);
 
-                if (food.IsSelected) {
-                    foreach (var child in wrapPanel.Children) {
-                        if (child is FoodUserControl foodControl && foodControl.Food.Name == food.Name) {
-                            foodControl.IsEnabled = false;
-                            foodControl.Opacity = 0.5;
-                        }
+                if (wrapPanel != null) {
+                    FoodUserControl foodControl = wrapPanel.Children.OfType<FoodUserControl>().FirstOrDefault(control => control.Food.Name == food.Name);
+                    if (foodControl != null) {
+                        foodControl.IsSelected = true;
                     }
                 }
             }
-            txtbTotalPrice.Text = "$" + CalculateTotalPrice().ToString();
+            UpdateTotalPrice();
         }
 
         private WrapPanel FindWrapPanel(DependencyObject parent) {
@@ -61,16 +60,15 @@ namespace KomalliClient {
                 if (result != null)
                     return result;
             }
-
             return null;
         }
 
-        private int CalculateTotalPrice() {
+        public void UpdateTotalPrice() {
             int totalPrice = 0;
             foreach (FoodModel food in SingletonClass.Instance.SelectedFoods) {
-                totalPrice += food.Price;
+                totalPrice += food.Subtotal;
             }
-            return totalPrice;
+            txtbTotalPrice.Text = "$" + totalPrice.ToString();
         }
 
         private void ClickClose(object sender, RoutedEventArgs e) {
@@ -87,6 +85,27 @@ namespace KomalliClient {
 
         private void ClickMinimize(object sender, RoutedEventArgs e) {
             WindowState = WindowState.Minimized;
+        }
+
+        private void ClickCancel(object sender, RoutedEventArgs e) {
+            if (SingletonClass.Instance.SelectedFoods.Count > 0) {
+                MessageBoxResult result = App.ShowMessageBoxButton("¿Está seguro de cancelar la orden?", "Confirmación");
+                if (result == MessageBoxResult.Yes) {
+                    SingletonClass.Instance.SelectedFoods.Clear();
+                    btnCancel.IsEnabled = false;
+                    btnContinue.IsEnabled = false;
+                    FoodUserControl.SelectedStates.Clear();
+                }
+            }
+        }
+
+        private void ClickContinueWithPaymet(object sender, RoutedEventArgs e) {
+            //Aqui se agregará la continuación al caso de uso 9. Generar pedido.
+            //Para obtener la información del pedido debe ser algo como lo siguiente
+            foreach (FoodModel food in SingletonClass.Instance.SelectedFoods) {
+                Console.WriteLine($"Nombre del pedido: {food.Name}, Precio: {food.Price}, Cantidad: {food.Quantity}, Seccion: {food.Section}");
+                Console.WriteLine($"Subtotal: {food.Subtotal}");
+            }
         }
     }
 }

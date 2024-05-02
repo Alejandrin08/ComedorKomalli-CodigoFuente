@@ -32,7 +32,8 @@ namespace KomalliClient.Views.Pages {
             if (foods != null) {
                 var wrapPanel = new WrapPanel { Orientation = Orientation.Horizontal };
 
-                bool menuSelected = SingletonClass.Instance.SelectedFoods.Any(food => food.Name == "Menú Comida" || food.Name == "Menú Desayuno");
+                bool antojitosOrTortasSelected = SingletonClass.Instance.SelectedFoods.Any(food =>
+                    food.Section == "Antojitos" || food.Section == "Tortas" || food.Name == "Pechuga a la plancha");
 
                 foreach (var food in foods) {
                     var foodControl = new FoodUserControl { Food = food };
@@ -42,8 +43,8 @@ namespace KomalliClient.Views.Pages {
                     if (food.Name == "Pechuga a la plancha") {
                         foodControl.Margin = new Thickness(8, 25, 0, 0);
                     } else {
-                        foodControl.IsEnabled = menuSelected;
-                        foodControl.Opacity = menuSelected ? 1.0 : 0.5;
+                        foodControl.IsEnabled = antojitosOrTortasSelected;
+                        foodControl.Opacity = antojitosOrTortasSelected ? 1.0 : 0.5;
                     }
                     wrPFood.Children.Add(foodControl);
                 }

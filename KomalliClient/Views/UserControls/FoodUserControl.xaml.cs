@@ -20,10 +20,34 @@ namespace KomalliClient.Views.UserControls {
     /// Lógica de interacción para FoodUserControl.xaml
     /// </summary>
     public partial class FoodUserControl : UserControl {
-
+        public static Dictionary<string, bool> SelectedStates { get; set; } = new Dictionary<string, bool>();
         public FoodModel Food { get; set; } 
         public FoodUserControl() {
             InitializeComponent();
+            Loaded += LoadesFoodUserControll;
+        }
+        private void LoadesFoodUserControll(object sender, RoutedEventArgs e) {
+            if (Food != null && SelectedStates.ContainsKey(Food.Name)) {
+                IsSelected = SelectedStates[Food.Name];
+            }
+        }
+
+        private bool _isSelected = false;
+        public bool IsSelected {
+            get { return _isSelected; }
+            set {
+                _isSelected = value;
+                if (Food != null) {
+                    SelectedStates[Food.Name] = value;
+                }
+                if (value) {
+                    this.IsEnabled = false;
+                    this.Opacity = 0.5;
+                } else {
+                    this.IsEnabled = true;
+                    this.Opacity = 1.0;
+                }
+            }
         }
 
         public void BindData() {
@@ -39,9 +63,16 @@ namespace KomalliClient.Views.UserControls {
             FoodModel foodModel = new FoodModel() {
                 Name = txtbFoodName.Text,
                 Price = price,
-                IsSelected = true
+                IsSelected = true,
+                Section = Food.Section,
+                Quantity = 1,
+                Subtotal = price
             };
             SingletonClass.Instance.SelectedFoods.Add(foodModel);
+
+            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.btnContinue.IsEnabled = true;
+            mainWindow.btnCancel.IsEnabled = true;
         }
     }
 }

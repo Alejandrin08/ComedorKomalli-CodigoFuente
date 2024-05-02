@@ -62,7 +62,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickShowMenu(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/ConsultMenu.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickModify(object sender, RoutedEventArgs e) {

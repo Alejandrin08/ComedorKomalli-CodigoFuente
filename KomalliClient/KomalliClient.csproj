@@ -242,7 +242,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\AddFood.png" />
-    <Resource Include="Resources\Images\Trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Substract.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

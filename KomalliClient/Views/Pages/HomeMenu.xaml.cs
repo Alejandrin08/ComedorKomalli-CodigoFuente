@@ -23,8 +23,8 @@ namespace KomalliClient.Views.Pages {
     /// </summary>
     public partial class HomeMenu : Page {
 
-        private static bool _isFirstClick = true;
         private MenuController _menuController;
+
         public HomeMenu() {
             InitializeComponent();
             _menuController = new MenuController();
@@ -64,7 +64,7 @@ namespace KomalliClient.Views.Pages {
         }
 
         private void MouseDownBreakfast(object sender, MouseButtonEventArgs e) {
-            if (_isFirstClick) {
+            if (!SingletonClass.Instance.SelectedFoods.Any(food => food.Name == "Menú Desayuno")) {
                 MessageBoxResult result = App.ShowMessageBoxButton("¿Es estudiante de la Universidad Veracruzana?", "Confirmación");
                 if (result == MessageBoxResult.Yes) {
                     SingletonClass.Instance.Price = 30;
@@ -75,16 +75,20 @@ namespace KomalliClient.Views.Pages {
                 FoodModel foodModel = new FoodModel() {
                     Name = "Menú Desayuno",
                     Price = SingletonClass.Instance.Price,
-                    IsSelected = true
+                    IsSelected = true,
+                    Section = "Meú a la carta",
+                    Quantity = 1,
+                    Subtotal = SingletonClass.Instance.Price
                 };
                 SingletonClass.Instance.SelectedFoods.Add(foodModel);
-
-                _isFirstClick = false;
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.btnContinue.IsEnabled = true;
+                mainWindow.btnCancel.IsEnabled = true;
             }
         }
 
         private void MouseDownFood(object sender, MouseButtonEventArgs e) {
-            if (_isFirstClick) {
+            if (!SingletonClass.Instance.SelectedFoods.Any(food => food.Name == "Menú Comida")) {
                 MessageBoxResult result = App.ShowMessageBoxButton("¿Es estudiante de la Universidad Veracruzana?", "Confirmación");
                 if (result == MessageBoxResult.Yes) {
                     SingletonClass.Instance.Price = 30;
@@ -95,11 +99,15 @@ namespace KomalliClient.Views.Pages {
                 FoodModel foodModel = new FoodModel() {
                     Name = "Menú Comida",
                     Price = SingletonClass.Instance.Price,
-                    IsSelected = true
+                    IsSelected = true,
+                    Section = "Meú a la carta",
+                    Quantity = 1,
+                    Subtotal = SingletonClass.Instance.Price
                 };
                 SingletonClass.Instance.SelectedFoods.Add(foodModel);
-
-                _isFirstClick = false;
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.btnContinue.IsEnabled = true;
+                mainWindow.btnCancel.IsEnabled = true;
             }
         }
 
