@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +25,8 @@ namespace KomalliEmployee.Model.Utilities {
         public string AvailabilityUserSelected { get; set; }
         public string UserNameOrder {  get; set; }
         public int TotalOrder { get; set; }
-
-
-        public string IdFoodOrderSelected {  get; set; } 
+        public string IdFoodOrderSelected {  get; set; }
+        public int Price { get; set; }
+        public ObservableCollection<FoodModel> SelectedFoods { get; } = new ObservableCollection<FoodModel>();
     }
 }

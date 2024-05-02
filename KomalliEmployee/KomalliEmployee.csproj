@@ -161,6 +161,9 @@
     <Compile Include="Views\Pages\MakeCollection.xaml.cs">
       <DependentUpon>MakeCollection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\MakeOrder.xaml.cs">
+      <DependentUpon>MakeOrder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\ModifyUser.xaml.cs">
       <DependentUpon>ModifyUser.xaml</DependentUpon>
     </Compile>
@@ -178,6 +181,15 @@
     </Compile>
     <Compile Include="Views\Usercontrols\CommentCard.xaml.cs">
       <DependentUpon>CommentCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\FoodDetails.xaml.cs">
+      <DependentUpon>FoodDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\FoodUserControl.xaml.cs">
+      <DependentUpon>FoodUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\MenuUserControl.xaml.cs">
+      <DependentUpon>MenuUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
@@ -241,6 +253,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\MakeOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\RegisterCashCut.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -258,6 +274,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Usercontrols\CommentCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\FoodDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\FoodUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\MenuUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -355,6 +383,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\iconGoBack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\AddFood.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\IconCancel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
