@@ -28,30 +28,31 @@ namespace KomalliEmployee.Views.Pages {
             InitializeComponent();
             ShowFood();
             SingletonClass.Instance.SelectedFoods.CollectionChanged += SelectedFoodsCollectionChanged;
+            
+
         }
 
-        private void SelectedFoodsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
+        public void SelectedFoodsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
+            if(SingletonClass.Instance.SelectedFoods.Count > 0) {
+                btnCharge.IsEnabled = true;
+            } else {
+                btnCharge.IsEnabled = false;
+            }
             lstSelectedFoods.Items.Clear();
 
-            //WrapPanel wrapPanel = FindWrapPanel(this);
-
             foreach (FoodModel food in SingletonClass.Instance.SelectedFoods) {
+                var selectedFood = SingletonClass.Instance.SelectedFoods.FirstOrDefault(foodModel => foodModel.Name == food.Name);
                 FoodDetails foodDetails = new FoodDetails();
                 foodDetails.BindData(food);
                 foodDetails.Margin = new Thickness(3);
+                foodDetails.UpdateQuantity(selectedFood.Quantity);
                 lstSelectedFoods.Items.Add(foodDetails);
-                /*
-                if (food.IsSelected) {
-                    foreach (var child in wrapPanel.Children) {
-                        if (child is FoodUserControl foodControl && foodControl.Food.Name == food.Name) {
-                            foodControl.IsEnabled = false;
-                            foodControl.Opacity = 0.5;
-                        }
-                    }
-                }*/
+               
             }
-            //txtbTotalPrice.Text = "$" + CalculateTotalPrice().ToString();
+            
         }
+        
+
 
         private void ShowFood() {
             ShowFoodPerSection("Paquetes", wrpPackage, grdPackage);
@@ -95,6 +96,73 @@ namespace KomalliEmployee.Views.Pages {
             wrpMenu.Children.Add(foodControl);
             wrpMenu.Children.Add(foodControl1);
             grdContent.Children.Add(wrapPanelFood);
+        }
+
+        private void MouseDownCancelOrder(object sender, MouseButtonEventArgs e) {
+            if (SingletonClass.Instance.SelectedFoods.Count > 0) {
+                MessageBoxResult result = App.ShowMessageBoxButton("¿Está seguro de cancelar la orden?", "Confirmación");
+                if (result == MessageBoxResult.Yes) {
+                    SingletonClass.Instance.SelectedFoods.Clear();
+                    btnCharge.IsEnabled = false;
+                }
+            }
+
+        }
+
+        private void ClickMakeCharge(object sender, RoutedEventArgs e) {
+            btnCharge.IsEnabled = false;
+
+            FoodOrderController foodOrderController = new FoodOrderController();
+            SingletonClass.Instance.NewIdFoodOrder = foodOrderController.MakeIdFoodOrder();
+            var order = SingletonClass.Instance.SelectedFoods;
+            int quantity = 0;
+            int total = 0;
+            foreach ( var food in order ) {
+                quantity += food.Quantity;
+                total += food.Quantity * food.Price;
+                
+            }
+
+            FoodOrderModel foodOrderModel = new FoodOrderModel() {
+                Total = total,
+                NumberDishes = quantity,
+                IdFoodOrder = SingletonClass.Instance.NewIdFoodOrder
+            };
+            int result = foodOrderController.RegistryOrder(foodOrderModel);
+
+            if (result == 1) {
+                FoodController foodController = new FoodController();
+                int result2 = 1;
+                int result3 = 1;
+                foreach (var food in order) {
+                    quantity += food.Quantity;
+                    total += food.Total;
+                    FoodModel foodModel = new FoodModel() {
+                        KeyCard = food.KeyCard,
+                        Quantity = food.Quantity,
+                        Price = food.Price,
+                        Subtotal = food.Quantity * food.Price,
+                    };
+
+                    if (food.KeyCard.StartsWith("Des") || food.KeyCard.StartsWith("Com")) {
+                        result3 = foodController.RegistryOrderMenu(foodModel, SingletonClass.Instance.NewIdFoodOrder);
+                    } else {
+                        result2 = foodController.RegistryOrderMenuCard(foodModel, SingletonClass.Instance.NewIdFoodOrder);
+                    }
+                   
+
+                }
+                if (result2 == 1 && result3 == 1) {
+                    SingletonClass.Instance.IdFoodOrderSelected = SingletonClass.Instance.NewIdFoodOrder;
+                    MakeCollection makeCollection = new MakeCollection();
+                    this.NavigationService.Navigate(makeCollection);
+                } else {
+                    App.ShowMessageError("MURIO2", "DIE2");
+                }
+
+            } else {
+                App.ShowMessageError("MURIO", "DIE");
+            }
         }
     }
 }

@@ -26,6 +26,12 @@ namespace KomalliEmployee.Model.Utilities {
         public string UserNameOrder {  get; set; }
         public int TotalOrder { get; set; }
         public string IdFoodOrderSelected {  get; set; }
+
+        public string keyBreakfast { get; set; }
+
+        public string KeyMeal {  get; set; }
+
+        public string NewIdFoodOrder {  get; set; }
         public int Price { get; set; }
         public ObservableCollection<FoodModel> SelectedFoods { get; } = new ObservableCollection<FoodModel>();
     }

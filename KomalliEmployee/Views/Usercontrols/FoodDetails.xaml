@@ -73,7 +73,7 @@
            Cursor="Hand"
            Source="/Resources/Images/AddFood.png"
            Width="20"
-           Height="15"/>
+           Height="15" MouseDown="MouseDownAddFood"/>
             </Grid>
         </Border>
     </Grid>

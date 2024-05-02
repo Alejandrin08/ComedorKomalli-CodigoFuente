@@ -20,5 +20,6 @@ namespace KomalliServer
         public string Measurement { get; set; }
         public string Barcode { get; set; }
         public System.DateTime ReplenishmentDate { get; set; }
+        public string Category { get; set; }
     }
 }

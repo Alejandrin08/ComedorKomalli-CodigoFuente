@@ -70,10 +70,11 @@ namespace KomalliEmployee.Controller {
                 using (var context = new KomalliEntities()) {
                     var today = DateTime.Now.Date;
                     foodOrderModels = context.FoodOrder
-                        .Where(foodOrder => DbFunctions.TruncateTime(foodOrder.Date) == today)
+                        .Where(foodOrder => DbFunctions.TruncateTime(foodOrder.Date) == today && foodOrder.Status == "Pagado")
                         .Select(foodOrder => new FoodOrderModel {
                             IdFoodOrder = foodOrder.IDFoodOrder,
                             Date = foodOrder.Date,
+                            
                             ClientName = foodOrder.ClientName,
                             NumberDishes = foodOrder.NumberDishes,
                             Total = foodOrder.Total
@@ -177,6 +178,54 @@ namespace KomalliEmployee.Controller {
                 }
             } catch (EntityException ex) {
                 LoggerManager.Instance.LogError("Error en actualizar un pedido", ex);
+            }
+            return result;
+        }
+
+        public string GenerateRamdomIdFoodOrder() {
+            Random rand = new Random();
+            string id = "Caj";
+
+            for (int i = 0; i < 4; i++) {
+                id += rand.Next(0, 10); 
+            }
+            return id;
+            
+        }
+
+        public string MakeIdFoodOrder() {
+            string idGenerated = GenerateRamdomIdFoodOrder();
+
+            using (var context = new KomalliEntities()) {
+                var idOrder = context.FoodOrder.Where(food => food.IDFoodOrder == idGenerated).FirstOrDefault();
+
+                while (idOrder != null) {
+                    idGenerated = GenerateRamdomIdFoodOrder();
+                    idOrder = context.FoodOrder.Where(food => food.IDFoodOrder == idGenerated).FirstOrDefault();
+                }
+            }
+
+            return idGenerated;
+        }
+
+
+        public int RegistryOrder(FoodOrderModel foodModel) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var order = new FoodOrder {
+                        IDFoodOrder = foodModel.IdFoodOrder,
+                        Status = "Pendiente",
+                        ClientName = "",
+                        Date = DateTime.Now,
+                        Total = foodModel.Total,
+                        NumberDishes = foodModel.NumberDishes
+                    };
+                    context.FoodOrder.Add(order);
+                    result = context.SaveChanges();
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en Registrar orden desde caja", ex);
             }
             return result;
         }

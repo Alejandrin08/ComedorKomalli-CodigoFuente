@@ -90,9 +90,11 @@ namespace KomalliEmployee.Views.Pages {
                 Change = CalculateChange(),
                 ClientName = txtClientName.Text,
             };
+            
             int resultUpdateFoodOrder = foodOrderController.UpdateFoodOrder(foodOrderModel, SingletonClass.Instance.IdFoodOrderSelected);
             if (resultUpdateFoodOrder > 0) {
                 App.ShowMessageInformation("Registro exitoso", "Actualización de pedido");
+                SingletonClass.Instance.SelectedFoods.Clear();
                 this.NavigationService.GoBack();
             } else {
                 App.ShowMessageWarning("Error al actualizar los datos del pedido", "Actualización de pedido");
@@ -131,7 +133,7 @@ namespace KomalliEmployee.Views.Pages {
         private void EnabledTxtClientName() {
             tbkName.Visibility = Visibility.Visible;
             txtClientName.Visibility = Visibility.Visible;
-            if (!SingletonClass.Instance.UserNameOrder.StartsWith("Kio")) {
+            if (SingletonClass.Instance.IdFoodOrderSelected.StartsWith("Kio")) {
                 txtClientName.Text = SingletonClass.Instance.UserNameOrder;
                 txtClientName.IsEnabled = false;
             } else {

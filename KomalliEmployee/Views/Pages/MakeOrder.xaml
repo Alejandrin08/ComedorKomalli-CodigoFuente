@@ -73,6 +73,7 @@
            x:Name="imgDeleteFood"
            Source="/Resources/Images/IconCancel.png"
            Width="18"
+                MouseDown="MouseDownCancelOrder"
            Cursor="Hand"
            Height="20" Margin="779,105,52,457"/>
 
@@ -89,6 +90,7 @@
                     ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                           
                           
                 />
 
@@ -100,11 +102,15 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Button
+                        x:Name="btnCharge"
                         Height="30"
                         Cursor="Hand"
+                        IsEnabled="False"
                         Style="{DynamicResource ButtonStyle}"
                         Margin="20,4,19,4"
-                        Content="Cobrar"/>
+                        Content="Cobrar" Click="ClickMakeCharge"
+                        
+                        />
                 </Grid>
             </Grid>
 
