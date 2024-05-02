@@ -536,5 +536,5 @@
 
     <!-- Icons Colors -->
     <SolidColorBrush x:Key="ActionIconColor" Color="Black"/>
-    
+     
 </ResourceDictionary>

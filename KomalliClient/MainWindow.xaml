@@ -134,18 +134,25 @@
                                                    Grid.Column="1"/>
 
                                         <Button Grid.Row="1"
-                                            Margin="4"
-                                            Height="25"
-                                            Style="{DynamicResource ButtonStyle}"
-                                            Cursor="Hand"
-                                            Content="Cancelar"/>
+                                                x:Name="btnCancel"
+                                                IsEnabled="False"
+                                                Margin="4"
+                                                Height="25"
+                                                Style="{DynamicResource ButtonStyle}"
+                                                Cursor="Hand"
+                                                Content="Cancelar"
+                                                Click="ClickCancel"
+                                        />
                                         <Button Grid.Row="1"
+                                                x:Name="btnContinue"
+                                                IsEnabled="False"
                                                 Grid.Column="1"
                                                 Height="25"
                                                 Cursor="Hand"
                                                 Style="{DynamicResource ButtonStyle}"
                                                 Margin="4"
-                                                Content="Continuar"/>
+                                                Content="Continuar" 
+                                                Click="ClickContinueWithPaymet"/>
                                     </Grid>
                                 </Grid>
                             </Border>

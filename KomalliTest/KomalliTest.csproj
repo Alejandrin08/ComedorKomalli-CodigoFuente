@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\MenuControllerTest.cs" />
+    <Compile Include="Client\FoodControllerTest.cs" />
     <Compile Include="Employee\DishOrderControllerTest.cs" />
     <Compile Include="Employee\EmployeeControllerTest.cs" />
     <Compile Include="Employee\IngredientControllerTest.cs" />

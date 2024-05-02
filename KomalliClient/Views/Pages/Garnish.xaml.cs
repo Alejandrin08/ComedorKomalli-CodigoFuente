@@ -22,10 +22,10 @@ namespace KomalliClient.Views.Pages {
     public partial class Garnish : Page {
         public Garnish() {
             InitializeComponent();
-            ShowPackages();
+            ShowGarnish();
         }
 
-        private void ShowPackages() {
+        private void ShowGarnish() {
             var foods = new FoodController().GetFoodsPerSection("Guarniciones");
 
             if (foods != null) {

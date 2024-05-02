@@ -22,10 +22,10 @@ namespace KomalliClient.Views.Pages {
     public partial class Drinks : Page {
         public Drinks() {
             InitializeComponent();
-            ShowPackages();
+            ShowDrinks();
         }
 
-        private void ShowPackages() {
+        private void ShowDrinks() {
             var foods = new FoodController().GetFoodsPerSection("Bebidas");
 
             if (foods != null) {
