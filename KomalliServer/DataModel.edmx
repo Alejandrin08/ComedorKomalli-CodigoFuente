@@ -40,7 +40,7 @@
           </Key>
           <Property Name="IDFoodOrder" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="ClientName" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ClientName" Type="varchar" MaxLength="50" />
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Total" Type="int" Nullable="false" />
           <Property Name="NumberDishes" Type="int" Nullable="false" />
@@ -69,6 +69,7 @@
           <Property Name="KeySetMenuSetMenu" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="SellingPrice" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="int" />
         </EntityType>
         <EntityType Name="Ingredient">
           <Key>
@@ -80,6 +81,7 @@
           <Property Name="Measurement" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Barcode" Type="varchar" MaxLength="13" />
           <Property Name="ReplenishmentDate" Type="date" Nullable="false" />
+          <Property Name="Category" Type="varchar" MaxLength="55" Nullable="false" />
         </EntityType>
         <EntityType Name="Logbook">
           <Key>
@@ -89,6 +91,7 @@
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Commentary" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="NoPersonalEmployee" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Section" Type="varchar" MaxLength="55" Nullable="false" />
         </EntityType>
         <EntityType Name="MenuCard">
           <Key>
@@ -142,7 +145,9 @@ advertencia 6035: La relación 'FK_Employee_FoodOrder_Employee' tiene columnas q
 advertencia 6035: La relación 'FK_Employee_Logbook' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
         <Association Name="FK_Employee_Logbook" />-->
         <Association Name="FK_FoodOrder_MenuCard_FoodOrder">
-          <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="1" />
+          <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="FoodOrder_MenuCard" Type="Self.FoodOrder_MenuCard" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FoodOrder">
@@ -166,7 +171,9 @@ advertencia 6035: La relación 'FK_Employee_Logbook' tiene columnas que no forma
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FoodOrder_SetMenu_FoodOrder">
-          <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="1" />
+          <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="FoodOrder_SetMenu" Type="Self.FoodOrder_SetMenu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FoodOrder">
@@ -266,7 +273,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
           </Key>
           <Property Name="IDFoodOrder" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ClientName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Total" Type="Int32" Nullable="false" />
           <Property Name="NumberDishes" Type="Int32" Nullable="false" />
@@ -300,6 +307,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
           <Property Name="KeySetMenuSetMenu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="SellingPrice" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Int32" />
           <NavigationProperty Name="FoodOrder" Relationship="Self.FK_FoodOrder_SetMenu_FoodOrder" FromRole="FoodOrder_SetMenu" ToRole="FoodOrder" />
           <NavigationProperty Name="SetMenu" Relationship="Self.FK_FoodOrder_SetMenu_SetMenu" FromRole="FoodOrder_SetMenu" ToRole="SetMenu" />
         </EntityType>
@@ -313,6 +321,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
           <Property Name="Measurement" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Barcode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
           <Property Name="ReplenishmentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Category" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="Logbook">
           <Key>
@@ -322,6 +331,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Commentary" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NoPersonalEmployee" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Section" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="MenuCard">
           <Key>
@@ -371,7 +381,9 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FoodOrder_MenuCard_FoodOrder">
-          <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="1" />
+          <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="FoodOrder_MenuCard" Type="Self.FoodOrder_MenuCard" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FoodOrder">
@@ -383,7 +395,9 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FoodOrder_SetMenu_FoodOrder">
-          <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="1" />
+          <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="FoodOrder_SetMenu" Type="Self.FoodOrder_SetMenu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FoodOrder">
@@ -518,6 +532,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
                 <ScalarProperty Name="KeySetMenuSetMenu" ColumnName="KeySetMenuSetMenu" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -530,6 +545,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
                 <ScalarProperty Name="Measurement" ColumnName="Measurement" />
                 <ScalarProperty Name="Barcode" ColumnName="Barcode" />
                 <ScalarProperty Name="ReplenishmentDate" ColumnName="ReplenishmentDate" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -540,6 +556,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Commentary" ColumnName="Commentary" />
                 <ScalarProperty Name="NoPersonalEmployee" ColumnName="NoPersonalEmployee" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

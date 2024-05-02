@@ -231,7 +231,7 @@ namespace KomalliEmployee.Controller {
          * <summary>
          * Este método se encarga de obtener el número de personal de un empleado.
          * </summary>
-         * <param email="email">Correo del empleado.. </param>
+         * <param name="email">Correo del empleado.. </param>
          * <returns>Regresa el número de personal si es que lo encuntra, si no un regresa -1.</returns>
          */
         public string GetNoPersonalEmployee(string email) {
