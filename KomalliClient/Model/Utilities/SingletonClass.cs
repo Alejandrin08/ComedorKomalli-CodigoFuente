@@ -18,6 +18,6 @@ namespace KomalliClient.Model.Utilities {
         }
 
         public int Price { get; set; }
-        public ObservableCollection<FoodModel> SelectedFoods { get; } = new ObservableCollection<FoodModel>();
+        public ObservableCollection<FoodModel> SelectedFoods { get; set; } = new ObservableCollection<FoodModel>();
     }
 }
