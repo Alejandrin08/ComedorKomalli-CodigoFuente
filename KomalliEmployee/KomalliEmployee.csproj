@@ -366,12 +366,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KomalliServer\KomalliServer.csproj">
-      <Project>{18E7AEB5-9637-4E65-801C-F8727FAA8BD3}</Project>
-      <Name>KomalliServer</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Images\KomalliGif.gif" />
   </ItemGroup>
   <ItemGroup>
