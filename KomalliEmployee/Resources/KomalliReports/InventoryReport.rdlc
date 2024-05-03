@@ -6,16 +6,16 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>4.42617cm</Width>
+              <Width>5.20934cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>6.92702cm</Width>
+              <Width>10.54566cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.21212cm</Width>
+              <Width>6.11712cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5.80199cm</Width>
+              <Width>6.16182cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -355,9 +355,9 @@
         <RepeatRowHeaders>true</RepeatRowHeaders>
         <DataSetName>DataReports</DataSetName>
         <Top>0.70133cm</Top>
-        <Left>1.7437cm</Left>
+        <Left>0.77003cm</Left>
         <Height>2.11016cm</Height>
-        <Width>21.3673cm</Width>
+        <Width>28.03394cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -371,7 +371,7 @@
       <BackgroundColor>#7ba3a3</BackgroundColor>
     </Style>
   </Body>
-  <Width>9.74757in</Width>
+  <Width>11.67257in</Width>
   <Page>
     <PageHeader>
       <Height>3.00143cm</Height>
@@ -432,7 +432,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox2</rd:DefaultName>
           <Top>0.6937cm</Top>
-          <Left>4.75403cm</Left>
+          <Left>6.34153cm</Left>
           <Height>1.44667cm</Height>
           <Width>11.771cm</Width>
           <ZIndex>1</ZIndex>
@@ -478,7 +478,7 @@
           <Top>0.5cm</Top>
           <Left>0.5cm</Left>
           <Height>0cm</Height>
-          <Width>23.5cm</Width>
+          <Width>28.70614cm</Width>
           <Style>
             <Border>
               <Color>#ffffff</Color>
@@ -528,10 +528,10 @@
     </PageFooter>
     <PageHeight>21cm</PageHeight>
     <PageWidth>29.7cm</PageWidth>
-    <LeftMargin>2cm</LeftMargin>
-    <RightMargin>2cm</RightMargin>
-    <TopMargin>2cm</TopMargin>
-    <BottomMargin>2cm</BottomMargin>
+    <LeftMargin>0cm</LeftMargin>
+    <RightMargin>0cm</RightMargin>
+    <TopMargin>0cm</TopMargin>
+    <BottomMargin>0cm</BottomMargin>
     <ColumnSpacing>0cm</ColumnSpacing>
     <Style />
   </Page>
@@ -542,7 +542,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>882c6e91-affc-40f7-bebd-1bd9e02a864c</rd:DataSourceID>
+      <rd:DataSourceID>74298aef-45f9-4ef3-8d44-f26a57b9e7b6</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -571,7 +571,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DataReports</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\alexs\OneDrive\Escritorio\Komalli\KomalliEmployee\Resources\DataSets\DataReports.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\alexs\OneDrive\Escritorio\Komalli\KomalliEmployee\Resources\DatasetsDB\DataReports.xsd</rd:SchemaPath>
         <rd:TableName>Ingredient</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

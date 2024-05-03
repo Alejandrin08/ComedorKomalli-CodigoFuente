@@ -26,24 +26,12 @@ namespace KomalliEmployee.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=komallibd.database.windows.net;Initial Catalog=Komalli;Persist Securi" +
-            "ty Info=True;User ID=userComedorKomalli;Password=qm2CnbZdxj$ECUj;Encrypt=False;T" +
-            "rustServerCertificate=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Komalli.mssql.somee.com;Initial Catalog=Komalli;Persist Security Info" +
+            "=True;User ID=userComedorKomalli;Password=qm2CnbZdxj$ECUj;TrustServerCertificate" +
+            "=True")]
         public string KomalliConnectionString {
             get {
                 return ((string)(this["KomalliConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=komalli.database.windows.net;Initial Catalog=komallidb;Persist Securi" +
-            "ty Info=True;User ID=userComedorKomalli;Password=qm2CnbZdxj$ECUj;TrustServerCert" +
-            "ificate=True")]
-        public string KomalliDBConnectionString {
-            get {
-                return ((string)(this["KomalliDBConnectionString"]));
             }
         }
     }

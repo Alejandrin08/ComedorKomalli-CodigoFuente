@@ -17,6 +17,11 @@ namespace KomalliEmployee {
             Login login = new Login();
             login.Show();
         }
+
+        public static MessageBoxResult ShowMessageBoxButton(string message, string title) {
+            MessageBoxResult result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            return result;
+        }
         public static void ShowMessageError(string message, string title) {
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
         }

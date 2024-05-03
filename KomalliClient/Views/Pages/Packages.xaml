@@ -1,0 +1,53 @@
+﻿<Page x:Class="KomalliClient.Views.Pages.Packages"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KomalliClient.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="680"
+      Title="Packages">
+
+    <Viewbox Stretch="Fill">
+        <Grid x:Name="grdContent"
+              Height="600"
+              Width="680"
+              Background="#F9F9EA">
+
+            <Rectangle Fill="#DCFCE4"
+                       Margin="30,30,30,500"
+                       RadiusX="8"
+                       RadiusY="8"/>
+ 
+            <Image Source="\Resources\Images\iconGoBack.png"
+                   Margin="50,42,595,507"
+                   MouseDown="MouseDownGoBack"
+                   Cursor="Hand"
+            />
+
+            <TextBlock Text="Paquetes"
+                       FontSize="40"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Left"
+                       Margin="180,35,0,500"/>
+
+            <Image Source="/Resources/Images/Tray.png"
+                   Margin="125,40,0,510"
+                   HorizontalAlignment="Center"/>
+
+            <Rectangle Fill="#DCFCE4"
+                       Margin="30,140,30,30"
+                       RadiusX="8"
+                       RadiusY="8"/>
+
+            <TextBlock Text="Agranda tu paquete:"
+                       FontSize="20"
+                       Margin="40,150,460,420"
+                       />
+
+            <WrapPanel x:Name="wrPFood" 
+                       Margin="45,200,45,70">
+            </WrapPanel>
+        </Grid>
+    </Viewbox>
+</Page>

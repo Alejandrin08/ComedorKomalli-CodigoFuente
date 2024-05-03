@@ -5,8 +5,227 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KomalliClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Height="650" 
+        Width="1000"
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None"
+        Background="Transparent" 
+        AllowsTransparency="False"
+        ResizeMode="NoResize" 
+        WindowState="Normal"
+        >
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                   Source="/Resources/Styles/Styles.xaml"/>
+                <ResourceDictionary 
+                   Source="/Resources/Styles/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Border 
+     CornerRadius="8" 
+     Background="{DynamicResource PrimaryBackgroundColor}">
+        <Grid x:Name="grdMain">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition 
+                 Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border 
+             CornerRadius="8 0 0 8" 
+             Background="{DynamicResource SecundaryBackgroundColor}">
+                <Grid 
+                 x:Name="grdMenu" 
+                 Width="300">
+                    <Border CornerRadius="8"
+                            Background="{DynamicResource ThirdBackgroundColor}"
+                            Margin="20,18">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Image Source="/Resources/Images/komalli.png"/>
+                            <TextBlock 
+                                Grid.Row="1"
+                             Text="Komalli"
+                             FontSize="60"
+                             FontWeight="Bold"
+                             HorizontalAlignment="Center"/>
+                            <TextBlock 
+                                Grid.Row="2"
+                                Text="Bienvenido al Comedor Universitario"
+                                HorizontalAlignment="Center"
+                                FontSize="25"
+                                TextWrapping="WrapWithOverflow"
+                                TextAlignment="Center"/>
+                            <Grid Margin="0,25"
+                                  Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0"
+                                           Text="Selecciona tus alimentos"
+                                           TextWrapping="WrapWithOverflow"
+                                           Margin="14,0"
+                                           FontSize="17"
+                                           TextAlignment="Left"
+                                           VerticalAlignment="Center"/>
+                                <Image Grid.Column="1" 
+                                       Margin="15,0"
+                                       Source="/Resources/Images/HandRight.png"
+                                       Width="60"
+                                       HorizontalAlignment="Left"/>
+                            </Grid>
+
+                            <Border Margin="5"
+                                    Grid.Row="4"
+                                    Width="Auto"
+                                    Height="Auto"
+                                    CornerRadius="8"
+                                    Background="#FBFBFF"
+                                    BorderBrush="#2C6C74"
+                                    BorderThickness="2"
+                                    >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <ListView x:Name="lstSelectedFoods"
+                                              Background="#FBFBFF"
+                                              BorderThickness="0"
+                                              Margin="7"
+                                              ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"
+                                    />
+
+                                    <Grid Grid.Row="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Text="Total a pagar:" 
+                                                   FontSize="15"
+                                                   FontWeight="Bold"
+                                                   Margin="10,0"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBlock Text="$0"
+                                                   x:Name="txtbTotalPrice"
+                                                   FontSize="17"
+                                                   FontWeight="Bold"
+                                                   HorizontalAlignment="Right"
+                                                   Margin="10,0"
+                                                   VerticalAlignment="Center"
+                                                   Grid.Column="1"/>
+
+                                        <Button Grid.Row="1"
+                                                x:Name="btnCancel"
+                                                IsEnabled="False"
+                                                Margin="4"
+                                                Height="25"
+                                                Style="{DynamicResource ButtonStyle}"
+                                                Cursor="Hand"
+                                                Content="Cancelar"
+                                                Click="ClickCancel"
+                                        />
+                                        <Button Grid.Row="1"
+                                                x:Name="btnContinue"
+                                                IsEnabled="False"
+                                                Grid.Column="1"
+                                                Height="25"
+                                                Cursor="Hand"
+                                                Style="{DynamicResource ButtonStyle}"
+                                                Margin="4"
+                                                Content="Continuar" 
+                                                Click="ClickContinueWithPaymet"/>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+            </Border>
+
+            <Grid 
+             Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition 
+                     Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel   
+                 Grid.Row="0"   
+                 Grid.Column="4"   
+                 HorizontalAlignment="Right"  
+                 VerticalAlignment="Top"  
+                 Margin="0,5,10,0"  
+                 Height="30"   
+                 Orientation="Horizontal"   
+                 FlowDirection="RightToLeft">
+                    <Button  
+                     x:Name="btnClose"  
+                     Style="{StaticResource IconButtonsStyle}"   
+                     Content="{DynamicResource Close}"   
+                     Tag="IsCloseButton"
+                     Click="ClickClose"/>
+                    <Button   
+                     x:Name="btnRestore" 
+                     Margin="5,0" 
+                     Click="ClickRestore">
+                        <Button.Style>
+                            <Style  
+                             TargetType="{x:Type Button}"  
+                             BasedOn="{StaticResource IconButtonsStyle}">
+                                <Setter  
+                                 Property="Content"  
+                                 Value="{DynamicResource Maximize}"/>
+                                <Style.Triggers>
+                                    <DataTrigger 
+                                     Binding="{Binding ElementName=home, Path=WindowState}"   
+                                     Value="Maximized">
+                                        <Setter 
+                                         Property="Content" 
+                                         Value="{DynamicResource Restore}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button  
+                     x:Name="btnMinimize"  
+                     Style="{DynamicResource IconButtonsStyle}" 
+                     Content="{DynamicResource Minimize}"
+                     Click="ClickMinimize"/>
+                </StackPanel>
+
+                <Border 
+                 Grid.Row="1" 
+                 Margin="10">
+                    <Frame  
+                     x:Name="fraPages" 
+                     NavigationUIVisibility="Hidden"
+                     Source="/Views/Pages/HomeMenu.xaml">
+
+                    </Frame>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

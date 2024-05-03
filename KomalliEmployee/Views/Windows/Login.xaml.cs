@@ -45,25 +45,25 @@ namespace KomalliEmployee.Views.Windows {
                 changePassword.Show();
                 this.Close();
             } else if (userValidation  == 1) {
-                SingletonClass.Instance.UserName = employeeController.GetNameUser(txbEmailUser.Text);
+                SingletonClass.Instance.UserName = employeeController.GetUserName(txbEmailUser.Text);
                 SingletonClass.Instance.Email = txbEmailUser.Text;
                 switch (employeeController.GetUserRule(employeeModel.Email)) {
-                    case UserRole.Cajero:
+                    case "Cajero":
                         HomeCashier homeCashier = new HomeCashier();
                         homeCashier.Show();
                         this.Close();
                         break;
-                    case UserRole.PersonalCocina:
+                    case "Personal de cocina":
                         HomeKichenStaff homeKichenStaff = new HomeKichenStaff();
                         homeKichenStaff.Show();
                         this.Close();
                         break;
-                    case UserRole.JefeCocina:
+                    case "Jefe de cocina":
                         HomeHeadChef homeHeadChef = new HomeHeadChef();
                         homeHeadChef.Show();
                         this.Close();
                         break;
-                    case UserRole.Gerente:
+                    case "Gerente":
                         HomeManager homeManager = new HomeManager();
                         homeManager.Show();
                         this.Close();

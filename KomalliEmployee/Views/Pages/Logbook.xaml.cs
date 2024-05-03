@@ -34,11 +34,11 @@ namespace KomalliEmployee.Views.Pages {
                 EmployeeController employeeController = new EmployeeController();
                 DateTime currentDateTime = DateTime.Now;
                 LogbookController logbookController = new LogbookController();
-                
+
                 LogbookModel logbookModel = new LogbookModel {
                     Date = currentDateTime,
                     Commentary = txtAddCommentary.Text,
-                    NoPersonalEmployee = employeeController.GetNoPersonalEmployee(SingletonClass.Instance.Email).ToString()
+                    NoPersonalEmployee = employeeController.GetNoPersonalEmployee(SingletonClass.Instance.Email)
                 };
 
                 int result = logbookController.AddCommentary(logbookModel);
@@ -72,7 +72,7 @@ namespace KomalliEmployee.Views.Pages {
 
             LogbookController logbookController = new LogbookController();
             EmployeeController employeeController = new EmployeeController();
-            int noPersonal = employeeController.GetNoPersonalEmployee(SingletonClass.Instance.Email);
+            string noPersonal = employeeController.GetNoPersonalEmployee(SingletonClass.Instance.Email);
             List<LogbookModel> comments = logbookController.GetEmployeeComments(noPersonal.ToString());
 
              if (comments.Any()) {
