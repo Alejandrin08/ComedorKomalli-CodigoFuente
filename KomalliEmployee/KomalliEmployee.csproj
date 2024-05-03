@@ -102,19 +102,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Contracts\ICashCut.cs" />
+    <Compile Include="Contracts\IDishOrder.cs" />
     <Compile Include="Contracts\IEmployee.cs" />
+    <Compile Include="Contracts\IFood.cs" />
+    <Compile Include="Contracts\IFoodOrder.cs" />
     <Compile Include="Contracts\IIngredient.cs" />
     <Compile Include="Contracts\ILogbook.cs" />
+    <Compile Include="Contracts\IMenu.cs" />
+    <Compile Include="Controller\CashCutController.cs" />
+    <Compile Include="Controller\DishOrderController.cs" />
     <Compile Include="Controller\EmployeeController.cs" />
+    <Compile Include="Controller\FoodController.cs" />
+    <Compile Include="Controller\FoodOrderController.cs" />
     <Compile Include="Controller\IngredientController.cs" />
     <Compile Include="Controller\LogbookController.cs" />
+    <Compile Include="Controller\MenuController.cs" />
+    <Compile Include="Model\CashCutModel.cs" />
+    <Compile Include="Model\DishOrderModel.cs" />
     <Compile Include="Model\EmployeeModel.cs" />
+    <Compile Include="Model\FoodModel.cs" />
+    <Compile Include="Model\FoodOrderModel.cs" />
     <Compile Include="Model\IngredientModel.cs" />
     <Compile Include="Model\LogbookModel.cs" />
+    <Compile Include="Model\MenuModel.cs" />
     <Compile Include="Model\Utilities\LoggerManager.cs" />
     <Compile Include="Model\Utilities\SingletonClass.cs" />
     <Compile Include="Model\Utilities\TypeQuantity.cs" />
-    <Compile Include="Model\Utilities\UserRole.cs" />
+    <Compile Include="Model\Validations\AvailabilityValidationRule.cs" />
     <Compile Include="Model\Validations\EmailValidationRule.cs" />
     <Compile Include="Model\Validations\NameValidationRule.cs" />
     <Compile Include="Model\Validations\PasswordValidationRule.cs" />
@@ -128,6 +143,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataReports.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\ConsultMenu.xaml.cs">
+      <DependentUpon>ConsultMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ConsultFoodOrdersKiosko.xaml.cs">
+      <DependentUpon>ConsultFoodOrdersKiosko.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ConsultUsers.xaml.cs">
+      <DependentUpon>ConsultUsers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\DailyTransactionsReport.xaml.cs">
+      <DependentUpon>DailyTransactionsReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\InventoryReport.xaml.cs">
       <DependentUpon>InventoryReport.xaml</DependentUpon>
     </Compile>
@@ -137,6 +164,21 @@
     <Compile Include="Views\Pages\Logbook.xaml.cs">
       <DependentUpon>Logbook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\MakeCollection.xaml.cs">
+      <DependentUpon>MakeCollection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\MakeOrder.xaml.cs">
+      <DependentUpon>MakeOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ModifyUser.xaml.cs">
+      <DependentUpon>ModifyUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\LogbookReport.xaml.cs">
+      <DependentUpon>LogbookReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\RegisterCashCut.xaml.cs">
+      <DependentUpon>RegisterCashCut.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\RegisterIngredient.xaml.cs">
       <DependentUpon>RegisterIngredient.xaml</DependentUpon>
     </Compile>
@@ -145,6 +187,15 @@
     </Compile>
     <Compile Include="Views\Usercontrols\CommentCard.xaml.cs">
       <DependentUpon>CommentCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\FoodDetails.xaml.cs">
+      <DependentUpon>FoodDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\FoodUserControl.xaml.cs">
+      <DependentUpon>FoodUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\MenuUserControl.xaml.cs">
+      <DependentUpon>MenuUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
@@ -176,6 +227,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\ConsultMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ConsultFoodOrdersKiosko.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\DailyTransactionsReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ConsultUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\InventoryReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,6 +255,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\LogbookReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\MakeCollection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\MakeOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\RegisterCashCut.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ModifyUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\RegisterIngredient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -197,6 +284,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Usercontrols\CommentCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\FoodDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\FoodUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\MenuUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,7 +342,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\KomalliReports\DailyTransactionsReport.rdlc" />
     <EmbeddedResource Include="Resources\KomalliReports\InventoryReport.rdlc" />
+    <EmbeddedResource Include="Resources\KomalliReports\LogbookReport.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -283,6 +384,31 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Return.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\PointsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\iconSearch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\iconGoBack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Breakfast.png" />
+    <Resource Include="Resources\Images\Food.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\AddFood.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\IconCancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Substract.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

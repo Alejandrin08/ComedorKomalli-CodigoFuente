@@ -32,7 +32,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickConsultUsers(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/ConsultUsers.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickRegisterUser(object sender, RoutedEventArgs e) {
@@ -53,11 +53,11 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickLogbookReport(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/LogbookReport.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickDailyTransactions(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/DailyTransactionsReport.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickClose(object sender, RoutedEventArgs e) {

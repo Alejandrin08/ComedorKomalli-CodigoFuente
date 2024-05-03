@@ -12,9 +12,8 @@ namespace KomalliEmployee.Model {
     public class EmployeeModel { 
         public string Email { get; set; }
         public string Password { get; set; }
-        public UserRole Role { get; set; }
+        public string RoleUser { get; set; }
         public string Availability { get; set; }
-
         public string Name { get; set; }
         public string PersonalNumber { get; set; }
     }

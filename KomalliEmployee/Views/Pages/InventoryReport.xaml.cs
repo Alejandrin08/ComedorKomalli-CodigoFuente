@@ -15,7 +15,7 @@ namespace KomalliEmployee.Views.Pages {
     public partial class InventoryReport : Page {
         public InventoryReport() {
             InitializeComponent();
-            Loaded += LoadReport;
+            ShowReport();
         }
 
         private void BindReport(DataSet dataSet) {
@@ -48,7 +48,7 @@ namespace KomalliEmployee.Views.Pages {
             }
         }
 
-        private void LoadReport(object sender, RoutedEventArgs e) {
+        private void ShowReport() {
             try {
                 rpv.Reset();
                 DataReports dataReports = new DataReports();

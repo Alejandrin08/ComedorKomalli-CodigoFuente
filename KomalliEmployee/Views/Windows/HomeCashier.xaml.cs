@@ -33,15 +33,16 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickMakeOrder(object sender, RoutedEventArgs e) {
-            
+            fraPages.Navigate(new System.Uri("/Views/Pages/MakeOrder.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickConsultOrders(object sender, RoutedEventArgs e) {
+            fraPages.Navigate(new System.Uri("/Views/Pages/ConsultFoodOrdersKiosko.xaml", UriKind.RelativeOrAbsolute));
 
         }
 
         private void ClickCashRegisterCutting(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/RegisterCashCut.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickSubMenuLogbook(object sender, RoutedEventArgs e) {
