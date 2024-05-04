@@ -177,12 +177,19 @@ namespace KomalliEmployee.Controller {
                     result = context.SaveChanges();
                 }
             } catch (EntityException ex) {
-                LoggerManager.Instance.LogError("Error en actualizar un pedido", ex);
+                LoggerManager.Instance.LogError("Error en actualizar los datos de un pedido", ex);
             }
             return result;
         }
 
-        public string GenerateRamdomIdFoodOrder() {
+        /**
+         * <summary>
+         * Este método se encarga de generar id aleatorios para pedidos de Caja.
+         * </summary>
+         * <returns>Regresa un string que combina la clave y el numero aleatorio generado</returns>
+         */
+
+        private string GenerateRamdomIdFoodOrder() {
             Random rand = new Random();
             string id = "Caj";
 
@@ -193,21 +200,38 @@ namespace KomalliEmployee.Controller {
             
         }
 
+        /**
+         * <summary>
+         * Este método se encarga de verificar que los id aleatorios, no existan en la base de datos.
+         * </summary>
+         * <returns>Regresa un string que contiene el id unico</returns>
+         */
+
         public string MakeIdFoodOrder() {
             string idGenerated = GenerateRamdomIdFoodOrder();
+            try {  
+                using (var context = new KomalliEntities()) {
+                    var idOrder = context.FoodOrder.Where(food => food.IDFoodOrder == idGenerated).FirstOrDefault();
 
-            using (var context = new KomalliEntities()) {
-                var idOrder = context.FoodOrder.Where(food => food.IDFoodOrder == idGenerated).FirstOrDefault();
-
-                while (idOrder != null) {
-                    idGenerated = GenerateRamdomIdFoodOrder();
-                    idOrder = context.FoodOrder.Where(food => food.IDFoodOrder == idGenerated).FirstOrDefault();
+                    while (idOrder != null) {
+                        idGenerated = GenerateRamdomIdFoodOrder();
+                        idOrder = context.FoodOrder.Where(food => food.IDFoodOrder == idGenerated).FirstOrDefault();
+                    }
                 }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error al validar un id de pedido de caja", ex);
             }
 
             return idGenerated;
         }
 
+        /**
+         * <summary>
+         * Este método se encarga de registrar un pedido de la tabla FoodOrder de la base de datos.
+         * </summary>
+         * <param name="foodModel">Objeto de foodOrder que contiene los detalles del pedido</param>
+         * <returns>Regresa 1 si se registro correctamente, 0 si ocurre un error.</returns>
+         */
 
         public int RegistryOrder(FoodOrderModel foodModel) {
             int result = 0;
@@ -216,7 +240,6 @@ namespace KomalliEmployee.Controller {
                     var order = new FoodOrder {
                         IDFoodOrder = foodModel.IdFoodOrder,
                         Status = "Pendiente",
-                        ClientName = "",
                         Date = DateTime.Now,
                         Total = foodModel.Total,
                         NumberDishes = foodModel.NumberDishes
@@ -226,6 +249,31 @@ namespace KomalliEmployee.Controller {
                 }
             } catch (EntityException ex) {
                 LoggerManager.Instance.LogError("Error en Registrar orden desde caja", ex);
+            }
+            return result;
+        }
+
+        /**
+         * <summary>
+         * Este método se encarga de eliminar un pedido de la tabla FoodOrder de la base de datos.
+         * </summary>
+         * <param name="idFoodOrder">Id que identifica el pedido a eliminar</param>
+         * <returns>Regresa 1 si se elimino correctamente, 0 si ocurre un error.</returns>
+         */
+
+        public int DeleteOrder(string idFoodOrder) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var orderToDelete = context.FoodOrder.FirstOrDefault(o => o.IDFoodOrder == idFoodOrder);
+                    if (orderToDelete != null) {
+                        context.FoodOrder.Remove(orderToDelete);
+                        
+                    }
+                    result = context.SaveChanges();
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en eliminar orden", ex);
             }
             return result;
         }

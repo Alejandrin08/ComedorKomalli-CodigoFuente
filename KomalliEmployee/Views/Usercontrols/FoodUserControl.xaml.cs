@@ -22,20 +22,16 @@ namespace KomalliEmployee.Views.Usercontrols {
     /// Lógica de interacción para FoodUserControl.xaml
     /// </summary>
     public partial class FoodUserControl : UserControl {
+        public FoodModel Food { get; set; }
         public FoodUserControl() {
             InitializeComponent();
         }
 
-        public FoodModel Food { get; set; }
-
-
-        
-
-        public void BindData() {
-            if (Food != null) {
+        public void BindData(FoodModel food) {
+            Food = food;
+            if (food != null) {
                 tbkFoodName.Text = Food.Name;
-                tbkFoodPrice.Text = "$" + Food.Price.ToString();
-                
+                tbkFoodPrice.Text = "$" + Food.Price.ToString();                
             }
         }
 
@@ -46,41 +42,39 @@ namespace KomalliEmployee.Views.Usercontrols {
                 KeyCard = Food.KeyCard,
                 Name = tbkFoodName.Text,
                 Quantity = 1,
-                Price = price,
-                IsSelected = true
+                Price = price
             };
             var selectedFood = SingletonClass.Instance.SelectedFoods.FirstOrDefault(food => food.Name == Food.Name);
 
             if(selectedFood != null) {
-                
                 selectedFood.Quantity++;
                 selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
-                
-
-                var foodName = tbkFoodName.Text;
-                var changeType = SingletonClass.Instance.SelectedFoods.Any(food => food.Name == foodName) ?
-                                 NotifyCollectionChangedAction.Replace : NotifyCollectionChangedAction.Add;
-
-                // Construir un NotifyCollectionChangedEventArgs personalizado
-                var args = new NotifyCollectionChangedEventArgs(changeType, new List<FoodModel> { new FoodModel { Name = foodName } }, SingletonClass.Instance.SelectedFoods);
-                MakeOrder parentWindow = FindParent<MakeOrder>(this);
-                parentWindow?.SelectedFoodsCollectionChanged(sender, args);
-
+                UpdateSelectedFoodsCollection(sender);
             } else {
-
                 SingletonClass.Instance.SelectedFoods.Add(foodModel);
+            } 
+        }
 
-            }
+        private void UpdateSelectedFoodsCollection(object sender) {
+            var foodName = tbkFoodName.Text;
+            var changeType = SingletonClass.Instance.SelectedFoods.Any(food => food.Name == foodName) ?
+                             NotifyCollectionChangedAction.Replace : NotifyCollectionChangedAction.Add;
 
-            
-            
+            var args = new NotifyCollectionChangedEventArgs(changeType, new List<FoodModel> { new FoodModel { Name = foodName } }, SingletonClass.Instance.SelectedFoods);
+
+            MakeOrder parentWindow = FindParent<MakeOrder>(this);
+            parentWindow?.SelectedFoodsCollectionChanged(sender, args);
         }
 
         private static T FindParent<T>(DependencyObject child) where T : DependencyObject {
+            T parent = null;
             while ((child = VisualTreeHelper.GetParent(child)) != null) {
-                if (child is T parent) return parent;
+                if (child is T typedParent) {
+                    parent = typedParent;
+                    break;
+                }
             }
-            return null;
+            return parent;
         }
     }
 }
