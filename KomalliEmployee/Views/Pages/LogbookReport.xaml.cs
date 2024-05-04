@@ -27,6 +27,7 @@ namespace KomalliEmployee.Views.Pages {
     public partial class LogbookReport : Page {
         public LogbookReport() {
             InitializeComponent();
+            cboSection.SelectionChanged += SelectedDateChangedGetDate;
         }
 
         private void SelectedDateChangedGetDate(object sender, SelectionChangedEventArgs e) {
@@ -63,12 +64,17 @@ namespace KomalliEmployee.Views.Pages {
         }
         private void ShowReport() {
             try {
-                DateTime selectedDate = dpDate.SelectedDate.Value;
-                string date = selectedDate.Date.ToString("yyyy-MM-dd");
+                string date = dtpDate.SelectedDate.HasValue ? dtpDate.SelectedDate.Value.Date.ToString("yyyy-MM-dd") : null;
+                string section = null;
+                if (cboSection.SelectedItem != null) {
+                    ComboBoxItem selectedItem = (ComboBoxItem)cboSection.SelectedItem;
+                    section = selectedItem.Content.ToString();
+                }
+          
                 rpv.Reset();
                 DataReports dataReports = new DataReports();
                 LogbookEmployeeTableAdapter logbookEmployeeTableAdapter = new LogbookEmployeeTableAdapter();
-                logbookEmployeeTableAdapter.Fill(dataReports.LogbookEmployee, date);
+                logbookEmployeeTableAdapter.Fill(dataReports.LogbookEmployee, date, section);
                 BindReport(dataReports);
                 rpv.RefreshReport();
             } catch (SqlException ex) {

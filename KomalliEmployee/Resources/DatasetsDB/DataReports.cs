@@ -12,3 +12,10 @@ namespace KomalliEmployee.Resources.DatasetsDB.DataReportsTableAdapters {
     public partial class IngredientTableAdapter {
     }
 }
+
+namespace KomalliEmployee.Resources.DatasetsDB.DataReportsTableAdapters {
+
+
+    public partial class CashCutFoodOrderTableAdapter {
+    }
+}

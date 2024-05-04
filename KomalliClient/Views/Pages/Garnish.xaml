@@ -16,33 +16,33 @@
            Background="#F9F9EA">
 
             <Rectangle Fill=" #9cc8c5 "
-                    Margin="30,30,30,500"
-                    RadiusX="8"
-                    RadiusY="8"/>
+                       Margin="30,30,30,500"
+                       RadiusX="8"
+                       RadiusY="8"/>
 
             <Image Source="\Resources\Images\iconGoBack.png"
-                Margin="50,42,595,507"
-                MouseDown="MouseDownGoBack"
-                Cursor="Hand"
-         />
+                   Margin="50,42,595,507"
+                   MouseDown="MouseDownGoBack"
+                   Cursor="Hand"
+            />
 
             <TextBlock Text="Guarniciones"
-                    FontSize="40"
-                    FontWeight="Bold"
-                    HorizontalAlignment="Left"
-                    Margin="180,35,0,500"/>
+                       FontSize="40"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Left"
+                       Margin="180,35,0,500"/>
 
             <Image Source="/Resources/Images/Salad.png"
-                Margin="235,40,0,510"
-                HorizontalAlignment="Center"/>
+                   Margin="235,40,0,510"
+                   HorizontalAlignment="Center"/>
 
             <Rectangle Fill="#2C6C74"
-                    Margin="30,140,30,30"
-                    RadiusX="8"
-                    RadiusY="8"/>
+                       Margin="30,140,30,30"
+                       RadiusX="8"
+                       RadiusY="8"/>
 
-            <WrapPanel x:Name="wrPFood" 
-                    Margin="45,180,45,50">
+            <WrapPanel x:Name="wrpFood" 
+                       Margin="45,180,45,50">
             </WrapPanel>
         </Grid>
     </Viewbox>

@@ -25,7 +25,7 @@ namespace KomalliEmployee.Controller {
                 using (var context = new KomalliEntities()) {
                     var today = DateTime.Today;
                     result = context.FoodOrder
-                        .Where(foodOrder => DbFunctions.TruncateTime(foodOrder.Date) == today)
+                        .Where(foodOrder => DbFunctions.TruncateTime(foodOrder.Date) == today && foodOrder.Status == "Pagado")
                         .Sum(foodOrder => (int?)foodOrder.Change) ?? 0;
                 }
             } catch (EntityException ex) {
@@ -47,7 +47,7 @@ namespace KomalliEmployee.Controller {
                 using (var context = new KomalliEntities()) {
                     var today = DateTime.Today;
                     result = context.FoodOrder
-                        .Where(foodOrder => DbFunctions.TruncateTime(foodOrder.Date) == today)
+                        .Where(foodOrder => DbFunctions.TruncateTime(foodOrder.Date) == today && foodOrder.Status == "Pagado")
                         .Sum(foodOrder => (int?)foodOrder.Total) ?? 0;
                 }
             } catch (EntityException ex) {

@@ -357,6 +357,8 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             
             private global::System.Data.DataColumn columnMeasurement;
             
+            private global::System.Data.DataColumn columnCategory;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public IngredientDataTable() {
@@ -424,6 +426,14 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn CategoryColumn {
+                get {
+                    return this.columnCategory;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -459,13 +469,14 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public IngredientRow AddIngredientRow(string KeyIngredient, string NameIngredient, string Quantity, string Measurement) {
+            public IngredientRow AddIngredientRow(string KeyIngredient, string NameIngredient, string Quantity, string Measurement, string Category) {
                 IngredientRow rowIngredientRow = ((IngredientRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         KeyIngredient,
                         NameIngredient,
                         Quantity,
-                        Measurement};
+                        Measurement,
+                        Category};
                 rowIngredientRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowIngredientRow);
                 return rowIngredientRow;
@@ -499,6 +510,7 @@ namespace KomalliEmployee.Resources.DatasetsDB {
                 this.columnNameIngredient = base.Columns["NameIngredient"];
                 this.columnQuantity = base.Columns["Quantity"];
                 this.columnMeasurement = base.Columns["Measurement"];
+                this.columnCategory = base.Columns["Category"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -512,6 +524,8 @@ namespace KomalliEmployee.Resources.DatasetsDB {
                 base.Columns.Add(this.columnQuantity);
                 this.columnMeasurement = new global::System.Data.DataColumn("Measurement", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMeasurement);
+                this.columnCategory = new global::System.Data.DataColumn("Category", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategory);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnKeyIngredient}, true));
                 this.columnKeyIngredient.AllowDBNull = false;
@@ -523,6 +537,8 @@ namespace KomalliEmployee.Resources.DatasetsDB {
                 this.columnQuantity.MaxLength = 10;
                 this.columnMeasurement.AllowDBNull = false;
                 this.columnMeasurement.MaxLength = 10;
+                this.columnCategory.AllowDBNull = false;
+                this.columnCategory.MaxLength = 55;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -664,6 +680,8 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             
             private global::System.Data.DataColumn columnRole;
             
+            private global::System.Data.DataColumn columnSection;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public LogbookEmployeeDataTable() {
@@ -731,6 +749,14 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn SectionColumn {
+                get {
+                    return this.columnSection;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -766,13 +792,14 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public LogbookEmployeeRow AddLogbookEmployeeRow(string Name, string Commentary, System.DateTime Date, string Role) {
+            public LogbookEmployeeRow AddLogbookEmployeeRow(string Name, string Commentary, System.DateTime Date, string Role, string Section) {
                 LogbookEmployeeRow rowLogbookEmployeeRow = ((LogbookEmployeeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Name,
                         Commentary,
                         Date,
-                        Role};
+                        Role,
+                        Section};
                 rowLogbookEmployeeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowLogbookEmployeeRow);
                 return rowLogbookEmployeeRow;
@@ -799,6 +826,7 @@ namespace KomalliEmployee.Resources.DatasetsDB {
                 this.columnCommentary = base.Columns["Commentary"];
                 this.columnDate = base.Columns["Date"];
                 this.columnRole = base.Columns["Role"];
+                this.columnSection = base.Columns["Section"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -812,6 +840,8 @@ namespace KomalliEmployee.Resources.DatasetsDB {
                 base.Columns.Add(this.columnDate);
                 this.columnRole = new global::System.Data.DataColumn("Role", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRole);
+                this.columnSection = new global::System.Data.DataColumn("Section", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSection);
                 this.columnName.AllowDBNull = false;
                 this.columnName.MaxLength = 30;
                 this.columnCommentary.AllowDBNull = false;
@@ -819,6 +849,8 @@ namespace KomalliEmployee.Resources.DatasetsDB {
                 this.columnDate.AllowDBNull = false;
                 this.columnRole.AllowDBNull = false;
                 this.columnRole.MaxLength = 20;
+                this.columnSection.AllowDBNull = false;
+                this.columnSection.MaxLength = 55;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -952,13 +984,9 @@ namespace KomalliEmployee.Resources.DatasetsDB {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class CashCutFoodOrderDataTable : global::System.Data.TypedTableBase<CashCutFoodOrderRow> {
             
-            private global::System.Data.DataColumn columnInitialBalance;
-            
             private global::System.Data.DataColumn columnTotalEntries;
             
             private global::System.Data.DataColumn columnTotalExits;
-            
-            private global::System.Data.DataColumn columnBalance;
             
             private global::System.Data.DataColumn columnIDFoodOrder;
             
@@ -969,6 +997,10 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             private global::System.Data.DataColumn columnNumberDishes;
             
             private global::System.Data.DataColumn columnTotal;
+            
+            private global::System.Data.DataColumn columnTotalInitialBalance;
+            
+            private global::System.Data.DataColumn columnTotalBalance;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -1005,14 +1037,6 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn InitialBalanceColumn {
-                get {
-                    return this.columnInitialBalance;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public global::System.Data.DataColumn TotalEntriesColumn {
                 get {
                     return this.columnTotalEntries;
@@ -1024,14 +1048,6 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             public global::System.Data.DataColumn TotalExitsColumn {
                 get {
                     return this.columnTotalExits;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn BalanceColumn {
-                get {
-                    return this.columnBalance;
                 }
             }
             
@@ -1077,6 +1093,22 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn TotalInitialBalanceColumn {
+                get {
+                    return this.columnTotalInitialBalance;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn TotalBalanceColumn {
+                get {
+                    return this.columnTotalBalance;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1112,18 +1144,18 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public CashCutFoodOrderRow AddCashCutFoodOrderRow(int InitialBalance, int TotalEntries, int TotalExits, int Balance, string IDFoodOrder, System.DateTime Date, string ClientName, int NumberDishes, int Total) {
+            public CashCutFoodOrderRow AddCashCutFoodOrderRow(int TotalEntries, int TotalExits, string IDFoodOrder, System.DateTime Date, string ClientName, int NumberDishes, int Total, int TotalInitialBalance, int TotalBalance) {
                 CashCutFoodOrderRow rowCashCutFoodOrderRow = ((CashCutFoodOrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        InitialBalance,
                         TotalEntries,
                         TotalExits,
-                        Balance,
                         IDFoodOrder,
                         Date,
                         ClientName,
                         NumberDishes,
-                        Total};
+                        Total,
+                        TotalInitialBalance,
+                        TotalBalance};
                 rowCashCutFoodOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCashCutFoodOrderRow);
                 return rowCashCutFoodOrderRow;
@@ -1153,28 +1185,24 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
-                this.columnInitialBalance = base.Columns["InitialBalance"];
                 this.columnTotalEntries = base.Columns["TotalEntries"];
                 this.columnTotalExits = base.Columns["TotalExits"];
-                this.columnBalance = base.Columns["Balance"];
                 this.columnIDFoodOrder = base.Columns["IDFoodOrder"];
                 this.columnDate = base.Columns["Date"];
                 this.columnClientName = base.Columns["ClientName"];
                 this.columnNumberDishes = base.Columns["NumberDishes"];
                 this.columnTotal = base.Columns["Total"];
+                this.columnTotalInitialBalance = base.Columns["TotalInitialBalance"];
+                this.columnTotalBalance = base.Columns["TotalBalance"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             private void InitClass() {
-                this.columnInitialBalance = new global::System.Data.DataColumn("InitialBalance", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnInitialBalance);
                 this.columnTotalEntries = new global::System.Data.DataColumn("TotalEntries", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotalEntries);
                 this.columnTotalExits = new global::System.Data.DataColumn("TotalExits", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotalExits);
-                this.columnBalance = new global::System.Data.DataColumn("Balance", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBalance);
                 this.columnIDFoodOrder = new global::System.Data.DataColumn("IDFoodOrder", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIDFoodOrder);
                 this.columnDate = new global::System.Data.DataColumn("Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
@@ -1185,16 +1213,21 @@ namespace KomalliEmployee.Resources.DatasetsDB {
                 base.Columns.Add(this.columnNumberDishes);
                 this.columnTotal = new global::System.Data.DataColumn("Total", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotal);
+                this.columnTotalInitialBalance = new global::System.Data.DataColumn("TotalInitialBalance", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalInitialBalance);
+                this.columnTotalBalance = new global::System.Data.DataColumn("TotalBalance", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalBalance);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnIDFoodOrder}, true));
                 this.columnIDFoodOrder.AllowDBNull = false;
                 this.columnIDFoodOrder.Unique = true;
                 this.columnIDFoodOrder.MaxLength = 10;
                 this.columnDate.AllowDBNull = false;
-                this.columnClientName.AllowDBNull = false;
                 this.columnClientName.MaxLength = 15;
                 this.columnNumberDishes.AllowDBNull = false;
                 this.columnTotal.AllowDBNull = false;
+                this.columnTotalInitialBalance.ReadOnly = true;
+                this.columnTotalBalance.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1378,6 +1411,17 @@ namespace KomalliEmployee.Resources.DatasetsDB {
                     this[this.tableIngredient.MeasurementColumn] = value;
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string Category {
+                get {
+                    return ((string)(this[this.tableIngredient.CategoryColumn]));
+                }
+                set {
+                    this[this.tableIngredient.CategoryColumn] = value;
+                }
+            }
         }
         
         /// <summary>
@@ -1437,6 +1481,17 @@ namespace KomalliEmployee.Resources.DatasetsDB {
                     this[this.tableLogbookEmployee.RoleColumn] = value;
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string Section {
+                get {
+                    return ((string)(this[this.tableLogbookEmployee.SectionColumn]));
+                }
+                set {
+                    this[this.tableLogbookEmployee.SectionColumn] = value;
+                }
+            }
         }
         
         /// <summary>
@@ -1451,23 +1506,6 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             internal CashCutFoodOrderRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
                 this.tableCashCutFoodOrder = ((CashCutFoodOrderDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int InitialBalance {
-                get {
-                    try {
-                        return ((int)(this[this.tableCashCutFoodOrder.InitialBalanceColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'InitialBalance\' de la tabla \'CashCutFoodOrder\' es DBNull." +
-                                "", e);
-                    }
-                }
-                set {
-                    this[this.tableCashCutFoodOrder.InitialBalanceColumn] = value;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1504,22 +1542,6 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int Balance {
-                get {
-                    try {
-                        return ((int)(this[this.tableCashCutFoodOrder.BalanceColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Balance\' de la tabla \'CashCutFoodOrder\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCashCutFoodOrder.BalanceColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string IDFoodOrder {
                 get {
                     return ((string)(this[this.tableCashCutFoodOrder.IDFoodOrderColumn]));
@@ -1544,7 +1566,12 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string ClientName {
                 get {
-                    return ((string)(this[this.tableCashCutFoodOrder.ClientNameColumn]));
+                    try {
+                        return ((string)(this[this.tableCashCutFoodOrder.ClientNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ClientName\' de la tabla \'CashCutFoodOrder\' es DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCashCutFoodOrder.ClientNameColumn] = value;
@@ -1575,14 +1602,35 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsInitialBalanceNull() {
-                return this.IsNull(this.tableCashCutFoodOrder.InitialBalanceColumn);
+            public int TotalInitialBalance {
+                get {
+                    try {
+                        return ((int)(this[this.tableCashCutFoodOrder.TotalInitialBalanceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TotalInitialBalance\' de la tabla \'CashCutFoodOrder\' es DB" +
+                                "Null.", e);
+                    }
+                }
+                set {
+                    this[this.tableCashCutFoodOrder.TotalInitialBalanceColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetInitialBalanceNull() {
-                this[this.tableCashCutFoodOrder.InitialBalanceColumn] = global::System.Convert.DBNull;
+            public int TotalBalance {
+                get {
+                    try {
+                        return ((int)(this[this.tableCashCutFoodOrder.TotalBalanceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TotalBalance\' de la tabla \'CashCutFoodOrder\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCashCutFoodOrder.TotalBalanceColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1611,14 +1659,38 @@ namespace KomalliEmployee.Resources.DatasetsDB {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsBalanceNull() {
-                return this.IsNull(this.tableCashCutFoodOrder.BalanceColumn);
+            public bool IsClientNameNull() {
+                return this.IsNull(this.tableCashCutFoodOrder.ClientNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetBalanceNull() {
-                this[this.tableCashCutFoodOrder.BalanceColumn] = global::System.Convert.DBNull;
+            public void SetClientNameNull() {
+                this[this.tableCashCutFoodOrder.ClientNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTotalInitialBalanceNull() {
+                return this.IsNull(this.tableCashCutFoodOrder.TotalInitialBalanceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTotalInitialBalanceNull() {
+                this[this.tableCashCutFoodOrder.TotalInitialBalanceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTotalBalanceNull() {
+                return this.IsNull(this.tableCashCutFoodOrder.TotalBalanceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTotalBalanceNull() {
+                this[this.tableCashCutFoodOrder.TotalBalanceColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1853,30 +1925,35 @@ namespace KomalliEmployee.Resources.DatasetsDB.DataReportsTableAdapters {
             tableMapping.ColumnMappings.Add("NameIngredient", "NameIngredient");
             tableMapping.ColumnMappings.Add("Quantity", "Quantity");
             tableMapping.ColumnMappings.Add("Measurement", "Measurement");
+            tableMapping.ColumnMappings.Add("Category", "Category");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Ingredient] WHERE (([KeyIngredient] = @Original_KeyIngredient)" +
-                " AND ([NameIngredient] = @Original_NameIngredient) AND ([Quantity] = @Original_Q" +
-                "uantity) AND ([Measurement] = @Original_Measurement))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Ingredient] WHERE (([KeyIngredient] = @Original_KeyIngredient) AND (" +
+                "[NameIngredient] = @Original_NameIngredient) AND ([Quantity] = @Original_Quantit" +
+                "y) AND ([Measurement] = @Original_Measurement) AND ([Category] = @Original_Categ" +
+                "ory))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_KeyIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyIngredient", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_NameIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NameIngredient", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Quantity", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Measurement", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Measurement", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Category", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Category", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Ingredient] SET [KeyIngredient] = @KeyIngredient, [NameIngredient] = @NameIngredient, [Quantity] = @Quantity, [Measurement] = @Measurement WHERE (([KeyIngredient] = @Original_KeyIngredient) AND ([NameIngredient] = @Original_NameIngredient) AND ([Quantity] = @Original_Quantity) AND ([Measurement] = @Original_Measurement));
-SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHERE (KeyIngredient = @KeyIngredient)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Ingredient] SET [KeyIngredient] = @KeyIngredient, [NameIngredient] = @NameIngredient, [Quantity] = @Quantity, [Measurement] = @Measurement, [Category] = @Category WHERE (([KeyIngredient] = @Original_KeyIngredient) AND ([NameIngredient] = @Original_NameIngredient) AND ([Quantity] = @Original_Quantity) AND ([Measurement] = @Original_Measurement) AND ([Category] = @Original_Category));
+SELECT KeyIngredient, NameIngredient, Quantity, Measurement, Category FROM Ingredient WHERE (KeyIngredient = @KeyIngredient)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@KeyIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyIngredient", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@NameIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NameIngredient", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Quantity", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Measurement", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Measurement", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Category", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Category", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_KeyIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "KeyIngredient", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_NameIngredient", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "NameIngredient", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Quantity", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Measurement", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Measurement", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Category", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Category", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1889,20 +1966,32 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT [KeyIngredient]\r\n      ,[NameIngredient]\r\n      ,[Quantity]\r\n      ,[Measu" +
-                "rement]\r\n  FROM [dbo].[Ingredient]\r\n";
+            this._commandCollection[0].CommandText = "SELECT KeyIngredient, NameIngredient, Quantity, Measurement, Category\r\nFROM     I" +
+                "ngredient\r\nWHERE  (Category = @Param1)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Param1", global::System.Data.SqlDbType.VarChar, 55, global::System.Data.ParameterDirection.Input, 0, 0, "Category", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT KeyIngredient, NameIngredient, Quantity, Measurement, Category\r\nFROM     I" +
+                "ngredient";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(DataReports.IngredientDataTable dataTable) {
+        public virtual int Fill(DataReports.IngredientDataTable dataTable, string Param1) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((Param1 == null)) {
+                throw new global::System.ArgumentNullException("Param1");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Param1));
+            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -1914,8 +2003,38 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual DataReports.IngredientDataTable GetData() {
+        public virtual DataReports.IngredientDataTable GetData(string Param1) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((Param1 == null)) {
+                throw new global::System.ArgumentNullException("Param1");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Param1));
+            }
+            DataReports.IngredientDataTable dataTable = new DataReports.IngredientDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy(DataReports.IngredientDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual DataReports.IngredientDataTable GetAllData() {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
             DataReports.IngredientDataTable dataTable = new DataReports.IngredientDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -1954,7 +2073,7 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(string Original_KeyIngredient, string Original_NameIngredient, string Original_Quantity, string Original_Measurement) {
+        public virtual int Delete(string Original_KeyIngredient, string Original_NameIngredient, string Original_Quantity, string Original_Measurement, string Original_Category) {
             if ((Original_KeyIngredient == null)) {
                 throw new global::System.ArgumentNullException("Original_KeyIngredient");
             }
@@ -1979,6 +2098,12 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
             else {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((string)(Original_Measurement));
             }
+            if ((Original_Category == null)) {
+                throw new global::System.ArgumentNullException("Original_Category");
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_Category));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1999,7 +2124,7 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string KeyIngredient, string NameIngredient, string Quantity, string Measurement, string Original_KeyIngredient, string Original_NameIngredient, string Original_Quantity, string Original_Measurement) {
+        public virtual int Update(string KeyIngredient, string NameIngredient, string Quantity, string Measurement, string Category, string Original_KeyIngredient, string Original_NameIngredient, string Original_Quantity, string Original_Measurement, string Original_Category) {
             if ((KeyIngredient == null)) {
                 throw new global::System.ArgumentNullException("KeyIngredient");
             }
@@ -2024,29 +2149,41 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Measurement));
             }
+            if ((Category == null)) {
+                throw new global::System.ArgumentNullException("Category");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Category));
+            }
             if ((Original_KeyIngredient == null)) {
                 throw new global::System.ArgumentNullException("Original_KeyIngredient");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_KeyIngredient));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_KeyIngredient));
             }
             if ((Original_NameIngredient == null)) {
                 throw new global::System.ArgumentNullException("Original_NameIngredient");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_NameIngredient));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_NameIngredient));
             }
             if ((Original_Quantity == null)) {
                 throw new global::System.ArgumentNullException("Original_Quantity");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_Quantity));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_Quantity));
             }
             if ((Original_Measurement == null)) {
                 throw new global::System.ArgumentNullException("Original_Measurement");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_Measurement));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_Measurement));
+            }
+            if ((Original_Category == null)) {
+                throw new global::System.ArgumentNullException("Original_Category");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_Category));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -2068,8 +2205,8 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string NameIngredient, string Quantity, string Measurement, string Original_KeyIngredient, string Original_NameIngredient, string Original_Quantity, string Original_Measurement) {
-            return this.Update(Original_KeyIngredient, NameIngredient, Quantity, Measurement, Original_KeyIngredient, Original_NameIngredient, Original_Quantity, Original_Measurement);
+        public virtual int Update(string NameIngredient, string Quantity, string Measurement, string Category, string Original_KeyIngredient, string Original_NameIngredient, string Original_Quantity, string Original_Measurement, string Original_Category) {
+            return this.Update(Original_KeyIngredient, NameIngredient, Quantity, Measurement, Category, Original_KeyIngredient, Original_NameIngredient, Original_Quantity, Original_Measurement, Original_Category);
         }
     }
     
@@ -2198,6 +2335,7 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
             tableMapping.ColumnMappings.Add("Commentary", "Commentary");
             tableMapping.ColumnMappings.Add("Date", "Date");
             tableMapping.ColumnMappings.Add("Role", "Role");
+            tableMapping.ColumnMappings.Add("Section", "Section");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -2214,24 +2352,31 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Employee.Name, Logbook.Commentary, Logbook.Date, Employee.Role\r\nFROM     E" +
-                "mployee INNER JOIN\r\n                  Logbook ON Employee.NoPersonal = Logbook.N" +
-                "oPersonalEmployee\r\nWHERE  (Logbook.Date = @Param1)\r\n";
+            this._commandCollection[0].CommandText = "SELECT Employee.Name, Logbook.Commentary, Logbook.Date, Employee.Role, Logbook.Se" +
+                "ction\r\nFROM Employee\r\nINNER JOIN Logbook ON Employee.NoPersonal = Logbook.NoPers" +
+                "onalEmployee\r\nWHERE (Logbook.Date = @Param1 OR Logbook.Section = @Param2)\r\n";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Param1", global::System.Data.SqlDbType.Date, 20, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Param1", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Param2", global::System.Data.SqlDbType.VarChar, 55, global::System.Data.ParameterDirection.Input, 0, 0, "Section", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(DataReports.LogbookEmployeeDataTable dataTable, string Param1) {
+        public virtual int Fill(DataReports.LogbookEmployeeDataTable dataTable, string Param1, string Param2) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Param1 == null)) {
-                throw new global::System.ArgumentNullException("Param1");
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Param1));
+            }
+            if ((Param2 == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Param2));
             }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -2244,13 +2389,19 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual DataReports.LogbookEmployeeDataTable GetData(string Param1) {
+        public virtual DataReports.LogbookEmployeeDataTable GetData(string Param1, string Param2) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Param1 == null)) {
-                throw new global::System.ArgumentNullException("Param1");
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Param1));
+            }
+            if ((Param2 == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Param2));
             }
             DataReports.LogbookEmployeeDataTable dataTable = new DataReports.LogbookEmployeeDataTable();
             this.Adapter.Fill(dataTable);
@@ -2379,15 +2530,15 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "CashCutFoodOrder";
-            tableMapping.ColumnMappings.Add("InitialBalance", "InitialBalance");
             tableMapping.ColumnMappings.Add("TotalEntries", "TotalEntries");
             tableMapping.ColumnMappings.Add("TotalExits", "TotalExits");
-            tableMapping.ColumnMappings.Add("Balance", "Balance");
             tableMapping.ColumnMappings.Add("IDFoodOrder", "IDFoodOrder");
             tableMapping.ColumnMappings.Add("Date", "Date");
             tableMapping.ColumnMappings.Add("ClientName", "ClientName");
             tableMapping.ColumnMappings.Add("NumberDishes", "NumberDishes");
             tableMapping.ColumnMappings.Add("Total", "Total");
+            tableMapping.ColumnMappings.Add("TotalInitialBalance", "TotalInitialBalance");
+            tableMapping.ColumnMappings.Add("TotalBalance", "TotalBalance");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -2404,25 +2555,56 @@ SELECT KeyIngredient, NameIngredient, Quantity, Measurement FROM Ingredient WHER
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT CashCut.InitialBalance, CashCut.TotalEntries, CashCut.TotalExits, CashCut.Balance, FoodOrder.IDFoodOrder, FoodOrder.Date, FoodOrder.ClientName, FoodOrder.NumberDishes, FoodOrder.Total
-FROM     CashCut INNER JOIN
-                  FoodOrder ON CashCut.Date = FoodOrder.Date
-WHERE  (FoodOrder.Date = @Param1)";
+            this._commandCollection[0].CommandText = @"SELECT 
+    FoodOrder.IDFoodOrder,
+    FoodOrder.Date,
+    FoodOrder.ClientName,
+    FoodOrder.NumberDishes,
+    FoodOrder.Total,
+    CC.TotalInitialBalance,
+    CC.TotalEntries,
+    CC.TotalExits,
+    CC.TotalBalance
+FROM 
+    FoodOrder
+LEFT JOIN 
+    (
+    SELECT 
+        SUM(InitialBalance) AS TotalInitialBalance,
+        SUM(TotalEntries) AS TotalEntries,
+        SUM(TotalExits) AS TotalExits,
+        SUM(Balance) AS TotalBalance
+    FROM 
+        CashCut
+    WHERE 
+        Date BETWEEN @Param1 AND @Param2
+    ) AS CC ON 1=1
+WHERE 
+    FoodOrder.Date BETWEEN @Param1 AND @Param2
+    AND FoodOrder.Status = 'Pagado'
+";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Param1", global::System.Data.SqlDbType.Date, 20, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Param1", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Param2", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(DataReports.CashCutFoodOrderDataTable dataTable, string Param1) {
+        public virtual int Fill(DataReports.CashCutFoodOrderDataTable dataTable, string Param1, string Param2) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Param1 == null)) {
                 throw new global::System.ArgumentNullException("Param1");
             }
             else {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Param1));
+            }
+            if ((Param2 == null)) {
+                throw new global::System.ArgumentNullException("Param2");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Param2));
             }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -2435,13 +2617,19 @@ WHERE  (FoodOrder.Date = @Param1)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual DataReports.CashCutFoodOrderDataTable GetData(string Param1) {
+        public virtual DataReports.CashCutFoodOrderDataTable GetData(string Param1, string Param2) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Param1 == null)) {
                 throw new global::System.ArgumentNullException("Param1");
             }
             else {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Param1));
+            }
+            if ((Param2 == null)) {
+                throw new global::System.ArgumentNullException("Param2");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Param2));
             }
             DataReports.CashCutFoodOrderDataTable dataTable = new DataReports.CashCutFoodOrderDataTable();
             this.Adapter.Fill(dataTable);
