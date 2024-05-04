@@ -382,6 +382,18 @@
         <Setter Property="BorderThickness" Value="1.5"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="10">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="True">
                 <Setter Property="Background" Value="#D9D9D9"/>
@@ -462,6 +474,8 @@
         </Style.Triggers>
     </Style>
 
+
+
     <Style TargetType="ListBoxItem" x:Key="ListBoxItemNoSelectionStyle">
         <Setter Property="Template">
             <Setter.Value>
@@ -471,6 +485,38 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="ButtonStyleUserControl" TargetType="{x:Type Button}">
+        
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="BorderBrush" Value="#2C6C74"/>
+        <Setter Property="Background" Value="#5C8CCC"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+        BorderBrush="{TemplateBinding BorderBrush}"
+        BorderThickness="{TemplateBinding BorderThickness}"
+        CornerRadius="7">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Background" Value="#5C8CCC"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#B1AEAE"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 
     <!-- Background Colors -->
     <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#f9f9ea"/>

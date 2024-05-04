@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Transactions;
 
 namespace KomalliTest.Employee {
     [TestClass]
@@ -122,6 +123,206 @@ namespace KomalliTest.Employee {
                 Assert.AreNotEqual(foodOrdersExpected[i].ClientName, foodOrdersResult[i].ClientName);
                 Assert.AreNotEqual(foodOrdersExpected[i].NumberDishes, foodOrdersResult[i].NumberDishes);
                 Assert.AreNotEqual(foodOrdersExpected[i].Total, foodOrdersResult[i].Total);
+            }
+        }
+
+        [TestMethod]
+        public void ConsultFoodOrdersKiosko_Sucessfull() {
+            KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+
+            var foodOrdersExpected = new List<FoodOrderModel> {
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio003",
+                    ClientName = "Alejandro",
+                    NumberDishes = 2,
+                    Total = 60
+                },
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio004",
+                    ClientName = "Paloma",
+                    NumberDishes = 1,
+                    Total = 30
+                },
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio005",                    
+                    ClientName = "Ares",
+                    NumberDishes = 3,
+                    Total = 80
+                }
+            };
+
+            var foodOrdersResult = test.ConsultFoodOrdersKiosko();
+
+            Assert.AreEqual(foodOrdersExpected.Count, foodOrdersResult.Count);
+            for (int i = 0; i < foodOrdersExpected.Count; i++) {
+                Assert.AreEqual(foodOrdersExpected[i].IdFoodOrder, foodOrdersResult[i].IdFoodOrder);
+                Assert.AreEqual(foodOrdersExpected[i].ClientName, foodOrdersResult[i].ClientName);
+                Assert.AreEqual(foodOrdersExpected[i].NumberDishes, foodOrdersResult[i].NumberDishes);
+                Assert.AreEqual(foodOrdersExpected[i].Total, foodOrdersResult[i].Total);
+            }
+
+        }
+
+        [TestMethod]
+        public void ConsultFoodOrdersKiosko_Failed() {
+            KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+
+            var foodOrdersExpected = new List<FoodOrderModel> {
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio013",
+                    ClientName = "Alejandro Sánchez",
+                    NumberDishes = 6,
+                    Total = 70
+                },
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio504",
+                    ClientName = "Ysela",
+                    NumberDishes = 3,
+                    Total = 350
+                }
+            };
+
+            var foodOrdersResult = test.ConsultFoodOrdersKiosko();
+
+            Assert.AreNotEqual(foodOrdersExpected.Count, foodOrdersResult.Count);
+            for (int i = 0; i < foodOrdersExpected.Count; i++) {
+                Assert.AreNotEqual(foodOrdersExpected[i].IdFoodOrder, foodOrdersResult[i].IdFoodOrder);
+                Assert.AreNotEqual(foodOrdersExpected[i].ClientName, foodOrdersResult[i].ClientName);
+                Assert.AreNotEqual(foodOrdersExpected[i].NumberDishes, foodOrdersResult[i].NumberDishes);
+                Assert.AreNotEqual(foodOrdersExpected[i].Total, foodOrdersResult[i].Total);
+            }
+
+        }
+
+        [TestMethod]
+        public void GetTotalAndNameFromOrder_Sucessfull() {
+
+            KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+            FoodOrderModel foodOrderModelExpected = new FoodOrderModel {
+                ClientName = "Alejandro",
+                Total = 134
+            };
+
+            string idFoodOrder = "Kio003";
+
+
+            FoodOrderModel result = test.GetTotalAndNameFromOrder(idFoodOrder);
+            Assert.AreEqual(foodOrderModelExpected, result);
+        }
+
+        [TestMethod]
+        public void GetTotalAndNameFromOrder_Failed() {
+
+            KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+            FoodOrderModel foodOrderModelExpected = new FoodOrderModel {
+                ClientName = "Alejandro S",
+                Total = 131
+            };
+
+            string idFoodOrder = "Kio003";
+
+
+            FoodOrderModel result = test.GetTotalAndNameFromOrder(idFoodOrder);
+            Assert.AreNotEqual(foodOrderModelExpected, result);
+        }
+
+        [TestMethod]
+        public void UpdateFoodOrder_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+                FoodOrderModel foodOrderModel = new FoodOrderModel {
+                    ClientName = "Alejandro S",
+                    Status = "Pagado",
+                    Change = 50,
+                };
+
+                string idFoodOrder = "Kio003";
+
+                int resultExpected = 1;
+                int result = test.UpdateFoodOrder(foodOrderModel, idFoodOrder);
+                Assert.AreEqual(resultExpected, result);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateFoodOrder_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+                FoodOrderModel foodOrderModel = new FoodOrderModel {
+                    ClientName = "Alejandro S",
+                    Status = "Pagado",
+                    Change = 50,
+                };
+
+                string idFoodOrder = "Kio000";
+
+                int resultExpected = 1;
+                int result = test.UpdateFoodOrder(foodOrderModel, idFoodOrder);
+                Assert.AreNotEqual(resultExpected, result);
+            }
+        }
+
+        [TestMethod]
+        public void RegistryOrder_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+                FoodOrderModel foodOrderModel = new FoodOrderModel {
+                    IdFoodOrder = "Caj00",
+                    Total = 100,
+                    NumberDishes = 2,
+                };
+
+               
+
+                int resultExpected = 1;
+                int result = test.RegistryOrder(foodOrderModel);
+                Assert.AreEqual(resultExpected, result);
+            }
+        }
+
+        [TestMethod]
+        public void RegistryOrder_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+                FoodOrderModel foodOrderModel = new FoodOrderModel {
+                    IdFoodOrder = "Caj6257",
+                    Total = 100,
+                    NumberDishes = 2,
+                };
+
+
+
+                int resultExpected = 1;
+                int result = test.RegistryOrder(foodOrderModel);
+                Assert.AreNotEqual(resultExpected, result);
+            }
+        }
+
+        [TestMethod]
+        public void DeleteOrder_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+                string idFoodOrder = "Caj6801";
+
+
+
+                int resultExpected = 1;
+                int result = test.DeleteOrder(idFoodOrder);
+                Assert.AreEqual(resultExpected, result);
+            }
+        }
+
+        [TestMethod]
+        public void DeleteOrder_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+                string idFoodOrder = "Caj00";
+
+
+
+                int resultExpected = 1;
+                int result = test.DeleteOrder(idFoodOrder);
+                Assert.AreNotEqual(resultExpected, result);
             }
         }
     }
