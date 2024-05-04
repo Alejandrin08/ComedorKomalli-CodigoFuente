@@ -8,13 +8,13 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DailyTransactionsReport"
-        Background="#F9F9EA"
+      Background="#F9F9EA"
   >
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary 
-                Source="/Resources/Styles/Styles.xaml"/>
+                    Source="/Resources/Styles/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -23,54 +23,87 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Movimientos diarios" 
-           FontSize="45" 
-           VerticalAlignment="Center" 
-           Margin="75,20"/>
+                   FontSize="45" 
+                   VerticalAlignment="Center" 
+                   Margin="75,20"/>
 
-        <StackPanel Grid.Row="1"
-                Orientation="Horizontal">
-
-            <TextBlock Text="Filtrar por:"
-                   FontSize="20"
-                   Margin="80,0,0,0"
-                   VerticalAlignment="Center"
-        />
-
-            <DatePicker x:Name="dpDate"
-                    Margin="20,0,0,0"
-                    VerticalAlignment="Center"
-                    FontSize="20" 
-                    SelectedDateChanged="SelectedDateChangedGetDate"   
-        >
-                <DatePicker.Resources>
-                    <Style TargetType="DatePickerTextBox">
-                        <Setter Property="IsReadOnly" 
-                            Value="True"/>
-                    </Style>
-                </DatePicker.Resources>
-            </DatePicker>
-        </StackPanel>
-
-        <Button Content="Descargar"
-                Grid.Row="1"
-                Margin="40,0,40,0"
+        <Button Content="Descargar" 
+                Grid.Row="2"
+                Margin="70,15,70,0"
                 HorizontalAlignment="Right"
                 FontSize="20"
                 Style="{StaticResource ButtonStyle}"
                 Click="ClicDownloadReport"
-        />
+/>
 
-        <WindowsFormsHost Grid.Row="2"
-                  Margin="40,40,40,20"
-    >
+        <Grid Grid.Row="1"
+              HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal">
+
+                <TextBlock Text="Fecha inicio:"
+                           FontSize="20"
+                           VerticalAlignment="Center"
+                />
+
+                <DatePicker x:Name="dtpStartDate"
+                            Margin="20,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="20" 
+                            SelectedDateChanged="SelectedDateChangedGetDates"   
+                >
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" 
+                                    Value="True"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2"
+                        Orientation="Horizontal"
+            >
+
+                <TextBlock Text="Fecha fin:"
+                           FontSize="20"
+                           VerticalAlignment="Center"
+                />
+
+                <DatePicker x:Name="dtpEndDate"
+                            Margin="20,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="20" 
+                            SelectedDateChanged="SelectedDateChangedGetDates"   
+                >
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" 
+                                    Value="True"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+            </StackPanel>
+        </Grid>
+
+        <WindowsFormsHost Grid.Row="3"
+                          Margin="40,40,40,20"
+        >
             <wf:ReportViewer x:Name="rpv" 
-                     ShowToolBar="False"
-                     ZoomMode="Percent"        
-        />
+                             ShowToolBar="False"
+                             ZoomMode="PageWidth"        
+            />
         </WindowsFormsHost>
     </Grid>
 </Page>

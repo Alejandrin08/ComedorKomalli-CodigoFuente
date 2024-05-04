@@ -35,7 +35,7 @@ namespace KomalliClient.Views.Pages {
                     var foodControl = new FoodUserControl { Food = food };
                     foodControl.BindData();
                     foodControl.Margin = new Thickness(8);
-                    wrPFood.Children.Add(foodControl);
+                    wrpFood.Children.Add(foodControl);
                 }
                 grdContent.Children.Add(wrapPanel);
             } else {

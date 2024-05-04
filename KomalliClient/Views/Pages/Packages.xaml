@@ -45,7 +45,7 @@
                        Margin="40,150,460,420"
                        />
 
-            <WrapPanel x:Name="wrPFood" 
+            <WrapPanel x:Name="wrpFood" 
                        Margin="45,200,45,70">
             </WrapPanel>
         </Grid>

@@ -19,21 +19,29 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KomalliEmployee.Model.Utilities;
 using System.Data;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace KomalliEmployee.Views.Pages {
     /// <summary>
     /// Lógica de interacción para DailyTransactionsReport.xaml
     /// </summary>
     public partial class DailyTransactionsReport : Page {
+
+        private DateTime? startDate;
+        private DateTime? endDate;
         public DailyTransactionsReport() {
             InitializeComponent();
-            dpDate.SetValue(DatePicker.SelectedDateProperty, DateTime.Today);
-            ShowReport(DateTime.Today);
+            dtpStartDate.SelectedDateChanged += SelectedDateChangedGetDates;
+            dtpEndDate.SelectedDateChanged += SelectedDateChangedGetDates;
+            dtpStartDate.SelectedDate = DateTime.Today;
+            dtpEndDate.SelectedDate = DateTime.Today;
+            ShowReport(DateTime.Today, DateTime.Today);
         }
 
-        private void SelectedDateChangedGetDate(object sender, SelectionChangedEventArgs e) {
-            DateTime dateTime = (DateTime)dpDate.SelectedDate;
-            ShowReport(dateTime);
+        private void SelectedDateChangedGetDates(object sender, SelectionChangedEventArgs e) {
+            startDate = dtpStartDate.SelectedDate;
+            endDate = dtpEndDate.SelectedDate;
+            ShowReport(startDate, endDate);
         }
 
         private void ClicDownloadReport(object sender, RoutedEventArgs e) {
@@ -64,15 +72,19 @@ namespace KomalliEmployee.Views.Pages {
             rpv.LocalReport.ReportEmbeddedResource = "KomalliEmployee.Resources.KomalliReports.DailyTransactionsReport.rdlc";
             rpv.RefreshReport();
         }
-        private void ShowReport(DateTime dateTime) {
+        private void ShowReport(DateTime? startDate, DateTime? endDate) {
             try {
-                string date = dateTime.Date.ToString("yyyy-MM-dd");
-                rpv.Reset();
-                DataReports dataReports = new DataReports();
-                CashCutFoodOrderTableAdapter cashCutFoodOrderTableAdapter = new CashCutFoodOrderTableAdapter();
-                cashCutFoodOrderTableAdapter.Fill(dataReports.CashCutFoodOrder, date);
-                BindReport(dataReports);
-                rpv.RefreshReport();
+                if (startDate != null && endDate != null) {
+                    string start = startDate.Value.Date.ToString("yyyy-MM-dd");
+                    string end = endDate.Value.Date.ToString("yyyy-MM-dd");
+
+                    rpv.Reset();
+                    DataReports dataReports = new DataReports();
+                    CashCutFoodOrderTableAdapter cashCutFoodOrderTableAdapter = new CashCutFoodOrderTableAdapter();
+                    cashCutFoodOrderTableAdapter.Fill(dataReports.CashCutFoodOrder, start, end);
+                    BindReport(dataReports);
+                    rpv.RefreshReport();
+                }
             } catch (SqlException ex) {
                 App.ShowMessageError("Error al cargar el reporte", "Error al cargar");
                 LoggerManager.Instance.LogError("Error al cargar el reporte", ex);
