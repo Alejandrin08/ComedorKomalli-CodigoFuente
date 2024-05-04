@@ -7,73 +7,89 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid VerticalAlignment="Center"
-      HorizontalAlignment="Center"
-      Height="Auto"
-      Width="Auto">
+        HorizontalAlignment="Center"
+        Height="Auto"
+        Width="Auto">
         <Border Width="150"
-    Height="60"
-    CornerRadius="8"
-    Background="#F9F9EA"
-    BorderBrush="#2C6C74"
-    BorderThickness="2">
+            Height="60"
+            CornerRadius="8"
+            Background="#F9F9EA"
+            BorderBrush="#2C6C74"
+            BorderThickness="2">
             <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
 
-            </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="90"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+                <TextBlock x:Name="tbkFoodName"
+                    FontSize="12"
+                    VerticalAlignment="Top"
+                    FontWeight="Bold"
+                    TextWrapping="Wrap"
+                    Text="{Binding Name}"
+                    Margin="5,5,5,0"
+                />
+                
+                <TextBlock x:Name="tbkFoodSubtotal"
+                    FontSize="12"
+                    VerticalAlignment="Top"
+                    FontWeight="Bold"
+                    TextWrapping="Wrap"
+                    HorizontalAlignment="Right"
+                    Text="{Binding Subtotal}"
+                    Margin="5,37,5,0"
+                />
+                
+                <Rectangle Grid.Column="1"
+                    Fill="#5C8CCC"
+                    RadiusX="6"
+                    Margin="2"
+                    Height="20"
+                    RadiusY="4"
+                />
 
-            <TextBlock x:Name="txtbFoodName"
-               FontSize="12"
-                       VerticalAlignment="Center"
-                       FontWeight="Bold"
-               TextWrapping="Wrap"
-               Text="{Binding Name}"
-               Margin="5"
-               />
-            <Rectangle Grid.Column="1"
-               Fill="#5C8CCC"
-               RadiusX="6"
-               Margin="2"
-               Height="20"
-               RadiusY="4"
-    />
+                <Image Grid.Column="1"
+                    x:Name="imgDeleteFood"
+                    Source="/Resources/Images/Trash.png"
+                    Width="20"
+                    MouseDown="MouseDownDeleteOrDecrease"
+                    Cursor="Hand"
+                    Height="15"
+                />
 
-            <Image Grid.Column="1"
-           x:Name="imgDeleteFood"
-           Source="/Resources/Images/Trash.png"
-           Width="20"
-                   MouseDown="MouseDownDelete"
-           Cursor="Hand"
-           Height="15"/>
+                <TextBlock Grid.Column="2"
+                    x:Name="tbkQuantityFood"
+                    VerticalAlignment="Center"
+                    FontSize="15"
+                    Text="1"
+                    Margin="6,0"
+                    HorizontalAlignment="Center"
+                />
 
-            <TextBlock Grid.Column="2"
-               x:Name="txtbQuantityFood"
-               VerticalAlignment="Center"
-               FontSize="15"
-               Text="1"
-               Margin="6,0"
-               HorizontalAlignment="Center"/>
+                <Rectangle Grid.Column="3"
+                    Fill="#5C8CCC"
+                    RadiusX="6"
+                    Height="20"
+                    Margin="2"
+                    RadiusY="4"
+                />
 
-            <Rectangle Grid.Column="3"
-               Fill="#5C8CCC"
-               RadiusX="6"
-               Height="20"
-               Margin="2"
-               RadiusY="4"/>
-
-            <Image Grid.Column="3"
-           x:Name="imgAddFood"
-           Cursor="Hand"
-           Source="/Resources/Images/AddFood.png"
-           Width="20"
-           Height="15" MouseDown="MouseDownAddFood"/>
+                <Image Grid.Column="3"
+                    x:Name="imgAddFood"
+                    Cursor="Hand"
+                    Source="/Resources/Images/AddFood.png"
+                    Width="20"
+                    Height="15" 
+                    MouseDown="MouseDownAddFood"
+                />
+                
             </Grid>
         </Border>
     </Grid>

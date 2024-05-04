@@ -27,14 +27,11 @@
             </Grid.Background>
 
             <Rectangle Margin="10,10,10,500">
-
                 <Rectangle.Fill>
                     <SolidColorBrush Color="#7ea5a4"/>
                 </Rectangle.Fill>
-
                 <Rectangle.RadiusX>20</Rectangle.RadiusX>
                 <Rectangle.RadiusY>20</Rectangle.RadiusY>
-
             </Rectangle>
 
             <TextBlock x:Name = "tbkMakeOrder"
@@ -48,34 +45,33 @@
             />
 
             <Rectangle Margin="667,91,10,20">
-
                 <Rectangle.Fill>
                     <SolidColorBrush Color="#B0D3CD"/>
                 </Rectangle.Fill>
-
                 <Rectangle.RadiusX>20</Rectangle.RadiusX>
                 <Rectangle.RadiusY>20</Rectangle.RadiusY>
-
             </Rectangle>
 
-            <TextBlock x:Name = "tbkMakegOrder"
+            <TextBlock x:Name = "tbkOrder"
                 Text = "Pedido"
-                       Height="25"
+                Height="25"
                 FontFamily = "Segoe UI "
                 FontSize = "20" 
-                Margin = "698,98,0,457"
+                Margin = "700,98,0,457"
                 Foreground = "Black" 
                 FontWeight="Medium"
                 HorizontalAlignment="Left"  
             />
 
             <Image
-           x:Name="imgDeleteFood"
-           Source="/Resources/Images/IconCancel.png"
-           Width="18"
+                x:Name="imgDeleteFood"
+                Source="/Resources/Images/IconCancel.png"
+                Width="18"
                 MouseDown="MouseDownCancelOrder"
-           Cursor="Hand"
-           Height="20" Margin="779,105,52,457"/>
+                Cursor="Hand"
+                Height="20" 
+                Margin="779,105,52,457"
+            />
 
             <Grid Margin="667,125,10,30">
                 <Grid.RowDefinitions>
@@ -86,21 +82,29 @@
                 <ListView x:Name="lstSelectedFoods"
                     Background="#B0D3CD"
                     BorderThickness="0"
-                    Margin="7,5,7,10"
+                    Margin="7,5,7,35"
                     ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                           
-                          
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
                 />
 
-                <Grid Grid.Row="1" Margin="7,0,7,0">
+                <Grid Grid.Row="1" 
+                      Margin="7,0,7,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    <TextBlock x:Name = "tbkMnakegOrder"
+                        HorizontalAlignment="Center"
+                        FontFamily = "Segoe UI "
+                        FontSize = "18" 
+                        Foreground = "Black" 
+                        FontWeight="Medium" 
+                        Margin="0,-34,-1,39"
+                    />
+                    
                     <Button
                         x:Name="btnCharge"
                         Height="30"
@@ -108,37 +112,32 @@
                         IsEnabled="False"
                         Style="{DynamicResource ButtonStyle}"
                         Margin="20,4,19,4"
-                        Content="Cobrar" Click="ClickMakeCharge"
-                        
-                        />
+                        Content="Cobrar" 
+                        Click="ClickMakeCharge"  
+                    />
                 </Grid>
             </Grid>
 
             <Rectangle Margin="10,230,193,347">
-
                 <Rectangle.Fill>
                     <SolidColorBrush Color="#2C6C74"/>
                 </Rectangle.Fill>
-
-
             </Rectangle>
 
             <WrapPanel Height="130"
                        x:Name="wrpMenu"
                        Margin="10,50,193,300"
-                       Width="647"/>
+                       Width="647"
+            />
 
             <TabControl 
                         Width="646" 
                         Margin="10,260,194,20" >
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
-
                         <Setter Property="Template">
-
                             <Setter.Value>
                                 <ControlTemplate TargetType="TabItem">
-
                                     <Grid>
                                         <Border Name="Border" 
                                                 Background="{TemplateBinding Background}" 
@@ -151,17 +150,18 @@
                                                   ContentSource="Header"
                                                   Margin="12,2"/>
                                         </Border>
-
                                     </Grid>
-
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
                     </Style>
                     <Style TargetType="TabPanel">
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="IsItemsHost" Value="True"/>
+                        <Setter Property="HorizontalAlignment" 
+                                Value="Stretch"/>
+                        <Setter Property="VerticalAlignment" 
+                                Value="Center"/>
+                        <Setter Property="IsItemsHost" 
+                                Value="True"/>
                     </Style>
                 </TabControl.Resources>
                 <TabItem Header="Paquetes" 
@@ -193,6 +193,7 @@
                     </Grid>
 
                 </TabItem>
+
                 <TabItem Header="Guarniciones" 
                          FontFamily = "Segoe UI Black" 
                          Background="#98D4D0">
@@ -203,10 +204,9 @@
                             VerticalScrollBarVisibility="Auto">
                             <WrapPanel x:Name="wrpGarnish"/>
                         </ScrollViewer>
-
                     </Grid>
-
                 </TabItem>
+
                 <TabItem Header="Sandwiches y tortas" 
                          FontFamily = "Segoe UI Black"  
                          Background="#B4B4BC">
@@ -217,10 +217,9 @@
                             VerticalScrollBarVisibility="Auto">
                             <WrapPanel x:Name="wrpSandwich"/>
                         </ScrollViewer>
-
                     </Grid>
-
                 </TabItem>
+
                 <TabItem Header="Bebidas" 
                          FontFamily = "Segoe UI Black" 
                          Width="80" 
@@ -232,10 +231,9 @@
                             VerticalScrollBarVisibility="Auto">
                             <WrapPanel x:Name="wrpDrinks"/>
                         </ScrollViewer>
-
                     </Grid>
-
                 </TabItem>
+
                 <TabItem Header="Postres" 
                          FontFamily = "Segoe UI Black" 
                          Width="80" 
@@ -247,10 +245,9 @@
                             VerticalScrollBarVisibility="Auto">
                             <WrapPanel x:Name="wrpDesserts"/>
                         </ScrollViewer>
-
                     </Grid>
-
                 </TabItem>
+
                 <TabItem Header="Otros" 
                          FontFamily = "Segoe UI Black" 
                          Width="75" 
@@ -262,15 +259,10 @@
                         VerticalScrollBarVisibility="Auto">
                             <WrapPanel x:Name="wrpOthers"/>
                         </ScrollViewer>
-
                     </Grid>
-
                 </TabItem>
 
-
             </TabControl>
-
-
         </Grid>
     </Viewbox>
 </Page>

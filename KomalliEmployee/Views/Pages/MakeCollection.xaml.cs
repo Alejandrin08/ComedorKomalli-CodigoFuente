@@ -29,7 +29,9 @@ namespace KomalliEmployee.Views.Pages {
             DataContext = new FoodOrderModel();
             var nameValidation = new NameValidationRule();
             NameValidationRule.ErrorTextBlock = txbNameValidationMessage;
+            
         }
+
 
         private void InitializeListOfUsers() {
             List<DishOrderModel> users;
@@ -141,8 +143,23 @@ namespace KomalliEmployee.Views.Pages {
             }
         }
 
+
         private void MouseDownGoBack(object sender, MouseButtonEventArgs e) {
-            this.NavigationService.GoBack();
+            if (SingletonClass.Instance.IdFoodOrderSelected.StartsWith("Kio")) {
+                this.NavigationService.GoBack();
+            } else {
+                MessageBoxResult result = App.ShowMessageBoxButton("¿Está seguro de eliminar la orden?", "Confirmación");
+                if (result == MessageBoxResult.Yes) {
+                    FoodOrderController foodOrderController = new FoodOrderController();
+                    if (foodOrderController.DeleteOrder(SingletonClass.Instance.IdFoodOrderSelected) > 0) {
+
+                        SingletonClass.Instance.SelectedFoods.Clear();
+                        this.NavigationService.GoBack();
+                    }
+                }
+            }
         }
+
+        
     }
 }

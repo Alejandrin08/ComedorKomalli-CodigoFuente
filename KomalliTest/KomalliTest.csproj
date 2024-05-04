@@ -63,10 +63,12 @@
     <Compile Include="Client\FoodControllerTest.cs" />
     <Compile Include="Employee\DishOrderControllerTest.cs" />
     <Compile Include="Employee\EmployeeControllerTest.cs" />
+    <Compile Include="Employee\FoodControllerTest.cs" />
     <Compile Include="Employee\IngredientControllerTest.cs" />
     <Compile Include="Employee\LogbookControllerTest.cs" />
     <Compile Include="Employee\FoodOrderControllerTest.cs" />
     <Compile Include="Employee\CashCutControllerTest.cs" />
+    <Compile Include="Employee\MenuControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
