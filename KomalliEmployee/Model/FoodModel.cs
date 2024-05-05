@@ -16,12 +16,7 @@ namespace KomalliEmployee.Model {
         public string Section { get; set; }
         public int Total { get; set; }
         public int Price { get { return _price; } set { _price = value; OnPropertyChanged("Price"); } }
-
         public int Quantity { get { return _quantity; } set { _quantity = value; OnPropertyChanged("Quantity"); } }
-        public bool IsSelected { get { return _isSelected; } set { _isSelected = value; OnPropertyChanged("IsSelected"); } }
-        public bool IsSelected { get { return _isSelected; } set { _isSelected = value; OnPropertyChanged("IsSelected"); } }
-        public bool IsSelected { get { return _isSelected; } set { _isSelected = value; OnPropertyChanged("IsSelected"); } }
-
         public int Subtotal { get { return _subtotal; } set { _subtotal = value; OnPropertyChanged("Subtotal"); } }
 
         public event PropertyChangedEventHandler PropertyChanged;
