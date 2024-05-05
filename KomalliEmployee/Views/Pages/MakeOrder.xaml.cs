@@ -105,7 +105,6 @@ namespace KomalliEmployee.Views.Pages {
                     btnCharge.IsEnabled = false;
                 }
             }
-
         }
 
         private FoodOrderModel GetInfoOrder() {

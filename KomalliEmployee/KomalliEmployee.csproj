@@ -185,6 +185,9 @@
     <Compile Include="Views\Pages\RegisterUser.xaml.cs">
       <DependentUpon>RegisterUser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\TicketReport.xaml.cs">
+      <DependentUpon>TicketReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Usercontrols\CommentCard.xaml.cs">
       <DependentUpon>CommentCard.xaml</DependentUpon>
     </Compile>
@@ -283,6 +286,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\TicketReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Usercontrols\CommentCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -345,6 +352,7 @@
     <EmbeddedResource Include="Resources\KomalliReports\DailyTransactionsReport.rdlc" />
     <EmbeddedResource Include="Resources\KomalliReports\InventoryReport.rdlc" />
     <EmbeddedResource Include="Resources\KomalliReports\LogbookReport.rdlc" />
+    <EmbeddedResource Include="Resources\KomalliReports\TicketReport.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
