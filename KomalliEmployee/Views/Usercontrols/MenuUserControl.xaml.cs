@@ -17,19 +17,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace KomalliEmployee.Views.Usercontrols {
     /// <summary>
     /// Lógica de interacción para MenuUserControl.xaml
     /// </summary>
     public partial class MenuUserControl : UserControl {
-
-        
+  
         public MenuUserControl() {
             InitializeComponent();
             GetKeysMenus();
         }
-
         public void BindData(string typeMenu) {            
             tbkFoodName.Text = typeMenu;            
         }
@@ -128,6 +127,5 @@ namespace KomalliEmployee.Views.Usercontrols {
             }
             return parent;
         }
-
     }
 }

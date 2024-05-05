@@ -2,6 +2,7 @@
 using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
 using KomalliEmployee.Model.Validations;
+using KomalliEmployee.Views.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +29,7 @@ namespace KomalliEmployee.Views.Pages {
             InitializeTotal();
             DataContext = new FoodOrderModel();
             var nameValidation = new NameValidationRule();
-            NameValidationRule.ErrorTextBlock = txbNameValidationMessage;
-            
+            NameValidationRule.ErrorTextBlock = txbNameValidationMessage;   
         }
 
 
@@ -57,7 +57,6 @@ namespace KomalliEmployee.Views.Pages {
             } else {
                 txbReceiveValidationMessage.Visibility = Visibility.Collapsed;
             }
-
         }       
 
         private void PreviewTextInputOnlyNumber(object sender, TextCompositionEventArgs e) {
@@ -82,7 +81,6 @@ namespace KomalliEmployee.Views.Pages {
                     btnConfirmOrder.IsEnabled = false;
                 }
             }
-
         }
 
         private void ClickConfirmOrder(object sender, RoutedEventArgs e) {            
@@ -96,8 +94,13 @@ namespace KomalliEmployee.Views.Pages {
             int resultUpdateFoodOrder = foodOrderController.UpdateFoodOrder(foodOrderModel, SingletonClass.Instance.IdFoodOrderSelected);
             if (resultUpdateFoodOrder > 0) {
                 App.ShowMessageInformation("Registro exitoso", "Actualización de pedido");
-                SingletonClass.Instance.SelectedFoods.Clear();
-                this.NavigationService.GoBack();
+                TicketReport ticketReport = new TicketReport();
+                ticketReport.Width = 350; 
+                ticketReport.Height = 450;
+                ticketReport.Closed += (s, args) => { 
+                    this.NavigationService.Navigate(new MakeOrder());
+                };
+                ticketReport.ShowDialog();
             } else {
                 App.ShowMessageWarning("Error al actualizar los datos del pedido", "Actualización de pedido");
             }
@@ -111,7 +114,7 @@ namespace KomalliEmployee.Views.Pages {
         }
 
         private void KeyDownEnterReceive(object sender, KeyEventArgs e) {
-            if(e.Key == Key.Enter) {
+            if(e.Key == Key.Enter && !string.IsNullOrEmpty(txtReceive.Text)) {
                 int receive = int.Parse(txtReceive.Text);
                 int total = SingletonClass.Instance.TotalOrder;
                 if (receive < total) {
@@ -127,7 +130,6 @@ namespace KomalliEmployee.Views.Pages {
                     } else {
                         txbReceiveValidationMessage.Visibility = Visibility.Visible;
                     }
-
                 }                
             }            
         }
@@ -142,7 +144,6 @@ namespace KomalliEmployee.Views.Pages {
                 txtClientName.IsEnabled = true;
             }
         }
-
 
         private void MouseDownGoBack(object sender, MouseButtonEventArgs e) {
             if (SingletonClass.Instance.IdFoodOrderSelected.StartsWith("Kio")) {
@@ -159,7 +160,5 @@ namespace KomalliEmployee.Views.Pages {
                 }
             }
         }
-
-        
     }
 }
