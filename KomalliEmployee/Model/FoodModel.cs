@@ -11,16 +11,12 @@ namespace KomalliEmployee.Model {
         private string _name;
         private int _subtotal;
         private int _quantity;
-        private bool _isSelected;
         public string KeyCard { get; set; }
         public string Name { get { return _name; } set { _name = value; OnPropertyChanged("Name"); } }
         public string Section { get; set; }
-
         public int Total { get; set; }
         public int Price { get { return _price; } set { _price = value; OnPropertyChanged("Price"); } }
-
-        public int Quantity { get { return _quantity; } set { _quantity = value; OnPropertyChanged("Quantity"); } }
-        public bool IsSelected { get { return _isSelected; } set { _isSelected = value; OnPropertyChanged("IsSelected"); } }
+        public int Quantity { get { return _quantity; } set { _quantity = value; OnPropertyChanged("Quantity"); } }       
 
         public int Subtotal { get { return _subtotal; } set { _subtotal = value; OnPropertyChanged("Subtotal"); } }
 
