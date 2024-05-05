@@ -25,7 +25,7 @@ namespace KomalliEmployee.Views.Pages {
     public partial class MakeCollection : Page {
         public MakeCollection() {
             InitializeComponent();
-            InitializeListOfUsers();
+            InitializeDishOrder();
             InitializeTotal();
             DataContext = new FoodOrderModel();
             var nameValidation = new NameValidationRule();
@@ -33,11 +33,11 @@ namespace KomalliEmployee.Views.Pages {
         }
 
 
-        private void InitializeListOfUsers() {
-            List<DishOrderModel> users;
-            DishOrderController employeeControler = new DishOrderController();
-            users = employeeControler.ConsultDishOrder(SingletonClass.Instance.IdFoodOrderSelected);
-            dgDishOrder.ItemsSource = users;
+        private void InitializeDishOrder() {
+            List<DishOrderModel> dishOrderModel;
+            DishOrderController dishOrderControler = new DishOrderController();
+            dishOrderModel = dishOrderControler.ConsultDishOrder(SingletonClass.Instance.IdFoodOrderSelected);
+            dgDishOrder.ItemsSource = dishOrderModel;
         }
 
         private void InitializeTotal() {
