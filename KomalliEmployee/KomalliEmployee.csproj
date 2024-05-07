@@ -126,6 +126,7 @@
     <Compile Include="Model\IngredientModel.cs" />
     <Compile Include="Model\LogbookModel.cs" />
     <Compile Include="Model\MenuModel.cs" />
+    <Compile Include="Model\Utilities\IngredientCategory.cs" />
     <Compile Include="Model\Utilities\LoggerManager.cs" />
     <Compile Include="Model\Utilities\SingletonClass.cs" />
     <Compile Include="Model\Utilities\TypeQuantity.cs" />

@@ -18,15 +18,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KomalliEmployee.Views.Pages
-{
+namespace KomalliEmployee.Views.Pages{
     /// <summary>
     /// Interaction logic for RegisterIngredient.xaml
     /// </summary>
-    public partial class RegisterIngredient : Page
-    {
-        public RegisterIngredient()
-        {
+    public partial class RegisterIngredient : Page{
+        public RegisterIngredient(){
             InitializeComponent();
             txbNameIngredient.TextChanged += FieldsChanged;
             txbQuotaIngredient.TextChanged += FieldsChanged;
@@ -35,30 +32,67 @@ namespace KomalliEmployee.Views.Pages
             btnRegisterIngredient.Visibility = Visibility.Collapsed;
         }
 
-        private void FieldsChanged(object sender, RoutedEventArgs e)
-        {
+        private void FieldsChanged(object sender, RoutedEventArgs e){
             bool allFieldsFilled = !string.IsNullOrWhiteSpace(txbNameIngredient.Text) &&
                                    !string.IsNullOrWhiteSpace(txbQuotaIngredient.Text) &&
-                                   cbxTipeQuota.SelectedItem != null;
+                                   cbxTipeQuota.SelectedItem != null &&
+                                   cbxCategory.SelectedItem != null;
 
             btnRegisterIngredient.Visibility = allFieldsFilled ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void ClickGoBack(object sender, RoutedEventArgs e)
-        {
+        private void ClickGoBack(object sender, RoutedEventArgs e){
             this.NavigationService.GoBack();
         }
 
-        private void ClicKRegisterIngredient(object sender, RoutedEventArgs e)
+        private void PreviewTextInputOnlyNumberAndLetters(object sender, TextCompositionEventArgs e)
         {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                if (textBox.Text.Length + e.Text.Length > 30)
+                {
+                    e.Handled = true;
+                    return;
+                }
+                foreach (char character in e.Text)
+                {
+                    if (!char.IsLetterOrDigit(character) && character != '.' && !char.IsWhiteSpace(character))
+                    {
+                        e.Handled = true;
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void PreviewTextInputOnlyNumber(object sender, TextCompositionEventArgs e)
+        {
+            TextBox textBox = sender as TextBox; 
+            if (textBox != null)
+            {
+                if (textBox.Text.Length + e.Text.Length > 13)
+                {
+                    e.Handled = true;
+                    return;
+                }
+                foreach (char character in e.Text)
+                {
+                    if (!char.IsDigit(character))
+                    {
+                        e.Handled = true; 
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void ClicKRegisterIngredient(object sender, RoutedEventArgs e){
             IngredientModel ingredient = CreateIngredient();
             IngredientController ingredientControler = new IngredientController();
-            if (!VerifyNameIngredient(ingredient.NameIngredient))
-            {
-                if (ingredient.BarCode == null || !VerifyBarCode(ingredient.BarCode))
-                {
-                    switch (ingredientControler.AddIngredient(ingredient))
-                    {
+            if (!VerifyNameIngredient(ingredient.NameIngredient)){
+                if (ingredient.BarCode == null || !VerifyBarCode(ingredient.BarCode)){
+                    switch (ingredientControler.AddIngredient(ingredient)){
                         case 0:
                             App.ShowMessageWarning("Ocurrio un error al agregar un ingrediente porfavor intenta más tarde", "Error al agregar ingrediente");
                             break;
@@ -91,6 +125,17 @@ namespace KomalliEmployee.Views.Pages
             ingredient.KeyIngredient = GenerateKey(txbNameIngredient.Text);
             ComboBoxItem selectedItem = (ComboBoxItem)cbxTipeQuota.SelectedItem;
             string selectedContent = selectedItem.Content.ToString();
+            ingredient = GenerateMeasurement(ingredient, selectedContent);
+            ComboBoxItem selectedItemCategory = (ComboBoxItem)cbxCategory.SelectedItem;
+            string selectedCategory = selectedItemCategory.Content.ToString(); 
+            MessageBox.Show(selectedCategory);
+            ingredient = GenerateSelectedCategory(ingredient, selectedCategory);
+            MessageBox.Show(ingredient.Category.ToString());
+            return ingredient;
+        }
+
+        private IngredientModel GenerateMeasurement (IngredientModel ingredient, String selectedContent)
+        {
             switch (selectedContent)
             {
                 case "Kg":
@@ -101,6 +146,29 @@ namespace KomalliEmployee.Views.Pages
                     break;
                 case "Unidades":
                     ingredient.Measurement = TypeQuantity.Unidades;
+                    break;
+            }
+            return ingredient;
+        }
+
+        private IngredientModel GenerateSelectedCategory(IngredientModel ingredient, string selectedCategory)
+        {
+            switch (selectedCategory)
+            {
+                case "Abarrotes":
+                    ingredient.Category = IngredientCategory.Abarrotes;
+                    break;
+                case "Bebidas":
+                    ingredient.Category = IngredientCategory.Bebidas;
+                    break;
+                case "Frutas y Verduras":
+                    ingredient.Category = IngredientCategory.FrutasyVerduras;
+                    break;
+                case "Postres":
+                    ingredient.Category = IngredientCategory.Bebidas;
+                    break;
+                case "Carnes Frias":
+                    ingredient.Category = IngredientCategory.CarnesFrias;
                     break;
             }
             return ingredient;

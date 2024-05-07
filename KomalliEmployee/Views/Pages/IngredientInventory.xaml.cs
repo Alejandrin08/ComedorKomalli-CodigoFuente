@@ -19,46 +19,108 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
-namespace KomalliEmployee.Views.Pages{
+namespace KomalliEmployee.Views.Pages
+{
     /// <summary>
     /// Interaction logic for FoodInventory.xaml
     /// </summary>
     public partial class FoodInventory : Page
     {
-
         public ObservableCollection<string> MeasurementOptions { get; set; }
+        public ObservableCollection<string> CategoryOptions { get; set; }
         private List<IngredientModel> listIngredientsModified = new List<IngredientModel>();
 
-        public FoodInventory(){
+        public FoodInventory()
+        {
             InitializeComponent();
             InitializeInventary();
             MeasurementOptions = new ObservableCollection<string> { "Lts", "Kg", "Unidades" };
+            CategoryOptions = new ObservableCollection<string> { "Abarrotes", "Bebidas", "FrutasyVerduras", "Postres", "CarnesFrias" };
             DataContext = this;
         }
 
-        private void ClickAddIngredient(object sender, RoutedEventArgs e){
-            RegisterIngredient registerIngredientView = new RegisterIngredient();
-            this.NavigationService.Navigate(registerIngredientView);
-
+        private void PreviewTextInputOnlyNumberAndLetters(object sender, TextCompositionEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                if (textBox.Text.Length + e.Text.Length > 30)
+                {
+                    e.Handled = true;
+                    return;
+                }
+                foreach (char character in e.Text)
+                {
+                    if (!char.IsLetterOrDigit(character) && character != '.' && !char.IsWhiteSpace(character))
+                    {
+                        e.Handled = true;
+                        return;
+                    }
+                }
+            }
         }
 
-        private void InitializeInventary(){
-            List<IngredientModel> ingredients; 
+        private void PreviewTextInputOnlyNumber(object sender, TextCompositionEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                if (textBox.Text.Length + e.Text.Length > 13)
+                {
+                    e.Handled = true;
+                    return;
+                }
+                foreach (char character in e.Text)
+                {
+                    if (!char.IsDigit(character))
+                    {
+                        e.Handled = true;
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void ClickAddIngredient(object sender, RoutedEventArgs e)
+        {
+            RegisterIngredient registerIngredientView = new RegisterIngredient();
+            this.NavigationService.Navigate(registerIngredientView);
+        }
+
+        private void InitializeInventary()
+        {
+            List<IngredientModel> ingredients;
             IngredientController ingredientControler = new IngredientController();
             ingredients = ingredientControler.ConsultIngredients();
             dgIngredientInventory.ItemsSource = ingredients;
         }
 
-        private void ClickModifyInventory(object sender, RoutedEventArgs e){
+        private void ClickModifyInventory(object sender, RoutedEventArgs e)
+        {
             dgIngredientInventory.IsReadOnly = false;
             dgtNameIngredient.IsReadOnly = false;
             dgtQuantityIngredient.IsReadOnly = false;
             dgtTypeMeasurementIngredient.IsReadOnly = false;
+            dgtIngredientCategory.IsReadOnly = false;
             dgtKeyIngredient.IsReadOnly = true;
             dgtUpdateIngredient.IsReadOnly = true;
             btnAddIngredient.Visibility = Visibility.Hidden;
             btnSaveChanges.Visibility = Visibility.Visible;
+        }
+
+        private void dgIngredientInventory_PreparingCellForEdit(object sender, DataGridPreparingCellForEditEventArgs e)
+        {
+            if (e.EditingElement is TextBox textBox)
+            {
+                if (e.Column == dgtQuantityIngredient)
+                {
+                    textBox.PreviewTextInput += PreviewTextInputOnlyNumber;
+                }
+                else if (e.Column == dgtNameIngredient)
+                {
+                    textBox.PreviewTextInput += PreviewTextInputOnlyNumberAndLetters;
+                }
+            }
         }
 
         private void dgIngredientInventory_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -85,7 +147,14 @@ namespace KomalliEmployee.Views.Pages{
                             if (Enum.TryParse(selectedContent, out TypeQuantity measurement))
                                 fila.Measurement = measurement;
                         }
+                        else if (columna == dgtIngredientCategory)
+                        {
+                            var selectedContent = comboBox.SelectedItem?.ToString();
+                            if (Enum.TryParse(selectedContent, out IngredientCategory category))
+                                fila.Category = category;
+                        }
                     }
+
                     var existingIngredient = listIngredientsModified.FirstOrDefault(i => i.KeyIngredient == fila.KeyIngredient);
                     if (existingIngredient != null)
                     {
@@ -107,13 +176,12 @@ namespace KomalliEmployee.Views.Pages{
             btnAddIngredient.Visibility = Visibility.Visible;
             btnSaveChanges.Visibility = Visibility.Hidden;
             IngredientController ingredientController = new IngredientController();
-            if ( ingredientController.ModifyIngredients(listIngredientsModified) == 1 ) {
+            if (ingredientController.ModifyIngredients(listIngredientsModified) == 1)
+            {
                 App.ShowMessageInformation("La informacion de los ingredientes fue actualizada.", "Inventario actualizado");
                 listIngredientsModified.Clear();
                 InitializeInventary();
-            } 
+            }
         }
     }
 }
-
-

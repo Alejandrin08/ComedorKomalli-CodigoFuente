@@ -30,6 +30,7 @@ namespace KomalliEmployee.Controller
          */
         public int AddIngredient(IngredientModel ingredientModel) {
             int result = 0;
+            DateTime replenishmentDate = DateTime.Now.Date;
             try { 
                 using (var context = new KomalliEntities()) {
                     var newIngredient = new Ingredient {
@@ -37,7 +38,9 @@ namespace KomalliEmployee.Controller
                         Barcode = ingredientModel.BarCode,
                         NameIngredient = ingredientModel.NameIngredient,
                         Quantity = ingredientModel.Quantity,
-                        Measurement = ingredientModel.Measurement.ToString()
+                        Measurement = ingredientModel.Measurement.ToString(),
+                        Category = ingredientModel.Category.ToString(),
+                        ReplenishmentDate = replenishmentDate
                     };
 
                     context.Ingredient.Add(newIngredient);
@@ -71,13 +74,15 @@ namespace KomalliEmployee.Controller
                         ingredient.Quantity,
                         ingredient.Measurement,
                         ingredient.Barcode,
-                        ingredient.ReplenishmentDate
+                        ingredient.ReplenishmentDate,
+                        ingredient.Category
                     }).ToList() 
                     .Select(ingredient => new IngredientModel {
                         KeyIngredient = ingredient.KeyIngredient,
                         NameIngredient = ingredient.NameIngredient,
                         Quantity = ingredient.Quantity,
                         Measurement = (TypeQuantity)Enum.Parse(typeof(TypeQuantity), ingredient.Measurement),
+                        Category = (IngredientCategory)Enum.Parse(typeof(IngredientCategory),ingredient.Category),
                         BarCode = ingredient.Barcode,
                         ReplenishmentDate = ingredient.ReplenishmentDate
                     }).ToList();
@@ -159,6 +164,7 @@ namespace KomalliEmployee.Controller
                             existingIngredient.Measurement = ingredient.Measurement.ToString();
                             existingIngredient.Barcode = ingredient.BarCode;
                             existingIngredient.ReplenishmentDate = replenishmentDate;
+                            existingIngredient.Category = ingredient.Category.ToString();
                         }
                     }
                     context.SaveChanges();
