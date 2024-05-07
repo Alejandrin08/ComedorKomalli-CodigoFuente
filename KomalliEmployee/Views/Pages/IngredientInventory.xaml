@@ -13,7 +13,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        
+
         <Style x:Key="ComboBoxCellStyle" TargetType="ComboBox">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -52,11 +52,34 @@
 
             </Rectangle>
 
+            <ComboBox x:Name="cbxCategory"
+                      Margin="635,98,44,0"
+                      Background="#FEFFFE"
+                      BorderThickness="0" VerticalAlignment="Top"
+                      SelectionChanged="CbxCategory_SelectionChanged">
+                <ComboBoxItem Content="General" />
+                <ComboBoxItem Content="Abarrotes" />
+                <ComboBoxItem Content="Bebidas" />
+                <ComboBoxItem Content="FrutasyVerduras" />
+                <ComboBoxItem Content="Postres"/>
+                <ComboBoxItem Content="CarnesFrias"/>
+            </ComboBox>
+                      
+
+            <Label x:Name = "lblIngredientFilter"
+                   Content = "Filtrar por:"
+                   FontFamily = "Segoe UI Black"
+                   FontSize = "20" 
+                   Margin = "516,88,154,322"
+                   Foreground = "#FEFFFE" 
+                   FontWeight="Bold"
+            />
+
             <Label x:Name = "lblIngredientInventory"
                    Content = "Inventario de ingredientes"
                    FontFamily = "Segoe UI Black"
                    FontSize = "30" 
-                   Margin = "198,80,198,322"
+                   Margin = "44,80,352,322"
                    Foreground = "#FEFFFE" 
                    FontWeight="Bold"
             />
@@ -70,7 +93,9 @@
                      Height = "30"
                      Width = "350" 
                      Margin = "0,33,420,0"
-                     Padding = "30,0,0,0">
+                     Padding = "30,0,0,0"
+                     PreviewTextInput="PreviewTextInputOnlyNumberAndLetters"
+                     TextChanged="TxtSearchIngredient">
 
                 <TextBox.Style>
                     <Style TargetType="{x:Type TextBox}">
@@ -231,12 +256,12 @@
                         Binding="{Binding NameIngredient}"  
                         Width="auto">
                         <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <EventSetter Event="PreviewTextInput" Handler="PreviewTextInputOnlyNumberAndLetters"/>
-                        </Style>
+                            <Style TargetType="TextBlock">
+                                <EventSetter Event="PreviewTextInput" Handler="PreviewTextInputOnlyNumberAndLetters"/>
+                            </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    
+
                     <DataGridTextColumn x:Name="dgtQuantityIngredient" 
                                         Header="Cantidad" 
                                         Binding="{Binding Quantity}" 

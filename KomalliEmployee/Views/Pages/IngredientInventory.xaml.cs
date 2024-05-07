@@ -80,6 +80,38 @@ namespace KomalliEmployee.Views.Pages
                 }
             }
         }
+        private void TxtSearchIngredient(object sender, TextChangedEventArgs e)
+        {
+            List<IngredientModel> ingredients;
+            string searchIngredient = txbSearchIngredient.Text;
+            IngredientController ingredientControler = new IngredientController();
+            ingredients = ingredientControler.SearchIngredients(searchIngredient);
+            dgIngredientInventory.ItemsSource = ingredients;
+
+        }
+
+        private void CbxCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem selectedItem = cbxCategory.SelectedItem as ComboBoxItem;
+            if (selectedItem != null)
+            {
+                string selectedCategory = selectedItem.Content.ToString();
+                if (selectedCategory != null)
+                {
+                    if (selectedCategory == "General")
+                    {
+                        InitializeInventary();
+                    }
+                    else
+                    {
+                        List<IngredientModel> ingredients;
+                        IngredientController ingredientControler = new IngredientController();
+                        ingredients = ingredientControler.SearchIngredientsByCategory(selectedCategory);
+                        dgIngredientInventory.ItemsSource = ingredients;
+                    }
+                }
+            }
+        }
 
         private void ClickAddIngredient(object sender, RoutedEventArgs e)
         {

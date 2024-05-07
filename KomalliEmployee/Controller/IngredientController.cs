@@ -183,5 +183,94 @@ namespace KomalliEmployee.Controller
             }
             return result;
         }
+
+        public List<IngredientModel> SearchIngredients(string searchIngredient)
+        {
+            List<IngredientModel> ingredients = new List<IngredientModel>();
+            try
+            {
+                using (var context = new KomalliEntities())
+                {
+                    var query = context.Ingredient
+                        .Where(ingredient =>
+                            ingredient.KeyIngredient.Contains(searchIngredient) ||
+                            ingredient.NameIngredient.Contains(searchIngredient) ||
+                            ingredient.Barcode.Contains(searchIngredient))
+                        .Select(ingredient => new
+                        {
+                            ingredient.KeyIngredient,
+                            ingredient.NameIngredient,
+                            ingredient.Quantity,
+                            ingredient.Measurement,
+                            ingredient.Barcode,
+                            ingredient.ReplenishmentDate,
+                            ingredient.Category
+                        })
+                        .ToList() 
+                        .Select(ingredient => new IngredientModel
+                        {
+                            KeyIngredient = ingredient.KeyIngredient,
+                            NameIngredient = ingredient.NameIngredient,
+                            Quantity = ingredient.Quantity,
+                            Measurement = (TypeQuantity)Enum.Parse(typeof(TypeQuantity), ingredient.Measurement),
+                            Category = (IngredientCategory)Enum.Parse(typeof(IngredientCategory), ingredient.Category),
+                            BarCode = ingredient.Barcode,
+                            ReplenishmentDate = ingredient.ReplenishmentDate
+                        })
+                        .ToList();
+
+                    ingredients = query;
+                }
+            }
+            catch (EntityException ex)
+            {
+                ingredients = null;
+                LoggerManager.Instance.LogError("Error al buscar ingredientes", ex);
+            }
+            return ingredients;
+        }
+
+        public List<IngredientModel> SearchIngredientsByCategory(string selectedCategory)
+        {
+            List<IngredientModel> ingredients = new List<IngredientModel>();
+            try
+            {
+                using (var context = new KomalliEntities())
+                {
+                    var query = context.Ingredient
+                        .Where(ingredient => ingredient.Category == selectedCategory)
+                        .Select(ingredient => new
+                        {
+                            ingredient.KeyIngredient,
+                            ingredient.NameIngredient,
+                            ingredient.Quantity,
+                            ingredient.Measurement,
+                            ingredient.Barcode,
+                            ingredient.ReplenishmentDate,
+                            ingredient.Category
+                        })
+                        .ToList()
+                        .Select(ingredient => new IngredientModel
+                        {
+                            KeyIngredient = ingredient.KeyIngredient,
+                            NameIngredient = ingredient.NameIngredient,
+                            Quantity = ingredient.Quantity,
+                            Measurement = (TypeQuantity)Enum.Parse(typeof(TypeQuantity), ingredient.Measurement),
+                            Category = (IngredientCategory)Enum.Parse(typeof(IngredientCategory), ingredient.Category),
+                            BarCode = ingredient.Barcode,
+                            ReplenishmentDate = ingredient.ReplenishmentDate
+                        })
+                        .ToList();
+
+                    ingredients = query;
+                }
+            }
+            catch (EntityException ex)
+            {
+                ingredients = null;
+                LoggerManager.Instance.LogError("Error al buscar ingredientes por categoría", ex);
+            }
+            return ingredients;
+        }
     }
 }
