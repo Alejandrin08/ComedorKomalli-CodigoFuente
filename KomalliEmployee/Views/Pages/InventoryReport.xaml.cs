@@ -53,7 +53,7 @@ namespace KomalliEmployee.Views.Pages {
                 DataReports dataReports = new DataReports();
                 IngredientTableAdapter ingredientTableAdapter = new IngredientTableAdapter();
 
-                if (string.IsNullOrEmpty(category)) {
+                if (string.IsNullOrEmpty(category) || category == "General") {
                     ingredientTableAdapter.FillBy(dataReports.Ingredient);
                 } else {
                     ingredientTableAdapter.Fill(dataReports.Ingredient, category);
