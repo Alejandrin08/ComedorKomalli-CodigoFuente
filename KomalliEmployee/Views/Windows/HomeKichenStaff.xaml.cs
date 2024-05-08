@@ -54,7 +54,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickPublish(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/PublishSetMenu.xaml", UriKind.RelativeOrAbsolute));
         }        
 
         private void ClickDelete(object sender, RoutedEventArgs e) {

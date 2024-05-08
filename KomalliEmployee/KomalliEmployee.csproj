@@ -110,6 +110,7 @@
     <Compile Include="Contracts\IIngredient.cs" />
     <Compile Include="Contracts\ILogbook.cs" />
     <Compile Include="Contracts\IMenu.cs" />
+    <Compile Include="Contracts\ISetMenu.cs" />
     <Compile Include="Controller\CashCutController.cs" />
     <Compile Include="Controller\DishOrderController.cs" />
     <Compile Include="Controller\EmployeeController.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Controller\IngredientController.cs" />
     <Compile Include="Controller\LogbookController.cs" />
     <Compile Include="Controller\MenuController.cs" />
+    <Compile Include="Controller\SetMenuController.cs" />
     <Compile Include="Model\CashCutModel.cs" />
     <Compile Include="Model\DishOrderModel.cs" />
     <Compile Include="Model\EmployeeModel.cs" />
@@ -126,9 +128,11 @@
     <Compile Include="Model\IngredientModel.cs" />
     <Compile Include="Model\LogbookModel.cs" />
     <Compile Include="Model\MenuModel.cs" />
+    <Compile Include="Model\SetMenuModel.cs" />
     <Compile Include="Model\Utilities\IngredientCategory.cs" />
     <Compile Include="Model\Utilities\LoggerManager.cs" />
     <Compile Include="Model\Utilities\SingletonClass.cs" />
+    <Compile Include="Model\Utilities\TypeMenu.cs" />
     <Compile Include="Model\Utilities\TypeQuantity.cs" />
     <Compile Include="Model\Validations\AvailabilityValidationRule.cs" />
     <Compile Include="Model\Validations\EmailValidationRule.cs" />
@@ -176,6 +180,9 @@
     </Compile>
     <Compile Include="Views\Pages\LogbookReport.xaml.cs">
       <DependentUpon>LogbookReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\PublishSetMenu.xaml.cs">
+      <DependentUpon>PublishSetMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\RegisterCashCut.xaml.cs">
       <DependentUpon>RegisterCashCut.xaml</DependentUpon>
@@ -265,6 +272,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\MakeOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\PublishSetMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
