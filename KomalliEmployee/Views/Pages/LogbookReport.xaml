@@ -86,6 +86,7 @@
                 >
                     <ComboBoxItem Content="Incidencias"/>
                     <ComboBoxItem Content="Merba"/>
+                    <ComboBoxItem Content="Otros"/>
                     <ComboBoxItem Content="General"/>
                 </ComboBox>
             </StackPanel>
