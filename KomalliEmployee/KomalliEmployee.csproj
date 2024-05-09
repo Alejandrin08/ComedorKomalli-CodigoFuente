@@ -160,6 +160,9 @@
     <Compile Include="Views\Pages\DailyTransactionsReport.xaml.cs">
       <DependentUpon>DailyTransactionsReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\DeleteSetMenu.xaml.cs">
+      <DependentUpon>DeleteSetMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\InventoryReport.xaml.cs">
       <DependentUpon>InventoryReport.xaml</DependentUpon>
     </Compile>
@@ -195,6 +198,9 @@
     </Compile>
     <Compile Include="Views\Pages\RegisterUser.xaml.cs">
       <DependentUpon>RegisterUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SearchSetMenuToDelete.xaml.cs">
+      <DependentUpon>SearchSetMenuToDelete.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\SearchSetMenuToModify.xaml.cs">
       <DependentUpon>SearchSetMenuToModify.xaml</DependentUpon>
@@ -257,6 +263,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\DeleteSetMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\InventoryReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -302,6 +312,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\RegisterUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SearchSetMenuToDelete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

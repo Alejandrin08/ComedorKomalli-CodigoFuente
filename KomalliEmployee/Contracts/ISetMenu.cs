@@ -17,5 +17,7 @@ namespace KomalliEmployee.Contracts
         public SetMenuModel ExistingMenu(DateTime date, string typeMenu);
 
         public int ModifyMenu(SetMenuModel setMenu);
+
+        public int DeleteMenu(string keySetmenu);
     }
 }

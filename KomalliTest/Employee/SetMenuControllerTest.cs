@@ -187,5 +187,27 @@ namespace KomalliTest.Employee
             }
         }
 
+        [TestMethod]
+        public void DeleteSetMenu_Sucessfull()
+        {
+                KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
+                string keySetMenu = "COM660";
+                int resultExpected = 1;
+                int result = test.DeleteMenu(keySetMenu);
+                Assert.AreEqual(resultExpected, result);
+            
+        }
+
+        [TestMethod]
+        public void DeleteSetMenu_Failed()
+        {
+            KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
+            string keySetMenu = "Com005";
+            int resultExpected = 1;
+            int result = test.DeleteMenu(keySetMenu);
+            Assert.AreNotEqual(resultExpected, result);
+
+        }
+
     }
 }

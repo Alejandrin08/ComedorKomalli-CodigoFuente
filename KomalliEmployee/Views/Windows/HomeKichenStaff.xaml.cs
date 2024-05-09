@@ -58,7 +58,7 @@ namespace KomalliEmployee.Views.Windows {
         }        
 
         private void ClickDelete(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/SearchSetMenuToDelete.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickShowMenu(object sender, RoutedEventArgs e) {

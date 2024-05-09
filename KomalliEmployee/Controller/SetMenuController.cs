@@ -57,6 +57,35 @@ namespace KomalliEmployee.Controller
             return result;
         }
 
+        public int DeleteMenu(string keySetmenu)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new KomalliEntities())
+                {
+                    var existingMenu = context.SetMenu.FirstOrDefault(menu => menu.KeySetMenu == keySetmenu);
+
+                    if (existingMenu != null)
+                    {
+                        context.SetMenu.Remove(existingMenu);
+                        result = context.SaveChanges();
+                    }
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                result = -1;
+                LoggerManager.Instance.LogError("Error al eliminar un menú", ex);
+            }
+            catch (EntityException ex)
+            {
+                result = -1;
+                LoggerManager.Instance.LogError("Error al eliminar un menú", ex);
+            }
+            return result;
+        }
+
         public SetMenuModel ExistingMenu(DateTime date, string typeMenu)
         {
             SetMenuModel setMenuModel = null;
