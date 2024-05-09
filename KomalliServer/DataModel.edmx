@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KomalliModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KomalliModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CashCut">
           <Key>
             <PropertyRef Name="Id" />
@@ -80,7 +80,7 @@
           <Property Name="Quantity" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Measurement" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Barcode" Type="varchar" MaxLength="13" />
-          <Property Name="ReplenishmentDate" Type="date" Nullable="false" />
+          <Property Name="ReplenishmentDate" Type="date" />
           <Property Name="Category" Type="varchar" MaxLength="55" Nullable="false" />
         </EntityType>
         <EntityType Name="Logbook">
@@ -116,6 +116,7 @@
           <Property Name="Drink" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="StudentPrice" Type="int" Nullable="false" />
           <Property Name="GeneralPrice" Type="int" Nullable="false" />
+          <Property Name="TypeMenu" Type="char" MaxLength="15" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -126,8 +127,8 @@
           <Property Name="Password" Type="varchar" MaxLength="61" Nullable="false" />
           <Property Name="Available" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6035: La relación 'FK_Employee_FoodOrder_Employee' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Employee_FoodOrder_Employee' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_Employee_FoodOrder_Employee" />-->
         <Association Name="FK_Employee_FoodOrder_FoodOrder">
           <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="1" />
@@ -141,8 +142,8 @@ advertencia 6035: La relación 'FK_Employee_FoodOrder_Employee' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errores durante la generación:
-advertencia 6035: La relación 'FK_Employee_Logbook' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Employee_Logbook' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_Employee_Logbook" />-->
         <Association Name="FK_FoodOrder_MenuCard_FoodOrder">
           <End Role="FoodOrder" Type="Self.FoodOrder" Multiplicity="1">
@@ -196,8 +197,8 @@ advertencia 6035: La relación 'FK_Employee_Logbook' tiene columnas que no forma
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errores durante la generación:
-advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_User_Employee' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_User_Employee" />-->
         <EntityContainer Name="KomalliModelStoreContainer">
           <EntitySet Name="CashCut" EntityType="Self.CashCut" Schema="dbo" store:Type="Tables" />
@@ -232,8 +233,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
             <End Role="FoodOrder_SetMenu" EntitySet="FoodOrder_SetMenu" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KomalliModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -320,7 +320,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
           <Property Name="Quantity" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Measurement" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Barcode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
-          <Property Name="ReplenishmentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ReplenishmentDate" Type="DateTime" Precision="0" />
           <Property Name="Category" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="Logbook">
@@ -358,6 +358,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
           <Property Name="StudentPrice" Type="Int32" Nullable="false" />
           <Property Name="GeneralPrice" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FoodOrder_SetMenu" Relationship="Self.FK_FoodOrder_SetMenu_SetMenu" FromRole="SetMenu" ToRole="FoodOrder_SetMenu" />
+          <Property Name="TypeMenu" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -574,6 +575,7 @@ advertencia 6035: La relación 'FK_User_Employee' tiene columnas que no forman p
           <EntitySetMapping Name="SetMenu">
             <EntityTypeMapping TypeName="KomalliModel.SetMenu">
               <MappingFragment StoreEntitySet="SetMenu">
+                <ScalarProperty Name="TypeMenu" ColumnName="TypeMenu" />
                 <ScalarProperty Name="KeySetMenu" ColumnName="KeySetMenu" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Starter" ColumnName="Starter" />

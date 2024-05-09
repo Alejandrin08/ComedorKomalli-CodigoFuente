@@ -54,11 +54,11 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickPublish(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/PublishSetMenu.xaml", UriKind.RelativeOrAbsolute));
         }        
 
         private void ClickDelete(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/SearchSetMenuToDelete.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickShowMenu(object sender, RoutedEventArgs e) {
@@ -66,7 +66,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickModify(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/SearchSetMenuToModify.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickSubMenuLogbook(object sender, RoutedEventArgs e) {

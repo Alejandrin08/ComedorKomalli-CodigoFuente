@@ -32,5 +32,7 @@ namespace KomalliEmployee.Model.Utilities {
         public int Price { get; set; }
         public bool IsFoodValidSelected { get; set; } 
         public ObservableCollection<FoodModel> SelectedFoods { get; } = new ObservableCollection<FoodModel>();
+
+        public SetMenuModel SetMenuModel { get; set; }
     }
 }
