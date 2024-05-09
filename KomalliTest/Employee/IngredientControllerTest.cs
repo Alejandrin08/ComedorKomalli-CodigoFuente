@@ -158,7 +158,7 @@ namespace KomalliTest.Employee
                 ingredientTest1.NameIngredient = "Leche deslactosada";
                 ingredientTest1.Measurement = TypeQuantity.Lts;
                 ingredientTest1.BarCode = null;
-                ingredientTest1.Quantity = "24";
+                ingredientTest1.Quantity = "20";
                 ingredientTest1.Category = IngredientCategory.Bebidas;
                 listIngredients.Add(ingredientTest1);
                 List<IngredientModel> resultExpected = listIngredients;

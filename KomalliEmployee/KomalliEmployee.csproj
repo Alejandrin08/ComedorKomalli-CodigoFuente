@@ -175,6 +175,9 @@
     <Compile Include="Views\Pages\MakeOrder.xaml.cs">
       <DependentUpon>MakeOrder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\ModifySetMenu.xaml.cs">
+      <DependentUpon>ModifySetMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\ModifyUser.xaml.cs">
       <DependentUpon>ModifyUser.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,9 @@
     </Compile>
     <Compile Include="Views\Pages\RegisterUser.xaml.cs">
       <DependentUpon>RegisterUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SearchSetMenuToModify.xaml.cs">
+      <DependentUpon>SearchSetMenuToModify.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Usercontrols\CommentCard.xaml.cs">
       <DependentUpon>CommentCard.xaml</DependentUpon>
@@ -275,6 +281,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\ModifySetMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\PublishSetMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -292,6 +302,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\RegisterUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SearchSetMenuToModify.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

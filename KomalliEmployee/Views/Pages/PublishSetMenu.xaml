@@ -301,9 +301,9 @@
             />
 
             <DatePicker x:Name="dpDate"
-            Margin="522,157,57,0"
-            VerticalAlignment="Top"
-            FontSize="20" Height="34">
+                        Margin="522,157,57,0"
+                        VerticalAlignment="Top"
+                        FontSize="20" Height="34">
                 <DatePicker.Resources>
                     <Style TargetType="DatePickerTextBox">
                         <Setter Property="IsReadOnly" Value="True"/>

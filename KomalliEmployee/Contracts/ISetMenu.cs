@@ -1,4 +1,5 @@
-﻿using KomalliEmployee.Model;
+﻿using KomalliEmployee.Controller;
+using KomalliEmployee.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,9 @@ namespace KomalliEmployee.Contracts
         public int ExistingTypeMenu(SetMenuModel setMenu);
 
         public int AddSetMenu(SetMenuModel setMenu);
+
+        public SetMenuModel ExistingMenu(DateTime date, string typeMenu);
+
+        public int ModifyMenu(SetMenuModel setMenu);
     }
 }

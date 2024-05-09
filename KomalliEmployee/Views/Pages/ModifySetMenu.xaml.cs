@@ -1,7 +1,9 @@
 ﻿using KomalliEmployee.Controller;
 using KomalliEmployee.Model;
+using KomalliEmployee.Model.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,24 +16,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using KomalliEmployee.Model.Utilities;
 
 namespace KomalliEmployee.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for PublishSetMenu.xaml
+    /// Interaction logic for ModifySetMenu.xaml
     /// </summary>
-    public partial class PublishSetMenu : Page
+    public partial class ModifySetMenu : Page
     {
-        public PublishSetMenu()
+        public ModifySetMenu()
         {
             InitializeComponent();
-            dpDate.DisplayDateStart = DateTime.Today; 
+            dpDate.DisplayDateStart = DateTime.Today;
             dpDate.SelectedDateChanged += DpDate_SelectedDateChanged;
             txbDrink.TextChanged += FieldsChanged;
             txbMainFood.TextChanged += FieldsChanged;
             cbxTypeMenu.SelectionChanged += FieldsChanged;
             dpDate.SelectedDateChanged += FieldsChanged;
+            InitializeFields();
         }
 
         private void FieldsChanged(object sender, RoutedEventArgs e)
@@ -41,7 +43,7 @@ namespace KomalliEmployee.Views.Pages
                                    cbxTypeMenu.SelectedItem != null &&
                                    dpDate.SelectedDate != null;
 
-            btnPublishSetMenu.Visibility = allFieldsFilled ? Visibility.Visible : Visibility.Collapsed;
+            btnModifySetMenu.Visibility = allFieldsFilled ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void DpDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -49,7 +51,7 @@ namespace KomalliEmployee.Views.Pages
             DayOfWeek selectedDayOfWeek = dpDate.SelectedDate?.DayOfWeek ?? DateTime.Today.DayOfWeek;
             if (selectedDayOfWeek == DayOfWeek.Saturday || selectedDayOfWeek == DayOfWeek.Sunday)
             {
-                App.ShowMessageWarning("No se pueden seleccionar fines de semana.","Fecha invalida");
+                App.ShowMessageWarning("No se pueden seleccionar fines de semana.", "Fecha invalida");
                 dpDate.SelectedDate = DateTime.Today;
             }
         }
@@ -75,32 +77,44 @@ namespace KomalliEmployee.Views.Pages
             }
         }
 
-        private void ClicKRegisterSetMenu(object sender, RoutedEventArgs e)
+        private void ClickGoBack(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
+
+        private void ClicKModifySetMenu(object sender, RoutedEventArgs e)
         {
             SetMenuModel setMenu = generateSetMenu();
+            SetMenuModel setMenuModel = new SetMenuModel();
+            setMenuModel = SingletonClass.Instance.SetMenuModel;
             SetMenuController setMenuController = new SetMenuController();
-            int result = setMenuController.ExistingTypeMenu(setMenu);
-            if ( result == 0)
+            int result = 0;
+            if (setMenu.DateMenu != setMenuModel.DateMenu || setMenu.Type != setMenuModel.Type)
             {
-                    result = setMenuController.AddSetMenu(setMenu);
-                    if(result == 1)
-                    {
-                        App.ShowMessageInformation("Menú publicado con exito", "Menu publicado");
-                        ClearFields();
-                    }
-                    else
-                    {
-                        App.ShowMessageError("El menú no se pudo publicar, intentelo más tarde", "Error del sistema");
-                    }
+                result = setMenuController.ExistingTypeMenu(setMenu);
+                if (result != 0)
+                {
+                    App.ShowMessageWarning("Ya existe ese tipo de menu para la fecha indicada.", "Fecha invalida");
+                    return;
+                }
+            }
+            result = setMenuController.ModifyMenu(setMenu);
+            if (result == 1)
+            {
+                App.ShowMessageInformation("Menú actualizado con exito", "Menu actualizado");
+                SingletonClass.Instance.SetMenuModel = setMenu;
+                InitializeFields();
             }
             else
             {
-                App.ShowMessageWarning("Ya existe ese tipo de menu para la fecha indicada.", "Fecha invalida");
+                App.ShowMessageError("El menú no se pudo actualizar, intentelo más tarde", "Error del sistema");
             }
         }
 
         private SetMenuModel generateSetMenu()
         {
+            SetMenuModel setMenuModel = new SetMenuModel();
+            setMenuModel = SingletonClass.Instance.SetMenuModel;
             SetMenuModel setMenu = new SetMenuModel();
             setMenu.MainFood = txbMainFood.Text;
             setMenu.DateMenu = dpDate.SelectedDate ?? DateTime.Today;
@@ -122,36 +136,21 @@ namespace KomalliEmployee.Views.Pages
             ComboBoxItem selectedItem = (ComboBoxItem)cbxTypeMenu.SelectedItem;
             string selectedContent = selectedItem.Content.ToString();
             setMenu.Type = selectedContent == "Desayuno" ? TypeMenu.Desayuno : TypeMenu.Comida;
-            setMenu.KeySetMenu = GenerateKeySetmenu(selectedContent);
+            setMenu.KeySetMenu = setMenuModel.KeySetMenu;
             return setMenu;
         }
 
-        private string GenerateKeySetmenu(string selectedContent)
+        private void InitializeFields()
         {
-            
-                string namePrefix = selectedContent.Length >= 3 ?
-                                    selectedContent.Substring(0, 3).ToUpper() :
-                                    selectedContent.ToUpper();
-                Random random = new Random();
-                string randomNumber = "";
-                for (int i = 0; i < 3; i++)
-                {
-                    randomNumber += random.Next(0, 10);
-                }
-                string keyIngredient = namePrefix + randomNumber;
-                return keyIngredient;
-            
-        }
-
-        private void ClearFields()
-        {
-            txbStarter.Text = "";
-            txbMainFood.Text = "";
-            txbSideDish.Text = "";
-            txbSalad.Text = "";
-            txbDrink.Text = "";
-            cbxTypeMenu.SelectedItem = null;
-            dpDate.SelectedDate = null;
+            SetMenuModel setMenuModel = SingletonClass.Instance.SetMenuModel;
+            string selectedType = setMenuModel.Type.ToString();
+            cbxTypeMenu.Text = selectedType;
+            txbDrink.Text = setMenuModel.Drink;
+            txbMainFood.Text = setMenuModel.MainFood;
+            txbSalad.Text = setMenuModel.Salad;
+            txbSideDish.Text = setMenuModel.SideDish;
+            txbStarter.Text = setMenuModel.Starter;
+            dpDate.SelectedDate = setMenuModel.DateMenu;
         }
     }
 }
