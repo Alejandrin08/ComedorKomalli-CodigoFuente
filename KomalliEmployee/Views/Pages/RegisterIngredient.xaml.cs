@@ -128,9 +128,7 @@ namespace KomalliEmployee.Views.Pages{
             ingredient = GenerateMeasurement(ingredient, selectedContent);
             ComboBoxItem selectedItemCategory = (ComboBoxItem)cbxCategory.SelectedItem;
             string selectedCategory = selectedItemCategory.Content.ToString(); 
-            MessageBox.Show(selectedCategory);
             ingredient = GenerateSelectedCategory(ingredient, selectedCategory);
-            MessageBox.Show(ingredient.Category.ToString());
             return ingredient;
         }
 

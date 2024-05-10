@@ -206,7 +206,6 @@ namespace KomalliTest.Employee
             int resultExpected = 1;
             int result = test.DeleteMenu(keySetMenu);
             Assert.AreNotEqual(resultExpected, result);
-
         }
 
     }
