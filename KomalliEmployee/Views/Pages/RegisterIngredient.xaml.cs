@@ -78,7 +78,7 @@ namespace KomalliEmployee.Views.Pages{
                 }
                 foreach (char character in e.Text)
                 {
-                    if (!char.IsDigit(character))
+                    if (!char.IsDigit(character) && character != '.')
                     {
                         e.Handled = true; 
                         return;

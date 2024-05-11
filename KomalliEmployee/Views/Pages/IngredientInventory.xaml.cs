@@ -1,4 +1,5 @@
-﻿using KomalliEmployee.Controller;
+﻿using KomalliEmployee.Contracts;
+using KomalliEmployee.Controller;
 using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
 using KomalliServer;
@@ -33,10 +34,12 @@ namespace KomalliEmployee.Views.Pages
         public FoodInventory()
         {
             InitializeComponent();
-            InitializeInventary();
             MeasurementOptions = new ObservableCollection<string> { "Lts", "Kg", "Unidades" };
             CategoryOptions = new ObservableCollection<string> { "Abarrotes", "Bebidas", "FrutasyVerduras", "Postres", "CarnesFrias" };
             DataContext = this;
+            cbxCategory.Text = "General";
+            InitializeInventary();
+            
         }
 
         private void PreviewTextInputOnlyNumberAndLetters(object sender, TextCompositionEventArgs e)
@@ -72,7 +75,7 @@ namespace KomalliEmployee.Views.Pages
                 }
                 foreach (char character in e.Text)
                 {
-                    if (!char.IsDigit(character))
+                    if (!char.IsDigit(character) && character != '.')
                     {
                         e.Handled = true;
                         return;
@@ -85,7 +88,8 @@ namespace KomalliEmployee.Views.Pages
             List<IngredientModel> ingredients;
             string searchIngredient = txbSearchIngredient.Text;
             IngredientController ingredientControler = new IngredientController();
-            ingredients = ingredientControler.SearchIngredients(searchIngredient);
+            string category = cbxCategory.Text;
+            ingredients = ingredientControler.SearchIngredients(searchIngredient, category);
             dgIngredientInventory.ItemsSource = ingredients;
 
         }
@@ -98,17 +102,11 @@ namespace KomalliEmployee.Views.Pages
                 string selectedCategory = selectedItem.Content.ToString();
                 if (selectedCategory != null)
                 {
-                    if (selectedCategory == "General")
-                    {
-                        InitializeInventary();
-                    }
-                    else
-                    {
                         List<IngredientModel> ingredients;
                         IngredientController ingredientControler = new IngredientController();
-                        ingredients = ingredientControler.SearchIngredientsByCategory(selectedCategory);
+                        string searchIngredient = txbSearchIngredient.Text;
+                        ingredients= ingredientControler.SearchIngredients(searchIngredient, selectedCategory);
                         dgIngredientInventory.ItemsSource = ingredients;
-                    }
                 }
             }
         }
@@ -208,11 +206,16 @@ namespace KomalliEmployee.Views.Pages
             btnAddIngredient.Visibility = Visibility.Visible;
             btnSaveChanges.Visibility = Visibility.Hidden;
             IngredientController ingredientController = new IngredientController();
-            if (ingredientController.ModifyIngredients(listIngredientsModified) == 1)
-            {
-                App.ShowMessageInformation("La informacion de los ingredientes fue actualizada.", "Inventario actualizado");
-                listIngredientsModified.Clear();
-                InitializeInventary();
+            int result = ingredientController.ModifyIngredients(listIngredientsModified);
+                if (result == 1)
+                {
+                    App.ShowMessageInformation("La informacion de los ingredientes fue actualizada.", "Inventario actualizado");
+                    listIngredientsModified.Clear();
+                    InitializeInventary();
+                }else if (result == 0)
+                {
+                    App.ShowMessageWarning("El nombre de algunos de los ingredientes modificados ya existe en el sistema. Favor de revisar los datos", "Actualizacion Erronea");
+                    InitializeInventary();
             }
         }
     }
