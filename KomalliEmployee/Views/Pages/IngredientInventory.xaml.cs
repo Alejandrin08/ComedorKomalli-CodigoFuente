@@ -20,42 +20,34 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KomalliEmployee.Views.Pages
-{
+namespace KomalliEmployee.Views.Pages {
     /// <summary>
     /// Interaction logic for FoodInventory.xaml
     /// </summary>
-    public partial class FoodInventory : Page
-    {
+    public partial class FoodInventory : Page {
         public ObservableCollection<string> MeasurementOptions { get; set; }
         public ObservableCollection<string> CategoryOptions { get; set; }
         private List<IngredientModel> listIngredientsModified = new List<IngredientModel>();
 
-        public FoodInventory()
-        {
+        public FoodInventory() {
             InitializeComponent();
             MeasurementOptions = new ObservableCollection<string> { "Lts", "Kg", "Unidades" };
             CategoryOptions = new ObservableCollection<string> { "Abarrotes", "Bebidas", "FrutasyVerduras", "Postres", "CarnesFrias" };
             DataContext = this;
             cbxCategory.Text = "General";
             InitializeInventary();
-            
+
         }
 
-        private void PreviewTextInputOnlyNumberAndLetters(object sender, TextCompositionEventArgs e)
-        {
+        private void PreviewTextInputOnlyNumberAndLetters(object sender, TextCompositionEventArgs e) {
             TextBox textBox = sender as TextBox;
-            if (textBox != null)
-            {
-                if (textBox.Text.Length + e.Text.Length > 30)
-                {
+            if (textBox != null) {
+                if (textBox.Text.Length + e.Text.Length > 30) {
                     e.Handled = true;
                     return;
                 }
-                foreach (char character in e.Text)
-                {
-                    if (!char.IsLetterOrDigit(character) && character != '.' && !char.IsWhiteSpace(character))
-                    {
+                foreach (char character in e.Text) {
+                    if (!char.IsLetterOrDigit(character) && character != '.' && !char.IsWhiteSpace(character)) {
                         e.Handled = true;
                         return;
                     }
@@ -63,28 +55,22 @@ namespace KomalliEmployee.Views.Pages
             }
         }
 
-        private void PreviewTextInputOnlyNumber(object sender, TextCompositionEventArgs e)
-        {
+        private void PreviewTextInputOnlyNumber(object sender, TextCompositionEventArgs e) {
             TextBox textBox = sender as TextBox;
-            if (textBox != null)
-            {
-                if (textBox.Text.Length + e.Text.Length > 13)
-                {
+            if (textBox != null) {
+                if (textBox.Text.Length + e.Text.Length > 13) {
                     e.Handled = true;
                     return;
                 }
-                foreach (char character in e.Text)
-                {
-                    if (!char.IsDigit(character) && character != '.')
-                    {
+                foreach (char character in e.Text) {
+                    if (!char.IsDigit(character) && character != '.') {
                         e.Handled = true;
                         return;
                     }
                 }
             }
         }
-        private void TxtSearchIngredient(object sender, TextChangedEventArgs e)
-        {
+        private void TxtSearchIngredient(object sender, TextChangedEventArgs e) {
             List<IngredientModel> ingredients;
             string searchIngredient = txbSearchIngredient.Text;
             IngredientController ingredientControler = new IngredientController();
@@ -94,39 +80,33 @@ namespace KomalliEmployee.Views.Pages
 
         }
 
-        private void CbxCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        private void CbxCategory_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             ComboBoxItem selectedItem = cbxCategory.SelectedItem as ComboBoxItem;
-            if (selectedItem != null)
-            {
+            if (selectedItem != null) {
                 string selectedCategory = selectedItem.Content.ToString();
-                if (selectedCategory != null)
-                {
-                        List<IngredientModel> ingredients;
-                        IngredientController ingredientControler = new IngredientController();
-                        string searchIngredient = txbSearchIngredient.Text;
-                        ingredients= ingredientControler.SearchIngredients(searchIngredient, selectedCategory);
-                        dgIngredientInventory.ItemsSource = ingredients;
+                if (selectedCategory != null) {
+                    List<IngredientModel> ingredients;
+                    IngredientController ingredientControler = new IngredientController();
+                    string searchIngredient = txbSearchIngredient.Text;
+                    ingredients = ingredientControler.SearchIngredients(searchIngredient, selectedCategory);
+                    dgIngredientInventory.ItemsSource = ingredients;
                 }
             }
         }
 
-        private void ClickAddIngredient(object sender, RoutedEventArgs e)
-        {
+        private void ClickAddIngredient(object sender, RoutedEventArgs e) {
             RegisterIngredient registerIngredientView = new RegisterIngredient();
             this.NavigationService.Navigate(registerIngredientView);
         }
 
-        private void InitializeInventary()
-        {
+        private void InitializeInventary() {
             List<IngredientModel> ingredients;
             IngredientController ingredientControler = new IngredientController();
             ingredients = ingredientControler.ConsultIngredients();
             dgIngredientInventory.ItemsSource = ingredients;
         }
 
-        private void ClickModifyInventory(object sender, RoutedEventArgs e)
-        {
+        private void ClickModifyInventory(object sender, RoutedEventArgs e) {
             dgIngredientInventory.IsReadOnly = false;
             dgtNameIngredient.IsReadOnly = false;
             dgtQuantityIngredient.IsReadOnly = false;
@@ -138,47 +118,33 @@ namespace KomalliEmployee.Views.Pages
             btnSaveChanges.Visibility = Visibility.Visible;
         }
 
-        private void dgIngredientInventory_PreparingCellForEdit(object sender, DataGridPreparingCellForEditEventArgs e)
-        {
-            if (e.EditingElement is TextBox textBox)
-            {
-                if (e.Column == dgtQuantityIngredient)
-                {
+        private void dgIngredientInventory_PreparingCellForEdit(object sender, DataGridPreparingCellForEditEventArgs e) {
+            if (e.EditingElement is TextBox textBox) {
+                if (e.Column == dgtQuantityIngredient) {
                     textBox.PreviewTextInput += PreviewTextInputOnlyNumber;
-                }
-                else if (e.Column == dgtNameIngredient)
-                {
+                } else if (e.Column == dgtNameIngredient) {
                     textBox.PreviewTextInput += PreviewTextInputOnlyNumberAndLetters;
                 }
             }
         }
 
-        private void dgIngredientInventory_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            if (e.EditAction == DataGridEditAction.Commit)
-            {
+        private void dgIngredientInventory_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e) {
+            if (e.EditAction == DataGridEditAction.Commit) {
                 var fila = e.Row.Item as IngredientModel;
                 var columna = e.Column as DataGridColumn;
 
-                if (fila != null && columna != null)
-                {
-                    if (e.EditingElement is TextBox textBox)
-                    {
+                if (fila != null && columna != null) {
+                    if (e.EditingElement is TextBox textBox) {
                         if (columna == dgtNameIngredient)
                             fila.NameIngredient = textBox.Text;
                         else if (columna == dgtQuantityIngredient)
                             fila.Quantity = textBox.Text;
-                    }
-                    else if (e.EditingElement is ComboBox comboBox)
-                    {
-                        if (columna == dgtTypeMeasurementIngredient)
-                        {
+                    } else if (e.EditingElement is ComboBox comboBox) {
+                        if (columna == dgtTypeMeasurementIngredient) {
                             var selectedContent = comboBox.SelectedItem?.ToString();
                             if (Enum.TryParse(selectedContent, out TypeQuantity measurement))
                                 fila.Measurement = measurement;
-                        }
-                        else if (columna == dgtIngredientCategory)
-                        {
+                        } else if (columna == dgtIngredientCategory) {
                             var selectedContent = comboBox.SelectedItem?.ToString();
                             if (Enum.TryParse(selectedContent, out IngredientCategory category))
                                 fila.Category = category;
@@ -186,36 +152,30 @@ namespace KomalliEmployee.Views.Pages
                     }
 
                     var existingIngredient = listIngredientsModified.FirstOrDefault(i => i.KeyIngredient == fila.KeyIngredient);
-                    if (existingIngredient != null)
-                    {
+                    if (existingIngredient != null) {
                         existingIngredient.NameIngredient = fila.NameIngredient;
                         existingIngredient.Quantity = fila.Quantity;
                         existingIngredient.Measurement = fila.Measurement;
-                    }
-                    else
-                    {
+                    } else {
                         listIngredientsModified.Add(fila);
                     }
                 }
             }
         }
 
-        private void ClickBtnSaveChanges(object sender, RoutedEventArgs e)
-        {
+        private void ClickBtnSaveChanges(object sender, RoutedEventArgs e) {
             dgIngredientInventory.IsReadOnly = true;
             btnAddIngredient.Visibility = Visibility.Visible;
             btnSaveChanges.Visibility = Visibility.Hidden;
             IngredientController ingredientController = new IngredientController();
             int result = ingredientController.ModifyIngredients(listIngredientsModified);
-                if (result == 1)
-                {
-                    App.ShowMessageInformation("La informacion de los ingredientes fue actualizada.", "Inventario actualizado");
-                    listIngredientsModified.Clear();
-                    InitializeInventary();
-                }else if (result == 0)
-                {
-                    App.ShowMessageWarning("El nombre de algunos de los ingredientes modificados ya existe en el sistema. Favor de revisar los datos", "Actualizacion Erronea");
-                    InitializeInventary();
+            if (result == 1) {
+                App.ShowMessageInformation("La informacion de los ingredientes fue actualizada.", "Inventario actualizado");
+                listIngredientsModified.Clear();
+                InitializeInventary();
+            } else if (result == 0) {
+                App.ShowMessageWarning("El nombre de algunos de los ingredientes modificados ya existe en el sistema. Favor de revisar los datos", "Actualizacion Erronea");
+                InitializeInventary();
             }
         }
     }

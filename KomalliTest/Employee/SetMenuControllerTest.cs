@@ -8,20 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace KomalliTest.Employee
-{
+namespace KomalliTest.Employee {
     [TestClass]
-    public class SetMenuControllerTest
-    {
+    public class SetMenuControllerTest {
 
         [TestMethod]
-        public void AddSetMenu_Sucessfull()
-        {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
+        public void AddSetMenu_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
-                SetMenuModel setMenuModel = new SetMenuModel
-                {
+                SetMenuModel setMenuModel = new SetMenuModel {
                     KeySetMenu = "Des0183",
                     DateMenu = DateTime.Now,
                     Starter = "papas",
@@ -41,13 +36,10 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void AddSetMenu_Failed()
-        {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
+        public void AddSetMenu_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
-                SetMenuModel setMenuModel = new SetMenuModel
-                {
+                SetMenuModel setMenuModel = new SetMenuModel {
                     KeySetMenu = "Des002",
                     DateMenu = DateTime.Now,
                     Starter = "papas",
@@ -67,30 +59,26 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void ExistingTypeMenu_Sucessfull()
-        {
-            
-                KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
-                SetMenuModel setMenuModel = new SetMenuModel
-                {
-                    KeySetMenu = "Com001",
-                    DateMenu =  new DateTime (2024, 04, 28),                     
-                    Type = TypeMenu.Comida,
-                };
+        public void ExistingTypeMenu_Sucessfull() {
 
-                int resultExpected = 1;
-                int result = test.ExistingTypeMenu(setMenuModel);
-                Assert.AreEqual(resultExpected, result);
-            
+            KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
+            SetMenuModel setMenuModel = new SetMenuModel {
+                KeySetMenu = "Com001",
+                DateMenu = new DateTime(2024, 04, 28),
+                Type = TypeMenu.Comida,
+            };
+
+            int resultExpected = 1;
+            int result = test.ExistingTypeMenu(setMenuModel);
+            Assert.AreEqual(resultExpected, result);
+
         }
 
         [TestMethod]
-        public void ExistingTypeMenu_Failed()
-        {
+        public void ExistingTypeMenu_Failed() {
 
             KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
-            SetMenuModel setMenuModel = new SetMenuModel
-            {
+            SetMenuModel setMenuModel = new SetMenuModel {
                 KeySetMenu = "Des0183",
                 DateMenu = new DateTime(2023, 05, 07),
                 Type = TypeMenu.Comida,
@@ -103,13 +91,10 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void ExistingMenu_Sucessfull()
-        {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
+        public void ExistingMenu_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
-                SetMenuModel setMenuModelExpected = new SetMenuModel
-                {
+                SetMenuModel setMenuModelExpected = new SetMenuModel {
                     KeySetMenu = "Com001",
                     DateMenu = new DateTime(2024, 04, 28),
                     Starter = "Crema de coliflor",
@@ -136,13 +121,10 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void ModifySetMenu_Sucessfull()
-        {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
+        public void ModifySetMenu_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
-                SetMenuModel setMenuModel = new SetMenuModel
-                {
+                SetMenuModel setMenuModel = new SetMenuModel {
                     KeySetMenu = "Com001",
                     DateMenu = DateTime.Now,
                     Starter = "papas",
@@ -162,13 +144,10 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void ModifySetMenu_Failed()
-        {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
+        public void ModifySetMenu_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
-                SetMenuModel setMenuModel = new SetMenuModel
-                {
+                SetMenuModel setMenuModel = new SetMenuModel {
                     KeySetMenu = "Com100",
                     DateMenu = DateTime.Now,
                     Starter = "papas",
@@ -188,19 +167,17 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void DeleteSetMenu_Sucessfull()
-        {
-                KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
-                string keySetMenu = "COM660";
-                int resultExpected = 1;
-                int result = test.DeleteMenu(keySetMenu);
-                Assert.AreEqual(resultExpected, result);
-            
+        public void DeleteSetMenu_Sucessfull() {
+            KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
+            string keySetMenu = "COM660";
+            int resultExpected = 1;
+            int result = test.DeleteMenu(keySetMenu);
+            Assert.AreEqual(resultExpected, result);
+
         }
 
         [TestMethod]
-        public void DeleteSetMenu_Failed()
-        {
+        public void DeleteSetMenu_Failed() {
             KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
             string keySetMenu = "Com005";
             int resultExpected = 1;

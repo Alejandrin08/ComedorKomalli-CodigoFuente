@@ -18,12 +18,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KomalliEmployee.Views.Pages{
+namespace KomalliEmployee.Views.Pages {
     /// <summary>
     /// Interaction logic for RegisterIngredient.xaml
     /// </summary>
-    public partial class RegisterIngredient : Page{
-        public RegisterIngredient(){
+    public partial class RegisterIngredient : Page {
+        public RegisterIngredient() {
             InitializeComponent();
             txbNameIngredient.TextChanged += FieldsChanged;
             txbQuotaIngredient.TextChanged += FieldsChanged;
@@ -32,7 +32,7 @@ namespace KomalliEmployee.Views.Pages{
             btnRegisterIngredient.Visibility = Visibility.Collapsed;
         }
 
-        private void FieldsChanged(object sender, RoutedEventArgs e){
+        private void FieldsChanged(object sender, RoutedEventArgs e) {
             bool allFieldsFilled = !string.IsNullOrWhiteSpace(txbNameIngredient.Text) &&
                                    !string.IsNullOrWhiteSpace(txbQuotaIngredient.Text) &&
                                    cbxTipeQuota.SelectedItem != null &&
@@ -41,24 +41,19 @@ namespace KomalliEmployee.Views.Pages{
             btnRegisterIngredient.Visibility = allFieldsFilled ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void ClickGoBack(object sender, RoutedEventArgs e){
+        private void ClickGoBack(object sender, RoutedEventArgs e) {
             this.NavigationService.GoBack();
         }
 
-        private void PreviewTextInputOnlyNumberAndLetters(object sender, TextCompositionEventArgs e)
-        {
+        private void PreviewTextInputOnlyNumberAndLetters(object sender, TextCompositionEventArgs e) {
             TextBox textBox = sender as TextBox;
-            if (textBox != null)
-            {
-                if (textBox.Text.Length + e.Text.Length > 30)
-                {
+            if (textBox != null) {
+                if (textBox.Text.Length + e.Text.Length > 30) {
                     e.Handled = true;
                     return;
                 }
-                foreach (char character in e.Text)
-                {
-                    if (!char.IsLetterOrDigit(character) && character != '.' && !char.IsWhiteSpace(character))
-                    {
+                foreach (char character in e.Text) {
+                    if (!char.IsLetterOrDigit(character) && character != '.' && !char.IsWhiteSpace(character)) {
                         e.Handled = true;
                         return;
                     }
@@ -66,33 +61,28 @@ namespace KomalliEmployee.Views.Pages{
             }
         }
 
-        private void PreviewTextInputOnlyNumber(object sender, TextCompositionEventArgs e)
-        {
-            TextBox textBox = sender as TextBox; 
-            if (textBox != null)
-            {
-                if (textBox.Text.Length + e.Text.Length > 13)
-                {
+        private void PreviewTextInputOnlyNumber(object sender, TextCompositionEventArgs e) {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null) {
+                if (textBox.Text.Length + e.Text.Length > 13) {
                     e.Handled = true;
                     return;
                 }
-                foreach (char character in e.Text)
-                {
-                    if (!char.IsDigit(character) && character != '.')
-                    {
-                        e.Handled = true; 
+                foreach (char character in e.Text) {
+                    if (!char.IsDigit(character) && character != '.') {
+                        e.Handled = true;
                         return;
                     }
                 }
             }
         }
 
-        private void ClicKRegisterIngredient(object sender, RoutedEventArgs e){
+        private void ClicKRegisterIngredient(object sender, RoutedEventArgs e) {
             IngredientModel ingredient = CreateIngredient();
             IngredientController ingredientControler = new IngredientController();
-            if (!VerifyNameIngredient(ingredient.NameIngredient)){
-                if (ingredient.BarCode == null || !VerifyBarCode(ingredient.BarCode)){
-                    switch (ingredientControler.AddIngredient(ingredient)){
+            if (!VerifyNameIngredient(ingredient.NameIngredient)) {
+                if (ingredient.BarCode == null || !VerifyBarCode(ingredient.BarCode)) {
+                    switch (ingredientControler.AddIngredient(ingredient)) {
                         case 0:
                             App.ShowMessageWarning("Ocurrio un error al agregar un ingrediente porfavor intenta más tarde", "Error al agregar ingrediente");
                             break;
@@ -109,17 +99,13 @@ namespace KomalliEmployee.Views.Pages{
             }
         }
 
-        private IngredientModel CreateIngredient()
-        {
+        private IngredientModel CreateIngredient() {
             IngredientModel ingredient = new IngredientModel();
             ingredient.NameIngredient = txbNameIngredient.Text;
             ingredient.Quantity = txbQuotaIngredient.Text;
-            if (string.IsNullOrEmpty(txbBarCode.Text))
-            {
+            if (string.IsNullOrEmpty(txbBarCode.Text)) {
                 ingredient.BarCode = null;
-            }
-            else
-            {
+            } else {
                 ingredient.BarCode = txbBarCode.Text;
             }
             ingredient.KeyIngredient = GenerateKey(txbNameIngredient.Text);
@@ -127,15 +113,13 @@ namespace KomalliEmployee.Views.Pages{
             string selectedContent = selectedItem.Content.ToString();
             ingredient = GenerateMeasurement(ingredient, selectedContent);
             ComboBoxItem selectedItemCategory = (ComboBoxItem)cbxCategory.SelectedItem;
-            string selectedCategory = selectedItemCategory.Content.ToString(); 
+            string selectedCategory = selectedItemCategory.Content.ToString();
             ingredient = GenerateSelectedCategory(ingredient, selectedCategory);
             return ingredient;
         }
 
-        private IngredientModel GenerateMeasurement (IngredientModel ingredient, String selectedContent)
-        {
-            switch (selectedContent)
-            {
+        private IngredientModel GenerateMeasurement(IngredientModel ingredient, String selectedContent) {
+            switch (selectedContent) {
                 case "Kg":
                     ingredient.Measurement = TypeQuantity.Kg;
                     break;
@@ -149,10 +133,8 @@ namespace KomalliEmployee.Views.Pages{
             return ingredient;
         }
 
-        private IngredientModel GenerateSelectedCategory(IngredientModel ingredient, string selectedCategory)
-        {
-            switch (selectedCategory)
-            {
+        private IngredientModel GenerateSelectedCategory(IngredientModel ingredient, string selectedCategory) {
+            switch (selectedCategory) {
                 case "Abarrotes":
                     ingredient.Category = IngredientCategory.Abarrotes;
                     break;
@@ -172,27 +154,23 @@ namespace KomalliEmployee.Views.Pages{
             return ingredient;
         }
 
-        private string GenerateKey(string name)
-        {
+        private string GenerateKey(string name) {
             string namePrefix = name.Length >= 4 ?
                                 name.Substring(0, 4).ToUpper() :
                                 name.ToUpper();
             Random random = new Random();
             string randomNumber = "";
-            for (int i = 0; i < 4; i++)
-            {
+            for (int i = 0; i < 4; i++) {
                 randomNumber += random.Next(0, 10);
             }
             string keyIngredient = namePrefix + randomNumber;
             return keyIngredient;
         }
 
-        private bool VerifyNameIngredient(string nameIngredient)
-        {
+        private bool VerifyNameIngredient(string nameIngredient) {
             bool result = true;
             IngredientController ingredientControler = new IngredientController();
-            switch (ingredientControler.IsNameIngredientExisting(nameIngredient))
-            {
+            switch (ingredientControler.IsNameIngredientExisting(nameIngredient)) {
                 case 1:
                     App.ShowMessageWarning("Ya existe un ingrediente con ese nombre dentro del sistema verifica tus datos", "Ingrediente existente");
                     break;
@@ -206,12 +184,10 @@ namespace KomalliEmployee.Views.Pages{
             return result;
         }
 
-        private bool VerifyBarCode(string barCodeIngredient)
-        {
+        private bool VerifyBarCode(string barCodeIngredient) {
             bool result = true;
             IngredientController ingredientControler = new IngredientController();
-            switch (ingredientControler.IsBarCodeExisting(barCodeIngredient))
-            {
+            switch (ingredientControler.IsBarCodeExisting(barCodeIngredient)) {
                 case 1:
                     App.ShowMessageWarning("Ya existe un ingrediente con ese codigo de barras dentro del sistema verifica tus datos", "Codigo de barras existente");
                     break;

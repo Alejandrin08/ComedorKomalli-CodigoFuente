@@ -6,14 +6,12 @@ using KomalliEmployee.Model.Utilities;
 using System;
 
 
-namespace KomalliTest.Employee
-{
+namespace KomalliTest.Employee {
     [TestClass]
-    public class IngredientControllerTest
-    {
+    public class IngredientControllerTest {
         [TestMethod]
-        public void AddIngredient_Sucessfull(){
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })){
+        public void AddIngredient_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
                 IngredientModel ingredient = new IngredientModel {
@@ -32,8 +30,8 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void AddIngredient_Failed(){
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })){
+        public void AddIngredient_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
                 IngredientModel ingredient = new IngredientModel {
@@ -52,8 +50,8 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void IsNameIngredientExisting_Sucessfull(){
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })){
+        public void IsNameIngredientExisting_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
                 string nameIngredient = "Jitomate";
@@ -64,8 +62,8 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void IsNameIngredientExisting_Failed(){
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })){
+        public void IsNameIngredientExisting_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
                 string nameIngredient = "Pay de limon";
@@ -76,8 +74,8 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void IsBarCodeExisting_Sucessfull(){
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })){
+        public void IsBarCodeExisting_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
                 string barCodeIngredient = "1234567890123";
@@ -88,10 +86,8 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void IsBarCodeExisting_Failed()
-        {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
+        public void IsBarCodeExisting_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
                 string barCodeIngredient = "1326784632576";
@@ -102,10 +98,8 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void ModifyIngredients_Sucessfull()
-        {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
+        public void ModifyIngredients_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
                 List<IngredientModel> listIngredientsModified = new List<IngredientModel>();
@@ -124,10 +118,8 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void ModifyIngredients_Failed()
-        {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
+        public void ModifyIngredients_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
 
                 List<IngredientModel> listIngredientsModified = new List<IngredientModel>();
@@ -146,10 +138,8 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void SearchIngredients_Sucessfull()
-        {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
+        public void SearchIngredients_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
                 List<IngredientModel> listIngredients = new List<IngredientModel>();
                 string searchIngredient = "Leche";
@@ -164,8 +154,7 @@ namespace KomalliTest.Employee
                 List<IngredientModel> resultExpected = listIngredients;
                 List<IngredientModel> result = test.SearchIngredients(searchIngredient, ingredientTest1.Category.ToString());
                 Assert.AreEqual(resultExpected.Count, result.Count);
-                for (int i = 0; i < resultExpected.Count; i++)
-                {
+                for (int i = 0; i < resultExpected.Count; i++) {
                     Assert.AreEqual(resultExpected[i].KeyIngredient, result[i].KeyIngredient);
                     Assert.AreEqual(resultExpected[i].NameIngredient, result[i].NameIngredient);
                     Assert.AreEqual(resultExpected[i].Quantity, result[i].Quantity);
@@ -177,10 +166,8 @@ namespace KomalliTest.Employee
         }
 
         [TestMethod]
-        public void SearchIngredients_Failed()
-        {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
+        public void SearchIngredients_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
                 List<IngredientModel> resultExpected = new List<IngredientModel>();
                 string searchIngredient = "Pay de limon";
