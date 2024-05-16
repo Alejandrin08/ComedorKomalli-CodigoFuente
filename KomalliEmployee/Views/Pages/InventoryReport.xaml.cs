@@ -29,11 +29,24 @@ namespace KomalliEmployee.Views.Pages {
                 LocalReport localReport = rpv.LocalReport;
 
                 byte[] bytes = localReport.Render("PDF");
+                ComboBoxItem selectedItem = (ComboBoxItem)cboCategory.SelectedItem;
+                string defaultName = "";
+                DateTime date = DateTime.Now;
+                string dateStr = date.ToString("yyyy-MM-dd");
+
+                if (selectedItem == null) {
+                    defaultName = "ReporteInventarioGeneral" + dateStr;
+                } else {
+                    string category = selectedItem.Content.ToString();
+                    defaultName = "ReporteInventario" + category + dateStr;
+
+                }
 
                 SaveFileDialog saveFileDialog = new SaveFileDialog {
                     Filter = "PDF files (.pdf)|.pdf",
                     FilterIndex = 2,
-                    RestoreDirectory = true
+                    RestoreDirectory = true,
+                    FileName = defaultName
                 };
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK) {
