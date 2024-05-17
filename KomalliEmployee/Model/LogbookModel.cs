@@ -10,5 +10,6 @@ namespace KomalliEmployee.Model {
         public DateTime Date { get; set; }
         public string Commentary { get; set; }
         public string NoPersonalEmployee { get; set; }
+        public string Section { get; set; }
     }
 }

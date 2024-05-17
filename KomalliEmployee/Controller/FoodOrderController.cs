@@ -74,7 +74,6 @@ namespace KomalliEmployee.Controller {
                         .Select(foodOrder => new FoodOrderModel {
                             IdFoodOrder = foodOrder.IDFoodOrder,
                             Date = foodOrder.Date,
-                            
                             ClientName = foodOrder.ClientName,
                             NumberDishes = foodOrder.NumberDishes,
                             Total = foodOrder.Total
@@ -95,26 +94,25 @@ namespace KomalliEmployee.Controller {
         */
         public List<FoodOrderModel> ConsultFoodOrdersKiosko() {
             List<FoodOrderModel> foodOrder = new List<FoodOrderModel>();
-            foodOrder = null;
-            //DbFunctions.TruncateTime(foodOrders.Date) == today && foodOrders.Status == "Pendiente"
-            //agregar cuando ya se tengan varios registros, mientras no se pone para poder probar y que siemore muestre algo
             try {
                 using (var context = new KomalliEntities()) {
-                    var today = DateTime.Now.Date;
+                    var today = DateTime.Today;
                     var query = (from foodOrders in context.FoodOrder
-                                 where  foodOrders.IDFoodOrder.StartsWith("Kio")
-                                 select new  {
+                                 where DbFunctions.TruncateTime(foodOrders.Date) == today
+                                       && foodOrders.Status == "Pendiente"
+                                       && foodOrders.IDFoodOrder.StartsWith("Kio")
+                                 select new {
                                      foodOrders.IDFoodOrder,
                                      foodOrders.ClientName,
                                      foodOrders.NumberDishes,
                                      foodOrders.Total
                                  }).ToList()
-                    .Select(result => new FoodOrderModel {
-                        IdFoodOrder = result.IDFoodOrder,
-                        ClientName = result.ClientName,
-                        NumberDishes = result.NumberDishes,
-                        Total = result.Total
-                    }).ToList();
+                                 .Select(result => new FoodOrderModel {
+                                     IdFoodOrder = result.IDFoodOrder,
+                                     ClientName = result.ClientName,
+                                     NumberDishes = result.NumberDishes,
+                                     Total = result.Total
+                                 }).ToList();
 
                     foodOrder = query;
                 }

@@ -198,15 +198,33 @@ namespace KomalliTest.Employee
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
                 List<IngredientModel> listIngredients = new List<IngredientModel>();
                 string searchIngredient = "Abarrotes";
-                IngredientModel ingredientTest1 = new IngredientModel();
-                ingredientTest1.KeyIngredient = "PAN 3357";
-                ingredientTest1.NameIngredient = "Pan Bimbo Blanco";
-                ingredientTest1.Measurement = TypeQuantity.Unidades;
-                ingredientTest1.BarCode = "1234567890123";
-                ingredientTest1.Quantity = "3";
-                ingredientTest1.Category = IngredientCategory.Abarrotes;
-                listIngredients.Add(ingredientTest1);
-                List<IngredientModel> resultExpected = listIngredients;
+   
+                var resultExpected = new List<IngredientModel>() {
+                    new IngredientModel {
+                        KeyIngredient = ".5866",
+                        NameIngredient = "Mermelada de Fresa",
+                        Measurement = TypeQuantity.Unidades,
+                        BarCode = null,
+                        Quantity = "2",
+                        Category = IngredientCategory.Abarrotes
+                    },
+                    new IngredientModel {
+                        KeyIngredient = "PALO5197",
+                        NameIngredient = "Palomitas de maiz",
+                        Measurement =TypeQuantity.Unidades,
+                        BarCode = null,
+                        Quantity = "10",
+                        Category =  IngredientCategory.Abarrotes
+                    },
+                    new IngredientModel {
+                        KeyIngredient = "PAN 3357",
+                        NameIngredient = "Pan Bimbo Blanco",
+                        Measurement = TypeQuantity.Unidades,
+                        BarCode = "1234567890123",
+                        Quantity = "5",
+                        Category = IngredientCategory.Abarrotes
+                    }
+                };
                 List<IngredientModel> result = test.SearchIngredientsByCategory(searchIngredient);
                 Assert.AreEqual(resultExpected.Count, result.Count);
                 for (int i = 0; i < resultExpected.Count; i++)

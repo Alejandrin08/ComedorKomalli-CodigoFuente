@@ -112,7 +112,7 @@ namespace KomalliTest.Employee {
 
             var foodOrdersExpected = new List<FoodModel> {
                 new FoodModel {
-                    KeyCard = "Des49"
+                    KeyCard = "COM867"
                 },
                 
             };
@@ -133,9 +133,8 @@ namespace KomalliTest.Employee {
 
             var foodOrdersExpected = new List<FoodModel> {
                 new FoodModel {
-                    KeyCard = "Com49"
+                    KeyCard = "COM86"
                 },
-
             };
 
             var foodOrdersResult = test.GetKeyMenu();
@@ -145,7 +144,6 @@ namespace KomalliTest.Employee {
                 Assert.AreNotEqual(foodOrdersExpected[i].KeyCard, foodOrdersResult[i].KeyCard);
 
             }
-
         }
 
         [TestMethod]
@@ -176,9 +174,9 @@ namespace KomalliTest.Employee {
                     Subtotal = 6,
                 };
 
-                string idFoodOrder = "Caj0";
+                string idFoodOrder = "Caj0584";
 
-                int resultExpected = 1;
+                int resultExpected = 0;
                 int result = test.RegistryOrderMenuCard(foodOrderModel, idFoodOrder);
                 Assert.AreNotEqual(resultExpected, result);
             }
@@ -189,7 +187,7 @@ namespace KomalliTest.Employee {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.FoodController test = new KomalliEmployee.Controller.FoodController();
                 FoodModel foodOrderModel = new FoodModel {
-                    KeyCard = "Des49",
+                    KeyCard = "COM999",
                     Quantity = 1,
                     Subtotal = 30,
                 };
@@ -206,15 +204,18 @@ namespace KomalliTest.Employee {
         public void RegistryOrderMenu_Failed() {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.FoodController test = new KomalliEmployee.Controller.FoodController();
+                
+                string idFoodOrder = "Caj0584";
+
                 FoodModel foodOrderModel = new FoodModel {
-                    KeyCard = "Des49",
+                    KeyCard = "Com49",
                     Quantity = 1,
                     Subtotal = 30,
+                    Price = 30
                 };
 
-                string idFoodOrder = "Caj0";
 
-                int resultExpected = 1;
+                int resultExpected = 0;
                 int result = test.RegistryOrderMenu(foodOrderModel, idFoodOrder);
                 Assert.AreNotEqual(resultExpected, result);
             }

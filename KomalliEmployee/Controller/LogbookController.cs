@@ -36,7 +36,8 @@ namespace KomalliEmployee.Controller {
                     var comment = new KomalliServer.Logbook() {
                         Date = logbookModel.Date,
                         Commentary = logbookModel.Commentary,
-                        NoPersonalEmployee = logbookModel.NoPersonalEmployee
+                        NoPersonalEmployee = logbookModel.NoPersonalEmployee,
+                        Section = logbookModel.Section
                     };
 
                     context.Logbook.Add(comment);

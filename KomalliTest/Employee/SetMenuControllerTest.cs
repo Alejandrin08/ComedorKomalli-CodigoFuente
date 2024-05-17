@@ -191,11 +191,10 @@ namespace KomalliTest.Employee
         public void DeleteSetMenu_Sucessfull()
         {
                 KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
-                string keySetMenu = "COM660";
+                string keySetMenu = "DES793";
                 int resultExpected = 1;
                 int result = test.DeleteMenu(keySetMenu);
                 Assert.AreEqual(resultExpected, result);
-            
         }
 
         [TestMethod]
