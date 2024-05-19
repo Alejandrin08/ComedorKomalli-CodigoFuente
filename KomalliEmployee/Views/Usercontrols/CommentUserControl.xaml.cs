@@ -1,6 +1,7 @@
 ﻿using KomalliEmployee.Controller;
 using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
+using KomalliEmployee.Views.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace KomalliEmployee.Views.Usercontrols
 {
@@ -70,8 +72,11 @@ namespace KomalliEmployee.Views.Usercontrols
 
 
         public void ClickEdit(object sender, RoutedEventArgs e) {
-
-
+            int idCommentary = IdComment(Logbook);
+            string section = Logbook.Section;
+            string commentary = Logbook.Commentary;
+            NavigationService navigationService = NavigationService.GetNavigationService(this);
+            navigationService.Navigate(new EditLogbook(idCommentary, section, commentary));
         }
 
         public void ClickDelete(object sender, RoutedEventArgs e) {

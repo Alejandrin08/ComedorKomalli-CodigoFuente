@@ -121,5 +121,23 @@ namespace KomalliEmployee.Controller {
             }
             return result;
         }
+
+        public int UpdateComment(LogbookModel logbook, int idComment) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var comment = context.Logbook.Where(comment => comment.IDCommentary == idComment).FirstOrDefault();
+                    if (comment != null) {
+                        comment.Section = logbook.Section;
+                        comment.Commentary = logbook.Commentary;
+                    }
+                    result = context.SaveChanges();
+                }
+            }
+            catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en actualizar el comentario", ex);
+            }
+            return result;
+        }
     }
 }

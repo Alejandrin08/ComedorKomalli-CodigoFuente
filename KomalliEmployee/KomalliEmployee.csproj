@@ -155,6 +155,9 @@
     <Compile Include="Views\Pages\DailyTransactionsReport.xaml.cs">
       <DependentUpon>DailyTransactionsReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\EditLogbook.xaml.cs">
+      <DependentUpon>EditLogbook.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\InventoryReport.xaml.cs">
       <DependentUpon>InventoryReport.xaml</DependentUpon>
     </Compile>
@@ -243,6 +246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\ConsultUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\EditLogbook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
