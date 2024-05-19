@@ -4,6 +4,7 @@ using KomalliEmployee.Model.Utilities;
 using KomalliEmployee.Views.Pages;
 using KomalliServer;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.Entity.Core.EntityClient;
@@ -15,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
+using System.Xml.Linq;
 
 namespace KomalliEmployee.Controller {
     public class LogbookController : ILogbook {
@@ -35,8 +37,9 @@ namespace KomalliEmployee.Controller {
                 using (var transaction = context.Database.BeginTransaction()) {
                     var comment = new KomalliServer.Logbook() {
                         Date = logbookModel.Date,
+                        Section = logbookModel.Section,
                         Commentary = logbookModel.Commentary,
-                        NoPersonalEmployee = logbookModel.NoPersonalEmployee
+                        NoPersonalEmployee = logbookModel.NoPersonalEmployee,
                     };
 
                     context.Logbook.Add(comment);
@@ -69,8 +72,10 @@ namespace KomalliEmployee.Controller {
                         .Where(comment => comment.NoPersonalEmployee == noPersonal).ToList();
                     
                     foreach (var comment in query) {
-                        comments.Add(new LogbookModel {    
+                        comments.Add(new LogbookModel {  
+                            Date = comment.Date,
                             Commentary = comment.Commentary,
+                            Section = comment.Section
                         });
                     }
                 }
@@ -79,6 +84,42 @@ namespace KomalliEmployee.Controller {
                 comments = null;
             }
             return comments;
+        }
+
+        public int GetCommentId (DateTime date, string comment) {
+            int query = 0;
+            try {
+                using(var context = new KomalliEntities()) {
+                    query = context.Logbook
+                        .Where(logbook => logbook.Date == date && logbook.Commentary == comment)
+                        .Select(logbook => (int)logbook.IDCommentary)
+                        .FirstOrDefault();
+
+                    
+                }
+            }catch(EntityException ex) {
+                LoggerManager.Instance.LogFatal("Error al obtener el id del comentario", ex);
+                
+            }
+            return query;
+        }
+
+        public int DeleteCommentary(int idComment) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var comment = context.Logbook.FirstOrDefault(comment => comment.IDCommentary == idComment);
+                    context.Logbook.Remove(comment);
+                    result = context.SaveChanges();
+                }
+            } catch (DbUpdateException ex) {
+                result = -1;
+                LoggerManager.Instance.LogError("Error el comentario", ex);
+            } catch (EntityException ex) {
+                result = -1;
+                LoggerManager.Instance.LogError("Error el comentario", ex);
+            }
+            return result;
         }
     }
 }
