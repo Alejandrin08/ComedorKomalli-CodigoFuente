@@ -11,7 +11,8 @@
         <Grid Height="450"
               Width="800"
               Background="#F9F9EA">
-            <Grid Margin="0,0,0,393">
+            <Grid Margin="0,0,0,393" 
+                  Background="#f0fbe8">
                 <Label Content="Bitacora"
                        FontFamily="Sitka Small Semibold"
                        FontSize="25" Height="36" Margin="10,13,620,13"/>

@@ -126,6 +126,7 @@
     <Compile Include="Model\IngredientModel.cs" />
     <Compile Include="Model\LogbookModel.cs" />
     <Compile Include="Model\MenuModel.cs" />
+    <Compile Include="Model\OrderUser.cs" />
     <Compile Include="Model\Utilities\LoggerManager.cs" />
     <Compile Include="Model\Utilities\SingletonClass.cs" />
     <Compile Include="Model\Utilities\TypeQuantity.cs" />
@@ -182,6 +183,9 @@
     <Compile Include="Views\Pages\LogbookReport.xaml.cs">
       <DependentUpon>LogbookReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\Order.xaml.cs">
+      <DependentUpon>Order.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\RegisterCashCut.xaml.cs">
       <DependentUpon>RegisterCashCut.xaml</DependentUpon>
     </Compile>
@@ -205,6 +209,9 @@
     </Compile>
     <Compile Include="Views\Usercontrols\MenuUserControl.xaml.cs">
       <DependentUpon>MenuUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\OrdersUserControl.xaml.cs">
+      <DependentUpon>OrdersUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
@@ -284,6 +291,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\Order.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\RegisterCashCut.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -317,6 +328,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Usercontrols\MenuUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\OrdersUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

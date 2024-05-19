@@ -1,0 +1,63 @@
+﻿<Page x:Class="KomalliEmployee.Views.Pages.Order"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KomalliEmployee.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Order">
+
+    <Viewbox Stretch="Fill">
+        <Grid Height="450"
+          Width="800"
+          Background="#F9F9EA">
+            <Grid Margin="0,0,0,393" 
+              Background="#f0fbe8">
+                <Border Margin="82,2,53,-2"
+                        CornerRadius="10"
+                        Background="#97bdb0">
+                    <Label Content="Pedidos"
+                            FontFamily="Arial Black"
+                           Foreground="White"
+                            FontSize="25" Height="36" Margin="260,10,279,11" />
+                </Border>
+            </Grid>
+            <Grid Margin="0,80,0,337">
+                <Button x:Name="btnAll" 
+                        Content="Todos"
+                        Background="#5c8cc8"
+                        Margin="10,0,598,0" 
+                        FontFamily="Constantia" 
+                        FontSize="14" 
+                        Click="ClickAllOrders"/>
+                <Button x:Name="btnPending" 
+                        Content="Pendientes"
+                        Background="#c4c4bc"
+                        Margin="207,0,401,0" 
+                        FontFamily="Constantia" 
+                        FontSize="14" 
+                        Click="ClickPendingOrders"/>
+                <Button x:Name="btnMake" 
+                        Content="Hechos"
+                        Background="#73ac63"
+                        Margin="404,0,208,0" 
+                        FontFamily="Constantia" 
+                        FontSize="14"
+                        Click="ClickPlacedOrders"/>
+                <Button x:Name="btnDelivered" 
+                        Content="Entregados"
+                        Background="#457c7f"
+                        Margin="597,0,12,0" 
+                        FontFamily="Constantia" 
+                        FontSize="14"
+                        Click="ClickDelivereddOrders"/>
+            </Grid>
+            <Grid Margin="0,113,0,0">
+                <ListView x:Name="lstOrders" 
+                      Background="#F9F9EA" Margin="10,10,10,10"/>
+
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Page>
