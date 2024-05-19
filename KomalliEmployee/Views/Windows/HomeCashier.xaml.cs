@@ -1,4 +1,6 @@
 ﻿using KomalliEmployee.Model.Utilities;
+using KomalliEmployee.Views.Pages;
+using Microsoft.Reporting.Map.WebForms.BingMaps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +60,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickComments(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/BlogCommentsxaml.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickClose(object sender, RoutedEventArgs e) {

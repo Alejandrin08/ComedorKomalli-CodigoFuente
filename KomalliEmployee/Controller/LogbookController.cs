@@ -139,5 +139,32 @@ namespace KomalliEmployee.Controller {
             }
             return result;
         }
+
+        public List<LogbookModel> GetAllComments() {
+            List<LogbookModel> logbook = new List<LogbookModel>();
+            logbook = null;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var query = context.Logbook.Select(comment => new {
+                        comment.Section,
+                        comment.Commentary,
+                        comment.Date,
+                        comment.NoPersonalEmployee
+                    }).ToList()
+                    .Select(comment => new LogbookModel {
+                        Section = comment.Section,
+                        Commentary = comment.Commentary,
+                        Date = comment.Date,
+                        NoPersonalEmployee = comment.NoPersonalEmployee
+                    }).ToList();
+
+                    logbook = query;
+                }
+            }catch(EntityException ex) {
+                logbook = null;
+                LoggerManager.Instance.LogError("Error al consultar un comentario", ex);
+            }
+            return logbook;
+        }
     }
 }

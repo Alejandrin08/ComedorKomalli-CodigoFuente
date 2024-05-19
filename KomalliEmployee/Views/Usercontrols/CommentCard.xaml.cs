@@ -31,6 +31,7 @@ namespace KomalliEmployee.Views.Usercontrols {
             lblUserName.Content = employeeName;
             lblUserName.Content = logbook.NoPersonalEmployee;
             lblDate.Content = logbook.Date;
+            lblSection.Content = logbook.Section;
         }
     }
 }

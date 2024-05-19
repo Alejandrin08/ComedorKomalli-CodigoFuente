@@ -143,6 +143,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataReports.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\BlogCommentsxaml.xaml.cs">
+      <DependentUpon>BlogCommentsxaml.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\ConsultMenu.xaml.cs">
       <DependentUpon>ConsultMenu.xaml</DependentUpon>
     </Compile>
@@ -230,6 +233,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\BlogCommentsxaml.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
