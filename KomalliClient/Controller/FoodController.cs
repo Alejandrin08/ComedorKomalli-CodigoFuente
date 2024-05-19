@@ -38,5 +38,48 @@ namespace KomalliClient.Controller {
             }
             return foods;
         }
+
+        public int RegistryOrderMenu(FoodModel foodModel, string idOrder) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+
+                    var order = new FoodOrder_SetMenu {
+                        IDFoodOrderFoodOrder = idOrder,
+                        KeySetMenuSetMenu = foodModel.KeyCard,
+                        Quantity = foodModel.Quantity,
+                        SellingPrice = foodModel.Subtotal,
+                        UnitPrice = foodModel.Price
+                    };
+                    context.FoodOrder_SetMenu.Add(order);
+                    result = context.SaveChanges();
+                }
+            }
+            catch (EntityException ex){
+                LoggerManager.Instance.LogError("Error en Registrar pedido de menu", ex);
+            }
+            return result;
+        }
+
+        public int RegistryOrderMenuCard(FoodModel foodModel, string idOrder) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+
+                    var order = new FoodOrder_MenuCard {
+                        IDFoodOrderFoodOrder = idOrder,
+                        KeyCardMenuCard = foodModel.KeyCard,
+                        Quantity = foodModel.Quantity,
+                        SellingPrice = foodModel.Subtotal
+                    };
+                    context.FoodOrder_MenuCard.Add(order);
+                    result = context.SaveChanges();
+                }
+            }
+            catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en Registrar pedido de menu carta", ex);
+            }
+            return result;
+        }
     }
 }

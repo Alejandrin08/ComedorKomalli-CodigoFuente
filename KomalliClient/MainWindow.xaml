@@ -25,7 +25,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    
+
     <Border 
      CornerRadius="8" 
      Background="{DynamicResource PrimaryBackgroundColor}">
@@ -66,8 +66,8 @@
                                 FontSize="25"
                                 TextWrapping="WrapWithOverflow"
                                 TextAlignment="Center"/>
-                            <Grid Margin="0,25"
-                                  Grid.Row="3">
+                            <Grid x:Name="grdLabel" Margin="0,25"
+                                  Grid.Row="3" Visibility="Visible">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -228,4 +228,5 @@
             </Grid>
         </Grid>
     </Border>
-</Window>
+</Window> 
+

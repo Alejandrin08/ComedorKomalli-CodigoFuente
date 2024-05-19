@@ -278,15 +278,12 @@ namespace KomalliEmployee.Controller {
             return result;
         }
 
-        public List<OrderUser> GetOrdersSetMenu()
-        {
+        public List<OrderUser> GetOrdersSetMenu() {
             List<OrderUser> orders = new List<OrderUser>();
-            using (var context = new KomalliEntities())
-            {
+            using (var context = new KomalliEntities()) {
                 var query = from food in context.FoodOrder
                             where food.Status == "Pendiente"
-                            select new OrderUser
-                            {
+                            select new OrderUser {
                                 OrderID = food.IDFoodOrder,
                                 Quantity = food.NumberDishes,
                                 Status = food.Status,
@@ -308,15 +305,12 @@ namespace KomalliEmployee.Controller {
             return orders;
         }
 
-        public List<OrderUser> GetOrdersMenuCard()
-        {
+        public List<OrderUser> GetOrdersMenuCard() {
             List<OrderUser> orders = new List<OrderUser>();
-            using (var context = new KomalliEntities())
-            {
+            using (var context = new KomalliEntities()) {
                 var query = from food in context.FoodOrder
                             where food.Status == "Pendiente"
-                            select new OrderUser
-                            {
+                            select new OrderUser {
                                 OrderID = food.IDFoodOrder,
                                 Quantity = food.NumberDishes,
                                 Status = food.Status,
@@ -341,15 +335,12 @@ namespace KomalliEmployee.Controller {
             return orders;
         }
 
-        public List<OrderUser> GetStatusOrder(string status)
-        {
+        public List<OrderUser> GetStatusOrder(string status) {
             List<OrderUser> orders = new List<OrderUser>();
-            using (var context = new KomalliEntities())
-            {
+            using (var context = new KomalliEntities()) {
                 var menuCardOrders = from food in context.FoodOrder
                                      where food.Status == status
-                                     select new OrderUser
-                                     {
+                                     select new OrderUser {
                                          OrderID = food.IDFoodOrder,
                                          Quantity = food.NumberDishes,
                                          Status = food.Status,
@@ -366,8 +357,7 @@ namespace KomalliEmployee.Controller {
 
                 var setMenuOrders = from food in context.FoodOrder
                                     where food.Status == status
-                                    select new OrderUser
-                                    {
+                                    select new OrderUser {
                                         OrderID = food.IDFoodOrder,
                                         Quantity = food.NumberDishes,
                                         Status = food.Status,
@@ -387,15 +377,12 @@ namespace KomalliEmployee.Controller {
             return orders;
         }
 
-        public List<OrderUser> GetOrdersByStatuses(List<string> statuses)
-        {
+        public List<OrderUser> GetOrdersByStatuses(List<string> statuses) {
             List<OrderUser> orders = new List<OrderUser>();
-            using (var context = new KomalliEntities())
-            {
+            using (var context = new KomalliEntities()) {
                 var menuCardOrders = from food in context.FoodOrder
                                      where statuses.Contains(food.Status)
-                                     select new OrderUser
-                                     {
+                                     select new OrderUser {
                                          OrderID = food.IDFoodOrder,
                                          Quantity = food.NumberDishes,
                                          Status = food.Status,
@@ -412,8 +399,7 @@ namespace KomalliEmployee.Controller {
 
                 var setMenuOrders = from food in context.FoodOrder
                                     where statuses.Contains(food.Status)
-                                    select new OrderUser
-                                    {
+                                    select new OrderUser {
                                         OrderID = food.IDFoodOrder,
                                         Quantity = food.NumberDishes,
                                         Status = food.Status,
@@ -433,15 +419,11 @@ namespace KomalliEmployee.Controller {
             return orders;
         }
 
-        public bool UpdateOrderStatus(string orderId, string newStatus)
-        {
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
+        public bool UpdateOrderStatus(string orderId, string newStatus) {
+            try {
+                using (var context = new KomalliEntities()) {
                     var order = context.FoodOrder.SingleOrDefault(o => o.IDFoodOrder == orderId);
-                    if (order != null)
-                    {
+                    if (order != null) {
                         order.Status = newStatus;
                         context.SaveChanges();
                         return true;
@@ -449,8 +431,7 @@ namespace KomalliEmployee.Controller {
                     return false;
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 LoggerManager.Instance.LogError("Error al actualizar el estado de la orden", ex);
                 return false;
             }

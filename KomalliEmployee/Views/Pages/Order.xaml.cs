@@ -16,21 +16,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KomalliEmployee.Views.Pages
-{
+namespace KomalliEmployee.Views.Pages {
     /// <summary>
     /// Interaction logic for Order.xaml
     /// </summary>
-    public partial class Order : Page
-    {
-        public Order()
-        {
+    public partial class Order : Page {
+        public Order() {
             InitializeComponent();
             ShowAllOrders();
         }
 
-        private void AddOrders(OrderUser order)
-        {
+        private void AddOrders(OrderUser order) {
             OrdersUserControl orderUser = new OrdersUserControl();
             orderUser.SetData(order);
             lstOrders.Items.Add(orderUser);
@@ -39,45 +35,37 @@ namespace KomalliEmployee.Views.Pages
 
 
 
-        private void ShowOrders(List<OrderUser> orders)
-        {
+        private void ShowOrders(List<OrderUser> orders) {
             lstOrders.Items.Clear();
-            if (orders.Any())
-            {
-                foreach (OrderUser order in orders)
-                {
+            if (orders.Any()) {
+                foreach (OrderUser order in orders) {
                     AddOrders(order);
                 }
             }
         }
 
-        private void ShowAllOrders()
-        {
+        private void ShowAllOrders() {
             FoodOrderController foodOrderController = new FoodOrderController();
             var statuses = new List<string> { "Pendiente", "Hecho", "Entregado" };
             ShowOrders(foodOrderController.GetOrdersByStatuses(statuses));
         }
 
 
-        private void ClickAllOrders(object sender, RoutedEventArgs e)
-        {
+        private void ClickAllOrders(object sender, RoutedEventArgs e) {
             ShowAllOrders();
         }
 
-        private void ClickPendingOrders(object sender, RoutedEventArgs e)
-        {
+        private void ClickPendingOrders(object sender, RoutedEventArgs e) {
             FoodOrderController foodOrderController = new FoodOrderController();
             ShowOrders(foodOrderController.GetStatusOrder("Pendiente"));
         }
 
-        private void ClickPlacedOrders(object sender, RoutedEventArgs e)
-        {
+        private void ClickPlacedOrders(object sender, RoutedEventArgs e) {
             FoodOrderController foodOrderController = new FoodOrderController();
             ShowOrders(foodOrderController.GetStatusOrder("Hecho"));
         }
 
-        private void ClickDelivereddOrders(object sender, RoutedEventArgs e)
-        {
+        private void ClickDelivereddOrders(object sender, RoutedEventArgs e) {
             FoodOrderController foodOrderController = new FoodOrderController();
             ShowOrders(foodOrderController.GetStatusOrder("Entregado"));
         }
