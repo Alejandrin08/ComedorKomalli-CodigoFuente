@@ -497,6 +497,9 @@
   <ItemGroup>
     <Resource Include="Resources\Images\EditIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\LogoutIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -27,7 +27,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickSubMenuCash(object sender, RoutedEventArgs e) {
-            if(stpSubMenuCash.Visibility == Visibility.Collapsed) {
+            if (stpSubMenuCash.Visibility == Visibility.Collapsed) {
                 stpSubMenuCash.Visibility = Visibility.Visible;
             } else {
                 stpSubMenuCash.Visibility = Visibility.Collapsed;
@@ -68,16 +68,25 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickRestore(object sender, RoutedEventArgs e) {
-            if(WindowState == WindowState.Normal) {
+            if (WindowState == WindowState.Normal) {
                 WindowState = WindowState.Maximized;
             } else {
                 WindowState = WindowState.Normal;
             }
-                
+
         }
 
         private void ClickMinimize(object sender, RoutedEventArgs e) {
             WindowState = WindowState.Minimized;
+        }
+
+        private void MouseDownLogout(object sender, MouseButtonEventArgs e) {
+            MessageBoxResult result = App.ShowMessageBoxButton("¿Está seguro de cerrar la sesión", "Confirmación");
+            if (result == MessageBoxResult.Yes) {
+                Login login = new Login();
+                login.Show();
+                Close();
+            }
         }
     }
 }

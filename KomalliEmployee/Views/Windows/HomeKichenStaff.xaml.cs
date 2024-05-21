@@ -84,5 +84,14 @@ namespace KomalliEmployee.Views.Windows {
         private void ClickComments(object sender, RoutedEventArgs e) {
             fraPages.Navigate(new System.Uri("/Views/Pages/BlogCommentsxaml.xaml", UriKind.RelativeOrAbsolute));
         }
+
+        private void MouseDownLogout(object sender, MouseButtonEventArgs e) {
+            MessageBoxResult result = App.ShowMessageBoxButton("¿Está seguro de cerrar la sesión", "Confirmación");
+            if (result == MessageBoxResult.Yes) {
+                Login login = new Login();
+                login.Show();
+                Close();
+            }
+        }
     }
 }
