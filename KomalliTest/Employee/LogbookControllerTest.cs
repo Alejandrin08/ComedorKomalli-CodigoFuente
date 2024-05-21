@@ -16,7 +16,6 @@ namespace KomalliTest.Employee {
                 KomalliEmployee.Controller.LogbookController test = new KomalliEmployee.Controller.LogbookController();
 
                 LogbookModel logbook = new LogbookModel() {
-                    IdCommentary = "8",
                     Date = DateTime.Now,
                     Commentary = "Se reportan 5 comidas sobrantes",
                     NoPersonalEmployee = "777",

@@ -8,6 +8,18 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Order">
 
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                   Source="/Resources/Styles/Styles.xaml"/>
+                <ResourceDictionary 
+                   Source="/Resources/Styles/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Viewbox Stretch="Fill">
         <Grid Height="450"
           Width="800"
@@ -55,7 +67,8 @@
             </Grid>
             <Grid Margin="0,113,0,0">
                 <ListView x:Name="lstOrders" 
-                      Background="#F9F9EA" Margin="10,10,10,10"/>
+                      Background="#F9F9EA" Margin="10,10,10,10"
+                           ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"/>
 
             </Grid>
         </Grid>

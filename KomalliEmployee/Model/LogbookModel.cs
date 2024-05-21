@@ -11,6 +11,5 @@ namespace KomalliEmployee.Model {
         public string Section { get; set; }
         public string Commentary { get; set; }
         public string NoPersonalEmployee { get; set; }
-        public string Section { get; set; }
     }
 }

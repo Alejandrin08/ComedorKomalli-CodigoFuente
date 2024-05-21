@@ -81,6 +81,10 @@
       <Project>{813c57c7-d83b-41b7-8ec0-9a37999cc4db}</Project>
       <Name>KomalliClient</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KomalliEmployee\KomalliEmployee.csproj">
+      <Project>{36e989de-cc14-4968-9a69-8165334d6b70}</Project>
+      <Name>KomalliEmployee</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KomalliServer\KomalliServer.csproj">
       <Project>{18e7aeb5-9637-4e65-801c-f8727faa8bd3}</Project>
       <Name>KomalliServer</Name>
