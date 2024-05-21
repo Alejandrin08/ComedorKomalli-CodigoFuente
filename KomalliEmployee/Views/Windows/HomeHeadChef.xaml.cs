@@ -59,5 +59,14 @@ namespace KomalliEmployee.Views.Windows {
         private void ClickMinimize(object sender, RoutedEventArgs e) {
             WindowState = WindowState.Minimized;
         }
+
+        private void MouseDownLogout(object sender, MouseButtonEventArgs e) {
+            MessageBoxResult result = App.ShowMessageBoxButton("¿Está seguro de cerrar la sesión", "Confirmación");
+            if (result == MessageBoxResult.Yes) {
+                Login login = new Login();
+                login.Show();
+                Close();
+            }
+        }
     }
 }
