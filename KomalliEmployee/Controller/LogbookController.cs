@@ -4,6 +4,7 @@ using KomalliEmployee.Model.Utilities;
 using KomalliEmployee.Views.Pages;
 using KomalliServer;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.Entity.Core.EntityClient;
@@ -15,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
+using System.Xml.Linq;
 
 namespace KomalliEmployee.Controller {
     public class LogbookController : ILogbook {
@@ -70,8 +72,10 @@ namespace KomalliEmployee.Controller {
                         .Where(comment => comment.NoPersonalEmployee == noPersonal).ToList();
                     
                     foreach (var comment in query) {
-                        comments.Add(new LogbookModel {    
+                        comments.Add(new LogbookModel {  
+                            Date = comment.Date,
                             Commentary = comment.Commentary,
+                            Section = comment.Section
                         });
                     }
                 }
@@ -80,6 +84,87 @@ namespace KomalliEmployee.Controller {
                 comments = null;
             }
             return comments;
+        }
+
+        public int GetCommentId (DateTime date, string comment) {
+            int query = 0;
+            try {
+                using(var context = new KomalliEntities()) {
+                    query = context.Logbook
+                        .Where(logbook => logbook.Date == date && logbook.Commentary == comment)
+                        .Select(logbook => (int)logbook.IDCommentary)
+                        .FirstOrDefault();
+
+                    
+                }
+            }catch(EntityException ex) {
+                LoggerManager.Instance.LogFatal("Error al obtener el id del comentario", ex);
+                
+            }
+            return query;
+        }
+
+        public int DeleteCommentary(int idComment) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var comment = context.Logbook.FirstOrDefault(comment => comment.IDCommentary == idComment);
+                    context.Logbook.Remove(comment);
+                    result = context.SaveChanges();
+                }
+            } catch (DbUpdateException ex) {
+                result = -1;
+                LoggerManager.Instance.LogError("Error el comentario", ex);
+            } catch (EntityException ex) {
+                result = -1;
+                LoggerManager.Instance.LogError("Error el comentario", ex);
+            }
+            return result;
+        }
+
+        public int UpdateComment(LogbookModel logbook, int idComment) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var comment = context.Logbook.Where(comment => comment.IDCommentary == idComment).FirstOrDefault();
+                    if (comment != null) {
+                        comment.Section = logbook.Section;
+                        comment.Commentary = logbook.Commentary;
+                    }
+                    result = context.SaveChanges();
+                }
+            }
+            catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en actualizar el comentario", ex);
+            }
+            return result;
+        }
+
+        public List<LogbookModel> GetAllComments() {
+            List<LogbookModel> logbook = new List<LogbookModel>();
+            logbook = null;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var query = context.Logbook.Select(comment => new {
+                        comment.Section,
+                        comment.Commentary,
+                        comment.Date,
+                        comment.NoPersonalEmployee
+                    }).ToList()
+                    .Select(comment => new LogbookModel {
+                        Section = comment.Section,
+                        Commentary = comment.Commentary,
+                        Date = comment.Date,
+                        NoPersonalEmployee = comment.NoPersonalEmployee
+                    }).ToList();
+
+                    logbook = query;
+                }
+            }catch(EntityException ex) {
+                logbook = null;
+                LoggerManager.Instance.LogError("Error al consultar un comentario", ex);
+            }
+            return logbook;
         }
     }
 }

@@ -97,17 +97,22 @@ namespace KomalliClient {
                     btnCancel.IsEnabled = false;
                     btnContinue.IsEnabled = false;
                     FoodUserControl.SelectedStates.Clear();
+
+
+                        Views.Pages.HomeMenu homeMenu = new Views.Pages.HomeMenu();
+                        fraPages.Content = homeMenu;
+                    
                 }
+                
             }
         }
 
+
+
         private void ClickContinueWithPaymet(object sender, RoutedEventArgs e) {
-            //Aqui se agregará la continuación al caso de uso 9. Generar pedido.
-            //Para obtener la información del pedido debe ser algo como lo siguiente
-            foreach (FoodModel food in SingletonClass.Instance.SelectedFoods) {
-                Console.WriteLine($"Nombre del pedido: {food.Name}, Precio: {food.Price}, Cantidad: {food.Quantity}, Seccion: {food.Section}");
-                Console.WriteLine($"Subtotal: {food.Subtotal}");
-            }
+            Views.Pages.GenerateOrder generateOrder = new Views.Pages.GenerateOrder();
+            fraPages.Content = generateOrder;
+            grdLabel.Visibility = Visibility.Collapsed;
         }
     }
 }

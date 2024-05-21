@@ -76,7 +76,7 @@ namespace KomalliClient.Views.Pages {
                     Name = "Menú Desayuno",
                     Price = SingletonClass.Instance.Price,
                     IsSelected = true,
-                    Section = "Meú a la carta",
+                    Section = "Menú a la carta",
                     Quantity = 1,
                     Subtotal = SingletonClass.Instance.Price
                 };
@@ -100,7 +100,7 @@ namespace KomalliClient.Views.Pages {
                     Name = "Menú Comida",
                     Price = SingletonClass.Instance.Price,
                     IsSelected = true,
-                    Section = "Meú a la carta",
+                    Section = "Menú a la carta",
                     Quantity = 1,
                     Subtotal = SingletonClass.Instance.Price
                 };

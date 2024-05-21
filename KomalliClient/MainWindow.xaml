@@ -62,6 +62,21 @@
                                        TextAlignment="Center"/>
                             <Grid Margin="0,25"
                                   Grid.Row="3">
+                            <TextBlock 
+                                Grid.Row="1"
+                             Text="Komalli"
+                             FontSize="60"
+                             FontWeight="Bold"
+                             HorizontalAlignment="Center"/>
+                            <TextBlock 
+                                Grid.Row="2"
+                                Text="Bienvenido al Comedor Universitario"
+                                HorizontalAlignment="Center"
+                                FontSize="25"
+                                TextWrapping="WrapWithOverflow"
+                                TextAlignment="Center"/>
+                            <Grid x:Name="grdLabel" Margin="0,25"
+                                  Grid.Row="3" Visibility="Visible">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -208,4 +223,5 @@
             </Grid>
         </Grid>
     </Border>
-</Window>
+</Window> 
+
