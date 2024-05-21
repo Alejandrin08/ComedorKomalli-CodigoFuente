@@ -110,6 +110,10 @@ namespace KomalliClient {
 
 
         private void ClickContinueWithPaymet(object sender, RoutedEventArgs e) {
+            foreach (FoodModel food in SingletonClass.Instance.SelectedFoods) {
+                Console.WriteLine($"Nombre del pedido: {food.Name}, Precio: {food.Price}, Cantidad: {food.Quantity}, Seccion: {food.Section}, KeyCard:  {food.KeyCard}");
+                Console.WriteLine($"Subtotal: {food.Subtotal}");
+            }
             Views.Pages.GenerateOrder generateOrder = new Views.Pages.GenerateOrder();
             fraPages.Content = generateOrder;
             grdLabel.Visibility = Visibility.Collapsed;

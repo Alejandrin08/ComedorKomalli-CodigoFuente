@@ -46,7 +46,7 @@
             Foreground="#666666" Margin="10,0,618,0" />
 
                     <Label x:Name="lblType"
-            Content="Tipo" 
+            Content="Contenido" 
             FontSize="12"
             Foreground="#666666" Margin="326,0,292,0"/>
 
