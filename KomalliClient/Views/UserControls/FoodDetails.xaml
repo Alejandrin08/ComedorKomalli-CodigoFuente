@@ -13,7 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary 
-          Source="/Resources/Styles/Styles.xaml"/>
+                    Source="/Resources/Styles/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -57,7 +57,7 @@
                />
 
         <TextBlock Grid.Column="2"
-                   x:Name="txtbQuantityFood"
+                   x:Name="tbkQuantityFood"
                    FontSize="15"
                    Text="{Binding Quantity}"
                    Margin="6,0"
@@ -78,7 +78,7 @@
                MouseDown="MouseDownAddFood"/>
 
         <TextBlock Grid.Row="1"
-                   x:Name="txtbFoodPrice"
+                   x:Name="tbkFoodPrice"
                    Grid.Column="3"
                    FontSize="15"
                    Text="{Binding Price}"

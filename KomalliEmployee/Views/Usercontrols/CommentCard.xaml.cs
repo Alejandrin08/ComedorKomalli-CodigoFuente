@@ -26,11 +26,12 @@ namespace KomalliEmployee.Views.Usercontrols {
         }
 
         public void setDataCard(LogbookModel logbook) {
-            lblContentComent.Content = logbook.Commentary;
+            lblContentComment.Content = logbook.Commentary;
             string employeeName = SingletonClass.Instance.UserName;
             lblUserName.Content = employeeName;
             lblUserName.Content = logbook.NoPersonalEmployee;
-            lblDateComent.Content = logbook.Date;
+            lblDate.Content = logbook.Date;
+            lblSection.Content = logbook.Section;
         }
     }
 }

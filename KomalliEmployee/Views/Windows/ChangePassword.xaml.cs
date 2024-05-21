@@ -26,8 +26,8 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickUpdatePassword(object sender, RoutedEventArgs e) {
-            string newPassword = pssNewPassword.Password;
-            string confirmPassword = pssConfirmPassword.Password;
+            string newPassword = psbNewPassword.Password;
+            string confirmPassword = psbConfirmPassword.Password;
 
             if (newPassword.Equals(confirmPassword)) {
                 EmployeeController employeeController = new EmployeeController();
@@ -81,16 +81,16 @@ namespace KomalliEmployee.Views.Windows {
             ValidationResult validationResult = new PasswordValidationRule().Validate(passwordBox.Password, null);
 
             if (!validationResult.IsValid) {
-                pssUserIconConfirm.Visibility = Visibility.Visible;
-                pssUserPasswordConfirm.Visibility = Visibility.Visible;
+                tbkConfirmPassword.Visibility = Visibility.Visible;
+                tbkConfirmPasswordText.Visibility = Visibility.Visible;
                 btnChangePassword.IsEnabled = false;
-                pssUserPasswordConfirm.Text = "Contraseña invalida, debe de ser máximo 15 caracteres con\n" +
+                tbkConfirmPasswordText.Text = "Contraseña invalida, debe de ser máximo 15 caracteres con\n" +
                     " al menos una mayúscula, un número y un caracter especial";
             } else {
-                pssUserIconConfirm.Visibility = Visibility.Collapsed;
-                pssUserPasswordConfirm.Visibility = Visibility.Collapsed;
+                tbkConfirmPassword.Visibility = Visibility.Collapsed;
+                tbkConfirmPasswordText.Visibility = Visibility.Collapsed;
                 btnChangePassword.IsEnabled = true;
-                pssUserPasswordConfirm.Text = string.Empty;
+                tbkConfirmPasswordText.Text = string.Empty;
             }
         }
 
@@ -100,16 +100,16 @@ namespace KomalliEmployee.Views.Windows {
             ValidationResult validationResult = new PasswordValidationRule().Validate(passwordBox.Password, null);
 
             if (!validationResult.IsValid) {
-                pssUserIcon.Visibility = Visibility.Visible;
-                pssUserPassword.Visibility = Visibility.Visible;
+                tbkNewPassword.Visibility = Visibility.Visible;
+                tbkNewPasswordText.Visibility = Visibility.Visible;
                 btnChangePassword.IsEnabled = false;
-                pssUserPassword.Text = "Contraseña invalida, debe de ser máximo 15 caracteres con\n" +
+                tbkNewPasswordText.Text = "Contraseña invalida, debe de ser máximo 15 caracteres con\n" +
                     " al menos una mayúscula, un número y un caracter especial";
             } else {
-                pssUserIcon.Visibility = Visibility.Collapsed;
-                pssUserPassword.Visibility = Visibility.Collapsed;
+                tbkNewPassword.Visibility = Visibility.Collapsed;
+                tbkNewPasswordText.Visibility = Visibility.Collapsed;
                 btnChangePassword.IsEnabled = true;
-                pssUserPassword.Text = string.Empty;
+                tbkNewPasswordText.Text = string.Empty;
             }
         }
     }

@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
+using static System.Collections.Specialized.BitVector32;
 
 namespace KomalliEmployee.Views.Pages {
     /// <summary>
@@ -27,6 +28,7 @@ namespace KomalliEmployee.Views.Pages {
     public partial class LogbookReport : Page {
         public LogbookReport() {
             InitializeComponent();
+            cboSection.SelectionChanged += SelectedDateChangedGetDate;
         }
 
         private void SelectedDateChangedGetDate(object sender, SelectionChangedEventArgs e) {
@@ -38,11 +40,23 @@ namespace KomalliEmployee.Views.Pages {
                 LocalReport localReport = rpv.LocalReport;
 
                 byte[] bytes = localReport.Render("PDF");
+                string defaultName = "";
+                DateTime dateTime = DateTime.Now;
+                string dateTimeFormat = dateTime.ToString("yyyy-MM-dd");
 
-                SaveFileDialog saveFileDialog = new SaveFileDialog {
+                if (cboSection.SelectedItem == null) {
+                    defaultName = "ReporteBitacoraGeneral" + dateTimeFormat;
+                } else {
+                    ComboBoxItem selectedItem = (ComboBoxItem)cboSection.SelectedItem;
+                    string section = selectedItem.Content.ToString();
+                    defaultName = "ReporteBitacora" + section + dateTimeFormat;
+                }
+
+                    SaveFileDialog saveFileDialog = new SaveFileDialog {
                     Filter = "PDF files (.pdf)|.pdf",
                     FilterIndex = 2,
-                    RestoreDirectory = true
+                    RestoreDirectory = true,
+                    FileName = defaultName
                 };
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK) {
@@ -63,12 +77,17 @@ namespace KomalliEmployee.Views.Pages {
         }
         private void ShowReport() {
             try {
-                DateTime selectedDate = dpDate.SelectedDate.Value;
-                string date = selectedDate.Date.ToString("yyyy-MM-dd");
+                string date = dtpDate.SelectedDate.HasValue ? dtpDate.SelectedDate.Value.Date.ToString("yyyy-MM-dd") : null;
+                string section = null;
+                if (cboSection.SelectedItem != null) {
+                    ComboBoxItem selectedItem = (ComboBoxItem)cboSection.SelectedItem;
+                    section = selectedItem.Content.ToString();
+                }
+          
                 rpv.Reset();
                 DataReports dataReports = new DataReports();
                 LogbookEmployeeTableAdapter logbookEmployeeTableAdapter = new LogbookEmployeeTableAdapter();
-                logbookEmployeeTableAdapter.Fill(dataReports.LogbookEmployee, date);
+                logbookEmployeeTableAdapter.Fill(dataReports.LogbookEmployee, date, section);
                 BindReport(dataReports);
                 rpv.RefreshReport();
             } catch (SqlException ex) {

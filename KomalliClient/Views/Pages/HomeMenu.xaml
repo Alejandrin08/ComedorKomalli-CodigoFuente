@@ -49,10 +49,10 @@
 
 
                 <Rectangle Grid.Row="0"
-                       Fill="#74AC64" 
-                       Margin="25,10"
-                       RadiusX="8"
-                       RadiusY="8"
+                           Fill="#74AC64" 
+                           Margin="25,10"
+                           RadiusX="8"
+                           RadiusY="8"
                 />
 
                 <Grid>
@@ -149,7 +149,7 @@
                              Background="#74AC64" 
                              BorderThickness="0"
                              ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"
-                             >
+                    >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -429,7 +429,6 @@
                        Grid.Column="1"
                        Grid.Row="6"
                        Margin="35,15,20,20"/>
-
             </Grid>
         </Grid>
     </Viewbox>

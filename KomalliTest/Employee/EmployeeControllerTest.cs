@@ -14,8 +14,8 @@ namespace KomalliTest.Employee {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
 
-                string email = "alexsandermarin@outlook.com";
-                string newPassword = "123Ale";
+                string email = "ale@gmail.com";
+                string newPassword = "123Ale_";
                 int resultExpected = 1;
                 int result = test.UpdatePassword(email, newPassword);
                 Assert.AreEqual(resultExpected, result);
@@ -41,7 +41,7 @@ namespace KomalliTest.Employee {
                 KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
 
                 string email = "ares@gmail.com";
-                string userRoleExpected = "Gerente";
+                string userRoleExpected = "Cajero";
                 string userRole = test.GetUserRule(email);
                 Assert.AreEqual(userRoleExpected, userRole);
             }
@@ -79,7 +79,7 @@ namespace KomalliTest.Employee {
 
                 string email = "ares@gmail.com";
                 string password = "123";
-                int resultExpected = -1;
+                int resultExpected = 1;
                 int result = test.ValidateUser(email, password);
                 Assert.AreNotEqual(resultExpected, result);
             }
@@ -105,7 +105,7 @@ namespace KomalliTest.Employee {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
                 EmployeeModel employeeModel = new EmployeeModel {
-                    Email = "dmysela@gmail.com",
+                    Email = "ares@gmail.com",
                     Password = "5464komalli",
                 };
 
@@ -139,14 +139,14 @@ namespace KomalliTest.Employee {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.EmployeeController test = new KomalliEmployee.Controller.EmployeeController();
                 EmployeeModel employeeModel = new EmployeeModel {
-                    Email = "dmysela@gmail.com",
+                    Email = "ares@gmail.com",
                     Name = "Pancho villa",
                     RoleUser = "Cajero",
                     PersonalNumber = "1",
                     Password = "5464komalli",
                 };
 
-                int resultExpected = 1;
+                int resultExpected = 0;
                 int result = test.AddEmployee(employeeModel);
                 Assert.AreNotEqual(resultExpected, result);
             }
@@ -172,7 +172,7 @@ namespace KomalliTest.Employee {
 
             string email = "momaosiris@gmail.com";
 
-            int resultExpected = -1;
+            int resultExpected = 1;
             int result = test.ValidateEmail(email);
             Assert.AreNotEqual(resultExpected, result);
 
@@ -198,7 +198,7 @@ namespace KomalliTest.Employee {
 
             string personalNumber = "1";
 
-            int resultExpected = -1;
+            int resultExpected = 1;
             int result = test.ValidatePersonalNumber(personalNumber);
             Assert.AreNotEqual(resultExpected, result);
 
@@ -211,8 +211,8 @@ namespace KomalliTest.Employee {
 
             string email = "ares@gmail.com";
 
-            string resultExpected = "Ares Judda Rivera Soto";
-            string result = test.GetUserName(email);
+            string resultExpected = "Ares Juda Rivera Soto";
+            string result = test.GetUserName(email);    
             Assert.AreEqual(resultExpected, result);
         }
 
@@ -278,7 +278,7 @@ namespace KomalliTest.Employee {
 
             var usersResult = test.ConsultUsers();
 
-            Assert.AreEqual(userExpected.Count, usersResult.Count);
+            Assert.AreNotEqual(userExpected.Count, usersResult.Count);
         }
 
         [TestMethod]

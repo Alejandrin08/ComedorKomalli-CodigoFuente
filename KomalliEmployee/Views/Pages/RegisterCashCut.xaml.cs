@@ -28,16 +28,16 @@ namespace KomalliEmployee.Views.Pages {
             CashCutController cashCutController = new CashCutController();
             FoodOrderController foodOrderController = new FoodOrderController();
 
-            txtbCashCutDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            tbkCashCutDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
             int? initialBalance = cashCutController.GetLastInitialBalance();
             int totalEntries = foodOrderController.CalculateTotalDailyEntries();
             int totalDepartures = foodOrderController.CalculateTotalDailyChange();
             int balance = initialBalance.Value + totalEntries - totalDepartures;
 
-            txtbInitialBalance.Text = initialBalance.ToString();
-            txtbTotalEntries.Text = totalEntries.ToString();
-            txtbTotalDepartures.Text = totalDepartures.ToString();
+            tbkInitialBalance.Text = initialBalance.ToString();
+            tbkTotalEntries.Text = totalEntries.ToString();
+            tbkTotalDepartures.Text = totalDepartures.ToString();
             
             CashCutModel cashCutModel = new CashCutModel() {
                 InitialBalance = (int)initialBalance,
@@ -55,11 +55,11 @@ namespace KomalliEmployee.Views.Pages {
 
         private void ClicRegisterCashCut(object sender, RoutedEventArgs e) {
             CashCutController cashCutController = new CashCutController();
-            int minimumInitialBalance = int.Parse(txtbxInitialBalance.Text);
-            int balance = int.Parse(txtbBalance.Text);
+            int minimumInitialBalance = int.Parse(txtInitialBalance.Text);
+            int balance = int.Parse(tbkBalance.Text);
           
             if (minimumInitialBalance >= 400 && minimumInitialBalance < balance) {
-                if (cashCutController.RegisterCashCutNextDay(int.Parse(txtbxInitialBalance.Text)) > 0) {
+                if (cashCutController.RegisterCashCutNextDay(int.Parse(txtInitialBalance.Text)) > 0) {
                     App.ShowMessageInformation("Corte de caja registrado correctamente", "Corte de caja");
                 } else {
                     App.ShowMessageWarning("Error al registrar el corte de caja", "Corte de caja");
@@ -86,15 +86,15 @@ namespace KomalliEmployee.Views.Pages {
         }
 
         private void CalculateBalance() {
-            int initialBalance = int.Parse(txtbInitialBalance.Text);
-            int totalEntries = int.Parse(txtbTotalEntries.Text);
-            int totalDepartures = int.Parse(txtbTotalDepartures.Text);
+            int initialBalance = int.Parse(tbkInitialBalance.Text);
+            int totalEntries = int.Parse(tbkTotalEntries.Text);
+            int totalDepartures = int.Parse(tbkTotalDepartures.Text);
             int balance = initialBalance + totalEntries - totalDepartures;
-            txtbBalance.Text = balance.ToString();     
+            tbkBalance.Text = balance.ToString();     
         }
 
         private void TextChangedValidateInitialBalance(object sender, TextChangedEventArgs e) {
-            if (string.IsNullOrEmpty(txtbxInitialBalance.Text)) {
+            if (string.IsNullOrEmpty(txtInitialBalance.Text)) {
                 btnMakeCashCut.IsEnabled = false;
             } else {
                 btnMakeCashCut.IsEnabled = true;
