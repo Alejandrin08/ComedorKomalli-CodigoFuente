@@ -54,8 +54,7 @@ namespace KomalliClient.Controller {
                     context.FoodOrder_SetMenu.Add(order);
                     result = context.SaveChanges();
                 }
-            }
-            catch (EntityException ex){
+            } catch (EntityException ex) {
                 LoggerManager.Instance.LogError("Error en Registrar pedido de menu", ex);
             }
             return result;
