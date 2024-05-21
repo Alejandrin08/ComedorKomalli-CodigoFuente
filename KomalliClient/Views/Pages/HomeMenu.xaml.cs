@@ -73,6 +73,7 @@ namespace KomalliClient.Views.Pages {
                 }
 
                 FoodModel foodModel = new FoodModel() {
+                    KeyCard = "Des",
                     Name = "Menú Desayuno",
                     Price = SingletonClass.Instance.Price,
                     IsSelected = true,
@@ -97,6 +98,7 @@ namespace KomalliClient.Views.Pages {
                 }
 
                 FoodModel foodModel = new FoodModel() {
+                    KeyCard = "Com",
                     Name = "Menú Comida",
                     Price = SingletonClass.Instance.Price,
                     IsSelected = true,

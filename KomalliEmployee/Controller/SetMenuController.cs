@@ -16,19 +16,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace KomalliEmployee.Controller
-{
-    public class SetMenuController : ISetMenu
-    {
-        public int AddSetMenu(SetMenuModel setMenu)
-        {
+namespace KomalliEmployee.Controller {
+    public class SetMenuController : ISetMenu {
+        /**
+         * <summary>
+         * Agrega un nuevo menú a la base de datos.
+         * </summary>
+         * <param name="setMenu">El modelo de datos del menú a agregar.</param>
+         * <returns> 1 si se agrega correctamente, -1 si hay un error.</returns>
+         * <exception cref="DbUpdateException">Se lanza cuando hay un problema al actualizar la base de datos.</exception>
+         * <exception cref="EntityException">Se lanza cuando hay un error de acceso a la base de datos.</exception>
+         */
+        public int AddSetMenu(SetMenuModel setMenu) {
             int result = 0;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
-                    var newSetMenu = new SetMenu
-                    {
+            try {
+                using (var context = new KomalliEntities()) {
+                    var newSetMenu = new SetMenu {
                         KeySetMenu = setMenu.KeySetMenu,
                         Date = setMenu.DateMenu,
                         Starter = setMenu.Starter,
@@ -38,69 +41,61 @@ namespace KomalliEmployee.Controller
                         Drink = setMenu.Drink,
                         StudentPrice = setMenu.PriceStudent,
                         GeneralPrice = setMenu.Pricegeneral,
-                        TypeMenu = setMenu.Type.ToString() 
+                        TypeMenu = setMenu.Type.ToString()
                     };
                     context.SetMenu.Add(newSetMenu);
                     result = context.SaveChanges();
                 }
-            }
-            catch (DbUpdateException ex)
-            {
+            } catch (DbUpdateException ex) {
                 result = -1;
                 LoggerManager.Instance.LogError("Error al agregar un menú", ex);
-            }
-            catch (EntityException ex)
-            {
+            } catch (EntityException ex) {
                 result = -1;
                 LoggerManager.Instance.LogError("Error al agregar un menú", ex);
             }
             return result;
         }
 
-        public int DeleteMenu(string keySetmenu)
-        {
+        /**
+         * <summary>
+         * Elimina un menú de la base de datos.
+         * </summary>
+         * <param name="keySetmenu">La clave del menú a eliminar.</param>
+         * <returns> 1 si se elimina correctamente, -1 si hay un error.</returns>
+         * <exception cref="DbUpdateException">Se lanza cuando hay un problema al actualizar la base de datos.</exception>
+         * <exception cref="EntityException">Se lanza cuando hay un error de acceso a la base de datos.</exception>
+         */
+        public int DeleteMenu(string keySetmenu) {
             int result = 0;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
+            try {
+                using (var context = new KomalliEntities()) {
                     var existingMenu = context.SetMenu.FirstOrDefault(menu => menu.KeySetMenu == keySetmenu);
 
-                    if (existingMenu != null)
-                    {
+                    if (existingMenu != null) {
                         context.SetMenu.Remove(existingMenu);
                         result = context.SaveChanges();
                     }
                 }
-            }
-            catch (DbUpdateException ex)
-            {
+            } catch (DbUpdateException ex) {
                 result = -1;
                 LoggerManager.Instance.LogError("Error al eliminar un menú", ex);
-            }
-            catch (EntityException ex)
-            {
+            } catch (EntityException ex) {
                 result = -1;
                 LoggerManager.Instance.LogError("Error al eliminar un menú", ex);
             }
             return result;
         }
 
-        public SetMenuModel ExistingMenu(DateTime date, string typeMenu)
-        {
+        public SetMenuModel ExistingMenu(DateTime date, string typeMenu) {
             SetMenuModel setMenuModel = null;
 
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
+            try {
+                using (var context = new KomalliEntities()) {
                     var existingMenu = context.SetMenu.FirstOrDefault(menu =>
                         menu.Date == date && menu.TypeMenu == typeMenu);
-                    if (existingMenu != null)
-                    {
-                        
-                        setMenuModel = new SetMenuModel
-                        {
+                    if (existingMenu != null) {
+
+                        setMenuModel = new SetMenuModel {
                             DateMenu = existingMenu.Date,
                             MainFood = existingMenu.MainFood,
                             Starter = existingMenu.Starter,
@@ -114,49 +109,54 @@ namespace KomalliEmployee.Controller
                         };
                     }
                 }
-            }
-            catch (EntityException ex)
-            {
+            } catch (EntityException ex) {
                 LoggerManager.Instance.LogError("Error al verificar la existencia de un menú", ex);
             }
 
             return setMenuModel;
         }
 
-
-        public int ExistingTypeMenu(SetMenuModel setMenu)
-        {
+        /**
+         * <summary>
+         * Verifica si ya existe un menú del mismo tipo para la fecha proporcionada en la base de datos.
+         * </summary>
+         * <param name="setMenu">El modelo de datos del menú para verificar.</param>
+         * <returns>1 si existe un menú del mismo tipo para la fecha proporcionada, 0 si no existe, -1 si hay un error.</returns>
+         * <exception cref="EntityException">Se lanza cuando hay un error de acceso a la base de datos.</exception>
+         */
+        public int ExistingTypeMenu(SetMenuModel setMenu) {
             int result = 0;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
+            try {
+                using (var context = new KomalliEntities()) {
                     bool menuExists = context.SetMenu.Any(menu =>
                         menu.Date == setMenu.DateMenu &&
                         menu.TypeMenu == setMenu.Type.ToString());
 
                     result = menuExists ? 1 : 0;
                 }
-            }
-            catch (EntityException ex)
-            {
+            } catch (EntityException ex) {
                 result = -1;
                 LoggerManager.Instance.LogError("Error al verificar la existencia de un menú", ex);
             }
             return result;
         }
 
-        public int ModifyMenu(SetMenuModel setMenu)
-        {
+        /**
+         * <summary>
+         * Modifica un menú existente en la base de datos.
+         * </summary>
+         * <param name="setMenu">El modelo de datos del menú a modificar.</param>
+         * <returns>0 si se modifica correctamente, -1 si hay un error.</returns>
+         * <exception cref="DbUpdateException">Se lanza cuando hay un problema al actualizar la base de datos.</exception>
+         * <exception cref="EntityException">Se lanza cuando hay un error de acceso a la base de datos.</exception>
+         */
+        public int ModifyMenu(SetMenuModel setMenu) {
             int result = 0;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
+            try {
+                using (var context = new KomalliEntities()) {
                     var existingMenu = context.SetMenu.FirstOrDefault(menu => menu.KeySetMenu == setMenu.KeySetMenu);
 
-                    if (existingMenu != null)
-                    {
+                    if (existingMenu != null) {
                         existingMenu.Date = setMenu.DateMenu;
                         existingMenu.Starter = setMenu.Starter;
                         existingMenu.MainFood = setMenu.MainFood;
@@ -169,14 +169,10 @@ namespace KomalliEmployee.Controller
                         result = context.SaveChanges();
                     }
                 }
-            }
-            catch (DbUpdateException ex)
-            {
+            } catch (DbUpdateException ex) {
                 result = -1;
                 LoggerManager.Instance.LogError("Error al modificar un menú", ex);
-            }
-            catch (EntityException ex)
-            {
+            } catch (EntityException ex) {
                 result = -1;
                 LoggerManager.Instance.LogError("Error al modificar un menú", ex);
             }
