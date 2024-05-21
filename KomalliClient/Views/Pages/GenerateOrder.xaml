@@ -7,6 +7,18 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="680"
       Title="GenerateOrder">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                   Source="/Resources/Styles/Styles.xaml"/>
+                <ResourceDictionary 
+                   Source="/Resources/Styles/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Viewbox Stretch="Fill">
         <Grid x:Name="grdGenerateOrder"
        Height="600"
@@ -26,7 +38,8 @@
                 </Border>
                 <Grid Margin="10,88,10,-341" >
                     <ListView Background="#F9F9EA"
-                  x:Name="lstOrderData"/>
+                  x:Name="lstOrderData"
+                              ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"/>
                 </Grid>
 
                 <Grid Margin="10,415,10,-489">

@@ -40,6 +40,13 @@ namespace KomalliEmployee.Controller {
             return foods;
         }
 
+        /**
+         * <summary>
+         * Este método se encarga de obtener la clave de los menus que habra disponibles por dia.
+         * </summary>
+         * <returns>Regresa una lista de foodModel que contiene la clave de los menu, o nulos si no encuentra</returns>
+         */
+
         public List<FoodModel> GetKeyMenu() {
             List<FoodModel> foods = new List<FoodModel>();
             try {
@@ -52,10 +59,19 @@ namespace KomalliEmployee.Controller {
                 }
             } catch (EntityException ex) {
                 foods = null;
-                LoggerManager.Instance.LogError("Error al obtener los alimentos por sección: ", ex);
+                LoggerManager.Instance.LogError("Error al obtener los las claves de los menu del dia", ex);
             }
             return foods;
         }
+
+        /**
+         * <summary>
+         * Este método se encarga de registrar los detalles de un pedido que corresponden a los platillos que hay a la carta.
+         * </summary>
+         * <param name="idOrder">Identificador del pedido. </param>
+         * <param name="foodModel">Objeto de foodOrder que contiene los detalles a registrar del pedido</param>
+         * <returns>Regresa 1 si se registra correctamente, 0 si ocurre un error.</returns>
+         */
 
         public int RegistryOrderMenuCard(FoodModel foodModel, string idOrder) {
             int result = 0;
@@ -76,6 +92,15 @@ namespace KomalliEmployee.Controller {
             }
             return result;
         }
+
+        /**
+         * <summary>
+         * Este método se encarga de registrar los detalles de un pedido que corresponden a los menu del dia.
+         * </summary>
+         * <param name="idOrder">Identificador del pedido. </param>
+         * <param name="foodModel">Objeto de foodOrder que contiene los detalles a registrar del pedido</param>
+         * <returns>Regresa 1 si se registra correctamente, 0 si ocurre un error.</returns>
+         */
 
         public int RegistryOrderMenu(FoodModel foodModel, string idOrder) {
             int result = 0;

@@ -23,55 +23,81 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Reporte de bitácora" 
-               FontSize="45" 
-               VerticalAlignment="Center" 
-               Margin="75,20"/>
-
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal">
-
-            <TextBlock Text="Filtrar por:"
-                       FontSize="20"
-                       Margin="80,0,0,0"
-                       VerticalAlignment="Center"
-            />
-
-            <DatePicker x:Name="dpDate"
-                        Margin="20,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="20" 
-                        SelectedDateChanged="SelectedDateChangedGetDate"   
-            >
-                <DatePicker.Resources>
-                    <Style TargetType="DatePickerTextBox">
-                        <Setter Property="IsReadOnly" 
-                                Value="True"/>
-                    </Style>
-                </DatePicker.Resources>
-            </DatePicker>
-        </StackPanel>
+                   FontSize="45" 
+                   VerticalAlignment="Center" 
+                   Margin="75,20"/>
 
         <Button Content="Descargar"
-                    Grid.Row="1"
-                    Margin="40,0,40,0"
-                    HorizontalAlignment="Right"
-                    FontSize="20"
-                    Style="{StaticResource ButtonStyle}"
-                    Click="ClicDownloadReport"
-            />
+                Grid.Row="1"
+                Margin="40,0,40,15"
+                HorizontalAlignment="Right"
+                FontSize="20"
+                Style="{StaticResource ButtonStyle}"
+                Click="ClicDownloadReport"
+        />
 
-        <WindowsFormsHost Grid.Row="2"
-                      Margin="40,40,40,20"
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Filtrar por:"
+                           FontSize="20"
+                           Margin="80,0,0,0"
+                           VerticalAlignment="Center"
+                />
+
+                <DatePicker x:Name="dtpDate"
+                            Margin="20,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="20" 
+                            SelectedDateChanged="SelectedDateChangedGetDate"   
+                >
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" 
+                                    Value="True"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal">
+
+                <TextBlock Text="Filtrar por:"
+                           FontSize="20"
+                           Margin="65,0,0,0"
+                           VerticalAlignment="Center"
+                />
+                <ComboBox x:Name="cboSection"
+                          Margin="15,0"
+                          Width="160"
+                          FontSize="15"
+                          FontWeight="Bold"
+                          VerticalContentAlignment="Center"
+                >
+                    <ComboBoxItem Content="Incidencias"/>
+                    <ComboBoxItem Content="Merba"/>
+                    <ComboBoxItem Content="Otros"/>
+                    <ComboBoxItem Content="General"/>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+       
+        <WindowsFormsHost Grid.Row="3"
+                          Margin="40,40,40,20"
         >
             <wf:ReportViewer x:Name="rpv" 
-                         ShowToolBar="False"
-                         ZoomMode="Percent"
-                            
-                         
+                             ShowToolBar="False"
+                             ZoomMode="PageWidth"           
             />
         </WindowsFormsHost>
     </Grid>

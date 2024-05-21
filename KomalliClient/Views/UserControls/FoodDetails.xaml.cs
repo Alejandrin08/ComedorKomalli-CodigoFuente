@@ -30,8 +30,22 @@ namespace KomalliClient.Views.UserControls {
             Food = food;
             if (food != null) {
                 txtbFoodName.Text = food.Name;
-                txtbFoodPrice.Text = "$" + food.Subtotal.ToString();
-                txtbQuantityFood.Text = food.Quantity.ToString();
+                tbkFoodPrice.Text = "$" + food.Subtotal.ToString();
+                tbkQuantityFood.Text = food.Quantity.ToString();
+
+                if (food.Quantity > 1) {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri("/Resources/Images/Substract.png", UriKind.RelativeOrAbsolute);
+                    bitmap.EndInit();
+                    imgDeleteFood.Source = bitmap;
+                } else if (food.Quantity == 1) {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri("/Resources/Images/Trash.png", UriKind.RelativeOrAbsolute);
+                    bitmap.EndInit();
+                    imgDeleteFood.Source = bitmap;
+                }
             }
         }
 
@@ -41,7 +55,15 @@ namespace KomalliClient.Views.UserControls {
 
             if (selectedFood.Quantity > 1) {
                 selectedFood.Quantity--;
-                txtbQuantityFood.Text = selectedFood.Quantity.ToString();
+                tbkQuantityFood.Text = selectedFood.Quantity.ToString();
+
+                if (selectedFood.Quantity == 1) {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri("/Resources/Images/Trash.png", UriKind.RelativeOrAbsolute);
+                    bitmap.EndInit();
+                    imgDeleteFood.Source = bitmap;
+                }
             } else {
                 RemoveSelectedFood(selectedFood);
             }
@@ -53,8 +75,16 @@ namespace KomalliClient.Views.UserControls {
             var existingFood = SingletonClass.Instance.SelectedFoods.FirstOrDefault(food => food.Name == Food.Name);
             if (existingFood != null) {
                 existingFood.Quantity++;
-                txtbQuantityFood.Text = existingFood.Quantity.ToString();
+                tbkQuantityFood.Text = existingFood.Quantity.ToString();
                 UpdateFoodDetails(existingFood);
+
+                if (existingFood.Quantity > 1) {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri("/Resources/Images/Substract.png", UriKind.RelativeOrAbsolute);
+                    bitmap.EndInit();
+                    imgDeleteFood.Source = bitmap;
+                }
             }
         }
 
@@ -79,17 +109,21 @@ namespace KomalliClient.Views.UserControls {
 
         private void UpdateFoodDetails(FoodModel food) {
             food.Subtotal = food.Quantity * food.Price;
-            txtbFoodPrice.Text = "$" + food.Subtotal.ToString();
+            tbkFoodPrice.Text = "$" + food.Subtotal.ToString();
 
             MainWindow parentWindow = FindParent<MainWindow>(this);
             parentWindow?.UpdateTotalPrice();
         }
 
         private static T FindParent<T>(DependencyObject child) where T : DependencyObject {
+            T parent = null;
             while ((child = VisualTreeHelper.GetParent(child)) != null) {
-                if (child is T parent) return parent;
+                if (child is T typedParent) {
+                    parent = typedParent;
+                    break;
+                }
             }
-            return null;
+            return parent;
         }
     }
 }

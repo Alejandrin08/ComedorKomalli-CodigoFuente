@@ -30,6 +30,7 @@ namespace KomalliEmployee.Controller
          */
         public int AddIngredient(IngredientModel ingredientModel) {
             int result = 0;
+            DateTime replenishmentDate = DateTime.Now.Date;
             try { 
                 using (var context = new KomalliEntities()) {
                     var newIngredient = new Ingredient {
@@ -37,7 +38,9 @@ namespace KomalliEmployee.Controller
                         Barcode = ingredientModel.BarCode,
                         NameIngredient = ingredientModel.NameIngredient,
                         Quantity = ingredientModel.Quantity,
-                        Measurement = ingredientModel.Measurement.ToString()
+                        Measurement = ingredientModel.Measurement.ToString(),
+                        Category = ingredientModel.Category.ToString(),
+                        ReplenishmentDate = replenishmentDate
                     };
 
                     context.Ingredient.Add(newIngredient);
@@ -70,14 +73,18 @@ namespace KomalliEmployee.Controller
                         ingredient.NameIngredient,
                         ingredient.Quantity,
                         ingredient.Measurement,
-                        ingredient.Barcode
+                        ingredient.Barcode,
+                        ingredient.ReplenishmentDate,
+                        ingredient.Category
                     }).ToList() 
                     .Select(ingredient => new IngredientModel {
                         KeyIngredient = ingredient.KeyIngredient,
                         NameIngredient = ingredient.NameIngredient,
                         Quantity = ingredient.Quantity,
                         Measurement = (TypeQuantity)Enum.Parse(typeof(TypeQuantity), ingredient.Measurement),
-                        BarCode = ingredient.Barcode
+                        Category = (IngredientCategory)Enum.Parse(typeof(IngredientCategory),ingredient.Category),
+                        BarCode = ingredient.Barcode,
+                        ReplenishmentDate = ingredient.ReplenishmentDate
                     }).ToList();
 
                     ingredients = query;
@@ -127,7 +134,7 @@ namespace KomalliEmployee.Controller
             try {
                 using (var context = new KomalliEntities()) {
                     var query = context.Ingredient.Where(ingredient => ingredient.NameIngredient == nameIngredient).FirstOrDefault();
-                    if (query == null) {
+                    if (query != null) {
                         result = 1;
                     }
                 }
@@ -137,6 +144,133 @@ namespace KomalliEmployee.Controller
                 LoggerManager.Instance.LogError("Error al validar la existencia del nombre de un ingrediente", ex);
             }
             return result;
+        }
+
+        public int ModifyIngredients(List<IngredientModel> ingredients)
+        {
+            int result = 0;
+            DateTime replenishmentDate = DateTime.Now.Date;
+            try
+            {
+                using (var context = new KomalliEntities())
+                {
+                    foreach (var ingredient in ingredients)
+                    {
+                        var existingIngredient = context.Ingredient.FirstOrDefault(i => i.KeyIngredient == ingredient.KeyIngredient);
+                        if (existingIngredient != null)
+                        {
+                            existingIngredient.NameIngredient = ingredient.NameIngredient;
+                            existingIngredient.Quantity = ingredient.Quantity;
+                            existingIngredient.Measurement = ingredient.Measurement.ToString();
+                            existingIngredient.Barcode = ingredient.BarCode;
+                            existingIngredient.ReplenishmentDate = replenishmentDate;
+                            existingIngredient.Category = ingredient.Category.ToString();
+                        }
+                    }
+                    context.SaveChanges();
+                    result = 1;
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                result = -1;
+                LoggerManager.Instance.LogError("Error al actualizar información de ingredientes", ex);
+            }
+            catch (EntityException ex)
+            {
+                result = -1;
+                LoggerManager.Instance.LogError("Error al actualizar información de ingredientes", ex);
+            }
+            return result;
+        }
+
+        public List<IngredientModel> SearchIngredients(string searchIngredient)
+        {
+            List<IngredientModel> ingredients = new List<IngredientModel>();
+            try
+            {
+                using (var context = new KomalliEntities())
+                {
+                    var query = context.Ingredient
+                        .Where(ingredient =>
+                            ingredient.KeyIngredient.Contains(searchIngredient) ||
+                            ingredient.NameIngredient.Contains(searchIngredient) ||
+                            ingredient.Barcode.Contains(searchIngredient))
+                        .Select(ingredient => new
+                        {
+                            ingredient.KeyIngredient,
+                            ingredient.NameIngredient,
+                            ingredient.Quantity,
+                            ingredient.Measurement,
+                            ingredient.Barcode,
+                            ingredient.ReplenishmentDate,
+                            ingredient.Category
+                        })
+                        .ToList() 
+                        .Select(ingredient => new IngredientModel
+                        {
+                            KeyIngredient = ingredient.KeyIngredient,
+                            NameIngredient = ingredient.NameIngredient,
+                            Quantity = ingredient.Quantity,
+                            Measurement = (TypeQuantity)Enum.Parse(typeof(TypeQuantity), ingredient.Measurement),
+                            Category = (IngredientCategory)Enum.Parse(typeof(IngredientCategory), ingredient.Category),
+                            BarCode = ingredient.Barcode,
+                            ReplenishmentDate = ingredient.ReplenishmentDate
+                        })
+                        .ToList();
+
+                    ingredients = query;
+                }
+            }
+            catch (EntityException ex)
+            {
+                ingredients = null;
+                LoggerManager.Instance.LogError("Error al buscar ingredientes", ex);
+            }
+            return ingredients;
+        }
+
+        public List<IngredientModel> SearchIngredientsByCategory(string selectedCategory)
+        {
+            List<IngredientModel> ingredients = new List<IngredientModel>();
+            try
+            {
+                using (var context = new KomalliEntities())
+                {
+                    var query = context.Ingredient
+                        .Where(ingredient => ingredient.Category == selectedCategory)
+                        .Select(ingredient => new
+                        {
+                            ingredient.KeyIngredient,
+                            ingredient.NameIngredient,
+                            ingredient.Quantity,
+                            ingredient.Measurement,
+                            ingredient.Barcode,
+                            ingredient.ReplenishmentDate,
+                            ingredient.Category
+                        })
+                        .ToList()
+                        .Select(ingredient => new IngredientModel
+                        {
+                            KeyIngredient = ingredient.KeyIngredient,
+                            NameIngredient = ingredient.NameIngredient,
+                            Quantity = ingredient.Quantity,
+                            Measurement = (TypeQuantity)Enum.Parse(typeof(TypeQuantity), ingredient.Measurement),
+                            Category = (IngredientCategory)Enum.Parse(typeof(IngredientCategory), ingredient.Category),
+                            BarCode = ingredient.Barcode,
+                            ReplenishmentDate = ingredient.ReplenishmentDate
+                        })
+                        .ToList();
+
+                    ingredients = query;
+                }
+            }
+            catch (EntityException ex)
+            {
+                ingredients = null;
+                LoggerManager.Instance.LogError("Error al buscar ingredientes por categoría", ex);
+            }
+            return ingredients;
         }
     }
 }

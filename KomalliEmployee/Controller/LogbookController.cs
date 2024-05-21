@@ -37,9 +37,9 @@ namespace KomalliEmployee.Controller {
                 using (var transaction = context.Database.BeginTransaction()) {
                     var comment = new KomalliServer.Logbook() {
                         Date = logbookModel.Date,
-                        Section = logbookModel.Section,
                         Commentary = logbookModel.Commentary,
                         NoPersonalEmployee = logbookModel.NoPersonalEmployee,
+                        Section = logbookModel.Section
                     };
 
                     context.Logbook.Add(comment);

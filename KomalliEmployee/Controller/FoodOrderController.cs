@@ -29,7 +29,7 @@ namespace KomalliEmployee.Controller {
                 {
                     var today = DateTime.Today;
                     result = context.FoodOrder
-                        .Where(foodOrder => DbFunctions.TruncateTime(foodOrder.Date) == today)
+                        .Where(foodOrder => DbFunctions.TruncateTime(foodOrder.Date) == today && foodOrder.Status == "Pagado")
                         .Sum(foodOrder => (int?)foodOrder.Change) ?? 0;
                 }
             }
@@ -56,7 +56,7 @@ namespace KomalliEmployee.Controller {
                 {
                     var today = DateTime.Today;
                     result = context.FoodOrder
-                        .Where(foodOrder => DbFunctions.TruncateTime(foodOrder.Date) == today)
+                        .Where(foodOrder => DbFunctions.TruncateTime(foodOrder.Date) == today && foodOrder.Status == "Pagado")
                         .Sum(foodOrder => (int?)foodOrder.Total) ?? 0;
                 }
             }
@@ -75,18 +75,14 @@ namespace KomalliEmployee.Controller {
          * <returns>Regresa una lista de las ordenes del día actual</returns>
          */
 
-        public List<FoodOrderModel> DailyFoodOrders()
-        {
+        public List<FoodOrderModel> DailyFoodOrders() {
             List<FoodOrderModel> foodOrderModels = null;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
+            try {
+                using (var context = new KomalliEntities()) {
                     var today = DateTime.Now.Date;
                     foodOrderModels = context.FoodOrder
                         .Where(foodOrder => DbFunctions.TruncateTime(foodOrder.Date) == today && foodOrder.Status == "Pagado")
-                        .Select(foodOrder => new FoodOrderModel
-                        {
+                        .Select(foodOrder => new FoodOrderModel {
                             IdFoodOrder = foodOrder.IDFoodOrder,
                             Date = foodOrder.Date,
 
@@ -96,9 +92,7 @@ namespace KomalliEmployee.Controller {
                         })
                         .ToList();
                 }
-            }
-            catch (EntityException ex)
-            {
+            } catch (EntityException ex) {
                 LoggerManager.Instance.LogError("Error al listar las ordenes. Error en FoodOrders", ex);
             }
             return foodOrderModels;
@@ -113,36 +107,29 @@ namespace KomalliEmployee.Controller {
         public List<FoodOrderModel> ConsultFoodOrdersKiosko()
         {
             List<FoodOrderModel> foodOrder = new List<FoodOrderModel>();
-            foodOrder = null;
-            //DbFunctions.TruncateTime(foodOrders.Date) == today && foodOrders.Status == "Pendiente"
-            //agregar cuando ya se tengan varios registros, mientras no se pone para poder probar y que siemore muestre algo
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
-                    var today = DateTime.Now.Date;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var today = DateTime.Today;
                     var query = (from foodOrders in context.FoodOrder
-                                 where foodOrders.IDFoodOrder.StartsWith("Kio")
-                                 select new
-                                 {
+                                 where DbFunctions.TruncateTime(foodOrders.Date) == today
+                                       && foodOrders.Status == "Pendiente"
+                                       && foodOrders.IDFoodOrder.StartsWith("Kio")
+                                 select new {
                                      foodOrders.IDFoodOrder,
                                      foodOrders.ClientName,
                                      foodOrders.NumberDishes,
                                      foodOrders.Total
                                  }).ToList()
-                    .Select(result => new FoodOrderModel
-                    {
-                        IdFoodOrder = result.IDFoodOrder,
-                        ClientName = result.ClientName,
-                        NumberDishes = result.NumberDishes,
-                        Total = result.Total
-                    }).ToList();
+                                 .Select(result => new FoodOrderModel {
+                                     IdFoodOrder = result.IDFoodOrder,
+                                     ClientName = result.ClientName,
+                                     NumberDishes = result.NumberDishes,
+                                     Total = result.Total
+                                 }).ToList();
 
                     foodOrder = query;
                 }
-            }
-            catch (EntityException ex)
-            {
+            } catch (EntityException ex) {
                 foodOrder = null;
                 LoggerManager.Instance.LogError("Error al consultar los pedidos de kiosko", ex);
             }
@@ -156,30 +143,23 @@ namespace KomalliEmployee.Controller {
          * <param name="idFoodOrder">Identificador del pedido. </param>
          * <returns>Regresa el total y el nombre de cliente si es que lo encuentra .</returns>
          */
-        public FoodOrderModel GetTotalAndNameFromOrder(string idFoodOrder)
-        {
+        public FoodOrderModel GetTotalAndNameFromOrder(string idFoodOrder) {
             FoodOrderModel foodOrderModel = null;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
-                    var order = (from foodOrder in context.FoodOrder
-                                 where foodOrder.IDFoodOrder == idFoodOrder
-                                 select new
-                                 {
+            try {
+                using (var context = new KomalliEntities()) {
+                    var order = (from foodOrder in context.FoodOrder                                     
+                                     where foodOrder.IDFoodOrder == idFoodOrder
+                                 select new {
                                      foodOrder.ClientName,
                                      foodOrder.Total
-                                 }).FirstOrDefault();
+                                     }).FirstOrDefault();
                     foodOrderModel = new FoodOrderModel();
-                    if (order != null)
-                    {
+                    if (order != null) {
                         foodOrderModel.ClientName = order.ClientName;
                         foodOrderModel.Total = order.Total;
                     }
                 }
-            }
-            catch (EntityException ex)
-            {
+            } catch (EntityException ex) {
                 LoggerManager.Instance.LogError("Error en obtener el nombre del cliente y total de un pedido", ex);
             }
             return foodOrderModel;
@@ -194,75 +174,83 @@ namespace KomalliEmployee.Controller {
          * <returns>Regresa 1 si se actualiza correctamente, 0 si ocurre un error..</returns>
          */
 
-        public int UpdateFoodOrder(FoodOrderModel foodOrderModel, string idFoodOrder)
-        {
+        public int UpdateFoodOrder(FoodOrderModel foodOrderModel, string idFoodOrder) {
             int result = 0;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
+            try {
+                using (var context = new KomalliEntities()) {
                     var foodOrder = context.FoodOrder.Where(foodOrder => foodOrder.IDFoodOrder == idFoodOrder).FirstOrDefault();
 
-                    if (foodOrder != null)
-                    {
+                    if (foodOrder != null) {
                         foodOrder.Status = foodOrderModel.Status;
                         foodOrder.Change = foodOrderModel.Change;
                         foodOrder.ClientName = foodOrderModel.ClientName;
                     }
                     result = context.SaveChanges();
                 }
-            }
-            catch (EntityException ex)
-            {
-                LoggerManager.Instance.LogError("Error en actualizar un pedido", ex);
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en actualizar los datos de un pedido", ex);
             }
             return result;
         }
 
-        public string GenerateRamdomIdFoodOrder()
-        {
+        /**
+         * <summary>
+         * Este método se encarga de generar id aleatorios para pedidos de Caja.
+         * </summary>
+         * <returns>Regresa un string que combina la clave y el numero aleatorio generado</returns>
+         */
+
+        private string GenerateRamdomIdFoodOrder() {
             Random rand = new Random();
             string id = "Caj";
 
-            for (int i = 0; i < 4; i++)
-            {
-                id += rand.Next(0, 10);
+            for (int i = 0; i < 4; i++) {
+                id += rand.Next(0, 10); 
             }
             return id;
-
+            
         }
 
-        public string MakeIdFoodOrder()
-        {
+        /**
+         * <summary>
+         * Este método se encarga de verificar que los id aleatorios, no existan en la base de datos.
+         * </summary>
+         * <returns>Regresa un string que contiene el id unico</returns>
+         */
+
+        public string MakeIdFoodOrder() {
             string idGenerated = GenerateRamdomIdFoodOrder();
+            try {  
+                using (var context = new KomalliEntities()) {
+                    var idOrder = context.FoodOrder.Where(food => food.IDFoodOrder == idGenerated).FirstOrDefault();
 
-            using (var context = new KomalliEntities())
-            {
-                var idOrder = context.FoodOrder.Where(food => food.IDFoodOrder == idGenerated).FirstOrDefault();
-
-                while (idOrder != null)
-                {
-                    idGenerated = GenerateRamdomIdFoodOrder();
-                    idOrder = context.FoodOrder.Where(food => food.IDFoodOrder == idGenerated).FirstOrDefault();
+                    while (idOrder != null) {
+                        idGenerated = GenerateRamdomIdFoodOrder();
+                        idOrder = context.FoodOrder.Where(food => food.IDFoodOrder == idGenerated).FirstOrDefault();
+                    }
                 }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error al validar un id de pedido de caja", ex);
             }
 
             return idGenerated;
         }
 
+        /**
+         * <summary>
+         * Este método se encarga de registrar un pedido de la tabla FoodOrder de la base de datos.
+         * </summary>
+         * <param name="foodModel">Objeto de foodOrder que contiene los detalles del pedido</param>
+         * <returns>Regresa 1 si se registro correctamente, 0 si ocurre un error.</returns>
+         */
 
-        public int RegistryOrder(FoodOrderModel foodModel)
-        {
+        public int RegistryOrder(FoodOrderModel foodModel) {
             int result = 0;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
-                    var order = new FoodOrder
-                    {
+            try {
+                using (var context = new KomalliEntities()) {
+                    var order = new FoodOrder {
                         IDFoodOrder = foodModel.IdFoodOrder,
                         Status = "Pendiente",
-                        ClientName = "",
                         Date = DateTime.Now,
                         Total = foodModel.Total,
                         NumberDishes = foodModel.NumberDishes
@@ -270,9 +258,7 @@ namespace KomalliEmployee.Controller {
                     context.FoodOrder.Add(order);
                     result = context.SaveChanges();
                 }
-            }
-            catch (EntityException ex)
-            {
+            } catch (EntityException ex) {
                 LoggerManager.Instance.LogError("Error en Registrar orden desde caja", ex);
             }
             return result;
@@ -435,6 +421,31 @@ namespace KomalliEmployee.Controller {
                 LoggerManager.Instance.LogError("Error al actualizar el estado de la orden", ex);
                 return false;
             }
+        }
+
+        /**
+         * <summary>
+         * Este método se encarga de eliminar un pedido de la tabla FoodOrder de la base de datos.
+         * </summary>
+         * <param name="idFoodOrder">Id que identifica el pedido a eliminar</param>
+         * <returns>Regresa 1 si se elimino correctamente, 0 si ocurre un error.</returns>
+         */
+
+        public int DeleteOrder(string idFoodOrder) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var orderToDelete = context.FoodOrder.FirstOrDefault(o => o.IDFoodOrder == idFoodOrder);
+                    if (orderToDelete != null) {
+                        context.FoodOrder.Remove(orderToDelete);
+                        
+                    }
+                    result = context.SaveChanges();
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error en eliminar orden", ex);
+            }
+            return result;
         }
     }
 }

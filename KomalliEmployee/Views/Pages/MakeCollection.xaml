@@ -37,35 +37,28 @@
 
             </Rectangle>
 
-            <Image Source="\Resources\Images\iconGoBack.png"
+            <Image x:Name="imgGoBack"
+                Source="\Resources\Images\iconGoBack.png"
                 Margin="34,24,764,514"
                 MouseDown="MouseDownGoBack"
                 Cursor="Hand"
             />
 
             <Rectangle Margin="30,110,345,30">
-
                 <Rectangle.Fill>
                     <SolidColorBrush Color="#7ea5a4"/>
                 </Rectangle.Fill>
-
                 <Rectangle.RadiusX>20</Rectangle.RadiusX>
                 <Rectangle.RadiusY>20</Rectangle.RadiusY>
-
             </Rectangle>
 
             <Rectangle Margin="520,110,30,30">
-
                 <Rectangle.Fill>
                     <SolidColorBrush Color="#B0D3CD"/>
                 </Rectangle.Fill>
-
                 <Rectangle.RadiusX>20</Rectangle.RadiusX>
                 <Rectangle.RadiusY>20</Rectangle.RadiusY>
-
             </Rectangle>
-
-
 
             <TextBlock x:Name = "tbkMakeCollection"
                 Text = "Realizar cobro"
@@ -203,16 +196,16 @@
             </TextBox>
 
             <TextBlock 
-                    Text = "MXN"
-                    FontFamily = "Segoe UI"
-                    FontSize = "20" 
-                    Margin = "762,246,43,308"
-                    Foreground = "Black" 
-                    FontWeight="Normal"
+                Text = "MXN"
+                FontFamily = "Segoe UI"
+                FontSize = "20" 
+                Margin = "762,246,43,308"
+                Foreground = "Black" 
+                FontWeight="Normal"
             />
 
             <TextBlock x:Name="txbReceiveValidationMessage"
-                       Text="Campo obligatorio"
+               Text="Campo obligatorio"
                Foreground="Red"
                Margin="630,281,89,277"
                FontSize="12"
@@ -220,61 +213,61 @@
             />
 
             <TextBlock x:Name = "tbkChange"
-                    Text = "Cambio:"
-                    FontFamily = "Segoe UI"
-                    FontSize = "25" 
-                    Margin = "545,317,210,223"
-                    Foreground = "Black" 
-                    FontWeight="Normal"
-                       Visibility="Collapsed"
+               Text = "Cambio:"
+               FontFamily = "Segoe UI"
+               FontSize = "25" 
+               Margin = "545,317,210,223"
+               Foreground = "Black" 
+               FontWeight="Normal"
+               Visibility="Collapsed"
             />
 
             <TextBox x:Name = "txtChange"
-                     Visibility="Collapsed"
-                     HorizontalAlignment = "Right" 
-                     VerticalAlignment = "Top"
-                     FontSize = "20"                      
-                     Height = "34"
-                     Width = "121" 
-                     Margin = "0,320,89,0"
-                     MaxLength="6"
-                     IsEnabled="False"
-                     Style="{StaticResource TextBoxStyle}"                     
-                     PreviewTextInput="PreviewTextInputOnlyNumber">
+               Visibility="Collapsed"
+               HorizontalAlignment = "Right" 
+               VerticalAlignment = "Top"
+               FontSize = "20"                      
+               Height = "34"
+               Width = "121" 
+               Margin = "0,320,89,0"
+               MaxLength="6"
+               IsEnabled="False"
+               Style="{StaticResource TextBoxStyle}"                     
+               PreviewTextInput="PreviewTextInputOnlyNumber">
             </TextBox>
 
             <TextBlock x:Name="tbkMxn"
-                    Text = "MXN"
-                    FontFamily = "Segoe UI"
-                    FontSize = "20" 
-                    Margin = "762,324,43,230"
-                    Foreground = "Black" 
-                    FontWeight="Normal"
-                    Visibility="Collapsed"
+               Text = "MXN"
+               FontFamily = "Segoe UI"
+               FontSize = "20" 
+               Margin = "762,324,43,230"
+               Foreground = "Black" 
+               FontWeight="Normal"
+               Visibility="Collapsed"
             />
 
             <TextBlock x:Name = "tbkName"
-                    Text = "Nombre:"
-                    Visibility="Collapsed"
-                    FontFamily = "Segoe UI"
-                    FontSize = "25" 
-                    Margin = "545,406,210,134"
-                    Foreground = "Black" 
-                    FontWeight="Normal"
+               Text = "Nombre:"
+               Visibility="Collapsed"
+               FontFamily = "Segoe UI"
+               FontSize = "25" 
+               Margin = "545,406,210,134"
+               Foreground = "Black" 
+               FontWeight="Normal"
             />
 
             <TextBox x:Name = "txtClientName"
-                    TextChanged="TextChangedValidateName"
-                     HorizontalAlignment = "Right" 
-                     IsEnabled="False"
-                     VerticalAlignment = "Top"
-                     Visibility="Collapsed"
-                     FontSize = "20"                      
-                     Height = "34"
-                     Width = "160" 
-                     Margin = "0,409,43,0"
-                     MaxLength="50"
-                     Style="{StaticResource TextBoxStyle}">
+                TextChanged="TextChangedValidateName"
+                HorizontalAlignment = "Right" 
+                IsEnabled="False"
+                VerticalAlignment = "Top"
+                Visibility="Collapsed"
+                FontSize = "20"                      
+                Height = "34"
+                Width = "160" 
+                Margin = "0,409,43,0"
+                MaxLength="50"
+                Style="{StaticResource TextBoxStyle}">
                 <TextBox.Text>
                     <Binding Path="ClientName" 
                             UpdateSourceTrigger="PropertyChanged">
@@ -293,12 +286,12 @@
             />
 
             <Button x:Name = "btnConfirmOrder"
-                    Margin = "612,488,102,56"
-                    Content = "Confirmar"                   
-                    FontSize = "13"
-                    Style="{StaticResource ButtonStyle}"
-                    IsEnabled="False"
-                    Click="ClickConfirmOrder"                   
+               Margin = "612,488,102,56"
+               Content = "Confirmar"                   
+               FontSize = "13"
+               Style="{StaticResource ButtonStyle}"
+               IsEnabled="False"
+               Click="ClickConfirmOrder"                   
             />
         </Grid>
     </Viewbox>

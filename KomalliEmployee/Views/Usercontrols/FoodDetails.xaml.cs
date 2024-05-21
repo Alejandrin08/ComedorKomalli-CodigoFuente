@@ -1,8 +1,10 @@
 ﻿using KomalliEmployee.Contracts;
 using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
+using KomalliEmployee.Views.Pages;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,68 +32,84 @@ namespace KomalliEmployee.Views.Usercontrols {
         public void BindData(FoodModel food) {
             Food = food;
             if (food != null) {
-                txtbFoodName.Text = food.Name;
+                tbkFoodName.Text = food.Name;
                 if(food.Quantity == 1) {
-                    BitmapImage bitmap = new BitmapImage();
-
-                    bitmap.BeginInit();
-                    bitmap.UriSource = new Uri("/Resources/Images/Trash.png", UriKind.RelativeOrAbsolute);
-                    bitmap.EndInit();
-                    imgDeleteFood.Source = bitmap;
+                    SetImage("Trash.png");                    
                 } else if(food.Quantity > 1){
-                    BitmapImage bitmap = new BitmapImage();
-
-                    bitmap.BeginInit();
-                    bitmap.UriSource = new Uri("/Resources/Images/Substract.png", UriKind.RelativeOrAbsolute);
-                    bitmap.EndInit();
-                    imgDeleteFood.Source = bitmap;
+                    SetImage("Substract.png");                    
                 }
+                int subtotal = food.Quantity * food.Price;
+                tbkFoodSubtotal.Text = "$ " + subtotal.ToString();
             }
+        }
+
+        private void SetImage (string image) {
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri("/Resources/Images/"+ image, UriKind.RelativeOrAbsolute);
+            bitmap.EndInit();
+            imgDeleteFood.Source = bitmap;
         }
 
         
 
-        private void MouseDownDelete(object sender, MouseButtonEventArgs e) {
-            int quantity = int.Parse(txtbQuantityFood.Text);
+        private void MouseDownDeleteOrDecrease(object sender, MouseButtonEventArgs e) {
+            int quantity = int.Parse(tbkQuantityFood.Text);
             var selectedFood = SingletonClass.Instance.SelectedFoods.FirstOrDefault(food => food.Name == Food.Name);
             if (quantity > 1) {
                 selectedFood.Quantity--;
                 selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
-                txtbQuantityFood.Text = selectedFood.Quantity.ToString();
-                if(selectedFood.Quantity == 1) {
-                    BitmapImage bitmap = new BitmapImage();
-
-                    bitmap.BeginInit();
-                    bitmap.UriSource = new Uri("/Resources/Images/Trash.png", UriKind.RelativeOrAbsolute);
-                    bitmap.EndInit();
-                    imgDeleteFood.Source = bitmap;
+                tbkQuantityFood.Text = selectedFood.Quantity.ToString();
+                UpdateSelectedFoodsCollection(sender);
+                if (selectedFood.Quantity == 1) {
+                    SetImage("Trash.png");
                 }
             } else {
                 SingletonClass.Instance.SelectedFoods.Remove(selectedFood);
             }
-            
-
         }
 
         private void MouseDownAddFood(object sender, MouseButtonEventArgs e) {
             var selectedFood = SingletonClass.Instance.SelectedFoods.FirstOrDefault(food => food.Name == Food.Name);
             selectedFood.Quantity++;
             selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
-            txtbQuantityFood.Text = selectedFood.Quantity.ToString();
-
-            if(selectedFood.Quantity > 1) {
-                BitmapImage bitmap = new BitmapImage();
-
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri("/Resources/Images/Substract.png", UriKind.RelativeOrAbsolute);
-                bitmap.EndInit();
-                imgDeleteFood.Source = bitmap;
+            tbkQuantityFood.Text = selectedFood.Quantity.ToString();
+            tbkFoodSubtotal.Text =  "$ " + selectedFood.Subtotal.ToString();
+            UpdateSelectedFoodsCollection(sender);
+            if (selectedFood.Quantity > 1) {
+                SetImage("Substract.png");
             }
         }
 
+
+        private void UpdateSelectedFoodsCollection(object sender) {
+            var foodName = tbkFoodName.Text;
+            var changeType = SingletonClass.Instance.SelectedFoods.Any(food => food.Name == foodName) ?
+                             NotifyCollectionChangedAction.Replace : NotifyCollectionChangedAction.Add;
+
+            var args = new NotifyCollectionChangedEventArgs(changeType, new List<FoodModel> { new FoodModel { Name = foodName } }, SingletonClass.Instance.SelectedFoods);
+
+            MakeOrder parentWindow = FindParent<MakeOrder>(this);
+            parentWindow?.SelectedFoodsCollectionChanged(sender, args);
+        }
+
         public void UpdateQuantity(int quantity) {
-            // Actualiza la cantidad mostrada en el control con el nuevo valor
-            txtbQuantityFood.Text = quantity.ToString();
+            tbkQuantityFood.Text = quantity.ToString();
+        }
+
+        public void UpdateSubtotal (int subtotal) {
+            tbkFoodSubtotal.Text = "$ " + subtotal.ToString();
+        }
+
+        private static T FindParent<T>(DependencyObject child) where T : DependencyObject {
+            T parent = null;
+            while ((child = VisualTreeHelper.GetParent(child)) != null) {
+                if (child is T typedParent) {
+                    parent = typedParent;
+                    break;
+                }
+            }
+            return parent;
         }
     }
 }

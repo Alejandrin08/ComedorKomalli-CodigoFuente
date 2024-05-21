@@ -11,38 +11,38 @@
 
     <Viewbox Stretch="Fill">
         <Grid x:Name="grdContent"
-           Height="600"
-           Width="680"
-           Background="#F9F9EA">
+              Height="600"
+              Width="680"
+              Background="#F9F9EA">
 
             <Rectangle Fill=" #9ed3d2 "
-                    Margin="30,30,30,510"
-                    RadiusX="8"
-                    RadiusY="8"/>
+                       Margin="30,30,30,510"
+                       RadiusX="8"
+                       RadiusY="8"/>
 
             <Image Source="\Resources\Images\iconGoBack.png"
-                Margin="50,34,595,514"
-                MouseDown="MouseDownGoBack"
-                Cursor="Hand"
-         />
+                   Margin="50,34,595,514"
+                   MouseDown="MouseDownGoBack"
+                   Cursor="Hand"
+            />
 
             <TextBlock Text="Bebidas"
-                    FontSize="40"
-                    FontWeight="Bold"
-                    HorizontalAlignment="Left"
-                    Margin="180,30,0,505"/>
+                       FontSize="40"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Left"
+                       Margin="180,30,0,505"/>
 
             <Image Source="/Resources/Images/Drinks.png"
-                Margin="340,35,0,515"
-                HorizontalAlignment="Left"/>
+                   Margin="340,35,0,515"
+                   HorizontalAlignment="Left"/>
 
             <Rectangle Fill="#98D4D0"
-                    Margin="30,105,30,10"
-                    RadiusX="8"
-                    RadiusY="8"/>
+                       Margin="30,105,30,10"
+                       RadiusX="8"
+                       RadiusY="8"/>
 
-            <WrapPanel x:Name="wrPFood" 
-                    Margin="45,115,45,20">
+            <WrapPanel x:Name="wrpFood" 
+                       Margin="45,115,45,20">
             </WrapPanel>
         </Grid>
     </Viewbox>
