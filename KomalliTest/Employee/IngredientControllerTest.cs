@@ -171,70 +171,8 @@ namespace KomalliTest.Employee {
                 KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
                 List<IngredientModel> resultExpected = new List<IngredientModel>();
                 string searchIngredient = "Pay de limon";
-                List<IngredientModel> result = test.SearchIngredients(searchIngredient);
-                Assert.IsNotNull(result);
-                Assert.AreEqual(0, result.Count);
-            }
-        }
-
-        [TestMethod]
-        public void SearchIngredientByCategory_Sucessfull()
-        {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
-                KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
-                List<IngredientModel> listIngredients = new List<IngredientModel>();
-                string searchIngredient = "Abarrotes";
-   
-                var resultExpected = new List<IngredientModel>() {
-                    new IngredientModel {
-                        KeyIngredient = ".5866",
-                        NameIngredient = "Mermelada de Fresa",
-                        Measurement = TypeQuantity.Unidades,
-                        BarCode = null,
-                        Quantity = "2",
-                        Category = IngredientCategory.Abarrotes
-                    },
-                    new IngredientModel {
-                        KeyIngredient = "PALO5197",
-                        NameIngredient = "Palomitas de maiz",
-                        Measurement =TypeQuantity.Unidades,
-                        BarCode = null,
-                        Quantity = "10",
-                        Category =  IngredientCategory.Abarrotes
-                    },
-                    new IngredientModel {
-                        KeyIngredient = "PAN 3357",
-                        NameIngredient = "Pan Bimbo Blanco",
-                        Measurement = TypeQuantity.Unidades,
-                        BarCode = "1234567890123",
-                        Quantity = "5",
-                        Category = IngredientCategory.Abarrotes
-                    }
-                };
-                List<IngredientModel> result = test.SearchIngredientsByCategory(searchIngredient);
-                Assert.AreEqual(resultExpected.Count, result.Count);
-                for (int i = 0; i < resultExpected.Count; i++)
-                {
-                    Assert.AreEqual(resultExpected[i].KeyIngredient, result[i].KeyIngredient);
-                    Assert.AreEqual(resultExpected[i].NameIngredient, result[i].NameIngredient);
-                    Assert.AreEqual(resultExpected[i].Quantity, result[i].Quantity);
-                    Assert.AreEqual(resultExpected[i].Measurement, result[i].Measurement);
-                    Assert.AreEqual(resultExpected[i].BarCode, result[i].BarCode);
-                    Assert.AreEqual(resultExpected[i].Category, result[i].Category);
-                }
-            }
-        }
-
-        [TestMethod]
-        public void SearchIngredientsByCategory_Failed()
-        {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
-                KomalliEmployee.Controller.IngredientController test = new KomalliEmployee.Controller.IngredientController();
-                List<IngredientModel> resultExpected = new List<IngredientModel>();
-                string searchIngredient = "Congelados";
-                List<IngredientModel> result = test.SearchIngredientsByCategory(searchIngredient);
+                string category = "General";
+                List<IngredientModel> result = test.SearchIngredients(searchIngredient, category);
                 Assert.IsNotNull(result);
                 Assert.AreEqual(0, result.Count);
             }
