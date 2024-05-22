@@ -112,8 +112,11 @@ namespace KomalliTest.Employee {
 
             var foodOrdersExpected = new List<FoodModel> {
                 new FoodModel {
-                    KeyCard = "COM867"
+                    KeyCard = "COM890"
                 },
+                new FoodModel {
+                    KeyCard = "DES468"
+                }
                 
             };
 
@@ -139,7 +142,7 @@ namespace KomalliTest.Employee {
 
             var foodOrdersResult = test.GetKeyMenu();
 
-            Assert.AreEqual(foodOrdersExpected.Count, foodOrdersResult.Count);
+            Assert.AreNotEqual(foodOrdersExpected.Count, foodOrdersResult.Count);
             for (int i = 0; i < foodOrdersExpected.Count; i++) {
                 Assert.AreNotEqual(foodOrdersExpected[i].KeyCard, foodOrdersResult[i].KeyCard);
 

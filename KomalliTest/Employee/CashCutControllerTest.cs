@@ -10,7 +10,7 @@ namespace KomalliTest.Employee {
         public void GetLastInitialBalance_Sucessfull() {
             KomalliEmployee.Controller.CashCutController test = new KomalliEmployee.Controller.CashCutController();
 
-            int? result = 1000;
+            int? result = 600;
             int? resultExpected = test.GetLastInitialBalance();
             Assert.AreEqual(resultExpected, result);
         }

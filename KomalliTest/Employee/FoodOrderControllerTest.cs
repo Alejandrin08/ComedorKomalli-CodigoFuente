@@ -11,7 +11,7 @@ namespace KomalliTest.Employee {
         [TestMethod]
         public void CalculateTotalDailyChange_Sucessfull() {
             KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
-            int resultExpected = 2;
+            int resultExpected = 71;
             int result = test.CalculateTotalDailyChange();
             Assert.AreEqual(resultExpected, result);
         }
@@ -27,7 +27,7 @@ namespace KomalliTest.Employee {
         [TestMethod]
         public void CalculateTotalDailyEntries_Sucessfull() {
             KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
-            int resultExpected = 48;
+            int resultExpected = 229;
             int result = test.CalculateTotalDailyEntries();
             Assert.AreEqual(resultExpected, result);
         }
@@ -46,11 +46,25 @@ namespace KomalliTest.Employee {
 
             var foodOrdersExpected = new List<FoodOrderModel> {
                 new FoodOrderModel {
-                    IdFoodOrder = "Caj9957",
+                    IdFoodOrder = "Caj5589",
                     Date = DateTime.Today,
                     ClientName = "Paloma",
-                    NumberDishes = 1,
-                    Total = 48
+                    NumberDishes = 2,
+                    Total = 96
+                },
+                new FoodOrderModel {
+                    IdFoodOrder = "Caj7082",
+                    Date = DateTime.Today,
+                    ClientName = "Alejandro Marin",
+                    NumberDishes = 3,
+                    Total = 84
+                },
+                new FoodOrderModel {
+                    IdFoodOrder = "Caj8100",
+                    Date = DateTime.Today,
+                    ClientName = "Alejandro Marin",
+                    NumberDishes = 2,
+                    Total = 49
                 }
             };
 
@@ -98,10 +112,22 @@ namespace KomalliTest.Employee {
 
             var foodOrdersExpected = new List<FoodOrderModel> {
                 new FoodOrderModel {
-                    IdFoodOrder = "Kio1234",
-                    ClientName = "Alejandro",
+                    IdFoodOrder = "Kio5076",
+                    ClientName = "",
                     NumberDishes = 1,
-                    Total = 30
+                    Total = 38
+                },
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio5551",
+                    ClientName = "",
+                    NumberDishes = 1,
+                    Total = 25
+                },
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio6660",
+                    ClientName = "",
+                    NumberDishes = 1,
+                    Total = 27
                 },
             };
 

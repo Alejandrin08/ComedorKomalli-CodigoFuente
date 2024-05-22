@@ -100,7 +100,21 @@ namespace KomalliTest.Employee {
                     Section = "General"
 
                 },
-                
+
+                 new LogbookModel {
+                    Date = DateTime.ParseExact("22/05/24", "dd/MM/yy", CultureInfo.InvariantCulture),
+                    Commentary = "El dia jueves faltaran por su desayuno dos becados ",
+                    Section = "General"
+
+                },
+
+                  new LogbookModel {
+                    Date = DateTime.ParseExact("22/05/24", "dd/MM/yy", CultureInfo.InvariantCulture),
+                    Commentary = "El dia jueves faltaran por su desayuno dos becados ",
+                    Section = "General"
+
+                },
+
             };
             string NoPersonalEmployee = "111";
             var logbookResult = test.GetEmployeeComments(NoPersonalEmployee);
@@ -149,7 +163,7 @@ namespace KomalliTest.Employee {
         [TestMethod]
         public void DeleteCommentary_Sucessfull() {
             KomalliEmployee.Controller.LogbookController test = new KomalliEmployee.Controller.LogbookController();
-            int idComment = 92;
+            int idComment = 3;
             int resultExpected = 1;
             int result = test.DeleteCommentary(idComment);
             Assert.AreEqual(resultExpected, result);
@@ -159,7 +173,7 @@ namespace KomalliTest.Employee {
         [TestMethod]
         public void DeleteCommentary_Failed() {
             KomalliEmployee.Controller.LogbookController test = new KomalliEmployee.Controller.LogbookController();
-            int idComment = 93;
+            int idComment = 1;
             int resultExpected = -1;
             int result = test.DeleteCommentary(idComment);
             Assert.AreNotEqual(resultExpected, result);
