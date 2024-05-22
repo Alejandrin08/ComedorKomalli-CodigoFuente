@@ -1,4 +1,5 @@
 ﻿using KomalliEmployee.Model;
+using KomalliServer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -279,6 +280,35 @@ namespace KomalliTest.Employee {
                 int result = test.DeleteOrder(idFoodOrder);
                 Assert.AreNotEqual(resultExpected, result);
             }
+        }
+
+        [TestMethod]
+        public void UpdateOrderStatus_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+                string orderID = "Kio6798";
+                string newStatus = "Hecho";
+                bool result = true;
+                bool resultExpected = test.UpdateOrderStatus(orderID, newStatus);
+                Assert.AreEqual(resultExpected, result);
+            }
+
+
+        }
+
+        [TestMethod]
+        public void UpdateOrderStatus_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+
+                string orderID = "Kio9043";
+                string newStatus = "Hecho";
+                bool result = false;
+                bool resultExpected = test.UpdateOrderStatus(orderID, newStatus);
+                Assert.AreNotEqual(resultExpected, result);
+            }
+
+
         }
     }
 }
