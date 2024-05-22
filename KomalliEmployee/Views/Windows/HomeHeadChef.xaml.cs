@@ -40,7 +40,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickComments(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/BlogCommentsxaml.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickClose(object sender, RoutedEventArgs e) {
