@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using KomalliClient.Controller;
+using System.Collections.Specialized;
 
 namespace KomalliClient.Views.Pages
 {
@@ -58,55 +59,62 @@ namespace KomalliClient.Views.Pages
             }
         }
 
+        
+
         private void ClickGenerateOrder(object sender, RoutedEventArgs e) {
             FoodOrderController foodOrderController = new FoodOrderController();
             SingletonClass.Instance.NewIdFoodOrder = foodOrderController.MakeIdFoodOrder();
             var order = SingletonClass.Instance.SelectedFoods;
             int quantity = 0;
             int total = 0;
-            foreach (var food in order) {
+            foreach (var food in order)
+            {
                 quantity += food.Quantity;
                 total += food.Quantity * food.Price;
 
             }
 
-            FoodOrderModel foodOrderModel = new FoodOrderModel() {
+            FoodOrderModel foodOrderModel = new FoodOrderModel()
+            {
                 Total = total,
                 NumberDishes = quantity,
                 IdFoodOrder = SingletonClass.Instance.NewIdFoodOrder,
                 ClientName = txtName.Text
             };
-            
             int result = foodOrderController.RegistryOrder(foodOrderModel);
 
-            if (result == 1) {
+            if (result == 1)
+            {
                 FoodController foodController = new FoodController();
                 int result2 = 1;
                 int result3 = 1;
-                foreach (var food in order) {
+                foreach (var food in order)
+                {
                     quantity += food.Quantity;
                     total += food.Subtotal;
-                    FoodModel foodModel = new FoodModel() {
+                    FoodModel foodModel = new FoodModel()
+                    {
                         KeyCard = food.KeyCard,
                         Quantity = food.Quantity,
                         Price = food.Price,
-                        Subtotal = food.Quantity * food.Price,
+                        Subtotal = food.Quantity * food.Price
                     };
 
-                    if (food.KeyCard.StartsWith("Des") || food.KeyCard.StartsWith("Com")) {
+                    if (food.KeyCard.StartsWith("Des") || food.KeyCard.StartsWith("Com"))
+                    {
                         result3 = foodController.RegistryOrderMenu(foodModel, SingletonClass.Instance.NewIdFoodOrder);
                     }
-                    else {
+                    else
+                    {
                         result2 = foodController.RegistryOrderMenuCard(foodModel, SingletonClass.Instance.NewIdFoodOrder);
                     }
                 }
-                
             }
-            else {
+            else
+            {
                 App.ShowMessageError("MURIO", "DIE");
             }
         }
-
     }
 }
 

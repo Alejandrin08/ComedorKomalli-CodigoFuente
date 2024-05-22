@@ -405,6 +405,14 @@ namespace KomalliEmployee.Controller {
             return orders;
         }
 
+        /**
+        * <summary>
+        * Este método se encarga de eliminar un pedido de la tabla FoodOrder de la base de datos.
+        * </summary>
+        * <param name="orderId">Id que identifica el pedido a actualizar su estado</param>
+        * <param name="newStatus">parametro para actualizar el estado</param>
+        * <returns>Regresa true si se actualizo correctamente, false si ocurre un error.</returns>
+        */
         public bool UpdateOrderStatus(string orderId, string newStatus) {
             try {
                 using (var context = new KomalliEntities()) {
