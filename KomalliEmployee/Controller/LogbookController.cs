@@ -24,10 +24,7 @@ namespace KomalliEmployee.Controller {
          * <summary>
          * Este método añade los comentarios dentro de la bitácora.
          * </summary>
-         * <param name="idCommentary">id generado para el comentario</param>
-         * <param name="date"> Fecha de realización de comentario</param>
-         * <param name="commentary">Descripción añadida</param>
-         * <param name="noPersonal">número del personal de quién lo realizó</param>
+         * <param name="logbookModel">se pasa el objeto como referencia para un registro dentro de la base</param>
          * <returns>Si la operación se realiza correctamente, retorna 0. Si occurre algún error, retorna -1.</returns>
          */
         public int AddCommentary(LogbookModel logbookModel) {
@@ -86,6 +83,14 @@ namespace KomalliEmployee.Controller {
             return comments;
         }
 
+        /**
+        * <summary>
+        * Este método obtiene los comentarios añadidos por un personal.
+        * </summary>
+        * <param name="date">Fecha de la cual recuperara el comentario</param>
+        * <param name="comment">Contenido de comentario del cual recuperara el comentario</param>
+        * <returns>Retorna una lista de comentarios.</returns>
+        */
         public int GetCommentId (DateTime date, string comment) {
             int query = 0;
             try {
@@ -104,6 +109,13 @@ namespace KomalliEmployee.Controller {
             return query;
         }
 
+        /**
+        * <summary>
+        * Este método obtiene los comentarios añadidos por un personal.
+        * </summary>
+        * <param name="idcomment">identificador de comentario del cual eliminara el comentario</param>
+        * <returns>Retorna una lista de comentarios.</returns>
+        */
         public int DeleteCommentary(int idComment) {
             int result = 0;
             try {
@@ -122,6 +134,14 @@ namespace KomalliEmployee.Controller {
             return result;
         }
 
+        /**
+         * <summary>
+         * Este método añade los comentarios dentro de la bitácora.
+         * </summary>
+         * <param name="logbookModel">se pasa el objeto como referencia para la actualizacion dentro de la base</param>
+         * <param name="idcomment">identificador de comentario del cual actualizara el comentario</param>
+         * <returns>Si la operación se realiza correctamente, retorna 0. Si occurre algún error, retorna -1.</returns>
+         */
         public int UpdateComment(LogbookModel logbook, int idComment) {
             int result = 0;
             try {
@@ -140,6 +160,12 @@ namespace KomalliEmployee.Controller {
             return result;
         }
 
+        /**
+         * <summary>
+         * Este método se encarga de obtener todos los datos de los comentarios registrados en la base de datos.
+         * </summary>
+         * <returns> Regresa la lista de los ingredientes obtenidos en la base de datos.</returns>
+         */
         public List<LogbookModel> GetAllComments() {
             List<LogbookModel> logbook = new List<LogbookModel>();
             logbook = null;
