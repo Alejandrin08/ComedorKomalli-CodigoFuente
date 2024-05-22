@@ -80,7 +80,8 @@
 
                 <ListView x:Name="lstCommentsOfTheDay" 
                           Height="185" 
-                          Background="#F9F9EA"/>
+                          Background="#F9F9EA"
+                           ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"/>
             </StackPanel>
             <Grid Margin="10,216,283,205">
                 <Label x:Name="lblCharacterCount" Content="0" Margin="0,0,0,5" HorizontalAlignment="Left" Width="31" />

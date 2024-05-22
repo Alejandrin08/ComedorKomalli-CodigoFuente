@@ -97,7 +97,7 @@ namespace KomalliClient.Views.Pages
                         KeyCard = food.KeyCard,
                         Quantity = food.Quantity,
                         Price = food.Price,
-                        Subtotal = food.Quantity * food.Price,
+                        Subtotal = food.Quantity * food.Price
                     };
 
                     if (food.KeyCard.StartsWith("Des") || food.KeyCard.StartsWith("Com"))
