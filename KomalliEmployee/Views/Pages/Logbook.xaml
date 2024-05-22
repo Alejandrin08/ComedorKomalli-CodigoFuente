@@ -36,7 +36,7 @@
                 <ListView x:Name="lstComments" 
                           Background="#2C6C74"
                           Margin="0,49,0,0"
-                          ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"/>
+                           ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"/>
 
                 <Label x:Name="lblWithoutResults" 
                              Margin="188,203,188,191"
@@ -80,8 +80,7 @@
 
                 <ListView x:Name="lstCommentsOfTheDay" 
                           Height="185" 
-                          Background="#F9F9EA"
-                          ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"/>
+                          Background="#F9F9EA"/>
             </StackPanel>
             <Grid Margin="10,216,283,205">
                 <Label x:Name="lblCharacterCount" Content="0" Margin="0,0,0,5" HorizontalAlignment="Left" Width="31" />

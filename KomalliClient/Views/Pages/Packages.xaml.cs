@@ -46,7 +46,7 @@ namespace KomalliClient.Views.Pages {
                         foodControl.IsEnabled = antojitosOrTortasSelected;
                         foodControl.Opacity = antojitosOrTortasSelected ? 1.0 : 0.5;
                     }
-                    wrPFood.Children.Add(foodControl);
+                    wrpFood.Children.Add(foodControl);
                 }
                 grdContent.Children.Add(wrapPanel);
             } else {

@@ -9,13 +9,12 @@ using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace KomalliEmployee.Views.Pages {
     public partial class InventoryReport : Page {
         public InventoryReport() {
             InitializeComponent();
-            ShowReport();
+            ShowReport(null);
         }
 
         private void BindReport(DataSet dataSet) {
@@ -30,11 +29,24 @@ namespace KomalliEmployee.Views.Pages {
                 LocalReport localReport = rpv.LocalReport;
 
                 byte[] bytes = localReport.Render("PDF");
+                ComboBoxItem selectedItem = (ComboBoxItem)cboCategory.SelectedItem;
+                string defaultName = "";
+                DateTime date = DateTime.Now;
+                string dateStr = date.ToString("yyyy-MM-dd");
+
+                if (selectedItem == null) {
+                    defaultName = "ReporteInventarioGeneral" + dateStr;
+                } else {
+                    string category = selectedItem.Content.ToString();
+                    defaultName = "ReporteInventario" + category + dateStr;
+
+                }
 
                 SaveFileDialog saveFileDialog = new SaveFileDialog {
                     Filter = "PDF files (.pdf)|.pdf",
                     FilterIndex = 2,
-                    RestoreDirectory = true
+                    RestoreDirectory = true,
+                    FileName = defaultName
                 };
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK) {
@@ -48,17 +60,33 @@ namespace KomalliEmployee.Views.Pages {
             }
         }
 
-        private void ShowReport() {
+        private void ShowReport(string category) {
             try {
                 rpv.Reset();
                 DataReports dataReports = new DataReports();
                 IngredientTableAdapter ingredientTableAdapter = new IngredientTableAdapter();
-                ingredientTableAdapter.Fill(dataReports.Ingredient);
+
+                if (string.IsNullOrEmpty(category) || category == "General") {
+                    ingredientTableAdapter.FillBy(dataReports.Ingredient);
+                } else {
+                    ingredientTableAdapter.Fill(dataReports.Ingredient, category);
+                }
+
                 BindReport(dataReports);
                 rpv.RefreshReport();
             } catch (SqlException ex) {
                 App.ShowMessageError("Error al cargar el reporte", "Error al cargar");
                 LoggerManager.Instance.LogError("Error al cargar el reporte", ex);
+            }
+        }
+
+        private void SelectionChangedCategory(object sender, SelectionChangedEventArgs e) {
+            if (cboCategory.SelectedItem != null) {
+                ComboBoxItem selectedItem = (ComboBoxItem)cboCategory.SelectedItem;
+
+                string category = selectedItem.Content.ToString();
+
+                ShowReport(category);
             }
         }
     }

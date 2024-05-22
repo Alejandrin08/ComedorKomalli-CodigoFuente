@@ -26,13 +26,13 @@ namespace KomalliEmployee.Views.Windows {
             InitializeComponent();
             DataContext = new EmployeeModel();
             var emailValidationRule = new EmailValidationRule();
-            EmailValidationRule.ErrorTextBlock = txtEmailValidationMessage;
+            EmailValidationRule.ErrorTextBlock = tbkEmailValidationMessage;
         }
 
         private void ClickLogin(object sender, RoutedEventArgs e) {
             EmployeeModel employeeModel = new EmployeeModel {
-                Email = txbEmailUser.Text,
-                Password = pssUser.Password
+                Email = txtEmailUser.Text,
+                Password = psbUser.Password
             };
 
             EmployeeController employeeController = new EmployeeController();
@@ -45,8 +45,8 @@ namespace KomalliEmployee.Views.Windows {
                 changePassword.Show();
                 this.Close();
             } else if (userValidation  == 1) {
-                SingletonClass.Instance.UserName = employeeController.GetUserName(txbEmailUser.Text);
-                SingletonClass.Instance.Email = txbEmailUser.Text;
+                SingletonClass.Instance.UserName = employeeController.GetUserName(txtEmailUser.Text);
+                SingletonClass.Instance.Email = txtEmailUser.Text;
                 switch (employeeController.GetUserRule(employeeModel.Email)) {
                     case "Cajero":
                         HomeCashier homeCashier = new HomeCashier();
@@ -74,13 +74,13 @@ namespace KomalliEmployee.Views.Windows {
             }
         }
         private void TextChangedValidateTextBox(object sender, TextChangedEventArgs e) {
-            bool isEmailValid = !Validation.GetHasError(txbEmailUser) && !string.IsNullOrEmpty(txbEmailUser.Text);
+            bool isEmailValid = !Validation.GetHasError(txtEmailUser) && !string.IsNullOrEmpty(txtEmailUser.Text);
             if (isEmailValid) {
                 btnLogin.IsEnabled = true;
-                txtEmailValidationIcon.Visibility = Visibility.Collapsed;
+                tbkEmailValidationIcon.Visibility = Visibility.Collapsed;
             } else {
-                txtEmailValidationIcon.Visibility = Visibility.Visible;
-                txtEmailValidationMessage.Visibility = Visibility.Visible;
+                tbkEmailValidationIcon.Visibility = Visibility.Visible;
+                tbkEmailValidationMessage.Visibility = Visibility.Visible;
                 btnLogin.IsEnabled = false;
             }
         }

@@ -110,6 +110,7 @@
     <Compile Include="Contracts\IIngredient.cs" />
     <Compile Include="Contracts\ILogbook.cs" />
     <Compile Include="Contracts\IMenu.cs" />
+    <Compile Include="Contracts\ISetMenu.cs" />
     <Compile Include="Controller\CashCutController.cs" />
     <Compile Include="Controller\DishOrderController.cs" />
     <Compile Include="Controller\EmployeeController.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Controller\IngredientController.cs" />
     <Compile Include="Controller\LogbookController.cs" />
     <Compile Include="Controller\MenuController.cs" />
+    <Compile Include="Controller\SetMenuController.cs" />
     <Compile Include="Model\CashCutModel.cs" />
     <Compile Include="Model\DishOrderModel.cs" />
     <Compile Include="Model\EmployeeModel.cs" />
@@ -126,9 +128,12 @@
     <Compile Include="Model\IngredientModel.cs" />
     <Compile Include="Model\LogbookModel.cs" />
     <Compile Include="Model\MenuModel.cs" />
+    <Compile Include="Model\SetMenuModel.cs" />
+    <Compile Include="Model\Utilities\IngredientCategory.cs" />
     <Compile Include="Model\OrderUser.cs" />
     <Compile Include="Model\Utilities\LoggerManager.cs" />
     <Compile Include="Model\Utilities\SingletonClass.cs" />
+    <Compile Include="Model\Utilities\TypeMenu.cs" />
     <Compile Include="Model\Utilities\TypeQuantity.cs" />
     <Compile Include="Model\Validations\AvailabilityValidationRule.cs" />
     <Compile Include="Model\Validations\EmailValidationRule.cs" />
@@ -162,6 +167,9 @@
     <Compile Include="Views\Pages\EditLogbook.xaml.cs">
       <DependentUpon>EditLogbook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\DeleteSetMenu.xaml.cs">
+      <DependentUpon>DeleteSetMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\InventoryReport.xaml.cs">
       <DependentUpon>InventoryReport.xaml</DependentUpon>
     </Compile>
@@ -177,6 +185,9 @@
     <Compile Include="Views\Pages\MakeOrder.xaml.cs">
       <DependentUpon>MakeOrder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\ModifySetMenu.xaml.cs">
+      <DependentUpon>ModifySetMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\ModifyUser.xaml.cs">
       <DependentUpon>ModifyUser.xaml</DependentUpon>
     </Compile>
@@ -186,6 +197,9 @@
     <Compile Include="Views\Pages\Order.xaml.cs">
       <DependentUpon>Order.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\PublishSetMenu.xaml.cs">
+      <DependentUpon>PublishSetMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\RegisterCashCut.xaml.cs">
       <DependentUpon>RegisterCashCut.xaml</DependentUpon>
     </Compile>
@@ -194,6 +208,15 @@
     </Compile>
     <Compile Include="Views\Pages\RegisterUser.xaml.cs">
       <DependentUpon>RegisterUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SearchSetMenuToDelete.xaml.cs">
+      <DependentUpon>SearchSetMenuToDelete.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SearchSetMenuToModify.xaml.cs">
+      <DependentUpon>SearchSetMenuToModify.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\TicketReport.xaml.cs">
+      <DependentUpon>TicketReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Usercontrols\CommentCard.xaml.cs">
       <DependentUpon>CommentCard.xaml</DependentUpon>
@@ -267,6 +290,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\DeleteSetMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\InventoryReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -291,6 +318,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\ModifySetMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\PublishSetMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\Order.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -308,6 +343,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\RegisterUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SearchSetMenuToDelete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SearchSetMenuToModify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\TicketReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -381,6 +428,7 @@
     <EmbeddedResource Include="Resources\KomalliReports\DailyTransactionsReport.rdlc" />
     <EmbeddedResource Include="Resources\KomalliReports\InventoryReport.rdlc" />
     <EmbeddedResource Include="Resources\KomalliReports\LogbookReport.rdlc" />
+    <EmbeddedResource Include="Resources\KomalliReports\TicketReport.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -400,12 +448,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KomalliServer\KomalliServer.csproj">
-      <Project>{18E7AEB5-9637-4E65-801C-F8727FAA8BD3}</Project>
-      <Name>KomalliServer</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\KomalliGif.gif" />
@@ -447,7 +489,16 @@
     <Resource Include="Resources\Images\Substract.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KomalliServer\KomalliServer.csproj">
+      <Project>{18E7AEB5-9637-4E65-801C-F8727FAA8BD3}</Project>
+      <Name>KomalliServer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Resources\Images\EditIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\LogoutIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

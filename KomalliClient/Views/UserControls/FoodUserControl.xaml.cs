@@ -52,16 +52,16 @@ namespace KomalliClient.Views.UserControls {
 
         public void BindData() {
             if (Food != null) {
-                txtbFoodName.Text = Food.Name;
-                txtbFoodPrice.Text = "$" + Food.Price.ToString();
+                tbkFoodName.Text = Food.Name;
+                tbkFoodPrice.Text = "$" + Food.Price.ToString();
                 imgFoodImage.Source = new BitmapImage(new Uri(Food.Image));
             }
         }
 
         private void ClickAddFood(object sender, RoutedEventArgs e) {
-            int price = int.Parse(txtbFoodPrice.Text.TrimStart('$')); 
+            int price = int.Parse(tbkFoodPrice.Text.TrimStart('$')); 
             FoodModel foodModel = new FoodModel() {
-                Name = txtbFoodName.Text,
+                Name = tbkFoodName.Text,
                 Price = price,
                 IsSelected = true,
                 Section = Food.Section,

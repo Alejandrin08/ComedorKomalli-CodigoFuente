@@ -13,7 +13,9 @@ namespace KomalliEmployee.Model
         public string NameIngredient { get; set; }
         public string Quantity {  get; set; }
         public TypeQuantity Measurement {  get; set; }
+        public IngredientCategory Category { get; set; }
         public string BarCode { get; set; }
+        public DateTime? ReplenishmentDate { get; set; }
 
     }
 }

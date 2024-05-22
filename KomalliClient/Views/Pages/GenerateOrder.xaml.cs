@@ -108,8 +108,6 @@ namespace KomalliClient.Views.Pages
                     {
                         result2 = foodController.RegistryOrderMenuCard(foodModel, SingletonClass.Instance.NewIdFoodOrder);
                     }
-
-
                 }
             }
             else

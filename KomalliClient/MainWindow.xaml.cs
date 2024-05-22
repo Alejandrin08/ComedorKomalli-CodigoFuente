@@ -29,14 +29,14 @@ namespace KomalliClient {
         }
 
         private void SelectedFoodsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
-            lstSelectedFoods.Items.Clear();
+            lvwSelectedFoods.Items.Clear();
 
             WrapPanel wrapPanel = FindWrapPanel(this);
 
             foreach (FoodModel food in SingletonClass.Instance.SelectedFoods) {
                 FoodDetails foodDetails = new FoodDetails();
                 foodDetails.BindData(food);
-                lstSelectedFoods.Items.Add(foodDetails);
+                lvwSelectedFoods.Items.Add(foodDetails);
 
                 if (wrapPanel != null) {
                     FoodUserControl foodControl = wrapPanel.Children.OfType<FoodUserControl>().FirstOrDefault(control => control.Food.Name == food.Name);
@@ -49,18 +49,20 @@ namespace KomalliClient {
         }
 
         private WrapPanel FindWrapPanel(DependencyObject parent) {
+            WrapPanel result = null;
+
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++) {
                 var child = VisualTreeHelper.GetChild(parent, i);
 
-                if (child is WrapPanel wrapPanel && wrapPanel.Name == "wrPFood") {
-                    return wrapPanel;
+                if (child is WrapPanel wrapPanel && wrapPanel.Name == "wrpFood") {
+                    result = wrapPanel;
+                    break;
                 }
-
-                var result = FindWrapPanel(child);
+                result = FindWrapPanel(child);
                 if (result != null)
-                    return result;
+                    break;
             }
-            return null;
+            return result;
         }
 
         public void UpdateTotalPrice() {
@@ -68,7 +70,7 @@ namespace KomalliClient {
             foreach (FoodModel food in SingletonClass.Instance.SelectedFoods) {
                 totalPrice += food.Subtotal;
             }
-            txtbTotalPrice.Text = "$" + totalPrice.ToString();
+            tbkTotalPrice.Text = "$" + totalPrice.ToString();
         }
 
         private void ClickClose(object sender, RoutedEventArgs e) {
@@ -108,6 +110,10 @@ namespace KomalliClient {
 
 
         private void ClickContinueWithPaymet(object sender, RoutedEventArgs e) {
+            foreach (FoodModel food in SingletonClass.Instance.SelectedFoods) {
+                Console.WriteLine($"Nombre del pedido: {food.Name}, Precio: {food.Price}, Cantidad: {food.Quantity}, Seccion: {food.Section}, KeyCard:  {food.KeyCard}");
+                Console.WriteLine($"Subtotal: {food.Subtotal}");
+            }
             Views.Pages.GenerateOrder generateOrder = new Views.Pages.GenerateOrder();
             fraPages.Content = generateOrder;
             grdLabel.Visibility = Visibility.Collapsed;

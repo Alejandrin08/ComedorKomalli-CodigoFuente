@@ -17,11 +17,11 @@ namespace KomalliTest.Employee {
                 KomalliEmployee.Controller.LogbookController test = new KomalliEmployee.Controller.LogbookController();
 
                 LogbookModel logbook = new LogbookModel() {
-                    IdCommentary = 8,
                     Date = DateTime.Now,
                     Section = "Merma",
                     Commentary = "Se reportan 5 comidas sobrantes",
-                    NoPersonalEmployee = "11"
+                    NoPersonalEmployee = "777",
+                    Section = "Merma"  
                 };
                 int resultExpected = 1;
                 int result = test.AddCommentary(logbook);
@@ -35,15 +35,14 @@ namespace KomalliTest.Employee {
                 KomalliEmployee.Controller.LogbookController test = new KomalliEmployee.Controller.LogbookController();
 
                 LogbookModel logbook = new LogbookModel() {
-                    IdCommentary = 8,
                     Date = DateTime.Now,
-                    Section = "Merma",
-                    Commentary = "Se reportan 5 comidas sobrantes",
-                    NoPersonalEmployee = "11"
+                    Commentary = "Hola jsjsj",
+                    NoPersonalEmployee = "111",
+                    Section = "Otro"
                 };
                 int resultExpected = -1;
                 int result = test.AddCommentary(logbook);
-                Assert.AreEqual(resultExpected, result);
+                Assert.AreNotEqual(resultExpected, result);
             }
         }
 

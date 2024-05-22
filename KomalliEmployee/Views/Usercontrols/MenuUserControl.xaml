@@ -146,7 +146,7 @@
                         Height="20"
                         HorizontalAlignment="Right"
                         Style="{DynamicResource ButtonStyleUserControl}" 
-                        Click="ClickAddMenu" Grid.RowSpan="2"
+                        Click="ClickAddMenu"                         
                     />
                 </Grid>
             </Grid>
