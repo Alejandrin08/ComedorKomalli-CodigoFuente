@@ -324,8 +324,9 @@ namespace KomalliEmployee.Controller {
         public List<OrderUser> GetStatusOrder(string status) {
             List<OrderUser> orders = new List<OrderUser>();
             using (var context = new KomalliEntities()) {
+                var today = DateTime.Today;
                 var menuCardOrders = from food in context.FoodOrder
-                                     where food.Status == status
+                                     where food.Status == status && food.Date == today
                                      select new OrderUser {
                                          OrderID = food.IDFoodOrder,
                                          Quantity = food.NumberDishes,
@@ -342,7 +343,7 @@ namespace KomalliEmployee.Controller {
                                      };
 
                 var setMenuOrders = from food in context.FoodOrder
-                                    where food.Status == status
+                                    where food.Status == status && food.Date == today
                                     select new OrderUser {
                                         OrderID = food.IDFoodOrder,
                                         Quantity = food.NumberDishes,
@@ -366,8 +367,9 @@ namespace KomalliEmployee.Controller {
         public List<OrderUser> GetOrdersByStatuses(List<string> statuses) {
             List<OrderUser> orders = new List<OrderUser>();
             using (var context = new KomalliEntities()) {
+                var today = DateTime.Today;
                 var menuCardOrders = from food in context.FoodOrder
-                                     where statuses.Contains(food.Status)
+                                     where statuses.Contains(food.Status) && food.Date == today
                                      select new OrderUser {
                                          OrderID = food.IDFoodOrder,
                                          Quantity = food.NumberDishes,
@@ -384,7 +386,7 @@ namespace KomalliEmployee.Controller {
                                      };
 
                 var setMenuOrders = from food in context.FoodOrder
-                                    where statuses.Contains(food.Status)
+                                    where statuses.Contains(food.Status) && food.Date == today
                                     select new OrderUser {
                                         OrderID = food.IDFoodOrder,
                                         Quantity = food.NumberDishes,
