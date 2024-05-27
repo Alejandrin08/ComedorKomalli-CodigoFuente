@@ -178,9 +178,9 @@ namespace KomalliEmployee.Views.Pages {
             FoodController foodController = new FoodController();
             var menu = foodController.GetKeyMenu();
             foreach (var food in menu) {
-                if (food.KeyCard.StartsWith("Des")) {
+                if (food.KeyCard.StartsWith("DES")) {
                     SingletonClass.Instance.keyBreakfast = food.KeyCard;
-                } else if (food.KeyCard.StartsWith("Com")) {
+                } else if (food.KeyCard.StartsWith("COM")) {
                     SingletonClass.Instance.KeyMeal = food.KeyCard;
                 }
             }
@@ -251,7 +251,7 @@ namespace KomalliEmployee.Views.Pages {
                     Price = food.Price,
                     Subtotal = food.Quantity * food.Price,
                 };
-                if (food.KeyCard.StartsWith("Des") || food.KeyCard.StartsWith("Com")) {
+                if (food.KeyCard.StartsWith("DES") || food.KeyCard.StartsWith("COM")) {
                     resultRegistryOrderMenu = foodController.RegistryOrderMenu(foodModel, SingletonClass.Instance.NewIdFoodOrder);
                 } else {
                     resultRegistryOrderMenuCard = foodController.RegistryOrderMenuCard(foodModel, SingletonClass.Instance.NewIdFoodOrder);

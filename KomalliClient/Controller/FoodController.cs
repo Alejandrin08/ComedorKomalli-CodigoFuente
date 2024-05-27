@@ -4,6 +4,7 @@ using KomalliClient.Model.Utilities;
 using KomalliServer;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Text;
@@ -79,6 +80,33 @@ namespace KomalliClient.Controller {
                 LoggerManager.Instance.LogError("Error en Registrar pedido de menu carta", ex);
             }
             return result;
+        }
+
+
+        /**
+         * <summary>
+         * Este método se encarga de obtener la clave de los menus que habra disponibles por dia.
+         * </summary>
+         * <returns>Regresa una lista de foodModel que contiene la clave de los menu, o nulos si no encuentra</returns>
+         */
+
+        public List<FoodModel> GetKeyMenu() {
+            List<FoodModel> foods = new List<FoodModel>();
+            try {
+                using (var context = new KomalliEntities()) {
+
+                    
+                    var query = foods = context.SetMenu
+                        .Where(food => (DbFunctions.TruncateTime(food.Date) == DbFunctions.TruncateTime(DateTime.Today)))
+                        .Select(food => new FoodModel {
+                            KeyCard = food.KeySetMenu
+                        }).ToList();
+                }
+            } catch (EntityException ex) {
+                foods = null;
+                LoggerManager.Instance.LogError("Error al obtener los las claves de los menu del dia", ex);
+            }
+            return foods;
         }
     }
 }

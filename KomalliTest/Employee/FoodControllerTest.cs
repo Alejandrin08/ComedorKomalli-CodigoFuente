@@ -114,7 +114,9 @@ namespace KomalliTest.Employee {
                 new FoodModel {
                     KeyCard = "COM867"
                 },
-                
+                new FoodModel {
+                    KeyCard = "COM867"
+                },
             };
 
             var foodOrdersResult = test.GetKeyMenu();

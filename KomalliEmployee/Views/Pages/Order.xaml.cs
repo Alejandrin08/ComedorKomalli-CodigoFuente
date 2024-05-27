@@ -40,6 +40,7 @@ namespace KomalliEmployee.Views.Pages {
             if (orders.Any()) {
                 foreach (OrderUser order in orders) {
                     AddOrders(order);
+                    Console.WriteLine(order.ToString());
                 }
             }
         }

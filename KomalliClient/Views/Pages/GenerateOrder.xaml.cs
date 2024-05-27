@@ -71,7 +71,7 @@ namespace KomalliClient.Views.Pages
                     Price = food.Price,
                     Subtotal = food.Quantity * food.Price,
                 };
-                if (food.KeyCard.StartsWith("Des") || food.KeyCard.StartsWith("Com")) {
+                if (food.KeyCard.StartsWith("DES") || food.KeyCard.StartsWith("COM")) {
                     resultRegistryOrderMenu = foodController.RegistryOrderMenu(foodModel, SingletonClass.Instance.NewIdFoodOrder);
                 }
                 else {
@@ -106,10 +106,19 @@ namespace KomalliClient.Views.Pages
 
             if (resultRegistryOrder > 0) {
                 int resultRegisterOrderDetails = RegisterOrderDetails();
+                if(resultRegisterOrderDetails > 0) {
+                    App.ShowMessageInformation("Pedido registrado", "Pedido registrado exitosamente");
+                } else {
+                    App.ShowMessageError("No se pudo registrar el pedido", "Error al registrar el pedido");
+                }
             }
             else {
                 App.ShowMessageError("No se pudo registrar el pedido", "Error al registrar el pedido");
             }
+
+            SingletonClass.Instance.SelectedFoods.Clear();
+            HomeMenu homeMenu = new HomeMenu();;
+            this.NavigationService.Navigate(homeMenu);
         }
     }
 }

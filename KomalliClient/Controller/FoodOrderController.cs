@@ -18,7 +18,7 @@ namespace KomalliClient.Controller {
                     {
                         IDFoodOrder = foodModel.IdFoodOrder,
                         Status = "Pendiente",
-                        ClientName = "",
+                        ClientName = foodModel.ClientName,
                         Date = DateTime.Now,
                         Total = foodModel.Total,
                         NumberDishes = foodModel.NumberDishes
