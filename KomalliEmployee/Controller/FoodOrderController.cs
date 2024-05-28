@@ -325,6 +325,7 @@ namespace KomalliEmployee.Controller {
             List<OrderUser> orders = new List<OrderUser>();
             using (var context = new KomalliEntities()) {
                 var today = DateTime.Today;
+                var currentTime = DateTime.Now;
                 var menuCardOrders = from food in context.FoodOrder
                                      where food.Status == status && food.Date == today
                                      select new OrderUser {
