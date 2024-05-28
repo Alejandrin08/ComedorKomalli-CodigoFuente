@@ -47,7 +47,7 @@ namespace KomalliEmployee.Views.Pages {
         
         private void ShowAllOrders() {
             FoodOrderController foodOrderController = new FoodOrderController();
-            var statuses = new List<string> { "Pendiente", "Hecho", "Entregado" };
+            var statuses = new List<string> { "Pagado","Pendiente", "Hecho", "Entregado" };
             ShowOrders(foodOrderController.GetOrdersByStatuses(statuses));
         }
 

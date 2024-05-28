@@ -32,6 +32,7 @@ namespace KomalliEmployee.Views.Usercontrols
             lblContentQuantity.Content = order.Quantity;
             lblContentCategory.Content = order.OrderType;
             lblContentType.Content = order.FoodName;
+           
             UpdateButtonContent();
         }
 
