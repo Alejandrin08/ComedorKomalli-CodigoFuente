@@ -40,13 +40,14 @@ namespace KomalliEmployee.Views.Pages {
             if (orders.Any()) {
                 foreach (OrderUser order in orders) {
                     AddOrders(order);
+                    Console.WriteLine(order.ToString());
                 }
             }
         }
-
+        
         private void ShowAllOrders() {
             FoodOrderController foodOrderController = new FoodOrderController();
-            var statuses = new List<string> { "Pendiente", "Hecho", "Entregado" };
+            var statuses = new List<string> { "Pagado","Pendiente", "Hecho", "Entregado" };
             ShowOrders(foodOrderController.GetOrdersByStatuses(statuses));
         }
 

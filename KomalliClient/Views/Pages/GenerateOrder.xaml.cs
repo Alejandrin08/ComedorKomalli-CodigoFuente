@@ -59,61 +59,66 @@ namespace KomalliClient.Views.Pages
             }
         }
 
-        
+        private int RegisterOrderDetails() {
+            FoodController foodController = new FoodController();
+            int resultRegistryOrderMenu = 1;
+            int resultRegistryOrderMenuCard = 1;
+            var order = SingletonClass.Instance.SelectedFoods;
+            foreach (var food in order) {
+                FoodModel foodModel = new FoodModel() {
+                    KeyCard = food.KeyCard,
+                    Quantity = food.Quantity,
+                    Price = food.Price,
+                    Subtotal = food.Quantity * food.Price,
+                };
+                if (food.KeyCard.StartsWith("DES") || food.KeyCard.StartsWith("COM")) {
+                    resultRegistryOrderMenu = foodController.RegistryOrderMenu(foodModel, SingletonClass.Instance.NewIdFoodOrder);
+                }
+                else {
+                    resultRegistryOrderMenuCard = foodController.RegistryOrderMenuCard(foodModel, SingletonClass.Instance.NewIdFoodOrder);
+                }
+            }
+            return (resultRegistryOrderMenu > 0 && resultRegistryOrderMenuCard > 0) ? 1 : 0;
+        }
 
-        private void ClickGenerateOrder(object sender, RoutedEventArgs e) {
-            FoodOrderController foodOrderController = new FoodOrderController();
-            SingletonClass.Instance.NewIdFoodOrder = foodOrderController.MakeIdFoodOrder();
+        private FoodOrderModel GetInfoOrder() {
             var order = SingletonClass.Instance.SelectedFoods;
             int quantity = 0;
             int total = 0;
-            foreach (var food in order)
-            {
+            foreach (var food in order) {
                 quantity += food.Quantity;
                 total += food.Quantity * food.Price;
-
             }
-
-            FoodOrderModel foodOrderModel = new FoodOrderModel()
-            {
+            FoodOrderModel foodOrderModel = new FoodOrderModel() {
                 Total = total,
                 NumberDishes = quantity,
                 IdFoodOrder = SingletonClass.Instance.NewIdFoodOrder,
                 ClientName = txtName.Text
             };
-            int result = foodOrderController.RegistryOrder(foodOrderModel);
+            return foodOrderModel;
+        }
 
-            if (result == 1)
-            {
-                FoodController foodController = new FoodController();
-                int result2 = 1;
-                int result3 = 1;
-                foreach (var food in order)
-                {
-                    quantity += food.Quantity;
-                    total += food.Subtotal;
-                    FoodModel foodModel = new FoodModel()
-                    {
-                        KeyCard = food.KeyCard,
-                        Quantity = food.Quantity,
-                        Price = food.Price,
-                        Subtotal = food.Quantity * food.Price
-                    };
+        private void ClickGenerateOrder(object sender, RoutedEventArgs e) {
+            FoodOrderController foodOrderController = new FoodOrderController();
+            SingletonClass.Instance.NewIdFoodOrder = foodOrderController.MakeIdFoodOrder();
 
-                    if (food.KeyCard.StartsWith("Des") || food.KeyCard.StartsWith("Com"))
-                    {
-                        result3 = foodController.RegistryOrderMenu(foodModel, SingletonClass.Instance.NewIdFoodOrder);
-                    }
-                    else
-                    {
-                        result2 = foodController.RegistryOrderMenuCard(foodModel, SingletonClass.Instance.NewIdFoodOrder);
-                    }
+            int resultRegistryOrder = foodOrderController.RegistryOrder(GetInfoOrder());
+
+            if (resultRegistryOrder > 0) {
+                int resultRegisterOrderDetails = RegisterOrderDetails();
+                if(resultRegisterOrderDetails > 0) {
+                    App.ShowMessageInformation("Pedido registrado", "Pedido registrado exitosamente");
+                } else {
+                    App.ShowMessageError("No se pudo registrar el pedido", "Error al registrar el pedido");
                 }
             }
-            else
-            {
-                App.ShowMessageError("MURIO", "DIE");
+            else {
+                App.ShowMessageError("No se pudo registrar el pedido", "Error al registrar el pedido");
             }
+
+            SingletonClass.Instance.SelectedFoods.Clear();
+            HomeMenu homeMenu = new HomeMenu();;
+            this.NavigationService.Navigate(homeMenu);
         }
     }
 }

@@ -324,8 +324,10 @@ namespace KomalliEmployee.Controller {
         public List<OrderUser> GetStatusOrder(string status) {
             List<OrderUser> orders = new List<OrderUser>();
             using (var context = new KomalliEntities()) {
+                var today = DateTime.Today;
+                var currentTime = DateTime.Now;
                 var menuCardOrders = from food in context.FoodOrder
-                                     where food.Status == status
+                                     where food.Status == status && food.Date == today
                                      select new OrderUser {
                                          OrderID = food.IDFoodOrder,
                                          Quantity = food.NumberDishes,
@@ -342,7 +344,7 @@ namespace KomalliEmployee.Controller {
                                      };
 
                 var setMenuOrders = from food in context.FoodOrder
-                                    where food.Status == status
+                                    where food.Status == status && food.Date == today
                                     select new OrderUser {
                                         OrderID = food.IDFoodOrder,
                                         Quantity = food.NumberDishes,
@@ -352,10 +354,9 @@ namespace KomalliEmployee.Controller {
                                                    where fosm.IDFoodOrderFoodOrder == food.IDFoodOrder
                                                    select fosm.KeySetMenuSetMenu).FirstOrDefault(),
                                         CardKey = null,
-                                        FoodName = (from fosm in context.FoodOrder_SetMenu
-                                                    join sm in context.SetMenu on fosm.KeySetMenuSetMenu equals sm.KeySetMenu
-                                                    where fosm.IDFoodOrderFoodOrder == food.IDFoodOrder
-                                                    select sm.KeySetMenu.StartsWith("Des") ? "Desayuno" : sm.KeySetMenu.StartsWith("Com") ? "Comida" : sm.KeySetMenu).FirstOrDefault()
+                                        FoodName = currentTime.Hour >= 8 && currentTime.Hour < 12 ? "Desayuno" :
+                                           currentTime.Hour >= 12 && currentTime.Hour < 20 ? "Comida" :
+                                           ""
                                     };
 
                 orders = menuCardOrders.Concat(setMenuOrders).ToList();
@@ -366,8 +367,10 @@ namespace KomalliEmployee.Controller {
         public List<OrderUser> GetOrdersByStatuses(List<string> statuses) {
             List<OrderUser> orders = new List<OrderUser>();
             using (var context = new KomalliEntities()) {
+                var today = DateTime.Today;
+                var currentTime = DateTime.Now;
                 var menuCardOrders = from food in context.FoodOrder
-                                     where statuses.Contains(food.Status)
+                                     where statuses.Contains(food.Status) && food.Date == today
                                      select new OrderUser {
                                          OrderID = food.IDFoodOrder,
                                          Quantity = food.NumberDishes,
@@ -384,7 +387,7 @@ namespace KomalliEmployee.Controller {
                                      };
 
                 var setMenuOrders = from food in context.FoodOrder
-                                    where statuses.Contains(food.Status)
+                                    where statuses.Contains(food.Status) && food.Date == today
                                     select new OrderUser {
                                         OrderID = food.IDFoodOrder,
                                         Quantity = food.NumberDishes,
@@ -393,27 +396,28 @@ namespace KomalliEmployee.Controller {
                                         MenuKey = (from fosm in context.FoodOrder_SetMenu
                                                    where fosm.IDFoodOrderFoodOrder == food.IDFoodOrder
                                                    select fosm.KeySetMenuSetMenu).FirstOrDefault(),
-                                        CardKey = null,
-                                        FoodName = (from fosm in context.FoodOrder_SetMenu
-                                                    join sm in context.SetMenu on fosm.KeySetMenuSetMenu equals sm.KeySetMenu
-                                                    where fosm.IDFoodOrderFoodOrder == food.IDFoodOrder
-                                                    select sm.KeySetMenu.StartsWith("Des") ? "Desayuno" : sm.KeySetMenu.StartsWith("Com") ? "Comida" : sm.KeySetMenu).FirstOrDefault()
+                                        CardKey = (string)null,
+                                        FoodName = currentTime.Hour >= 8 && currentTime.Hour < 12 ? "Desayuno" :
+                                           currentTime.Hour >= 12 && currentTime.Hour < 20 ? "Comida" :
+                                           ""
                                     };
+
 
                 orders = menuCardOrders.Concat(setMenuOrders).ToList();
             }
             return orders;
         }
 
-        /**
-        * <summary>
-        * Este método se encarga de eliminar un pedido de la tabla FoodOrder de la base de datos.
-        * </summary>
-        * <param name="orderId">Id que identifica el pedido a actualizar su estado</param>
-        * <param name="newStatus">parametro para actualizar el estado</param>
-        * <returns>Regresa true si se actualizo correctamente, false si ocurre un error.</returns>
-        */
-        public bool UpdateOrderStatus(string orderId, string newStatus) {
+        
+            /**
+            * <summary>
+            * Este método se encarga de eliminar un pedido de la tabla FoodOrder de la base de datos.
+            * </summary>
+            * <param name="orderId">Id que identifica el pedido a actualizar su estado</param>
+            * <param name="newStatus">parametro para actualizar el estado</param>
+            * <returns>Regresa true si se actualizo correctamente, false si ocurre un error.</returns>
+            */
+            public bool UpdateOrderStatus(string orderId, string newStatus) {
             try {
                 using (var context = new KomalliEntities()) {
                     var order = context.FoodOrder.SingleOrDefault(o => o.IDFoodOrder == orderId);
