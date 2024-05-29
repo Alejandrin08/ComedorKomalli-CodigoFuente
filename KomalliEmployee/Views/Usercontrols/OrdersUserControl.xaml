@@ -22,16 +22,16 @@
             <Border.Style>
                 <Style TargetType="Border">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=lblSection, Path=Content}" Value="Merma">
+                        <DataTrigger Binding="{Binding Path=Content}" Value="Merma">
                             <Setter Property="BorderBrush" Value="{StaticResource TodosColor}"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=lblSection, Path=Content}" Value="Incidencia">
+                        <DataTrigger Binding="{Binding Path=Content}" Value="Incidencia">
                             <Setter Property="BorderBrush" Value="{StaticResource PendientesColor}"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=lblSection, Path=Content}" Value="General">
+                        <DataTrigger Binding="{Binding Path=Content}" Value="General">
                             <Setter Property="BorderBrush" Value="{StaticResource HechosColor}"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=lblSection, Path=Content}" Value="Otro">
+                        <DataTrigger Binding="{Binding Path=Content}" Value="Otro">
                             <Setter Property="BorderBrush" Value="{StaticResource EntregadosColor}"/>
                         </DataTrigger>
                     </Style.Triggers>
