@@ -71,7 +71,6 @@ namespace KomalliEmployee.Views.Usercontrols {
 
         private FoodModel SetInfo(string keyMenu, string typeClient, int price) {
             FoodModel foodModel = new FoodModel();
-            Console.WriteLine("idKey" + keyMenu);
             foodModel = new FoodModel() {
                 KeyCard = keyMenu,
                 Name = tbkFoodName.Text + typeClient,

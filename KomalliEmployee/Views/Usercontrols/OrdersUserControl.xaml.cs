@@ -42,7 +42,7 @@ namespace KomalliEmployee.Views.Usercontrols
             string newStatus = GetNextStatus(_order.Status);
             FoodOrderController controller = new FoodOrderController();
 
-            if (controller.UpdateOrderStatus(_order.OrderID, newStatus)) {
+            if (controller.UpdateOrderStatus(_order.OrderID, newStatus)) {   
                 _order.Status = newStatus;
                 UpdateButtonContent();
             }
@@ -60,6 +60,8 @@ namespace KomalliEmployee.Views.Usercontrols
                 case "Pendiente":
                     return "Hecho";
                 case "Hecho":
+                    return "Entregado";
+                case "Entregado":
                     return "Entregado";
                 default:
                     return "Pendiente";

@@ -284,13 +284,15 @@ namespace KomalliEmployee.Controller {
                                          select new {
                                              food.NumberDishes,
                                              foodOrderSetMenu.KeySetMenuSetMenu,
-                                             food.Status
+                                             food.Status,
+                                             food.IDFoodOrder
                                          }).ToList()
                                          .Select(result => new OrderUser {
                                              Quantity = result.NumberDishes,
                                              OrderType = "Menú del día",
                                              Status = result.Status,
-                                             FoodName = result.KeySetMenuSetMenu.StartsWith("Com") ? "Comida" : "Desayuno"
+                                             FoodName = result.KeySetMenuSetMenu.StartsWith("Com") ? "Comida" : "Desayuno",
+                                             OrderID = result.IDFoodOrder
                                          }).ToList();
 
                     orders = setMenuOrders;
@@ -322,13 +324,16 @@ namespace KomalliEmployee.Controller {
                                         select new {
                                             food.NumberDishes,
                                             menuCard.NameFood,
-                                            food.Status
+                                            food.Status,
+                                            food.IDFoodOrder
+
                                         }).ToList()
                                         .Select(result => new OrderUser {
                                             Quantity = result.NumberDishes,
                                             OrderType = "Menú a la carta",
                                             Status = result.Status,
-                                            FoodName = result.NameFood
+                                            FoodName = result.NameFood,
+                                            OrderID = result.IDFoodOrder
                                         }).ToList();
 
                     orders = menuCardOrders;
