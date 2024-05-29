@@ -35,20 +35,35 @@ namespace KomalliEmployee.Views.Pages {
 
 
 
-        private void ShowOrders(List<OrderUser> orders) {
+        private void ShowOrders(List<OrderUser> orders, string orderType) {
             lstOrders.Items.Clear();
-            if (orders.Any()) {
-                foreach (OrderUser order in orders) {
-                    AddOrders(order);
-                    Console.WriteLine(order.ToString());
+            if (orderType == "Menú del día") {
+                if (orders.Any()) {
+                    foreach (OrderUser order in orders) {
+                        AddOrders(order);
+                        Console.WriteLine(order.ToString());
+                    }
+                }
+                
+            }
+            else if (orderType == "Menú a la carta") {
+                if (orders.Any()) {
+                    foreach (OrderUser order in orders) {
+                        AddOrders(order);
+                        Console.WriteLine(order.ToString());
+                    }
                 }
             }
         }
         
         private void ShowAllOrders() {
             FoodOrderController foodOrderController = new FoodOrderController();
-            var statuses = new List<string> { "Pagado","Pendiente", "Hecho", "Entregado" };
-            ShowOrders(foodOrderController.GetOrdersByStatuses(statuses));
+            var today = DateTime.Today;
+            
+            var setMenuOrders = foodOrderController.GetStatusOrderSetMenu("Pagado");
+            ShowOrders(setMenuOrders, "Menú del día");
+            var menuCardOrders = foodOrderController.GetStatusOrderMenuCard("Pagado");
+            ShowOrders(menuCardOrders, "Menú a la carta");
         }
 
 
@@ -58,17 +73,28 @@ namespace KomalliEmployee.Views.Pages {
 
         private void ClickPendingOrders(object sender, RoutedEventArgs e) {
             FoodOrderController foodOrderController = new FoodOrderController();
-            ShowOrders(foodOrderController.GetStatusOrder("Pendiente"));
+            
+        
+            var setMenuOrders = foodOrderController.GetStatusOrderSetMenu("Pendiente");
+            ShowOrders(setMenuOrders, "Menú del día");
+            var menuCardOrders = foodOrderController.GetStatusOrderMenuCard("Pendiente");
+            ShowOrders(menuCardOrders, "Menú a la carta");
         }
 
         private void ClickPlacedOrders(object sender, RoutedEventArgs e) {
             FoodOrderController foodOrderController = new FoodOrderController();
-            ShowOrders(foodOrderController.GetStatusOrder("Hecho"));
+            var setMenuOrders = foodOrderController.GetStatusOrderSetMenu("Hecho");
+            ShowOrders(setMenuOrders, "Menú del día");
+            var menuCardOrders = foodOrderController.GetStatusOrderMenuCard("Hecho");
+            ShowOrders(menuCardOrders, "Menú a la carta");
         }
 
         private void ClickDelivereddOrders(object sender, RoutedEventArgs e) {
             FoodOrderController foodOrderController = new FoodOrderController();
-            ShowOrders(foodOrderController.GetStatusOrder("Entregado"));
+            var setMenuOrders = foodOrderController.GetStatusOrderSetMenu("Entregado");
+            ShowOrders(setMenuOrders, "Menú del día");
+            var menuCardOrders = foodOrderController.GetStatusOrderMenuCard("Entregado");
+            ShowOrders(menuCardOrders, "Menú a la carta");
         }
     }
 }

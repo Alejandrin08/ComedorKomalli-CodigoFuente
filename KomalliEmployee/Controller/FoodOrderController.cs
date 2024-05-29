@@ -6,9 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace KomalliEmployee.Controller {
     public class FoodOrderController : IFoodOrder
@@ -264,146 +266,156 @@ namespace KomalliEmployee.Controller {
             return result;
         }
 
-        public List<OrderUser> GetOrdersSetMenu() {
+        public List<OrderUser> GetStatusOrderSetMenu(string status) {
             List<OrderUser> orders = new List<OrderUser>();
-            using (var context = new KomalliEntities()) {
-                var query = from food in context.FoodOrder
-                            where food.Status == "Pendiente"
-                            select new OrderUser {
-                                OrderID = food.IDFoodOrder,
-                                Quantity = food.NumberDishes,
-                                Status = food.Status,
-                                OrderType = "Menú del día",
-                                MenuKey = (from fosm in context.FoodOrder_SetMenu
-                                           where fosm.IDFoodOrderFoodOrder == food.IDFoodOrder
-                                           select fosm.KeySetMenuSetMenu).FirstOrDefault(),
-                                CardKey = null,
-                                FoodName = (from foc in context.FoodOrder_SetMenu
-                                            join mc in context.SetMenu on foc.KeySetMenuSetMenu equals mc.KeySetMenu
-                                            where foc.IDFoodOrderFoodOrder == food.IDFoodOrder
-                                            select mc.KeySetMenu.StartsWith("Des") ? "Desayuno" :
-                                                   mc.KeySetMenu.StartsWith("Com") ? "Comida" : "Otro").FirstOrDefault()
-                            };
+            orders = null;
+            try {
+                using (var context = new KomalliEntities())
+                {
+                    var today = DateTime.Today;
+                    var currentTime = DateTime.Now;
 
-                orders = query.ToList();
+                    var setMenuOrders = (from food in context.FoodOrder
+                                         join foodOrderSetMenu in context.FoodOrder_SetMenu
+                                         on food.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
+                                         join setMenu in context.SetMenu
+                                         on foodOrderSetMenu.KeySetMenuSetMenu equals setMenu.KeySetMenu
+                                         where DbFunctions.TruncateTime(food.Date) == today && food.Status == status
+                                         select new {
+                                             food.NumberDishes,
+                                             foodOrderSetMenu.KeySetMenuSetMenu,
+                                             food.Status
+                                         }).ToList()
+                                         .Select(result => new OrderUser {
+                                             Quantity = result.NumberDishes,
+                                             OrderType = "Menú del día",
+                                             Status = result.Status,
+                                             FoodName = result.KeySetMenuSetMenu.StartsWith("Com") ? "Comida" : "Desayuno"
+                                         }).ToList();
+
+                    orders = setMenuOrders;
+                }
+                
             }
-
-            return orders;
-        }
-
-        public List<OrderUser> GetOrdersMenuCard() {
-            List<OrderUser> orders = new List<OrderUser>();
-            using (var context = new KomalliEntities()) {
-                var query = from food in context.FoodOrder
-                            where food.Status == "Pendiente"
-                            select new OrderUser {
-                                OrderID = food.IDFoodOrder,
-                                Quantity = food.NumberDishes,
-                                Status = food.Status,
-                                OrderType = "Menú a la carta",
-                                MenuKey = null,
-                                CardKey = (from foc in context.FoodOrder_MenuCard
-                                           where foc.IDFoodOrderFoodOrder == food.IDFoodOrder
-                                           select foc.KeyCardMenuCard).FirstOrDefault(),
-                                FoodName = (from foc in context.FoodOrder_MenuCard
-                                            join mc in context.MenuCard on foc.KeyCardMenuCard equals mc.KeyCard
-                                            where foc.IDFoodOrderFoodOrder == food.IDFoodOrder &&
-                                                  !mc.NameFood.StartsWith("Beb") &&
-                                                  !mc.NameFood.StartsWith("Otr") &&
-                                                  !mc.NameFood.StartsWith("Pos")
-                                            select mc.NameFood).FirstOrDefault()
-                            };
-
-
-                orders = query.ToList();
-            }
-
-            return orders;
-        }
-
-        public List<OrderUser> GetStatusOrder(string status) {
-            List<OrderUser> orders = new List<OrderUser>();
-            using (var context = new KomalliEntities()) {
-                var today = DateTime.Today;
-                var currentTime = DateTime.Now;
-                var menuCardOrders = from food in context.FoodOrder
-                                     where food.Status == status && food.Date == today
-                                     select new OrderUser {
-                                         OrderID = food.IDFoodOrder,
-                                         Quantity = food.NumberDishes,
-                                         Status = food.Status,
-                                         OrderType = "Menú a la carta",
-                                         MenuKey = (string)null,
-                                         CardKey = (from foc in context.FoodOrder_MenuCard
-                                                    where foc.IDFoodOrderFoodOrder == food.IDFoodOrder
-                                                    select foc.KeyCardMenuCard).FirstOrDefault(),
-                                         FoodName = (from foc in context.FoodOrder_MenuCard
-                                                     join mc in context.MenuCard on foc.KeyCardMenuCard equals mc.KeyCard
-                                                     where foc.IDFoodOrderFoodOrder == food.IDFoodOrder && !mc.NameFood.StartsWith("Beb") && !mc.NameFood.StartsWith("Otr") && !mc.NameFood.StartsWith("Pos")
-                                                     select mc.NameFood).FirstOrDefault()
-                                     };
-
-                var setMenuOrders = from food in context.FoodOrder
-                                    where food.Status == status && food.Date == today
-                                    select new OrderUser {
-                                        OrderID = food.IDFoodOrder,
-                                        Quantity = food.NumberDishes,
-                                        Status = food.Status,
-                                        OrderType = "Menú del día",
-                                        MenuKey = (from fosm in context.FoodOrder_SetMenu
-                                                   where fosm.IDFoodOrderFoodOrder == food.IDFoodOrder
-                                                   select fosm.KeySetMenuSetMenu).FirstOrDefault(),
-                                        CardKey = null,
-                                        FoodName = currentTime.Hour >= 8 && currentTime.Hour < 12 ? "Desayuno" :
-                                           currentTime.Hour >= 12 && currentTime.Hour < 20 ? "Comida" :
-                                           ""
-                                    };
-
-                orders = menuCardOrders.Concat(setMenuOrders).ToList();
+            catch (EntityException ex) {
+                orders = null;
+                LoggerManager.Instance.LogError("Error al consultar la orden", ex);
             }
             return orders;
         }
 
-        public List<OrderUser> GetOrdersByStatuses(List<string> statuses) {
+        public List<OrderUser> GetStatusOrderMenuCard(string status) {
             List<OrderUser> orders = new List<OrderUser>();
-            using (var context = new KomalliEntities()) {
-                var today = DateTime.Today;
-                var currentTime = DateTime.Now;
-                var menuCardOrders = from food in context.FoodOrder
-                                     where statuses.Contains(food.Status) && food.Date == today
-                                     select new OrderUser {
-                                         OrderID = food.IDFoodOrder,
-                                         Quantity = food.NumberDishes,
-                                         Status = food.Status,
-                                         OrderType = "Menú a la carta",
-                                         MenuKey = (string)null,
-                                         CardKey = (from foc in context.FoodOrder_MenuCard
-                                                    where foc.IDFoodOrderFoodOrder == food.IDFoodOrder
-                                                    select foc.KeyCardMenuCard).FirstOrDefault(),
-                                         FoodName = (from foc in context.FoodOrder_MenuCard
-                                                     join mc in context.MenuCard on foc.KeyCardMenuCard equals mc.KeyCard
-                                                     where foc.IDFoodOrderFoodOrder == food.IDFoodOrder && !mc.NameFood.StartsWith("Beb") && !mc.NameFood.StartsWith("Otr") && !mc.NameFood.StartsWith("Pos")
-                                                     select mc.NameFood).FirstOrDefault()
-                                     };
+            orders = null;
+            try
+            {
+                using (var context = new KomalliEntities())
+                {
+                    var today = DateTime.Today;
+                    var currentTime = DateTime.Now;
+                    var menuCardOrders = (from food in context.FoodOrder
+                                        join unionTable in context.FoodOrder_MenuCard
+                                        on food.IDFoodOrder equals unionTable.IDFoodOrderFoodOrder
+                                        join menuCard in context.MenuCard
+                                        on unionTable.KeyCardMenuCard equals menuCard.KeyCard
+                                        where DbFunctions.TruncateTime(food.Date) == today && food.Status == status
+                                        select new {
+                                            food.NumberDishes,
+                                            menuCard.NameFood,
+                                            food.Status
+                                        }).ToList()
+                                        .Select(result => new OrderUser {
+                                            Quantity = result.NumberDishes,
+                                            OrderType = "Menú a la carta",
+                                            Status = result.Status,
+                                            FoodName = result.NameFood
+                                        }).ToList();
 
-                var setMenuOrders = from food in context.FoodOrder
-                                    where statuses.Contains(food.Status) && food.Date == today
-                                    select new OrderUser {
-                                        OrderID = food.IDFoodOrder,
-                                        Quantity = food.NumberDishes,
-                                        Status = food.Status,
-                                        OrderType = "Menú del día",
-                                        MenuKey = (from fosm in context.FoodOrder_SetMenu
-                                                   where fosm.IDFoodOrderFoodOrder == food.IDFoodOrder
-                                                   select fosm.KeySetMenuSetMenu).FirstOrDefault(),
-                                        CardKey = (string)null,
-                                        FoodName = currentTime.Hour >= 8 && currentTime.Hour < 12 ? "Desayuno" :
-                                           currentTime.Hour >= 12 && currentTime.Hour < 20 ? "Comida" :
-                                           ""
-                                    };
+                    orders = menuCardOrders;
+                }
+            }
+            catch (EntityException ex)
+            {
+                orders = null;
+                LoggerManager.Instance.LogError("Error al consultar la orden", ex);
+            }
+            return orders;
+        }
 
+        public List<OrderUser> GetOrdersByStatusesSetMenu(List<string> statuses, DateTime today) {
+            List<OrderUser> orders = new List<OrderUser>();
+            orders = null;
+            try
+            {
+                using (var context = new KomalliEntities())
+                {
+                    var currentTime = DateTime.Now;
+                    var setMenuOrders = (from food in context.FoodOrder
+                                         join foodOrderSetMenu in context.FoodOrder_SetMenu
+                                         on food.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
+                                         join setMenu in context.SetMenu
+                                         on foodOrderSetMenu.KeySetMenuSetMenu equals setMenu.KeySetMenu
+                                         where DbFunctions.TruncateTime(food.Date) == today && statuses.Contains(food.Status)
+                                         select new
+                                         {
+                                             food.NumberDishes,
+                                             foodOrderSetMenu.KeySetMenuSetMenu,
+                                             food.Status
+                                         }).ToList()
+                                         .Select(result => new OrderUser
+                                         {
+                                             Quantity = result.NumberDishes,
+                                             OrderType = "Menú del día",
+                                             Status = result.Status,                  
+                                             FoodName = result.KeySetMenuSetMenu.StartsWith("Com") ? "Comida" : "Desayuno"
+                                         }).ToList();
 
-                orders = menuCardOrders.Concat(setMenuOrders).ToList();
+                    orders = setMenuOrders;
+                }
+
+            }
+            catch (EntityException ex){
+                orders = null;
+                LoggerManager.Instance.LogError("Error al consultar la orden", ex);
+            }
+            return orders;
+        }
+
+        public List<OrderUser> GetOrdersByStatusesMenuCard(List<string> statuses, DateTime today) {
+            List<OrderUser> orders = new List<OrderUser>();
+            orders = null;
+            try
+            {
+                using (var context = new KomalliEntities())
+                {
+                    var currentTime = DateTime.Now;
+                    var menuCardOrders = (from food in context.FoodOrder
+                                          join unionTable in context.FoodOrder_MenuCard
+                                          on food.IDFoodOrder equals unionTable.IDFoodOrderFoodOrder
+                                          join menuCard in context.MenuCard
+                                          on unionTable.KeyCardMenuCard equals menuCard.KeyCard
+                                          where DbFunctions.TruncateTime(food.Date) == today && statuses.Contains(food.Status)
+                                       
+                                          select new
+                                          {
+                                              food.NumberDishes,
+                                              menuCard.NameFood,
+                                              food.Status
+                                          }).ToList()
+                                          .Select(result => new OrderUser
+                                          {
+                                              Quantity = result.NumberDishes,
+                                              OrderType = "Menú a la carta",
+                                              FoodName = result.NameFood,
+                                              Status = result.Status
+                                          }).ToList();
+
+                    orders = menuCardOrders;
+                }
+            }
+            catch (EntityException ex) {
+                orders = null;
+                LoggerManager.Instance.LogError("Error al consultar la orden", ex);
             }
             return orders;
         }
