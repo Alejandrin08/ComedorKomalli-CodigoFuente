@@ -149,8 +149,9 @@ namespace KomalliEmployee.Views.Pages {
                         resultUpdateUser = employeeController.UpdateUserInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
                         resultUpdateEmployee = employeeController.UpdateEmployeeInfo(employeeModel, txtEmailUser.Text);
                     }                   
-                }             
-                if (resultUpdateUser > 0 && resultUpdateEmployee > 0) {                    
+                }           
+                
+                if (resultUpdateUser > 0 || resultUpdateEmployee > 0) {                    
                     App.ShowMessageInformation("Actualización exitosa", "Modificación de empleado");
                     this.NavigationService.GoBack();
                 } else {

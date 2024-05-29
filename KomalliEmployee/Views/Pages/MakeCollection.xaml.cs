@@ -23,14 +23,62 @@ namespace KomalliEmployee.Views.Pages {
     /// Lógica de interacción para MakeCollection.xaml
     /// </summary>
     public partial class MakeCollection : Page {
+
+        bool navigate = false;
         public MakeCollection() {
             InitializeComponent();
             InitializeDishOrder();
             InitializeTotal();
             DataContext = new FoodOrderModel();
             var nameValidation = new NameValidationRule();
-            NameValidationRule.ErrorTextBlock = txbNameValidationMessage;   
+            NameValidationRule.ErrorTextBlock = txbNameValidationMessage;
+            this.Loaded += MakeOrderPage_Loaded;
+            this.Loaded += MakeOrderWindow_Loaded;
         }
+
+        private void MakeOrderWindow_Loaded(object sender, RoutedEventArgs e) {
+
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null) {
+                parentWindow.Closing += ParentWindow_Closing;
+            }
+        }
+
+        private void ParentWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            if (SingletonClass.Instance.SelectedFoods.Count > 0) {
+                MessageBoxResult result = App.ShowMessageBoxButton("Si sale cancelará la orden, ¿Está seguro de cancelar la orden?", "Confirmación");
+                if (result == MessageBoxResult.Yes) {
+                    SingletonClass.Instance.SelectedFoods.Clear();
+                    SingletonClass.Instance.IsFoodValidSelected = false;
+                } else {
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        private void MakeOrderPage_Loaded(object sender, RoutedEventArgs e) {
+            if (this.NavigationService != null) {
+                this.NavigationService.Navigating += NavigationService_Navigating;
+            }
+        }
+
+        private void NavigationService_Navigating(object sender, NavigatingCancelEventArgs e) {
+            if (SingletonClass.Instance.SelectedFoods.Count > 0) {
+
+                Uri allowedNavigationUri = new Uri("MakeCollection.xaml", UriKind.Relative);
+                if (e.Uri != allowedNavigationUri && navigate == false) {
+                    MessageBoxResult result = App.ShowMessageBoxButton("Si sale cancelará la orden, ¿Está seguro de cancelar la orden?", "Confirmación");
+                    if (result == MessageBoxResult.Yes) {
+                        SingletonClass.Instance.SelectedFoods.Clear();
+                        SingletonClass.Instance.IsFoodValidSelected = false;
+                    } else {
+                        e.Cancel = true; 
+                    }
+                }
+
+            }
+        }
+
 
 
         private void InitializeDishOrder() {
@@ -83,7 +131,8 @@ namespace KomalliEmployee.Views.Pages {
             }
         }
 
-        private void ClickConfirmOrder(object sender, RoutedEventArgs e) {            
+        private void ClickConfirmOrder(object sender, RoutedEventArgs e) {
+            navigate = true;
             FoodOrderController foodOrderController = new FoodOrderController();
             FoodOrderModel foodOrderModel = new FoodOrderModel {
                 Status = "Pagado",
@@ -122,6 +171,7 @@ namespace KomalliEmployee.Views.Pages {
                     txbReceiveValidationMessage.Visibility = Visibility.Visible;
                 } else {
                     if (!string.IsNullOrEmpty(txtReceive.Text)) {
+                        txtReceive.IsEnabled = false;
                         tbkChange.Visibility = Visibility.Visible;
                         txtChange.Text = CalculateChange().ToString();
                         txtChange.Visibility = Visibility.Visible;

@@ -409,7 +409,7 @@ namespace KomalliEmployee.Controller {
          */
 
         public int UpdateEmployeeInfo(EmployeeModel employeeModel, string email) {
-            int result = 0;
+            int resultUpdate = 0;
             try {
                 using (var context = new KomalliEntities()) {
                     var employee = context.Employee.Where(employee => employee.UserEmail == email).FirstOrDefault();
@@ -419,12 +419,13 @@ namespace KomalliEmployee.Controller {
                         employee.Role = employeeModel.RoleUser;
                         employee.Name = employeeModel.Name;
                     }
-                    result = context.SaveChanges();
+                    resultUpdate = context.SaveChanges();
+
                 }
             } catch (EntityException ex) {
                 LoggerManager.Instance.LogError("Error en actualizar los datos del empleado", ex);
             }
-            return result;
+            return resultUpdate;
         }
     }
 
