@@ -41,6 +41,7 @@ namespace KomalliEmployee.Views.Usercontrols {
             FoodModel foodModel = new FoodModel() {
                 KeyCard = Food.KeyCard,
                 Name = tbkFoodName.Text,
+                Section = Food.Section,
                 Quantity = 1,
                 Price = price
             };

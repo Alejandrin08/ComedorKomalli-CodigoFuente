@@ -49,11 +49,15 @@ namespace KomalliEmployee.Views.Pages {
                 LocalReport localReport = rpv.LocalReport;
 
                 byte[] bytes = localReport.Render("PDF");
-
+                string start = startDate.Value.Date.ToString("yyyy-MM-dd");
+                string end = endDate.Value.Date.ToString("yyyy-MM-dd");
+                string defaultName = "ReporteTransaccionesDiarias" + start  + " - "+ end;
+                 
                 SaveFileDialog saveFileDialog = new SaveFileDialog {
                     Filter = "PDF files (.pdf)|.pdf",
                     FilterIndex = 2,
-                    RestoreDirectory = true
+                    RestoreDirectory = true,
+                    FileName = defaultName
                 };
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK) {

@@ -42,7 +42,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickOrders(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/Order.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickSubMenu(object sender, RoutedEventArgs e) {
@@ -54,11 +54,11 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickPublish(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/PublishSetMenu.xaml", UriKind.RelativeOrAbsolute));
         }        
 
         private void ClickDelete(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/SearchSetMenuToDelete.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickShowMenu(object sender, RoutedEventArgs e) {
@@ -66,7 +66,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickModify(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/SearchSetMenuToModify.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickSubMenuLogbook(object sender, RoutedEventArgs e) {
@@ -82,7 +82,16 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickComments(object sender, RoutedEventArgs e) {
+            fraPages.Navigate(new System.Uri("/Views/Pages/BlogCommentsxaml.xaml", UriKind.RelativeOrAbsolute));
+        }
 
+        private void MouseDownLogout(object sender, MouseButtonEventArgs e) {
+            MessageBoxResult result = App.ShowMessageBoxButton("¿Está seguro de cerrar la sesión", "Confirmación");
+            if (result == MessageBoxResult.Yes) {
+                Login login = new Login();
+                login.Show();
+                Close();
+            }
         }
     }
 }

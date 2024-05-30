@@ -171,14 +171,16 @@
                         VerticalAlignment="Bottom" 
                         Orientation="Horizontal" 
                         Width="200" 
-                        Margin="0 0 0 20">
+                        Margin="0 0 0 40">
                         <Ellipse 
                             Width="40" 
                             Height="40" 
-                            Margin="10 0 0 0">
+                            Margin="10 0 0 0"
+                            MouseDown="MouseDownLogout"
+                            Cursor="Hand">
                             <Ellipse.Fill>
                                 <ImageBrush 
-                                    ImageSource="/Resources/Images/UserIcon.png"/>
+                                    ImageSource="/Resources/Images/LogoutIcon.png"/>
                             </Ellipse.Fill>
                         </Ellipse>
                         <StackPanel 
@@ -201,7 +203,6 @@
                                 HorizontalAlignment="Left"
                                 Text="Cajero"
                             />
-
                         </StackPanel>
                     </StackPanel>
                 </Grid>

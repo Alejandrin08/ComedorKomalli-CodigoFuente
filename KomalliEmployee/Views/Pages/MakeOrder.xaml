@@ -85,7 +85,7 @@
                     Margin="7,5,7,35"
                     ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
                 />
 
                 <Grid Grid.Row="1" 
@@ -96,7 +96,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name = "tbkMnakegOrder"
+                    <TextBlock x:Name = "tbkSubtotalOrder"
                         HorizontalAlignment="Center"
                         FontFamily = "Segoe UI "
                         FontSize = "18" 
@@ -130,7 +130,7 @@
                        Width="647"
             />
 
-            <TabControl 
+            <TabControl x:Name="tbcMenuCart"
                         Width="646" 
                         Margin="10,260,194,20" >
                 <TabControl.Resources>
@@ -166,7 +166,8 @@
                 </TabControl.Resources>
                 <TabItem Header="Paquetes" 
                          FontFamily = "Segoe UI Black" 
-                         Width="80" 
+                         Width="80"
+                         x:Name="tbiPackage"
                          Background="#74AC64">
                     <Grid Background="#74AC64"
                           x:Name="grdPackage">

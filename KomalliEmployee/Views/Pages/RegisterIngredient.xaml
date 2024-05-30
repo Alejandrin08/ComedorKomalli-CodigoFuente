@@ -88,7 +88,7 @@
                    Content = "Medición"
                    FontFamily = "Segoe UI"
                    FontSize = "20" 
-                   Margin = "481,197,221,213"
+                   Margin = "521,202,181,208"
                    Foreground = "#F9F9EA" 
                    FontWeight="Bold"
             />
@@ -112,7 +112,8 @@
                      Width = "472" 
                      Margin = "170,147,0,0"
                      VerticalContentAlignment="Center"
-                     Padding = "10,0,0,0">
+                     Padding = "10,0,0,0"
+                     PreviewTextInput="PreviewTextInputOnlyNumberAndLetters">
                 <TextBox.Style>
                     <Style TargetType="{x:Type TextBox}">
                         <Setter Property="Template">
@@ -138,10 +139,11 @@
                      FontFamily = "Segoe UI"
                      FontStyle = "Italic"
                      Height = "30"
-                     Width = "236" 
-                     Margin = "0,237,394,0"
+                     Width = "98" 
+                     Margin = "0,237,532,0"
                      VerticalContentAlignment="Center"
-                     Padding = "10,0,0,0">
+                     Padding = "10,0,0,0"
+                     PreviewTextInput="PreviewTextInputOnlyNumber">
                 <TextBox.Style>
                     <Style TargetType="{x:Type TextBox}">
                         <Setter Property="Template">
@@ -160,13 +162,25 @@
             </TextBox>
 
             <ComboBox x:Name="cbxTipeQuota"
-                  Margin="481,237,198,183"
+                  Margin="521,239,158,181"
                   Background="#FEFFFE"
                   ItemContainerStyle="{StaticResource ComboBoxItemStyle}"
                   BorderThickness="0">
                 <ComboBoxItem Content="Lts" />
                 <ComboBoxItem Content="Kg" />
                 <ComboBoxItem Content="Unidades" />
+            </ComboBox>
+
+            <ComboBox x:Name="cbxCategory"
+                      Margin="320,239,339,181"
+                      Background="#FEFFFE"
+                      ItemContainerStyle="{StaticResource ComboBoxItemStyle}"
+                      BorderThickness="0">
+                <ComboBoxItem Content="Abarrotes" />
+                <ComboBoxItem Content="Bebidas" />
+                <ComboBoxItem Content="Frutas y Verduras" />
+                <ComboBoxItem Content="Postres"/>
+                <ComboBoxItem Content="Carnes frias"/>
             </ComboBox>
 
             <TextBox x:Name = "txbBarCode" 
@@ -179,7 +193,8 @@
                      Width = "460" 
                      Margin = "0,322,0,0"
                      VerticalContentAlignment="Center"
-                     Padding = "10,0,0,0">
+                     Padding = "10,0,0,0"
+                     PreviewTextInput="PreviewTextInputOnlyNumber">
                 <TextBox.Style>
                     <Style TargetType="{x:Type TextBox}">
                         <Setter Property="Template">
@@ -204,6 +219,14 @@
                 FontWeight = "Bold"
                 Style="{StaticResource ButtonStyle}"
                 Click="ClicKRegisterIngredient"
+            />
+            <Label x:Name = "lblCategory"
+                Content = "Categoria"
+                FontFamily = "Segoe UI"
+                FontSize = "20" 
+                Margin = "320,199,369,211"
+                Foreground = "#F9F9EA" 
+                FontWeight="Bold"
             />
         </Grid>
     </Viewbox>

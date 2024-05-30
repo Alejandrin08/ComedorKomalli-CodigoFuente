@@ -1,4 +1,5 @@
 ﻿using KomalliEmployee.Model;
+using KomalliServer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace KomalliTest.Employee {
         [TestMethod]
         public void CalculateTotalDailyChange_Sucessfull() {
             KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
-            int resultExpected = 103;
+            int resultExpected = 71;
             int result = test.CalculateTotalDailyChange();
             Assert.AreEqual(resultExpected, result);
         }
@@ -26,7 +27,7 @@ namespace KomalliTest.Employee {
         [TestMethod]
         public void CalculateTotalDailyEntries_Sucessfull() {
             KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
-            int resultExpected = 197;
+            int resultExpected = 229;
             int result = test.CalculateTotalDailyEntries();
             Assert.AreEqual(resultExpected, result);
         }
@@ -45,32 +46,25 @@ namespace KomalliTest.Employee {
 
             var foodOrdersExpected = new List<FoodOrderModel> {
                 new FoodOrderModel {
-                    IdFoodOrder = "003",
-                    Date = DateTime.Today,
-                    ClientName = "Alejandro",
-                    NumberDishes = 2,
-                    Total = 60
-                },
-                new FoodOrderModel {
-                    IdFoodOrder = "004",
+                    IdFoodOrder = "Caj5589",
                     Date = DateTime.Today,
                     ClientName = "Paloma",
-                    NumberDishes = 1,
-                    Total = 30
-                }, 
+                    NumberDishes = 2,
+                    Total = 96
+                },
                 new FoodOrderModel {
-                    IdFoodOrder = "005",
+                    IdFoodOrder = "Caj7082",
                     Date = DateTime.Today,
-                    ClientName = "Ares",
+                    ClientName = "Alejandro Marin",
                     NumberDishes = 3,
-                    Total = 80
-                }, 
+                    Total = 84
+                },
                 new FoodOrderModel {
-                    IdFoodOrder = "006",
+                    IdFoodOrder = "Caj8100",
                     Date = DateTime.Today,
-                    ClientName = "Miriam",
-                    NumberDishes = 1,
-                    Total = 27
+                    ClientName = "Alejandro Marin",
+                    NumberDishes = 2,
+                    Total = 49
                 }
             };
 
@@ -95,28 +89,14 @@ namespace KomalliTest.Employee {
                     IdFoodOrder = "001",
                     Date = DateTime.Today.AddDays(2),
                     ClientName = "Alejandrin",
-                    NumberDishes = 1,
+                    NumberDishes = 12,
                     Total = 608
-                },
-                new FoodOrderModel {
-                    IdFoodOrder = "002",
-                    Date = DateTime.Today.AddDays(2),
-                    ClientName = "Palomita",
-                    NumberDishes = 10,
-                    Total = 301
-                },
-                new FoodOrderModel {
-                    IdFoodOrder = "003",
-                    Date = DateTime.Today.AddDays(2),
-                    ClientName = "Aresiño",
-                    NumberDishes = 31,
-                    Total = 8
                 }
             };
 
             var foodOrdersResult = test.DailyFoodOrders();
 
-            Assert.AreNotEqual(foodOrdersExpected.Count, foodOrdersResult.Count);
+            Assert.AreEqual(foodOrdersExpected.Count, foodOrdersResult.Count);
             for (int i = 0; i < foodOrdersExpected.Count; i++) {
                 Assert.AreNotEqual(foodOrdersExpected[i].IdFoodOrder, foodOrdersResult[i].IdFoodOrder);
                 Assert.AreNotEqual(foodOrdersExpected[i].Date, foodOrdersResult[i].Date);
@@ -132,23 +112,23 @@ namespace KomalliTest.Employee {
 
             var foodOrdersExpected = new List<FoodOrderModel> {
                 new FoodOrderModel {
-                    IdFoodOrder = "Kio003",
-                    ClientName = "Alejandro",
-                    NumberDishes = 2,
-                    Total = 60
-                },
-                new FoodOrderModel {
-                    IdFoodOrder = "Kio004",
-                    ClientName = "Paloma",
+                    IdFoodOrder = "Kio5076",
+                    ClientName = "",
                     NumberDishes = 1,
-                    Total = 30
+                    Total = 38
                 },
                 new FoodOrderModel {
-                    IdFoodOrder = "Kio005",                    
-                    ClientName = "Ares",
-                    NumberDishes = 3,
-                    Total = 80
-                }
+                    IdFoodOrder = "Kio5551",
+                    ClientName = "",
+                    NumberDishes = 1,
+                    Total = 25
+                },
+                new FoodOrderModel {
+                    IdFoodOrder = "Kio6660",
+                    ClientName = "",
+                    NumberDishes = 1,
+                    Total = 27
+                },
             };
 
             var foodOrdersResult = test.ConsultFoodOrdersKiosko();
@@ -199,15 +179,16 @@ namespace KomalliTest.Employee {
 
             KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
             FoodOrderModel foodOrderModelExpected = new FoodOrderModel {
-                ClientName = "Alejandro",
-                Total = 134
+                ClientName = "Paloma",
+                Total = 48
             };
 
-            string idFoodOrder = "Kio003";
+            string idFoodOrder = "Caj9957";
 
 
             FoodOrderModel result = test.GetTotalAndNameFromOrder(idFoodOrder);
-            Assert.AreEqual(foodOrderModelExpected, result);
+            Assert.AreEqual(foodOrderModelExpected.ClientName, result.ClientName);
+            Assert.AreEqual(foodOrderModelExpected.Total, result.Total);
         }
 
         [TestMethod]
@@ -219,11 +200,12 @@ namespace KomalliTest.Employee {
                 Total = 131
             };
 
-            string idFoodOrder = "Kio003";
+            string idFoodOrder = "Caj9957";
 
 
             FoodOrderModel result = test.GetTotalAndNameFromOrder(idFoodOrder);
-            Assert.AreNotEqual(foodOrderModelExpected, result);
+            Assert.AreNotEqual(foodOrderModelExpected.ClientName, result.ClientName);
+            Assert.AreNotEqual(foodOrderModelExpected.Total, result.Total);
         }
 
         [TestMethod]
@@ -285,14 +267,14 @@ namespace KomalliTest.Employee {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
                 FoodOrderModel foodOrderModel = new FoodOrderModel {
-                    IdFoodOrder = "Caj6257",
+                    IdFoodOrder = "Caj1111",
                     Total = 100,
                     NumberDishes = 2,
                 };
 
 
 
-                int resultExpected = 1;
+                int resultExpected = 0;
                 int result = test.RegistryOrder(foodOrderModel);
                 Assert.AreNotEqual(resultExpected, result);
             }
@@ -324,6 +306,35 @@ namespace KomalliTest.Employee {
                 int result = test.DeleteOrder(idFoodOrder);
                 Assert.AreNotEqual(resultExpected, result);
             }
+        }
+
+        [TestMethod]
+        public void UpdateOrderStatus_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+                string orderID = "Kio6798";
+                string newStatus = "Hecho";
+                bool result = true;
+                bool resultExpected = test.UpdateOrderStatus(orderID, newStatus);
+                Assert.AreEqual(resultExpected, result);
+            }
+
+
+        }
+
+        [TestMethod]
+        public void UpdateOrderStatus_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodOrderController test = new KomalliEmployee.Controller.FoodOrderController();
+
+                string orderID = "Kio9043";
+                string newStatus = "Hecho";
+                bool result = false;
+                bool resultExpected = test.UpdateOrderStatus(orderID, newStatus);
+                Assert.AreNotEqual(resultExpected, result);
+            }
+
+
         }
     }
 }

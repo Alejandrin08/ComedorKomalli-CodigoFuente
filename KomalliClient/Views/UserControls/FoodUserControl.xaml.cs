@@ -62,6 +62,7 @@ namespace KomalliClient.Views.UserControls {
             int price = int.Parse(tbkFoodPrice.Text.TrimStart('$')); 
             FoodModel foodModel = new FoodModel() {
                 Name = tbkFoodName.Text,
+                KeyCard = Food.KeyCard,
                 Price = price,
                 IsSelected = true,
                 Section = Food.Section,

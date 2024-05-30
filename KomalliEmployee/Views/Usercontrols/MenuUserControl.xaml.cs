@@ -27,23 +27,12 @@ namespace KomalliEmployee.Views.Usercontrols {
   
         public MenuUserControl() {
             InitializeComponent();
-            GetKeysMenus();
         }
         public void BindData(string typeMenu) {            
             tbkFoodName.Text = typeMenu;            
         }
 
-        public void GetKeysMenus() {
-            FoodController foodController = new FoodController();
-            var menu = foodController.GetKeyMenu();
-            foreach (var food in menu) {
-                if (food.KeyCard.StartsWith("Des")) {
-                    SingletonClass.Instance.keyBreakfast = food.KeyCard;
-                } else if (food.KeyCard.StartsWith("Com")){
-                    SingletonClass.Instance.KeyMeal = food.KeyCard;
-                }
-            }
-        }
+        
 
         public string GetKeyMenuSelected() {
             string keyMenu = "";
@@ -82,7 +71,6 @@ namespace KomalliEmployee.Views.Usercontrols {
 
         private FoodModel SetInfo(string keyMenu, string typeClient, int price) {
             FoodModel foodModel = new FoodModel();
-            Console.WriteLine("idKey" + keyMenu);
             foodModel = new FoodModel() {
                 KeyCard = keyMenu,
                 Name = tbkFoodName.Text + typeClient,

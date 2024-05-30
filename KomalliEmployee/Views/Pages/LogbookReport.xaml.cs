@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
+using static System.Collections.Specialized.BitVector32;
 
 namespace KomalliEmployee.Views.Pages {
     /// <summary>
@@ -39,11 +40,23 @@ namespace KomalliEmployee.Views.Pages {
                 LocalReport localReport = rpv.LocalReport;
 
                 byte[] bytes = localReport.Render("PDF");
+                string defaultName = "";
+                DateTime dateTime = DateTime.Now;
+                string dateTimeFormat = dateTime.ToString("yyyy-MM-dd");
 
-                SaveFileDialog saveFileDialog = new SaveFileDialog {
+                if (cboSection.SelectedItem == null) {
+                    defaultName = "ReporteBitacoraGeneral" + dateTimeFormat;
+                } else {
+                    ComboBoxItem selectedItem = (ComboBoxItem)cboSection.SelectedItem;
+                    string section = selectedItem.Content.ToString();
+                    defaultName = "ReporteBitacora" + section + dateTimeFormat;
+                }
+
+                    SaveFileDialog saveFileDialog = new SaveFileDialog {
                     Filter = "PDF files (.pdf)|.pdf",
                     FilterIndex = 2,
-                    RestoreDirectory = true
+                    RestoreDirectory = true,
+                    FileName = defaultName
                 };
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK) {

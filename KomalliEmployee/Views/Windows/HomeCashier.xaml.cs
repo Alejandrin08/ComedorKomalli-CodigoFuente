@@ -1,4 +1,6 @@
 ﻿using KomalliEmployee.Model.Utilities;
+using KomalliEmployee.Views.Pages;
+using Microsoft.Reporting.Map.WebForms.BingMaps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickSubMenuCash(object sender, RoutedEventArgs e) {
-            if(stpSubMenuCash.Visibility == Visibility.Collapsed) {
+            if (stpSubMenuCash.Visibility == Visibility.Collapsed) {
                 stpSubMenuCash.Visibility = Visibility.Visible;
             } else {
                 stpSubMenuCash.Visibility = Visibility.Collapsed;
@@ -58,7 +60,7 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickComments(object sender, RoutedEventArgs e) {
-
+            fraPages.Navigate(new System.Uri("/Views/Pages/BlogCommentsxaml.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void ClickClose(object sender, RoutedEventArgs e) {
@@ -66,16 +68,25 @@ namespace KomalliEmployee.Views.Windows {
         }
 
         private void ClickRestore(object sender, RoutedEventArgs e) {
-            if(WindowState == WindowState.Normal) {
+            if (WindowState == WindowState.Normal) {
                 WindowState = WindowState.Maximized;
             } else {
                 WindowState = WindowState.Normal;
             }
-                
+
         }
 
         private void ClickMinimize(object sender, RoutedEventArgs e) {
             WindowState = WindowState.Minimized;
+        }
+
+        private void MouseDownLogout(object sender, MouseButtonEventArgs e) {
+            MessageBoxResult result = App.ShowMessageBoxButton("¿Está seguro de cerrar la sesión", "Confirmación");
+            if (result == MessageBoxResult.Yes) {
+                Login login = new Login();
+                login.Show();
+                Close();
+            }
         }
     }
 }

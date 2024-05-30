@@ -57,14 +57,8 @@ namespace KomalliTest.Employee {
                 new DishOrderModel {
                     UnitPrice = 29,
                     DishName = "Chilaquiles Rojos",
-                    NumberDishes = 1,
+                    NumberDishes = 28,
                     Total = 44
-                },
-                new DishOrderModel {
-                    UnitPrice = 21,
-                    DishName = "Enfrijoladas ",
-                    NumberDishes = 1,
-                    Total = 40
                 },
                 
             };

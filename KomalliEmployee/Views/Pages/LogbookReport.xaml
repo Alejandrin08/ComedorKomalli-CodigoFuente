@@ -85,7 +85,8 @@
                           VerticalContentAlignment="Center"
                 >
                     <ComboBoxItem Content="Incidencias"/>
-                    <ComboBoxItem Content="Merba"/>
+                    <ComboBoxItem Content="Merma"/>
+                    <ComboBoxItem Content="Otros"/>
                     <ComboBoxItem Content="General"/>
                 </ComboBox>
             </StackPanel>

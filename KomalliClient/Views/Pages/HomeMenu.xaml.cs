@@ -28,6 +28,7 @@ namespace KomalliClient.Views.Pages {
         public HomeMenu() {
             InitializeComponent();
             _menuController = new MenuController();
+            GetKeysMenus();
 
             MenuModel menuBreakfast = _menuController.GetBreakfastOfTheDay();
             if (menuBreakfast != null) {
@@ -52,6 +53,19 @@ namespace KomalliClient.Views.Pages {
             }
         }
 
+        public void GetKeysMenus() {
+            FoodController foodController = new FoodController();
+            var menu = foodController.GetKeyMenu();
+            foreach (var food in menu) {
+                if (food.KeyCard.StartsWith("DES")) {
+                    SingletonClass.Instance.keyBreakfast = food.KeyCard;
+                } else if (food.KeyCard.StartsWith("COM")) {
+                    SingletonClass.Instance.KeyMeal = food.KeyCard;
+                }
+            }
+
+        }
+
         private bool IsBreakfastTime() {
             DateTime now = DateTime.Now;
 
@@ -73,10 +87,11 @@ namespace KomalliClient.Views.Pages {
                 }
 
                 FoodModel foodModel = new FoodModel() {
+                    KeyCard = SingletonClass.Instance.keyBreakfast,
                     Name = "Menú Desayuno",
                     Price = SingletonClass.Instance.Price,
                     IsSelected = true,
-                    Section = "Meú a la carta",
+                    Section = "Menú a la carta",
                     Quantity = 1,
                     Subtotal = SingletonClass.Instance.Price
                 };
@@ -97,10 +112,11 @@ namespace KomalliClient.Views.Pages {
                 }
 
                 FoodModel foodModel = new FoodModel() {
+                    KeyCard = SingletonClass.Instance.KeyMeal,
                     Name = "Menú Comida",
                     Price = SingletonClass.Instance.Price,
                     IsSelected = true,
-                    Section = "Meú a la carta",
+                    Section = "Menú a la carta",
                     Quantity = 1,
                     Subtotal = SingletonClass.Instance.Price
                 };

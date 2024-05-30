@@ -51,9 +51,12 @@
                       SelectionChanged="SelectionChangedCategory"
              
             >
-                <ComboBoxItem Content="Frutas"/>
-                <ComboBoxItem Content="Verduras"/>
-                <ComboBoxItem Content="Otros"/>
+                <ComboBoxItem Content="General"/>
+                <ComboBoxItem Content="Abarrotes"/>
+                <ComboBoxItem Content="Bebidas"/>
+                <ComboBoxItem Content="Frutasyverduras"/>
+                <ComboBoxItem Content="Postres"/>
+                <ComboBoxItem Content="CarnesFrias"/>
             </ComboBox>
 
             <Button Grid.Column="1" 
