@@ -24,11 +24,11 @@ namespace KomalliClient {
     public partial class MainWindow : Window {
 
         public MainWindow() {
-            InitializeComponent(); 
+            InitializeComponent();
             SingletonClass.Instance.SelectedFoods.CollectionChanged += SelectedFoodsCollectionChanged;
         }
 
-        private void SelectedFoodsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
+        public void SelectedFoodsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
             lvwSelectedFoods.Items.Clear();
 
             WrapPanel wrapPanel = FindWrapPanel(this);
@@ -97,23 +97,13 @@ namespace KomalliClient {
                     btnCancel.IsEnabled = false;
                     btnContinue.IsEnabled = false;
                     FoodUserControl.SelectedStates.Clear();
-
-
-                        Views.Pages.HomeMenu homeMenu = new Views.Pages.HomeMenu();
-                        fraPages.Content = homeMenu;
-                    
+                    Views.Pages.HomeMenu homeMenu = new Views.Pages.HomeMenu();
+                    fraPages.Content = homeMenu;
                 }
-                
             }
         }
 
-
-
         private void ClickContinueWithPaymet(object sender, RoutedEventArgs e) {
-            foreach (FoodModel food in SingletonClass.Instance.SelectedFoods) {
-                Console.WriteLine($"Nombre del pedido: {food.Name}, Precio: {food.Price}, Cantidad: {food.Quantity}, Seccion: {food.Section}, KeyCard:  {food.KeyCard}");
-                Console.WriteLine($"Subtotal: {food.Subtotal}");
-            }
             Views.Pages.GenerateOrder generateOrder = new Views.Pages.GenerateOrder();
             fraPages.Content = generateOrder;
             grdLabel.Visibility = Visibility.Collapsed;
