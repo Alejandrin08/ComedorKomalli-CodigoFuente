@@ -48,6 +48,10 @@ namespace KomalliEmployee.Views.Usercontrols {
             var selectedFood = SingletonClass.Instance.SelectedFoods.FirstOrDefault(food => food.Name == Food.Name);
 
             if(selectedFood != null) {
+                if (selectedFood.Quantity == 9) {
+                    App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
+                    return;
+                }
                 selectedFood.Quantity++;
                 selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
                 UpdateSelectedFoodsCollection(sender);

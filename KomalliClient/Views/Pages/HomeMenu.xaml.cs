@@ -34,14 +34,14 @@ namespace KomalliClient.Views.Pages {
             if (menuBreakfast != null) {
                 lstBreakfast.ItemsSource = new List<MenuModel> { menuBreakfast };
             } else {
-                App.ShowMessageError("No se pudo recuperar el menú del desayuno", "Error");
+                rctBreakfast.IsEnabled = false;
             }
 
             MenuModel menuFood = _menuController.GetFoodOfTheDay();
             if (menuFood != null) {
                 lstFood.ItemsSource = new List<MenuModel> { menuFood };
             } else {
-                App.ShowMessageError("No se pudo recuperar el menú de comida", "Error");
+                rctFood.IsEnabled = false;
             }
 
             if (IsBreakfastTime()) {

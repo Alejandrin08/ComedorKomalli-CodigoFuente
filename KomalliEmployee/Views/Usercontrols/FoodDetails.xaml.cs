@@ -71,6 +71,10 @@ namespace KomalliEmployee.Views.Usercontrols {
 
         private void MouseDownAddFood(object sender, MouseButtonEventArgs e) {
             var selectedFood = SingletonClass.Instance.SelectedFoods.FirstOrDefault(food => food.Name == Food.Name);
+            if (selectedFood.Quantity == 9) {
+                App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
+                return;
+            }
             selectedFood.Quantity++;
             selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
             tbkQuantityFood.Text = selectedFood.Quantity.ToString();

@@ -51,7 +51,8 @@ namespace KomalliEmployee.Views.Pages {
                 SaveFileDialog saveFileDialog = new SaveFileDialog {
                     Filter = "PDF files (.pdf)|*.pdf",
                     FilterIndex = 2,
-                    RestoreDirectory = true
+                    RestoreDirectory = true,
+                    FileName = "Ticket-" + SingletonClass.Instance.IdFoodOrderSelected
                 };
 
                 bool? result = saveFileDialog.ShowDialog();
