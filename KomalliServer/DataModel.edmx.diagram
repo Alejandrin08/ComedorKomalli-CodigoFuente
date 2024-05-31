@@ -21,6 +21,7 @@
         <AssociationConnector Association="KomalliModel.FK_FoodOrder_SetMenu_FoodOrder" ManuallyRouted="false" />
         <AssociationConnector Association="KomalliModel.FK_FoodOrder_MenuCard_MenuCard" ManuallyRouted="false" />
         <AssociationConnector Association="KomalliModel.FK_FoodOrder_SetMenu_SetMenu" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KomalliModel.sysdiagrams" Width="1.5" PointX="8.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
