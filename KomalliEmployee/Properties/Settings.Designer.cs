@@ -27,8 +27,8 @@ namespace KomalliEmployee.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Komalli.mssql.somee.com;Initial Catalog=Komalli;Persist Security Info" +
-            "=True;User ID=userComedorKomalli;Password=qm2CnbZdxj$ECUj;TrustServerCertificate" +
-            "=True")]
+            "=True;User ID=userComedorKomalli;Password=qm2CnbZdxj$ECUj;Encrypt=True;TrustServ" +
+            "erCertificate=True")]
         public string KomalliConnectionString {
             get {
                 return ((string)(this["KomalliConnectionString"]));

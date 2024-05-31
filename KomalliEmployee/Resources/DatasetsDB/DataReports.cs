@@ -2,6 +2,8 @@
 
 
     public partial class DataReports {
+        partial class FoodOrderSetMenuDataTable {
+        }
     }
 }
 
