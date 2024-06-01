@@ -12,6 +12,13 @@ namespace KomalliEmployee.Contracts {
         public List<FoodModel> GetKeyMenu();
         public int RegistryOrderMenuCard(FoodModel foodModel, string idOrder);
         public int RegistryOrderMenu(FoodModel foodModel, string idOrder);
+        public int UpdateStockMenuCard(string keyCard, int quantity);
+        public int GetStockMenuCard(string keyCard);
+        public int UpdateStockSetMenu(string keySetMenu, int quantity);
+        public int GetStockSetMenu(string keySetMenu);
+
+
+
 
 
 
