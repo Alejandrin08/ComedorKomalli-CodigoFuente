@@ -940,7 +940,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>cda7d9fd-475d-4875-8751-e2104b5c6735</rd:DataSourceID>
+      <rd:DataSourceID>805e1bd8-4641-4657-8082-c555ddb0face</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -950,14 +950,6 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="TotalEntries">
-          <DataField>TotalEntries</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="TotalExits">
-          <DataField>TotalExits</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="IDFoodOrder">
           <DataField>IDFoodOrder</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -980,6 +972,14 @@
         </Field>
         <Field Name="TotalInitialBalance">
           <DataField>TotalInitialBalance</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TotalEntries">
+          <DataField>TotalEntries</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TotalExits">
+          <DataField>TotalExits</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="TotalBalance">

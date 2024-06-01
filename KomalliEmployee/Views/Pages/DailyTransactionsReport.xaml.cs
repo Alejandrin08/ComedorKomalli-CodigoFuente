@@ -51,8 +51,8 @@ namespace KomalliEmployee.Views.Pages {
                 byte[] bytes = localReport.Render("PDF");
                 string start = startDate.Value.Date.ToString("yyyy-MM-dd");
                 string end = endDate.Value.Date.ToString("yyyy-MM-dd");
-                string defaultName = "ReporteTransaccionesDiarias" + start  + " - "+ end;
-                 
+                string defaultName = "ReporteTransaccionesDiarias" + start + " - " + end;
+
                 SaveFileDialog saveFileDialog = new SaveFileDialog {
                     Filter = "PDF files (.pdf)|.pdf",
                     FilterIndex = 2,
@@ -71,11 +71,12 @@ namespace KomalliEmployee.Views.Pages {
             }
         }
         private void BindReport(DataSet dataSet) {
-            ReportDataSource reportDataSource = new ReportDataSource("DataSetCashCutFoodOrder", dataSet.Tables[2]);
+            ReportDataSource reportDataSource = new ReportDataSource("DataSetCashCutFoodOrder", dataSet.Tables[4]);
             rpv.LocalReport.DataSources.Add(reportDataSource);
             rpv.LocalReport.ReportEmbeddedResource = "KomalliEmployee.Resources.KomalliReports.DailyTransactionsReport.rdlc";
             rpv.RefreshReport();
         }
+
         private void ShowReport(DateTime? startDate, DateTime? endDate) {
             try {
                 if (startDate != null && endDate != null) {
@@ -85,10 +86,17 @@ namespace KomalliEmployee.Views.Pages {
                     rpv.Reset();
                     DataReports dataReports = new DataReports();
                     CashCutFoodOrderTableAdapter cashCutFoodOrderTableAdapter = new CashCutFoodOrderTableAdapter();
+
+                    dataReports.EnforceConstraints = false;
                     cashCutFoodOrderTableAdapter.Fill(dataReports.CashCutFoodOrder, start, end);
+                    dataReports.EnforceConstraints = true;
+
                     BindReport(dataReports);
                     rpv.RefreshReport();
                 }
+            } catch (ConstraintException ex) {
+                App.ShowMessageError("Error de restricción en los datos", "Error al cargar");
+                LoggerManager.Instance.LogError("Error de restricción en los datos", ex);
             } catch (SqlException ex) {
                 App.ShowMessageError("Error al cargar el reporte", "Error al cargar");
                 LoggerManager.Instance.LogError("Error al cargar el reporte", ex);
