@@ -1,0 +1,258 @@
+﻿<Window x:Class="KomalliEmployee.Views.Windows.HomeHeadChef"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KomalliEmployee.Views.Windows"
+        mc:Ignorable="d"
+        Title="HomeHeadChef" 
+        Height="650" 
+        Width="1000"
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None"
+        Background="Transparent" 
+        AllowsTransparency="True"
+        ResizeMode="NoResize" 
+        WindowState="Normal"
+        Loaded="ClickInventory">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                    Source="/Resources/Styles/Styles.xaml"/>
+                <ResourceDictionary 
+                    Source="/Resources/Styles/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border 
+        CornerRadius="8" 
+        Background="{DynamicResource PrimaryBackgroundColor}">
+    <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition 
+                    Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border 
+                CornerRadius="8 0 0 8" 
+                Background="{DynamicResource SecundaryBackgroundColor}">
+                <Grid 
+                    x:Name="grdMenu" 
+                    Width="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition 
+                            Height="60"/>
+                        <RowDefinition 
+                            Height="80"/>
+                        <RowDefinition 
+                            Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel 
+                        Grid.Row="1" 
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Top">
+                        <Image 
+                            Source="/Resources/Images/komalli.png" 
+                            Width="40" 
+                            Margin="10"/>
+                        <Label 
+                            Content="Komalli" 
+                            Foreground="{DynamicResource PrimaryBlueColor}" 
+                            FontWeight="Bold" 
+                            FontSize="20" 
+                            VerticalAlignment="Center" 
+                            HorizontalContentAlignment="Left" 
+                            HorizontalAlignment="Left" 
+                            Margin="14 0 0 0"/>
+                    </StackPanel>
+
+                    <ToggleButton 
+                        x:Name="btnMenu"  
+                        HorizontalAlignment="Right" 
+                        BorderThickness="0" 
+                        Background="Transparent" 
+                        VerticalAlignment="Center" 
+                        Style="{StaticResource MenuIconStyle}" 
+                        Margin="0 0 15 0">
+                        <ToggleButton.Triggers>
+                            <EventTrigger 
+                                RoutedEvent="ToggleButton.Unchecked">
+                                <BeginStoryboard>
+                                    <Storyboard 
+                                        x:Name="stbHideStackPanel">
+                                        <DoubleAnimation 
+                                            Storyboard.TargetName="grdMenu" 
+                                            Storyboard.TargetProperty="Width" 
+                                            BeginTime="0:0:0" 
+                                            From="200" 
+                                            To="60" 
+                                            Duration="0:0:0.3">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger 
+                                RoutedEvent="ToggleButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard 
+                                        x:Name="stbShowStackPanel">
+                                        <DoubleAnimation 
+                                            Storyboard.TargetName="grdMenu" 
+                                            Storyboard.TargetProperty="Width" 
+                                            BeginTime="0:0:0" 
+                                            From="60" 
+                                            To="200" 
+                                            Duration="0:0:0.3">
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ToggleButton.Triggers>
+                    </ToggleButton>
+
+                    <StackPanel Grid.Row="3">
+                        <RadioButton 
+                            x:Name="rbtInventory" 
+                            IsChecked="True" 
+                            Content="Inventario" 
+                            Style="{DynamicResource MenuRadioButtonStyle}" 
+                            Tag="{DynamicResource Inventory}" 
+                            Margin="0 5 0 5"                            
+                            Click="ClickInventory"/>
+                        
+                        <RadioButton 
+                            x:Name="rbtLogbook" 
+                            Content="Bitácora" 
+                            Style="{DynamicResource MenuRadioButtonStyle}" 
+                            Tag="{DynamicResource Log}" 
+                            Margin="0 5 0 5" 
+                            Click="ClickSubMenuLogbook"/>
+                        <StackPanel
+                            x:Name="stpSubMenuLogbook"
+                            Visibility="Collapsed">
+                            <RadioButton 
+                                x:Name="rbtAddLogbook" 
+                                Content="Añadir bitácora" 
+                                Style="{DynamicResource MenuRadioButtonStyle}"
+                                Click="ClickAddLogbook"/>
+                            <RadioButton 
+                                x:Name="rbtComments" 
+                                Content="Comentarios" 
+                                Style="{DynamicResource MenuRadioButtonStyle}"
+                                Click="ClickComments"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel 
+                        Grid.Row="3" 
+                        VerticalAlignment="Bottom" 
+                        Orientation="Horizontal" 
+                        Width="200" 
+                        Margin="0 0 0 20">
+                        <Ellipse 
+                            Width="40" 
+                            Height="40" 
+                            Margin="10 0 0 0"
+                            MouseDown="MouseDownLogout"
+                            Cursor="Hand">
+                            <Ellipse.Fill>
+                                <ImageBrush 
+                                    ImageSource="/Resources/Images/LogoutIcon.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <StackPanel 
+                            Orientation="Vertical" 
+                            Margin="10 3 0 0">
+                            <TextBlock 
+                                x:Name="txbNameUser"                               
+                                Foreground="{DynamicResource TextPrimaryColor}" 
+                                FontSize="14" 
+                                Width="130"
+                                FontWeight="SemiBold"                                 
+                                HorizontalAlignment="Left"
+                                TextWrapping="Wrap"
+                            />
+                            <TextBlock 
+                                x:Name="txbRole"                                
+                                Foreground="{DynamicResource TextPrimaryColor}" 
+                                FontSize="12" 
+                                FontWeight="SemiBold"                                 
+                                HorizontalAlignment="Left"
+                                Text="Jefe de cocina"
+                            />
+        
+                        </StackPanel>
+                    </StackPanel>
+    </Grid>
+            </Border>
+
+            <Grid 
+                Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition 
+                        Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel   
+                    Grid.Row="0"   
+                    Grid.Column="4"   
+                    HorizontalAlignment="Right"  
+                    VerticalAlignment="Top"  
+                    Margin="0,5,10,0"  
+                    Height="30"   
+                    Orientation="Horizontal"   
+                    FlowDirection="RightToLeft">
+                    <Button  
+                        x:Name="btnClose"  
+                        Style="{StaticResource IconButtonsStyle}"   
+                        Content="{DynamicResource Close}"   
+                        Tag="IsCloseButton"
+                        Click="ClickClose"/>
+                    <Button   
+                        x:Name="btnRestore" 
+                        Margin="5,0" 
+                        Click="ClickRestore">
+                        <Button.Style>
+                            <Style  
+                                TargetType="{x:Type Button}"  
+                                BasedOn="{StaticResource IconButtonsStyle}">
+                                <Setter  
+                                    Property="Content"  
+                                    Value="{DynamicResource Maximize}"/>
+                                <Style.Triggers>
+                                    <DataTrigger 
+                                        Binding="{Binding ElementName=home, Path=WindowState}"   
+                                        Value="Maximized">
+                                        <Setter 
+                                            Property="Content" 
+                                            Value="{DynamicResource Restore}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button  
+                        x:Name="btnMinimize"  
+                        Style="{DynamicResource IconButtonsStyle}" 
+                        Content="{DynamicResource Minimize}"
+                        Click="ClickMinimize"/>
+                </StackPanel>
+
+                <Border 
+                    Grid.Row="1" 
+                    Margin="10">
+                    <Frame  
+                        x:Name="fraPages" 
+                        NavigationUIVisibility="Hidden">
+                    </Frame>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

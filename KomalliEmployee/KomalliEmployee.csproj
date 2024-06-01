@@ -1,0 +1,513 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\KomalliClient\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props" Condition="Exists('..\KomalliClient\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" />
+  <Import Project="..\KomalliClient\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\KomalliClient\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{36E989DE-CC14-4968-9A69-8165334D6B70}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>KomalliEmployee</RootNamespace>
+    <AssemblyName>KomalliEmployee</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <LangVersion>8.0</LangVersion>
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.4141.31969, Culture=neutral, PublicKeyToken=f3bc8f8c31beeb49, processorArchitecture=MSIL">
+      <HintPath>..\KomalliClient\packages\BCrypt.Net.0.1.0\lib\net35\BCrypt.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\KomalliClient\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\KomalliClient\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.17.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\KomalliClient\packages\log4net.2.0.17\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\KomalliClient\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1620.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\KomalliClient\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1620.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\KomalliClient\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1620.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\KomalliClient\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1620.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\KomalliClient\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1620.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\KomalliClient\packages\Microsoft.SqlServer.Types.160.1000.6\lib\net462\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
+      <HintPath>..\KomalliClient\packages\WpfAnimatedGif.2.0.2\lib\net40\WpfAnimatedGif.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Contracts\ICashCut.cs" />
+    <Compile Include="Contracts\IDishOrder.cs" />
+    <Compile Include="Contracts\IEmployee.cs" />
+    <Compile Include="Contracts\IFood.cs" />
+    <Compile Include="Contracts\IFoodOrder.cs" />
+    <Compile Include="Contracts\IIngredient.cs" />
+    <Compile Include="Contracts\ILogbook.cs" />
+    <Compile Include="Contracts\IMenu.cs" />
+    <Compile Include="Contracts\ISetMenu.cs" />
+    <Compile Include="Controller\CashCutController.cs" />
+    <Compile Include="Controller\DishOrderController.cs" />
+    <Compile Include="Controller\EmployeeController.cs" />
+    <Compile Include="Controller\FoodController.cs" />
+    <Compile Include="Controller\FoodOrderController.cs" />
+    <Compile Include="Controller\IngredientController.cs" />
+    <Compile Include="Controller\LogbookController.cs" />
+    <Compile Include="Controller\MenuController.cs" />
+    <Compile Include="Controller\SetMenuController.cs" />
+    <Compile Include="Model\CashCutModel.cs" />
+    <Compile Include="Model\DishOrderModel.cs" />
+    <Compile Include="Model\EmployeeModel.cs" />
+    <Compile Include="Model\FoodModel.cs" />
+    <Compile Include="Model\FoodOrderModel.cs" />
+    <Compile Include="Model\IngredientModel.cs" />
+    <Compile Include="Model\LogbookModel.cs" />
+    <Compile Include="Model\MenuModel.cs" />
+    <Compile Include="Model\SetMenuModel.cs" />
+    <Compile Include="Model\Utilities\IngredientCategory.cs" />
+    <Compile Include="Model\OrderUser.cs" />
+    <Compile Include="Model\Utilities\LoggerManager.cs" />
+    <Compile Include="Model\Utilities\SingletonClass.cs" />
+    <Compile Include="Model\Utilities\TypeMenu.cs" />
+    <Compile Include="Model\Utilities\TypeQuantity.cs" />
+    <Compile Include="Model\Validations\AvailabilityValidationRule.cs" />
+    <Compile Include="Model\Validations\EmailValidationRule.cs" />
+    <Compile Include="Model\Validations\NameValidationRule.cs" />
+    <Compile Include="Model\Validations\PasswordValidationRule.cs" />
+    <Compile Include="Model\Validations\PersonalNumberValidationRule.cs" />
+    <Compile Include="Model\Validations\RoleValidationRule.cs" />
+    <Compile Include="Resources\DatasetsDB\DataReports.cs">
+      <DependentUpon>DataReports.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DatasetsDB\DataReports.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataReports.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\BlogCommentsxaml.xaml.cs">
+      <DependentUpon>BlogCommentsxaml.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ConsultMenu.xaml.cs">
+      <DependentUpon>ConsultMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ConsultFoodOrdersKiosko.xaml.cs">
+      <DependentUpon>ConsultFoodOrdersKiosko.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ConsultUsers.xaml.cs">
+      <DependentUpon>ConsultUsers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\DailyTransactionsReport.xaml.cs">
+      <DependentUpon>DailyTransactionsReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\EditLogbook.xaml.cs">
+      <DependentUpon>EditLogbook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\DeleteSetMenu.xaml.cs">
+      <DependentUpon>DeleteSetMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\InventoryReport.xaml.cs">
+      <DependentUpon>InventoryReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\IngredientInventory.xaml.cs">
+      <DependentUpon>IngredientInventory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Logbook.xaml.cs">
+      <DependentUpon>Logbook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\MakeCollection.xaml.cs">
+      <DependentUpon>MakeCollection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\MakeOrder.xaml.cs">
+      <DependentUpon>MakeOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ModifySetMenu.xaml.cs">
+      <DependentUpon>ModifySetMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ModifyUser.xaml.cs">
+      <DependentUpon>ModifyUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\LogbookReport.xaml.cs">
+      <DependentUpon>LogbookReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Order.xaml.cs">
+      <DependentUpon>Order.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\PublishSetMenu.xaml.cs">
+      <DependentUpon>PublishSetMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\RegisterCashCut.xaml.cs">
+      <DependentUpon>RegisterCashCut.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\RegisterIngredient.xaml.cs">
+      <DependentUpon>RegisterIngredient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\RegisterUser.xaml.cs">
+      <DependentUpon>RegisterUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SearchSetMenuToDelete.xaml.cs">
+      <DependentUpon>SearchSetMenuToDelete.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SearchSetMenuToModify.xaml.cs">
+      <DependentUpon>SearchSetMenuToModify.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\TicketReport.xaml.cs">
+      <DependentUpon>TicketReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\CommentCard.xaml.cs">
+      <DependentUpon>CommentCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\CommentUserControl.xaml.cs">
+      <DependentUpon>CommentUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\FoodDetails.xaml.cs">
+      <DependentUpon>FoodDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\FoodUserControl.xaml.cs">
+      <DependentUpon>FoodUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\MenuUserControl.xaml.cs">
+      <DependentUpon>MenuUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usercontrols\OrdersUserControl.xaml.cs">
+      <DependentUpon>OrdersUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\ChangePassword.xaml.cs">
+      <DependentUpon>ChangePassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\HomeCashier.xaml.cs">
+      <DependentUpon>HomeCashier.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\HomeHeadChef.xaml.cs">
+      <DependentUpon>HomeHeadChef.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\HomeKichenStaff.xaml.cs">
+      <DependentUpon>HomeKichenStaff.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\HomeManager.xaml.cs">
+      <DependentUpon>HomeManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Resources\Styles\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\BlogCommentsxaml.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ConsultMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ConsultFoodOrdersKiosko.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\DailyTransactionsReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ConsultUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\EditLogbook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\DeleteSetMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\InventoryReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\IngredientInventory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Logbook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\LogbookReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\MakeCollection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\MakeOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ModifySetMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\PublishSetMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Order.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\RegisterCashCut.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ModifyUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\RegisterIngredient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\RegisterUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SearchSetMenuToDelete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SearchSetMenuToModify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\TicketReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\CommentCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\CommentUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\FoodDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\FoodUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\MenuUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\OrdersUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\ChangePassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\HomeCashier.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\HomeHeadChef.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\HomeKichenStaff.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\HomeManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\KomalliReports\DailyTransactionsReport.rdlc" />
+    <EmbeddedResource Include="Resources\KomalliReports\InventoryReport.rdlc" />
+    <EmbeddedResource Include="Resources\KomalliReports\LogbookReport.rdlc" />
+    <EmbeddedResource Include="Resources\KomalliReports\TicketReport.rdlc" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\DatasetsDB\DataReports.xsc">
+      <DependentUpon>DataReports.xsd</DependentUpon>
+    </None>
+    <None Include="Resources\DatasetsDB\DataReports.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataReports.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\DatasetsDB\DataReports.xss">
+      <DependentUpon>DataReports.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\KomalliGif.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\PasswordIcon.png" />
+    <Resource Include="Resources\Images\UserIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\komalli.png" />
+    <Resource Include="Resources\Images\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Return.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\PointsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\iconSearch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\iconGoBack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Breakfast.png" />
+    <Resource Include="Resources\Images\Food.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\AddFood.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\IconCancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Substract.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KomalliServer\KomalliServer.csproj">
+      <Project>{18E7AEB5-9637-4E65-801C-F8727FAA8BD3}</Project>
+      <Name>KomalliServer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\EditIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\LogoutIcon.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\KomalliClient\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\KomalliClient\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\KomalliClient\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\KomalliClient\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\KomalliClient\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" Text="$([System.String]::Format('$(ErrorText)', '..\KomalliClient\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props'))" />
+  </Target>
+  <Import Project="..\KomalliClient\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\KomalliClient\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>
