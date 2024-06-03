@@ -224,6 +224,9 @@
     <Compile Include="Views\Usercontrols\CommentUserControl.xaml.cs">
       <DependentUpon>CommentUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Usercontrols\DishUserControl.xaml.cs">
+      <DependentUpon>DishUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Usercontrols\FoodDetails.xaml.cs">
       <DependentUpon>FoodDetails.xaml</DependentUpon>
     </Compile>
@@ -363,6 +366,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Usercontrols\CommentUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Usercontrols\DishUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

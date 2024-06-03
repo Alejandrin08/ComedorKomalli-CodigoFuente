@@ -268,36 +268,29 @@ namespace KomalliEmployee.Controller {
 
         public List<OrderUser> GetStatusOrderSetMenu(string status) {
             List<OrderUser> orders = new List<OrderUser>();
-            orders = null;
             try {
-                using (var context = new KomalliEntities())
-                {
+                using (var context = new KomalliEntities()) {
                     var today = DateTime.Today;
                     var currentTime = DateTime.Now;
 
-                    var setMenuOrders = (from food in context.FoodOrder
+                    var setMenuOrders = (from foodOrder in context.FoodOrder
                                          join foodOrderSetMenu in context.FoodOrder_SetMenu
-                                         on food.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
+                                         on foodOrder.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
                                          join setMenu in context.SetMenu
                                          on foodOrderSetMenu.KeySetMenuSetMenu equals setMenu.KeySetMenu
-                                         where DbFunctions.TruncateTime(food.Date) == today && food.Status == status
-                                         select new {
-                                             food.NumberDishes,
-                                             foodOrderSetMenu.KeySetMenuSetMenu,
-                                             food.Status,
-                                             food.IDFoodOrder
-                                         }).ToList()
-                                         .Select(result => new OrderUser {
-                                             Quantity = result.NumberDishes,
-                                             OrderType = "Menú del día",
-                                             Status = result.Status,
-                                             FoodName = result.KeySetMenuSetMenu.StartsWith("Com") ? "Comida" : "Desayuno",
-                                             OrderID = result.IDFoodOrder
+                                         where DbFunctions.TruncateTime(foodOrder.Date) == today && foodOrder.Status == status
+                                         select new OrderUser {
+                                             OrderID = foodOrder.IDFoodOrder,
+                                             DishQuantity = foodOrder.NumberDishes,
+                                             FoodName = foodOrderSetMenu.KeySetMenuSetMenu,
+                                             Quantity = foodOrderSetMenu.Quantity,
+                                             Status = foodOrder.Status,
+                                             DishStatus = foodOrderSetMenu.Status,
+                                             ClientName = foodOrder.ClientName
                                          }).ToList();
 
                     orders = setMenuOrders;
                 }
-                
             }
             catch (EntityException ex) {
                 orders = null;
@@ -308,114 +301,27 @@ namespace KomalliEmployee.Controller {
 
         public List<OrderUser> GetStatusOrderMenuCard(string status) {
             List<OrderUser> orders = new List<OrderUser>();
-            orders = null;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
+            try {
+                using (var context = new KomalliEntities()) {
                     var today = DateTime.Today;
                     var currentTime = DateTime.Now;
-                    var menuCardOrders = (from food in context.FoodOrder
-                                        join unionTable in context.FoodOrder_MenuCard
-                                        on food.IDFoodOrder equals unionTable.IDFoodOrderFoodOrder
-                                        join menuCard in context.MenuCard
-                                        on unionTable.KeyCardMenuCard equals menuCard.KeyCard
-                                        where DbFunctions.TruncateTime(food.Date) == today && food.Status == status
-                                        select new {
-                                            food.NumberDishes,
-                                            menuCard.NameFood,
-                                            food.Status,
-                                            food.IDFoodOrder
-
-                                        }).ToList()
-                                        .Select(result => new OrderUser {
-                                            Quantity = result.NumberDishes,
-                                            OrderType = "Menú a la carta",
-                                            Status = result.Status,
-                                            FoodName = result.NameFood,
-                                            OrderID = result.IDFoodOrder
-                                        }).ToList();
-
-                    orders = menuCardOrders;
-                }
-            }
-            catch (EntityException ex)
-            {
-                orders = null;
-                LoggerManager.Instance.LogError("Error al consultar la orden", ex);
-            }
-            return orders;
-        }
-
-        public List<OrderUser> GetOrdersByStatusesSetMenu(List<string> statuses, DateTime today) {
-            List<OrderUser> orders = new List<OrderUser>();
-            orders = null;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
-                    var currentTime = DateTime.Now;
-                    var setMenuOrders = (from food in context.FoodOrder
-                                         join foodOrderSetMenu in context.FoodOrder_SetMenu
-                                         on food.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
-                                         join setMenu in context.SetMenu
-                                         on foodOrderSetMenu.KeySetMenuSetMenu equals setMenu.KeySetMenu
-                                         where DbFunctions.TruncateTime(food.Date) == today && statuses.Contains(food.Status)
-                                         select new
-                                         {
-                                             food.NumberDishes,
-                                             foodOrderSetMenu.KeySetMenuSetMenu,
-                                             food.Status
-                                         }).ToList()
-                                         .Select(result => new OrderUser
-                                         {
-                                             Quantity = result.NumberDishes,
-                                             OrderType = "Menú del día",
-                                             Status = result.Status,                  
-                                             FoodName = result.KeySetMenuSetMenu.StartsWith("Com") ? "Comida" : "Desayuno"
-                                         }).ToList();
-
-                    orders = setMenuOrders;
-                }
-
-            }
-            catch (EntityException ex){
-                orders = null;
-                LoggerManager.Instance.LogError("Error al consultar la orden", ex);
-            }
-            return orders;
-        }
-
-        public List<OrderUser> GetOrdersByStatusesMenuCard(List<string> statuses, DateTime today) {
-            List<OrderUser> orders = new List<OrderUser>();
-            orders = null;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
-                    var currentTime = DateTime.Now;
-                    var menuCardOrders = (from food in context.FoodOrder
+                    var menuCardOrders = (from foodOrder in context.FoodOrder
                                           join unionTable in context.FoodOrder_MenuCard
-                                          on food.IDFoodOrder equals unionTable.IDFoodOrderFoodOrder
+                                          on foodOrder.IDFoodOrder equals unionTable.IDFoodOrderFoodOrder
                                           join menuCard in context.MenuCard
                                           on unionTable.KeyCardMenuCard equals menuCard.KeyCard
-                                          where DbFunctions.TruncateTime(food.Date) == today && statuses.Contains(food.Status)
-                                       
-                                          select new
-                                          {
-                                              food.NumberDishes,
-                                              menuCard.NameFood,
-                                              food.Status
-                                          }).ToList()
-                                          .Select(result => new OrderUser
-                                          {
-                                              Quantity = result.NumberDishes,
-                                              OrderType = "Menú a la carta",
-                                              FoodName = result.NameFood,
-                                              Status = result.Status
+                                          where DbFunctions.TruncateTime(foodOrder.Date) == today && foodOrder.Status == status
+                                          select new OrderUser {
+                                              OrderID = foodOrder.IDFoodOrder,
+                                              DishQuantity = foodOrder.NumberDishes,
+                                              FoodName = menuCard.NameFood,
+                                              Quantity = unionTable.Quantity,
+                                              Status = foodOrder.Status,
+                                              DishStatus = unionTable.Status,
+                                              ClientName = foodOrder.ClientName
                                           }).ToList();
 
-                    orders = menuCardOrders;
+                    orders.AddRange(menuCardOrders);
                 }
             }
             catch (EntityException ex) {
@@ -425,16 +331,27 @@ namespace KomalliEmployee.Controller {
             return orders;
         }
 
-        
-            /**
-            * <summary>
-            * Este método se encarga de eliminar un pedido de la tabla FoodOrder de la base de datos.
-            * </summary>
-            * <param name="orderId">Id que identifica el pedido a actualizar su estado</param>
-            * <param name="newStatus">parametro para actualizar el estado</param>
-            * <returns>Regresa true si se actualizo correctamente, false si ocurre un error.</returns>
-            */
-            public bool UpdateOrderStatus(string orderId, string newStatus) {
+        public List<OrderUser> GetCombinedOrdersByStatus(string status) {
+            List<OrderUser> orders = new List<OrderUser>();
+
+            var setMenuOrders = GetStatusOrderSetMenu(status);
+            var menuCardOrders = GetStatusOrderMenuCard(status);
+
+            orders.AddRange(setMenuOrders);
+            orders.AddRange(menuCardOrders);
+
+            return orders;
+        }
+
+        /**
+        * <summary>
+        * Este método se encarga de eliminar un pedido de la tabla FoodOrder de la base de datos.
+        * </summary>
+        * <param name="orderId">Id que identifica el pedido a actualizar su estado</param>
+        * <param name="newStatus">parametro para actualizar el estado</param>
+        * <returns>Regresa true si se actualizo correctamente, false si ocurre un error.</returns>
+        */
+        public bool UpdateOrderStatus(string orderId, string newStatus) {
             try {
                 using (var context = new KomalliEntities()) {
                     var order = context.FoodOrder.SingleOrDefault(o => o.IDFoodOrder == orderId);

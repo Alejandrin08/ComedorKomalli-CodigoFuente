@@ -3,6 +3,7 @@ using KomalliEmployee.Model;
 using KomalliEmployee.Views.Usercontrols;
 using System;
 using System.Collections.Generic;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,83 +17,49 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KomalliEmployee.Views.Pages {
+namespace KomalliEmployee.Views.Pages
+{
     /// <summary>
     /// Interaction logic for Order.xaml
     /// </summary>
-    public partial class Order : Page {
-        public Order() {
+    public partial class Order : Page
+    {
+        
+        public Order()
+        {
             InitializeComponent();
-            ShowAllOrders();
+            ShowOrder();
         }
 
-        private void AddOrders(OrderUser order) {
-            OrdersUserControl orderUser = new OrdersUserControl();
-            orderUser.SetData(order);
-            lstOrders.Items.Add(orderUser);
-
+        private void ShowOrder()
+        {
+            ShowOrdersPerStatus("Pagado", lstOrdersPending);
+            ShowOrdersPerStatus("Hecho", lstOrdersDone);
+            ShowOrdersPerStatus("Entregado", lstOrdersDelivered);
         }
 
+        private void ShowOrdersPerStatus(string status, ListView listView)
+        {
+            FoodOrderController foodOrder = new FoodOrderController();
+            List<OrderUser> orders = foodOrder.GetCombinedOrdersByStatus(status);
+            listView.Items.Clear();
 
-
-        private void ShowOrders(List<OrderUser> orders, string orderType) {
-            lstOrders.Items.Clear();
-            if (orderType == "Menú del día") {
-                if (orders.Any()) {
-                    foreach (OrderUser order in orders) {
-                        AddOrders(order);
-                    }
+            if (orders != null)
+            {
+                foreach (OrderUser order in orders)
+                {
+                    var orderUserControl = new OrdersUserControl { order = order };
+                    orderUserControl.SetData(order);
+                    listView.Items.Add(orderUserControl);
                 }
-                
+
             }
-            else if (orderType == "Menú a la carta") {
-                if (orders.Any()) {
-                    foreach (OrderUser order in orders) {
-                        AddOrders(order);
-                    }
-                }
+            else
+            {
+                App.ShowMessageError("No se pudo recuperar la orden de estado " + status, "Error");
             }
         }
-        
-        private void ShowAllOrders() {
-            FoodOrderController foodOrderController = new FoodOrderController();
-            var today = DateTime.Today;
-            
-            var setMenuOrders = foodOrderController.GetStatusOrderSetMenu("Pagado");
-            ShowOrders(setMenuOrders, "Menú del día");
-            var menuCardOrders = foodOrderController.GetStatusOrderMenuCard("Pagado");
-            ShowOrders(menuCardOrders, "Menú a la carta");
-        }
 
-
-        private void ClickAllOrders(object sender, RoutedEventArgs e) {
-            ShowAllOrders();
-        }
-
-        private void ClickPendingOrders(object sender, RoutedEventArgs e) {
-            FoodOrderController foodOrderController = new FoodOrderController();
-            
-        
-            var setMenuOrders = foodOrderController.GetStatusOrderSetMenu("Pendiente");
-            ShowOrders(setMenuOrders, "Menú del día");
-            var menuCardOrders = foodOrderController.GetStatusOrderMenuCard("Pendiente");
-            ShowOrders(menuCardOrders, "Menú a la carta");
-        }
-
-        private void ClickPlacedOrders(object sender, RoutedEventArgs e) {
-            FoodOrderController foodOrderController = new FoodOrderController();
-            var setMenuOrders = foodOrderController.GetStatusOrderSetMenu("Hecho");
-            ShowOrders(setMenuOrders, "Menú del día");
-            var menuCardOrders = foodOrderController.GetStatusOrderMenuCard("Hecho");
-            ShowOrders(menuCardOrders, "Menú a la carta");
-        }
-
-        private void ClickDelivereddOrders(object sender, RoutedEventArgs e) {
-            FoodOrderController foodOrderController = new FoodOrderController();
-            var setMenuOrders = foodOrderController.GetStatusOrderSetMenu("Entregado");
-            ShowOrders(setMenuOrders, "Menú del día");
-            var menuCardOrders = foodOrderController.GetStatusOrderMenuCard("Entregado");
-            ShowOrders(menuCardOrders, "Menú a la carta");
-        }
     }
 }
+
