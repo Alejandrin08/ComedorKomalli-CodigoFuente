@@ -41,24 +41,20 @@ namespace KomalliEmployee.Views.Usercontrols
             lblNameContent.Content = user.ClientName;
         }
 
-        public void AddOrders(OrderUser order)
-        {
+        public void AddOrders(OrderUser order) {
             DishUserControl dishUser = new DishUserControl();
             dishUser.SetData(order);
-            lstDish.Items.Add(dishUser);
+            stkDish.Children.Add(dishUser);
         }
 
 
-        public void ShowDish()
-        {
+        public void ShowDish() {
             FoodOrderController foodOrder = new FoodOrderController();
             List<OrderUser> orders = foodOrder.GetCombinedOrdersByStatus("Pagado");
-            lstDish.Items.Clear();
+            stkDish.Children.Clear();
 
-            if (orders.Any())
-            {
-                foreach (OrderUser order in orders)
-                {
+            if (orders.Any()) {
+                foreach (OrderUser order in orders) {
                     AddOrders(order);
                 }
             }

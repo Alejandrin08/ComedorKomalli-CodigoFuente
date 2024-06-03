@@ -20,20 +20,20 @@
 
     <Grid>
         <Border
-                Height="90"
+                
                 CornerRadius="8"
                 Background="#F9F9EA"
                 BorderThickness="3">
             <Grid >
-                
-                    <ListView x:Name="lstDish" 
-                Width="480"
-                Background="#F9F9EA"
-                BorderBrush="Transparent"
-                ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}" 
-                 
-                Margin="225,0,8,0"/>
-                    <Label x:Name="lblIDDishContent"
+
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
+                    <StackPanel x:Name="stkDish" 
+                                Width="480"
+                                Background="#F9F9EA"
+                                Margin="225,0,8,0"/>
+                </ScrollViewer>
+
+                <Label x:Name="lblIDDishContent"
                     Content="caj0084" 
                     FontSize="14"
                     Foreground="#666666" 
