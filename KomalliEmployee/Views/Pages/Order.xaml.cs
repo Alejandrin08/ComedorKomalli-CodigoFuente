@@ -1,6 +1,7 @@
 ﻿using KomalliEmployee.Controller;
 using KomalliEmployee.Model;
 using KomalliEmployee.Views.Usercontrols;
+using KomalliServer;
 using System;
 using System.Collections.Generic;
 using System.IO.Packaging;
@@ -24,7 +25,7 @@ namespace KomalliEmployee.Views.Pages
     /// </summary>
     public partial class Order : Page
     {
-        
+        private OrderUser _order;
         public Order()
         {
             InitializeComponent();

@@ -39,6 +39,7 @@ namespace KomalliEmployee.Views.Usercontrols
             _order = user;
             lblIDDishContent.Content = user.OrderID;
             lblNameContent.Content = user.ClientName;
+            ShowDish();
         }
 
         public void AddOrders(OrderUser order) {
@@ -49,8 +50,12 @@ namespace KomalliEmployee.Views.Usercontrols
 
 
         public void ShowDish() {
+            if (_order == null || _order.OrderID == null)
+            {
+                return;
+            }
             FoodOrderController foodOrder = new FoodOrderController();
-            List<OrderUser> orders = foodOrder.GetCombinedOrdersByStatus("Pagado");
+            List<OrderUser> orders = foodOrder.GetCombinedDishesByStatus("Pagado", _order.OrderID);
             stkDish.Children.Clear();
 
             if (orders.Any()) {
