@@ -102,7 +102,7 @@
                Content = "*Bebida:"
                FontFamily = "Segoe UI"
                FontSize = "20" 
-               Margin = "419,211,278,205"
+               Margin = "417,182,280,234"
                Foreground = "Black" 
                FontWeight="Bold" RenderTransformOrigin="0.478,0.653"
         />
@@ -111,7 +111,7 @@
                Content = "*Fecha:"
                FontFamily = "Segoe UI"
                FontSize = "20" 
-               Margin = "429,157,259,259"
+               Margin = "417,132,271,284"
                Foreground = "Black" 
                FontWeight="Bold" RenderTransformOrigin="0.624,0.59"
         />
@@ -120,7 +120,7 @@
                Content = "*Tipo:"
                FontFamily = "Segoe UI"
                FontSize = "20" 
-               Margin = "440,267,248,149"
+               Margin = "418,238,270,178"
                Foreground = "Black" 
                FontWeight="Bold" RenderTransformOrigin="0.624,0.59"
         />
@@ -259,7 +259,7 @@
                  FontStyle = "Italic"
                  Height = "34"
                  Width = "221" 
-                 Margin = "522,211,0,0"
+                 Margin = "522,183,0,0"
                  VerticalContentAlignment="Center"
                  Padding = "10,0,0,0"
                  PreviewTextInput="PreviewTextInputOnlyNumberAndLetters">
@@ -281,13 +281,51 @@
             </TextBox>
 
             <ComboBox x:Name="cbxTypeMenu"
-                  Margin="522,267,57,149"
+                  Margin="522,239,57,177"
                   Background="#FEFFFE"
                   ItemContainerStyle="{StaticResource ComboBoxItemStyle}"
                   BorderThickness="0">
                 <ComboBoxItem Content="Desayuno" />
                 <ComboBoxItem Content="Comida" />
             </ComboBox>
+
+            <Label x:Name = "lblStock"
+               Content = "*Existencias:"
+               FontFamily = "Segoe UI"
+               FontSize = "20" 
+               Margin = "417,298,249,118"
+               Foreground = "Black" 
+               FontWeight="Bold" RenderTransformOrigin="0.478,0.653"
+            />
+
+            <TextBox x:Name = "txbStock" 
+         HorizontalAlignment = "Left" 
+         VerticalAlignment = "Top"
+         FontSize = "18" 
+         FontFamily = "Segoe UI"
+         FontStyle = "Italic"
+         Height = "34"
+         Width = "201" 
+         Margin = "542,298,0,0"
+         VerticalContentAlignment="Center"
+         Padding = "10,0,0,0"
+         PreviewTextInput="PreviewTextInputOnlyNumber">
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                    <Border CornerRadius="10" 
+                    BorderThickness="0" 
+                    Background="White">
+                                        <ScrollViewer x:Name="PART_ContentHost"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
 
             <Button x:Name = "btnModifySetMenu"
                 Margin = "317,393,330,19"
@@ -300,7 +338,7 @@
             />
 
             <DatePicker x:Name="dpDate"
-                    Margin="522,157,57,0"
+                    Margin="522,133,57,0"
                     VerticalAlignment="Top"
                     FontSize="20" Height="34">
                 <DatePicker.Resources>
