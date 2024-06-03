@@ -12,7 +12,7 @@
          Width="450"
          CornerRadius="8"
          Background="#FFFFFF"
-         BorderThickness="3" Margin="150,200,204,200">
+         BorderThickness="3" >
             <Grid>
 
                 <Label x:Name="lblQuantity"
