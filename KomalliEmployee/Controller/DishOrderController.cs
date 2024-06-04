@@ -135,23 +135,30 @@ namespace KomalliEmployee.Controller {
             }
         }
 
-        public bool UpdateDishStatus(string idFoodOrder, string nameFood, string newStatus) {
-            try {
-                using (var context = new KomalliEntities()) {
-                    var dish = (from foodOrder in context.FoodOrder
-                                join foodOrderSetMenu in context.FoodOrder_SetMenu
-                                on foodOrder.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
-                                join setMenu in context.SetMenu
-                                on foodOrderSetMenu.KeySetMenuSetMenu equals setMenu.KeySetMenu
-                                where foodOrder.IDFoodOrder == idFoodOrder && foodOrderSetMenu.KeySetMenuSetMenu == nameFood
-                                select foodOrderSetMenu).FirstOrDefault();
+        public bool UpdateDishStatus(string idFoodOrder, string nameFood, string newStatus, string dishType) {
+            try
+            {
+                using (var context = new KomalliEntities())
+                {
+                    if (dishType == "SetMenu")
+                    {
+                        var dish = (from foodOrder in context.FoodOrder
+                                    join foodOrderSetMenu in context.FoodOrder_SetMenu
+                                    on foodOrder.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
+                                    join setMenu in context.SetMenu
+                                    on foodOrderSetMenu.KeySetMenuSetMenu equals setMenu.KeySetMenu
+                                    where foodOrder.IDFoodOrder == idFoodOrder 
+                                    select foodOrderSetMenu).FirstOrDefault();
 
-                    if (dish != null) {
-                        dish.Status = newStatus;
-                        context.SaveChanges();
-                        return true;
+                        if (dish != null)
+                        {
+                            dish.Status = newStatus;
+                            context.SaveChanges();
+                            return true;
+                        }
                     }
-                    else {
+                    else if (dishType == "MenuCard")
+                    {
                         var menuCardDish = (from foodOrder in context.FoodOrder
                                             join unionTable in context.FoodOrder_MenuCard
                                             on foodOrder.IDFoodOrder equals unionTable.IDFoodOrderFoodOrder
@@ -160,7 +167,8 @@ namespace KomalliEmployee.Controller {
                                             where foodOrder.IDFoodOrder == idFoodOrder && menuCard.NameFood == nameFood
                                             select unionTable).FirstOrDefault();
 
-                        if (menuCardDish != null) {
+                        if (menuCardDish != null)
+                        {
                             menuCardDish.Status = newStatus;
                             context.SaveChanges();
                             return true;
@@ -175,6 +183,8 @@ namespace KomalliEmployee.Controller {
 
             return false;
         }
+
+       
 
     }
 }

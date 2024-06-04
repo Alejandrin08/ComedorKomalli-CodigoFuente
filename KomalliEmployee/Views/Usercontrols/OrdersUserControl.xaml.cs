@@ -62,6 +62,24 @@ namespace KomalliEmployee.Views.Usercontrols
                     AddOrders(order);
                 }
             }
+
+            List<OrderUser> doneOrders = foodOrder.GetCombinedDishesByStatus("Hecho", _order.OrderID);
+            if (doneOrders.Any())
+            {
+                foreach (OrderUser order in doneOrders)
+                {
+                    AddOrders(order);
+                }
+            }
+
+            List<OrderUser> deliveredOrders = foodOrder.GetCombinedDishesByStatus("Entregado", _order.OrderID);
+            if (deliveredOrders.Any())
+            {
+                foreach (OrderUser order in deliveredOrders)
+                {
+                    AddOrders(order);
+                }
+            }
         }
 
     }

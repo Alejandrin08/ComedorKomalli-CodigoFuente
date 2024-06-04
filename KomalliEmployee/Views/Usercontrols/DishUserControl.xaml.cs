@@ -23,7 +23,7 @@ namespace KomalliEmployee.Views.Usercontrols
     /// Interaction logic for DishUserControl.xaml
     /// </summary>
     public partial class DishUserControl : UserControl {
-        private OrderUser _order; 
+        private OrderUser _order;
 
         public DishUserControl()
         {
@@ -41,26 +41,31 @@ namespace KomalliEmployee.Views.Usercontrols
 
         private void ClickChangeStatus(object sender, RoutedEventArgs e)
         {
-            UpdateStateDish(_order.OrderID, _order.FoodName);
+            string dishType = (_order.FoodName.StartsWith("COM") || _order.FoodName.StartsWith("DES")) ? "SetMenu" : "MenuCard";
+            UpdateStateDish(_order.OrderID, _order.FoodName, dishType);
         }
 
-        public void UpdateStateDish(string idDish, string nameDish)
-        {
+        public void UpdateStateDish(string idDish, string nameDish, string dishType) {
             if (_order == null) return;
-            string newStatus = GetNextStatus(_order.DishStatus);
             DishOrderController dishOrder = new DishOrderController();
-            bool success = dishOrder.UpdateDishStatus(idDish, nameDish, newStatus);
-            
-            if (success)
-            {
-                UpdateButtonContent();
-                CheckAndUpdateOrderStatus(idDish);
-                MessageBox.Show("Estado del platillo actualizado con éxito.");
+            string newStatus = GetNextStatus(_order.DishStatus);
+
+            try {
+                bool success = dishOrder.UpdateDishStatus(idDish, nameDish, newStatus, dishType);
+
+                if (success) {
+                    UpdateButtonContent();
+                    CheckAndUpdateOrderStatus(_order.OrderID);
+                    MessageBox.Show("Estado del platillo actualizado con éxito.");
+                }
+                else {
+                    MessageBox.Show("Error al actualizar el estado del platillo.");
+                }
             }
-            else
-            {
-                MessageBox.Show("Error al actualizar el estado del platillo.");
+            catch (Exception ex) {
+                MessageBox.Show($"Error al actualizar el estado del platillo: {ex.Message}");
             }
+
         }
 
         private string GetNextStatus(string currentStatus) {
@@ -70,9 +75,12 @@ namespace KomalliEmployee.Views.Usercontrols
                     
                 case "Hecho":
                     return  "Entregado";
-                    
+
+                case "Entregado":
+                    return "";
+
                 default:
-                    return "Pendiente";
+                        return "Pendiente";
             }
         }
 
