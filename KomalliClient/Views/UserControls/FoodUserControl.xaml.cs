@@ -23,7 +23,7 @@ namespace KomalliClient.Views.UserControls {
     /// </summary>
     public partial class FoodUserControl : UserControl {
         public static Dictionary<string, bool> SelectedStates { get; set; } = new Dictionary<string, bool>();
-        public FoodModel Food { get; set; } 
+        public FoodModel Food { get; set; }
         public FoodUserControl() {
             InitializeComponent();
             Loaded += LoadesFoodUserControll;
@@ -58,8 +58,6 @@ namespace KomalliClient.Views.UserControls {
 
         private void ClickAddFood(object sender, RoutedEventArgs e) {
             int price = int.Parse(tbkFoodPrice.Text.TrimStart('$'));
-            FoodController foodController = new FoodController();   
-            int stock = foodController.GetStockMenuCard(Food.KeyCard);  
             FoodModel foodModel = new FoodModel() {
                 Name = tbkFoodName.Text,
                 KeyCard = Food.KeyCard,
@@ -74,26 +72,16 @@ namespace KomalliClient.Views.UserControls {
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
             mainWindow.btnContinue.IsEnabled = true;
             mainWindow.btnCancel.IsEnabled = true;
-            if (stock > 0) {
-                if (selectedFood != null) {
-                    if (selectedFood.Quantity == 9) {
-                        App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
-                        return;
-                    }
-                    int quantity = selectedFood.Quantity;
-                    if (quantity++ >= stock) {
-                        App.ShowMessageWarning("No puedes agregar más, ya no hay.", "Advertencia");
-                        return;
-                    }
-                    selectedFood.Quantity++;
-                    selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
-                    UpdateSelectedFoodsCollection(sender);
-                } else {
-                    SingletonClass.Instance.SelectedFoods.Add(foodModel);
+            if (selectedFood != null) {
+                if (selectedFood.Quantity == 9) {
+                    App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
+                    return;
                 }
+                selectedFood.Quantity++;
+                selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
+                UpdateSelectedFoodsCollection(sender);
             } else {
-                App.ShowMessageWarning("Ya no hay.", "Advertencia");
-                return;
+                SingletonClass.Instance.SelectedFoods.Add(foodModel);
             }
         }
 

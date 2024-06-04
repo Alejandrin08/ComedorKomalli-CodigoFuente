@@ -75,34 +75,22 @@ namespace KomalliClient.Views.UserControls {
 
         private void MouseDownAddFood(object sender, MouseButtonEventArgs e) {
             var existingFood = SingletonClass.Instance.SelectedFoods.FirstOrDefault(food => food.Name == Food.Name);
-            FoodController foodController = new FoodController();
-            int stock = foodController.GetStockSetMenu(existingFood.KeyCard);
-            if (stock > 0) {
-                if (existingFood != null) {
-                    if (existingFood.Quantity == 9) {
-                        App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
-                        return;
-                    }
-                    int quantity = existingFood.Quantity;
-                    if (quantity++ >= stock) {
-                        App.ShowMessageWarning("No puedes agregar más, ya no hay.", "Advertencia");
-                        return;
-                    }
-                    existingFood.Quantity++;
-                    tbkQuantityFood.Text = existingFood.Quantity.ToString();
-                    UpdateFoodDetails(existingFood);
-
-                    if (existingFood.Quantity > 1) {
-                        BitmapImage bitmap = new BitmapImage();
-                        bitmap.BeginInit();
-                        bitmap.UriSource = new Uri("/Resources/Images/Substract.png", UriKind.RelativeOrAbsolute);
-                        bitmap.EndInit();
-                        imgDeleteFood.Source = bitmap;
-                    }
+            if (existingFood != null) {
+                if (existingFood.Quantity == 9) {
+                    App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
+                    return;
                 }
-            } else {
-                App.ShowMessageWarning("Ya no hay.", "Advertencia");
-                return;
+                existingFood.Quantity++;
+                tbkQuantityFood.Text = existingFood.Quantity.ToString();
+                UpdateFoodDetails(existingFood);
+
+                if (existingFood.Quantity > 1) {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri("/Resources/Images/Substract.png", UriKind.RelativeOrAbsolute);
+                    bitmap.EndInit();
+                    imgDeleteFood.Source = bitmap;
+                }
             }
         }
 
