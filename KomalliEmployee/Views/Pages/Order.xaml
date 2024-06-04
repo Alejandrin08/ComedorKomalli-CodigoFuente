@@ -35,42 +35,89 @@
                             FontSize="25" Height="36" Margin="260,10,279,11" />
                 </Border>
             </Grid>
-            <Grid Margin="0,80,0,337">
-                <Button x:Name="btnAll" 
-                        Content="Pagado"
-                        Background="#5c8cc8"
-                        Margin="10,0,598,0" 
-                        FontFamily="Constantia" 
-                        FontSize="14" 
-                        Click="ClickAllOrders"/>
-                <Button x:Name="btnPending" 
-                        Content="Pendientes"
-                        Background="#c4c4bc"
-                        Margin="207,0,401,0" 
-                        FontFamily="Constantia" 
-                        FontSize="14" 
-                        Click="ClickPendingOrders"/>
-                <Button x:Name="btnMake" 
-                        Content="Hechos"
-                        Background="#73ac63"
-                        Margin="404,0,208,0" 
-                        FontFamily="Constantia" 
-                        FontSize="14"
-                        Click="ClickPlacedOrders"/>
-                <Button x:Name="btnDelivered" 
-                        Content="Entregados"
-                        Background="#457c7f"
-                        Margin="597,0,12,0" 
-                        FontFamily="Constantia" 
-                        FontSize="14"
-                        Click="ClickDelivereddOrders"/>
-            </Grid>
-            <Grid Margin="0,113,0,0">
-                <ListView x:Name="lstOrders" 
-                      Background="#F9F9EA" Margin="10,10,10,10"
-                           ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"/>
+            <TabControl x:Name="tbcOrders" 
+                Margin="10,77,10,20" >
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Grid>
+                                        <Border Name="Border" 
+                            Background="{TemplateBinding Background}" 
+                            BorderThickness="1,1,1,0" 
+                            BorderBrush="#333"
+                            CornerRadius="5,5,0,0">
+                                            <ContentPresenter x:Name="ContentSite"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center"                                                              
+                              ContentSource="Header"
+                              Margin="12,2"/>
+                                        </Border>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style TargetType="TabPanel">
+                        <Setter Property="HorizontalAlignment" 
+            Value="Stretch"/>
+                        <Setter Property="VerticalAlignment" 
+            Value="Center"/>
+                        <Setter Property="IsItemsHost" 
+            Value="True"/>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Header="Pendientes" 
+                 FontFamily="Constantia"  
+                 Width="80"
+                 x:Name="tbiPending"
+                 Background="#5c8cc8">
+                    <Grid Background="#5c8cc8"
+                        x:Name="grdPending">
+                        <ScrollViewer
+                            VerticalScrollBarVisibility="Auto" Margin="10,0,10,0">
+                            <ListView x:Name="lstOrdersPending"
+                                BorderBrush="Transparent"
+                                Background="#5c8cc8" Margin="10,10,10,10"
+                                ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"/>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
 
-            </Grid>
+                <TabItem Header="Hecho" 
+                 FontFamily="Constantia" 
+                 Width="80" 
+                 Background="#457c7f">
+                    <Grid Background="#457c7f"
+                        x:Name="grdDone">
+                        <ScrollViewer
+                          VerticalScrollBarVisibility="Auto" Margin="0,0,10,0">
+                            <ListView x:Name="lstOrdersDone"
+                            BorderBrush="Transparent"
+                            Background="#457c7f" Margin="10,10,10,10"
+                            ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"/>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Entregados" 
+                    FontFamily="Constantia" 
+                    Background="#73ac63">
+                    <Grid Background="#73ac63"
+                        x:Name="grdDelivered">
+                        <ScrollViewer
+                            VerticalScrollBarVisibility="Auto" Margin="0,0,10,0" >
+                            <ListView x:Name="lstOrdersDelivered" 
+                            Background="#73ac63" Margin="10,10,10,10"
+                            BorderBrush="Transparent"
+                            ItemContainerStyle="{StaticResource ListBoxItemNoSelectionStyle}"/>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+            </TabControl>
         </Grid>
+
+
     </Viewbox>
 </Page>

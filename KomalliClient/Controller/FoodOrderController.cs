@@ -3,6 +3,7 @@ using KomalliClient.Model.Utilities;
 using KomalliServer;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,11 @@ using System.Threading.Tasks;
 
 namespace KomalliClient.Controller {
     public class FoodOrderController {
+        /// <summary>
+        /// Registra una orden de comida en la base de datos.
+        /// </summary>
+        /// <param name="foodModel">Modelo de la orden de comida a registrar.</param>
+        /// <returns>El número de registros afectados en la base de datos.</returns>
         public int RegistryOrder(FoodOrderModel foodModel) {
             int result = 0;
             try {
@@ -33,6 +39,10 @@ namespace KomalliClient.Controller {
             return result;
         }
 
+        /// <summary>
+        /// Genera un ID aleatorio para una orden de comida.
+        /// </summary>
+        /// <returns>Un ID aleatorio para una orden de comida.</returns>
         public string GenerateRamdomIdFoodOrder() {
             Random rand = new Random();
             string id = "Kio";
@@ -44,6 +54,10 @@ namespace KomalliClient.Controller {
 
         }
 
+        /// <summary>
+        /// Genera un ID único para una orden de comida que no esté ya en uso en la base de datos.
+        /// </summary>
+        /// <returns>Un ID único para una orden de comida.</returns>
         public string MakeIdFoodOrder() {
             string idGenerated = GenerateRamdomIdFoodOrder();
 
@@ -58,5 +72,7 @@ namespace KomalliClient.Controller {
 
             return idGenerated;
         }
+
+        
     }
 }

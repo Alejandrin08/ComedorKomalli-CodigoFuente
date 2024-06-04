@@ -111,6 +111,62 @@ namespace KomalliClient.Controller {
             return foods;
         }
 
+        /**
+       * <summary>
+       * Este método se encarga de actualizar el stock de un menu del dia.
+       * </summary>
+       * <param name="keySetMenu">Identificador del menu. </param>
+       * <param name="quantity">Cantidad de menu a disminuir</param>
+       * <returns>Regresa 1 si se actualiza correctamente, 0 si ocurre un error.</returns>
+       */
+
+        public int UpdateStockSetMenu(string keySetMenu, int quantity) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var menuCard = context.SetMenu.SingleOrDefault(mc => mc.KeySetMenu == keySetMenu);
+                    if (menuCard != null && menuCard.Stock > 0)  {
+                        menuCard.Stock -= quantity;
+                        result = context.SaveChanges();
+                    }
+
+                }
+            }
+            catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error al actualizar stock en menu card", ex);
+            }
+            return result;
+        }
+
+
+        /**
+         * <summary>
+         * Este método se encarga de actualizar el stock de un producto de la carta.
+         * </summary>
+         * <param name="keyCard">Identificador del platillo. </param>
+         * <param name="quantity">Cantidad de platillos a disminuir</param>
+         * <returns>Regresa 1 si se actualiza correctamente, 0 si ocurre un error.</returns>
+         */
+
+        public int UpdateStockMenuCard(string keyCard, int quantity) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var menuCard = context.MenuCard.SingleOrDefault(mc => mc.KeyCard == keyCard);
+                    if (menuCard != null && menuCard.Stock > 0) {
+                        menuCard.Stock -= quantity;
+                        result = context.SaveChanges();
+                    }
+
+                }
+            }
+            catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error al actualizar stock en menu card", ex);
+            }
+            return result;
+        }
+
+
          /**
          * <summary>
          * Este método se encarga de obtener el stock de un menu del dia.
