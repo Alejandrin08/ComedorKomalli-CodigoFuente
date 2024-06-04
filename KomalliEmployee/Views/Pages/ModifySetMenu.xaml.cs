@@ -1,6 +1,7 @@
 ﻿using KomalliEmployee.Controller;
 using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
+using KomalliServer;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
@@ -30,12 +31,14 @@ namespace KomalliEmployee.Views.Pages {
             txbMainFood.TextChanged += FieldsChanged;
             cbxTypeMenu.SelectionChanged += FieldsChanged;
             dpDate.SelectedDateChanged += FieldsChanged;
+            txbStock.TextChanged += FieldsChanged;
             InitializeFields();
         }
 
         private void FieldsChanged(object sender, RoutedEventArgs e) {
             bool allFieldsFilled = !string.IsNullOrWhiteSpace(txbDrink.Text) &&
                                    !string.IsNullOrWhiteSpace(txbMainFood.Text) &&
+                                   !string.IsNullOrWhiteSpace(txbStock.Text) &&
                                    cbxTypeMenu.SelectedItem != null &&
                                    dpDate.SelectedDate != null;
 
@@ -66,6 +69,22 @@ namespace KomalliEmployee.Views.Pages {
             }
         }
 
+        private void PreviewTextInputOnlyNumber(object sender, TextCompositionEventArgs e) {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null) {
+                if (textBox.Text.Length + e.Text.Length > 3) {
+                    e.Handled = true;
+                    return;
+                }
+                foreach (char character in e.Text) {
+                    if (!char.IsNumber(character) && !char.IsWhiteSpace(character)) {
+                        e.Handled = true;
+                        return;
+                    }
+                }
+            }
+        }
+
         private void ClickGoBack(object sender, RoutedEventArgs e) {
             this.NavigationService.GoBack();
         }
@@ -88,6 +107,7 @@ namespace KomalliEmployee.Views.Pages {
                 App.ShowMessageInformation("Menú actualizado con exito", "Menu actualizado");
                 SingletonClass.Instance.SetMenuModel = setMenu;
                 InitializeFields();
+                this.NavigationService.GoBack();
             } else {
                 App.ShowMessageError("El menú no se pudo actualizar, intentelo más tarde", "Error del sistema");
             }
@@ -111,6 +131,13 @@ namespace KomalliEmployee.Views.Pages {
             }
             setMenu.PriceStudent = 30;
             setMenu.Pricegeneral = 50;
+            int stockValue;
+            if (int.TryParse(txbStock.Text, out stockValue)) {
+                setMenu.Stock = stockValue;
+            } else {
+                setMenu.Stock = 0;
+                MessageBox.Show("Invalid stock value. Please enter a valid number.");
+            }
             ComboBoxItem selectedItem = (ComboBoxItem)cbxTypeMenu.SelectedItem;
             string selectedContent = selectedItem.Content.ToString();
             setMenu.Type = selectedContent == "Desayuno" ? TypeMenu.Desayuno : TypeMenu.Comida;
@@ -128,6 +155,7 @@ namespace KomalliEmployee.Views.Pages {
             txbSideDish.Text = setMenuModel.SideDish;
             txbStarter.Text = setMenuModel.Starter;
             dpDate.SelectedDate = setMenuModel.DateMenu;
+            txbStock.Text = setMenuModel.Stock.ToString();
         }
     }
 }

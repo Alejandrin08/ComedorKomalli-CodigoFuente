@@ -41,7 +41,8 @@ namespace KomalliEmployee.Controller {
                         Drink = setMenu.Drink,
                         StudentPrice = setMenu.PriceStudent,
                         GeneralPrice = setMenu.Pricegeneral,
-                        TypeMenu = setMenu.Type.ToString()
+                        TypeMenu = setMenu.Type.ToString(),
+                        Stock = setMenu.Stock
                     };
                     context.SetMenu.Add(newSetMenu);
                     result = context.SaveChanges();
@@ -105,7 +106,9 @@ namespace KomalliEmployee.Controller {
                             Salad = existingMenu.Salad,
                             Pricegeneral = existingMenu.GeneralPrice,
                             PriceStudent = existingMenu.StudentPrice,
+                            Stock = existingMenu.Stock.Value,
                             Type = existingMenu.TypeMenu == "Desayuno" ? TypeMenu.Desayuno : TypeMenu.Comida
+                            
                         };
                     }
                 }
@@ -166,6 +169,7 @@ namespace KomalliEmployee.Controller {
                         existingMenu.StudentPrice = setMenu.PriceStudent;
                         existingMenu.GeneralPrice = setMenu.Pricegeneral;
                         existingMenu.TypeMenu = setMenu.Type.ToString();
+                        existingMenu.Stock = setMenu.Stock;
                         result = context.SaveChanges();
                     }
                 }
