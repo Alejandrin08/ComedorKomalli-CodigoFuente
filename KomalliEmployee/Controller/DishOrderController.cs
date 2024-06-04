@@ -147,7 +147,7 @@ namespace KomalliEmployee.Controller {
                                     on foodOrder.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
                                     join setMenu in context.SetMenu
                                     on foodOrderSetMenu.KeySetMenuSetMenu equals setMenu.KeySetMenu
-                                    where foodOrder.IDFoodOrder == idFoodOrder 
+                                    where foodOrder.IDFoodOrder == idFoodOrder
                                     select foodOrderSetMenu).FirstOrDefault();
 
                         if (dish != null)
