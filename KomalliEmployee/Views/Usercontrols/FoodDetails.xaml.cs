@@ -1,4 +1,5 @@
 ﻿using KomalliEmployee.Contracts;
+using KomalliEmployee.Controller;
 using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
 using KomalliEmployee.Views.Pages;
@@ -71,8 +72,14 @@ namespace KomalliEmployee.Views.Usercontrols {
 
         private void MouseDownAddFood(object sender, MouseButtonEventArgs e) {
             var selectedFood = SingletonClass.Instance.SelectedFoods.FirstOrDefault(food => food.Name == Food.Name);
+            int stock = GetStock(Food.KeyCard);
             if (selectedFood.Quantity == 9) {
                 App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
+                return;
+            }
+            int quantity = selectedFood.Quantity;
+            if (quantity++ >= stock) {
+                App.ShowMessageWarning("No puedes agregar más, ya no hay.", "Advertencia");
                 return;
             }
             selectedFood.Quantity++;
@@ -83,6 +90,17 @@ namespace KomalliEmployee.Views.Usercontrols {
             if (selectedFood.Quantity > 1) {
                 SetImage("Substract.png");
             }
+        }
+
+        private int GetStock(string keyCard) {
+            FoodController foodController = new FoodController();
+            int stock;
+            if(keyCard.StartsWith("DES") || keyCard.StartsWith("COM")) {
+                stock = foodController.GetStockSetMenu(keyCard);
+            } else {
+                stock = foodController.GetStockMenuCard(keyCard);
+            }
+            return stock;   
         }
 
 

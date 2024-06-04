@@ -130,6 +130,45 @@ namespace KomalliEmployee.Views.Pages {
             }
         }
 
+        private EmployeeModel GetInfoEmployee() {
+            EmployeeController employeeController = new EmployeeController();
+            EmployeeModel employeeModel = employeeController.GetUserInfo(SingletonClass.Instance.PersonalNumberUserSelected);
+            return employeeModel;
+        }
+
+        private bool ValidateEmailWasModified() {
+            bool result;
+            EmployeeModel employeeModel = GetInfoEmployee();
+            if (txtEmailUser.Text != SingletonClass.Instance.EmailUserSelected && txtNameUser.Text == employeeModel.Name && txtPersonalNumberUser.Text == employeeModel.PersonalNumber && txtRoleUser.Text == employeeModel.RoleUser && txtAvailability.Text == SingletonClass.Instance.AvailabilityUserSelected) {
+                result = true;
+            } else {
+                result = false;
+            }
+            return result;
+        }
+
+        private bool ValidateUserWasModified() {
+            bool result;
+            EmployeeModel employeeModel = GetInfoEmployee();
+            if (txtEmailUser.Text != SingletonClass.Instance.EmailUserSelected && txtNameUser.Text == employeeModel.Name && txtPersonalNumberUser.Text == employeeModel.PersonalNumber && txtRoleUser.Text == employeeModel.RoleUser && txtAvailability.Text != SingletonClass.Instance.AvailabilityUserSelected) {
+                result = true;
+            } else {
+                result = false;
+            }
+            return result;
+        }
+
+        private bool ValidateAvailabilitylWasModified() {
+            bool result;
+            EmployeeModel employeeModel = GetInfoEmployee();
+            if (txtAvailability.Text != SingletonClass.Instance.AvailabilityUserSelected && txtNameUser.Text == employeeModel.Name && txtPersonalNumberUser.Text == employeeModel.RoleUser && txtRoleUser.Text == employeeModel.RoleUser && txtEmailUser.Text == SingletonClass.Instance.EmailUserSelected) {
+                result = true;
+            } else {
+                result = false;
+            }
+            return result;
+        }
+
         private void ClicKModifyUser(object sender, RoutedEventArgs e) {
             btnModifyUser.IsEnabled = false;
             int emailValid = ValidateEmailDuplicity();
@@ -138,25 +177,31 @@ namespace KomalliEmployee.Views.Pages {
                 EmployeeModel employeeModel = GetInfo();
                 EmployeeController employeeController = new EmployeeController();
                 int resultUpdateUser = 1;
-                int resultUpdateEmployee = 1;                
+                int resultUpdateEmployee = 1;
                 if (txtEmailUser.Text == SingletonClass.Instance.EmailUserSelected && txtAvailability.Text == SingletonClass.Instance.AvailabilityUserSelected) {
                     resultUpdateEmployee = employeeController.UpdateEmployeeInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
                 } else {
-                    if(txtEmailUser.Text == SingletonClass.Instance.EmailUserSelected) {
+                    if (ValidateEmailWasModified()) {
+                        resultUpdateUser = employeeController.UpdateUserInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
+                    } else if (ValidateAvailabilitylWasModified()) {
+                        resultUpdateUser = employeeController.UpdateUserInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
+                    } else if (ValidateUserWasModified()) {
+                        resultUpdateUser = employeeController.UpdateUserInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
+                    } else if (txtEmailUser.Text == SingletonClass.Instance.EmailUserSelected) {
                         resultUpdateUser = employeeController.UpdateUserInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
                         resultUpdateEmployee = employeeController.UpdateEmployeeInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
                     } else {
                         resultUpdateUser = employeeController.UpdateUserInfo(employeeModel, SingletonClass.Instance.EmailUserSelected);
                         resultUpdateEmployee = employeeController.UpdateEmployeeInfo(employeeModel, txtEmailUser.Text);
-                    }                   
-                }           
-                
-                if (resultUpdateUser > 0 || resultUpdateEmployee > 0) {                    
-                    App.ShowMessageInformation("Actualización exitosa", "Modificación de empleado");
-                    this.NavigationService.GoBack();
+                    }
+                }
+
+                if (resultUpdateUser > 0 && resultUpdateEmployee > 0) {
+                    App.ShowMessageInformation("Actualización exitosa", "Modificación de empleado");                    
                 } else {
                     App.ShowMessageWarning("Error al actualizar los datos del empleado", "Modificación de empleado");
                 }
+                this.NavigationService.GoBack();
             }
         }
 
