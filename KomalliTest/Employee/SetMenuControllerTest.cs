@@ -185,5 +185,15 @@ namespace KomalliTest.Employee {
             Assert.AreNotEqual(resultExpected, result);
         }
 
+        [TestMethod]
+        public void UpdateMenu_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
+
+                int resultExpected = 1;
+                int result = test.UpdateMenuCard();
+                Assert.AreEqual(resultExpected, result);
+            }
+        }
     }
 }

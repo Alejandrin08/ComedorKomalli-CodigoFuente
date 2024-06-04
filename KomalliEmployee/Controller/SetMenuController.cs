@@ -178,5 +178,28 @@ namespace KomalliEmployee.Controller {
             }
             return result;
         }
+
+        /**
+         * <summary>
+         * Actualiza la carta 
+         * </summary>
+         * <returns>1 si se modifica correctamente, 0 si hay un error.</returns>
+         */
+        public int UpdateMenuCard() {
+            int result = 0;
+            const int TOTAL_STOCK = 50;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var menuCard = context.MenuCard.ToList();
+                    foreach (var menu in menuCard) {
+                        menu.Stock = TOTAL_STOCK;
+                    }
+                    result = context.SaveChanges();
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error al actualizar la carta", ex);
+            }
+            return result;
+        }
     }
 }
