@@ -22,12 +22,8 @@ namespace KomalliEmployee.Views.Usercontrols
     /// <summary>
     /// Interaction logic for DishUserControl.xaml
     /// </summary>
-    public partial class DishUserControl : UserControl
-    {
-        private OrderUser _order;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public event EventHandler StateChanged;  
+    public partial class DishUserControl : UserControl {
+        private OrderUser _order; 
 
         public DishUserControl()
         {
@@ -54,10 +50,11 @@ namespace KomalliEmployee.Views.Usercontrols
             string newStatus = GetNextStatus(_order.DishStatus);
             DishOrderController dishOrder = new DishOrderController();
             bool success = dishOrder.UpdateDishStatus(idDish, nameDish, newStatus);
-            UpdateButtonContent();
-            CheckAndUpdateOrderStatus(idDish);
+            
             if (success)
             {
+                UpdateButtonContent();
+                CheckAndUpdateOrderStatus(idDish);
                 MessageBox.Show("Estado del platillo actualizado con éxito.");
             }
             else
@@ -66,10 +63,8 @@ namespace KomalliEmployee.Views.Usercontrols
             }
         }
 
-        private string GetNextStatus(string currentStatus)
-        {
-            switch (currentStatus)
-            {
+        private string GetNextStatus(string currentStatus) {
+            switch (currentStatus) {
                 case "Pendiente":
                     return  "Hecho";
                     
