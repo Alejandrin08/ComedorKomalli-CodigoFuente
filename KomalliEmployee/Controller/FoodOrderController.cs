@@ -351,7 +351,10 @@ namespace KomalliEmployee.Controller {
             var setMenuOrders = GetStatusOrderSetMenu(status);
             var menuCardOrders = GetStatusOrderMenuCard(status);
 
-            var combinedOrders = setMenuOrders.Union(menuCardOrders).ToList();
+            var combinedOrders = setMenuOrders.Concat(menuCardOrders)
+                                      .GroupBy(order => order.OrderID)
+                                      .Select(group => group.First())
+                                      .ToList();
 
             return combinedOrders;
         }

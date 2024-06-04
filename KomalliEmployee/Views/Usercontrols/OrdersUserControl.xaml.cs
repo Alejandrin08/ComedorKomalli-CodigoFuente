@@ -50,8 +50,7 @@ namespace KomalliEmployee.Views.Usercontrols
 
 
         public void ShowDish() {
-            if (_order == null || _order.OrderID == null)
-            {
+            if (_order == null || _order.OrderID == null) {
                 return;
             }
             FoodOrderController foodOrder = new FoodOrderController();
