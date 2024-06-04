@@ -171,6 +171,7 @@ namespace KomalliEmployee.Views.Pages
             txbSideDish.Text = "";
             txbSalad.Text = "";
             txbDrink.Text = "";
+            txbStock.Text = "";
             cbxTypeMenu.SelectedItem = null;
             dpDate.SelectedDate = null;
         }
