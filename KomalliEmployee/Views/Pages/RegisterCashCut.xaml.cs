@@ -55,11 +55,12 @@ namespace KomalliEmployee.Views.Pages {
 
         private void ClicRegisterCashCut(object sender, RoutedEventArgs e) {
             CashCutController cashCutController = new CashCutController();
+            SetMenuController setMenuController = new SetMenuController();
             int minimumInitialBalance = int.Parse(txtInitialBalance.Text);
             int balance = int.Parse(tbkBalance.Text);
           
             if (minimumInitialBalance >= 400 && minimumInitialBalance < balance) {
-                if (cashCutController.RegisterCashCutNextDay(int.Parse(txtInitialBalance.Text)) > 0) {
+                if (cashCutController.RegisterCashCutNextDay(int.Parse(txtInitialBalance.Text)) > 0 && setMenuController.UpdateMenuCard() > 0) {
                     App.ShowMessageInformation("Corte de caja registrado correctamente", "Corte de caja");
                 } else {
                     App.ShowMessageWarning("Error al registrar el corte de caja", "Corte de caja");
