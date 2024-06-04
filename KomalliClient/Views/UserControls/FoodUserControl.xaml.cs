@@ -1,4 +1,5 @@
-﻿using KomalliClient.Model;
+﻿using KomalliClient.Controller;
+using KomalliClient.Model;
 using KomalliClient.Model.Utilities;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,8 @@ namespace KomalliClient.Views.UserControls {
 
         private void ClickAddFood(object sender, RoutedEventArgs e) {
             int price = int.Parse(tbkFoodPrice.Text.TrimStart('$'));
+            FoodController foodController = new FoodController();   
+            int stock = foodController.GetStockMenuCard(Food.KeyCard);  
             FoodModel foodModel = new FoodModel() {
                 Name = tbkFoodName.Text,
                 KeyCard = Food.KeyCard,
@@ -71,16 +74,26 @@ namespace KomalliClient.Views.UserControls {
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
             mainWindow.btnContinue.IsEnabled = true;
             mainWindow.btnCancel.IsEnabled = true;
-            if (selectedFood != null) {
-                if (selectedFood.Quantity == 9) {
-                    App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
-                    return;
+            if (stock > 0) {
+                if (selectedFood != null) {
+                    if (selectedFood.Quantity == 9) {
+                        App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
+                        return;
+                    }
+                    int quantity = selectedFood.Quantity;
+                    if (quantity++ >= stock) {
+                        App.ShowMessageWarning("No puedes agregar más, ya no hay.", "Advertencia");
+                        return;
+                    }
+                    selectedFood.Quantity++;
+                    selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
+                    UpdateSelectedFoodsCollection(sender);
+                } else {
+                    SingletonClass.Instance.SelectedFoods.Add(foodModel);
                 }
-                selectedFood.Quantity++;
-                selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
-                UpdateSelectedFoodsCollection(sender);
             } else {
-                SingletonClass.Instance.SelectedFoods.Add(foodModel);
+                App.ShowMessageWarning("Ya no hay.", "Advertencia");
+                return;
             }
         }
 
