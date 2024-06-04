@@ -282,7 +282,7 @@ namespace KomalliEmployee.Controller {
                                          select new OrderUser {
                                              OrderID = foodOrder.IDFoodOrder,
                                              DishQuantity = foodOrder.NumberDishes,
-                                             FoodName = foodOrderSetMenu.KeySetMenuSetMenu,
+                                             FoodName = foodOrderSetMenu.KeySetMenuSetMenu.StartsWith("Com") ? "Comida" : "Desayuno",
                                              Quantity = foodOrderSetMenu.Quantity,
                                              Status = foodOrder.Status,
                                              DishStatus = foodOrderSetMenu.Status,
@@ -321,7 +321,7 @@ namespace KomalliEmployee.Controller {
                                               ClientName = foodOrder.ClientName
                                           }).ToList();
 
-                    orders.AddRange(menuCardOrders);
+                    orders = menuCardOrders;
                 }
             }
             catch (EntityException ex) {
@@ -331,37 +331,23 @@ namespace KomalliEmployee.Controller {
             return orders;
         }
 
-        public List<OrderUser> GetCombinedOrdersByStatus(string status)
-        {
+        
+
+        public List<OrderUser> GetCombinedOrders(string status) {
             var setMenuOrders = GetStatusOrderSetMenu(status);
             var menuCardOrders = GetStatusOrderMenuCard(status);
 
-            // Combinar ambas listas y agrupar por OrderID y FoodName para evitar duplicados
-            var combinedOrders = setMenuOrders.Concat(menuCardOrders)
-                                              .GroupBy(o => new { o.OrderID, o.FoodName })
-                                              .Select(g => new OrderUser
-                                              {
-                                                  OrderID = g.Key.OrderID,
-                                                  FoodName = g.Key.FoodName,
-                                                  DishQuantity = g.First().DishQuantity, // Asumimos que la cantidad de platillos es la misma para una orden y platillo específicos
-                                                  Quantity = g.Sum(o => o.Quantity), // Sumamos la cantidad
-                                                  Status = g.First().Status, // Asumimos que el estado es el mismo para la orden
-                                                  DishStatus = g.First().DishStatus, // Asumimos que el estado del platillo es el mismo
-                                                  ClientName = g.First().ClientName // Asumimos que el nombre del cliente es el mismo
-                                              })
-                                              .ToList();
+            var combinedOrders = setMenuOrders.Union(menuCardOrders).ToList();
 
             return combinedOrders;
         }
 
-        public List<OrderUser> GetCombinedDishesByStatus(string status, string idOrder)
-        {
+        public List<OrderUser> GetCombinedDishesByStatus(string status, string idOrder) {
             var setMenuOrders = GetStatusOrderSetMenu(status);
             var menuCardOrders = GetStatusOrderMenuCard(status);
             var combinedOrders = setMenuOrders.Concat(menuCardOrders)
-                                      .GroupBy(o => new { o.OrderID, o.FoodName })
-                                      .Select(g => new OrderUser
-                                      {
+                                      .GroupBy(order => new { order.OrderID, order.FoodName })
+                                      .Select(g => new OrderUser {
                                           OrderID = g.Key.OrderID,
                                           FoodName = g.Key.FoodName,
                                           DishQuantity = g.First().DishQuantity, 
@@ -372,9 +358,29 @@ namespace KomalliEmployee.Controller {
                                       })
                                       .ToList();
 
-            var filteredOrders = combinedOrders.Where(o => o.OrderID == idOrder).ToList();
+            var filteredOrders = combinedOrders.Where(order => order.OrderID == idOrder).ToList();
 
             return filteredOrders;
+        }
+
+        public bool AreAllDishesInStatus(string orderId, string status) {
+            using (var context = new KomalliEntities()) {
+                var setMenuDishes = from foodOrder in context.FoodOrder
+                                    join foodOrderSetMenu in context.FoodOrder_SetMenu
+                                    on foodOrder.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
+                                    where foodOrder.IDFoodOrder == orderId
+                                    select foodOrderSetMenu.Status;
+
+                var menuCardDishes = from foodOrder in context.FoodOrder
+                                     join foodOrderMenuCard in context.FoodOrder_MenuCard
+                                     on foodOrder.IDFoodOrder equals foodOrderMenuCard.IDFoodOrderFoodOrder
+                                     where foodOrder.IDFoodOrder == orderId
+                                     select foodOrderMenuCard.Status;
+
+                var allDishes = setMenuDishes.Concat(menuCardDishes);
+
+                return allDishes.All(d => d == status);
+            }
         }
 
         /**

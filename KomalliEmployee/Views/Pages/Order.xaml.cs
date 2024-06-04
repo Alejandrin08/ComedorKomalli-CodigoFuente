@@ -32,35 +32,36 @@ namespace KomalliEmployee.Views.Pages
             ShowOrder();
         }
 
-        private void ShowOrder()
-        {
+        private void ShowOrder() {
             ShowOrdersPerStatus("Pagado", lstOrdersPending);
             ShowOrdersPerStatus("Hecho", lstOrdersDone);
             ShowOrdersPerStatus("Entregado", lstOrdersDelivered);
         }
 
-        private void ShowOrdersPerStatus(string status, ListView listView)
-        {
+        private void ShowOrdersPerStatus(string status, ListView listView) {
+            
             FoodOrderController foodOrder = new FoodOrderController();
-            List<OrderUser> orders = foodOrder.GetCombinedOrdersByStatus(status);
+            var orders = foodOrder.GetCombinedOrders(status);
             listView.Items.Clear();
 
-            if (orders != null)
-            {
-                foreach (OrderUser order in orders)
-                {
-                    var orderUserControl = new OrdersUserControl { order = order };
+            if (orders != null) {
+                foreach (OrderUser order in orders) {
+                    OrdersUserControl orderUserControl = new OrdersUserControl();
                     orderUserControl.SetData(order);
                     listView.Items.Add(orderUserControl);
                 }
 
             }
-            else
-            {
+            else {
                 App.ShowMessageError("No se pudo recuperar la orden de estado " + status, "Error");
             }
         }
 
+        public void RefreshLists() {
+            Dispatcher.Invoke(() => {
+                ShowOrder();
+            });
+        }
     }
 }
 

@@ -135,22 +135,45 @@ namespace KomalliEmployee.Controller {
             }
         }
 
-        public bool UpdateStateDishSetMenu(string idFoodOrder, string newStatus) {
+        public bool UpdateDishStatus(string idFoodOrder, string nameFood, string newStatus) {
             try {
                 using (var context = new KomalliEntities()) {
-                    var order = context.FoodOrder_SetMenu.SingleOrDefault(dish => dish.IDFoodOrderFoodOrder == idFoodOrder);
-                    if (order != null) {
-                        order.Status = newStatus;
+                    var dish = (from foodOrder in context.FoodOrder
+                                join foodOrderSetMenu in context.FoodOrder_SetMenu
+                                on foodOrder.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
+                                join setMenu in context.SetMenu
+                                on foodOrderSetMenu.KeySetMenuSetMenu equals setMenu.KeySetMenu
+                                where foodOrder.IDFoodOrder == idFoodOrder && foodOrderSetMenu.KeySetMenuSetMenu == nameFood
+                                select foodOrderSetMenu).FirstOrDefault();
+
+                    if (dish != null) {
+                        dish.Status = newStatus;
                         context.SaveChanges();
                         return true;
                     }
-                    return false;
+                    else {
+                        var menuCardDish = (from foodOrder in context.FoodOrder
+                                            join unionTable in context.FoodOrder_MenuCard
+                                            on foodOrder.IDFoodOrder equals unionTable.IDFoodOrderFoodOrder
+                                            join menuCard in context.MenuCard
+                                            on unionTable.KeyCardMenuCard equals menuCard.KeyCard
+                                            where foodOrder.IDFoodOrder == idFoodOrder && menuCard.NameFood == nameFood
+                                            select unionTable).FirstOrDefault();
+
+                        if (menuCardDish != null) {
+                            menuCardDish.Status = newStatus;
+                            context.SaveChanges();
+                            return true;
+                        }
+                    }
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 LoggerManager.Instance.LogError("Error al actualizar el estado del platillo", ex);
-                return false;
             }
+
+            return false;
         }
 
     }

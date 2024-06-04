@@ -22,12 +22,9 @@ namespace KomalliEmployee.Views.Usercontrols
     /// <summary>
     /// Interaction logic for DishUserControl.xaml
     /// </summary>
-    public partial class DishUserControl : UserControl, INotifyPropertyChanged
+    public partial class DishUserControl : UserControl
     {
         private OrderUser _order;
-        private string _dishState;
-        private string _buttonContent;
-        private Visibility _buttonVisibility;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler StateChanged;  
@@ -43,24 +40,30 @@ namespace KomalliEmployee.Views.Usercontrols
             _order = order;
             lblDupe.Content = order.FoodName;
             lblQuantity.Content = order.Quantity;
-            UpdateButtonContent(order.DishStatus);
+            UpdateButtonContent();
         }
 
         private void ClickChangeStatus(object sender, RoutedEventArgs e)
         {
-            if (_order == null) return;
-            DishOrderController dishOrder = new DishOrderController();
-            string newStatus = GetNextStatus(_order.DishStatus);
+            UpdateStateDish(_order.OrderID, _order.FoodName);
+        }
 
-            if(dishOrder.UpdateStateDishMenuCard(_order.OrderID, newStatus)) {
-                _order.DishStatus = newStatus;
-                UpdateButtonContent(_order.DishStatus);
+        public void UpdateStateDish(string idDish, string nameDish)
+        {
+            if (_order == null) return;
+            string newStatus = GetNextStatus(_order.DishStatus);
+            DishOrderController dishOrder = new DishOrderController();
+            bool success = dishOrder.UpdateDishStatus(idDish, nameDish, newStatus);
+            UpdateButtonContent();
+            CheckAndUpdateOrderStatus(idDish);
+            if (success)
+            {
+                MessageBox.Show("Estado del platillo actualizado con éxito.");
             }
             else
             {
-                MessageBox.Show("Error al actualizar el estado de la orden.");
+                MessageBox.Show("Error al actualizar el estado del platillo.");
             }
-            
         }
 
         private string GetNextStatus(string currentStatus)
@@ -78,54 +81,63 @@ namespace KomalliEmployee.Views.Usercontrols
             }
         }
 
-        private void UpdateButtonContent(string currentStatus)
+        private void UpdateButtonContent()
         {
-            switch (currentStatus)
+            switch (_order.DishStatus)
             {
                 case "Pendiente":
-                    ButtonContent = "Hecho";
-                    ButtonVisibility = Visibility.Visible;
+                    btnStatus.Content = "Hecho";
+                    btnStatus.Visibility = Visibility.Visible;
                     break;
                 case "Hecho":
-                    ButtonContent = "Entregado";
-                    ButtonVisibility = Visibility.Visible;
+                    btnStatus.Content = "Entregado";
+                    btnStatus.Visibility = Visibility.Visible;
                     break;
                 case "Entregado":
-                    ButtonVisibility = Visibility.Collapsed;
+                    btnStatus.Visibility = Visibility.Collapsed;
                     break;
             }
         }
 
-
-        public string ButtonContent
+        private void CheckAndUpdateOrderStatus(string orderId)
         {
-            get => _buttonContent;
-            set
+            FoodOrderController foodOrderController = new FoodOrderController();
+            var combinedOrders = foodOrderController.GetCombinedOrders("Pagado")
+                .Concat(foodOrderController.GetCombinedOrders("Hecho"))
+                .Concat(foodOrderController.GetCombinedOrders("Entregado"))
+                .Where(order => order.OrderID == orderId).ToList();
+
+            if (combinedOrders.All(order => order.DishStatus == "Hecho"))
             {
-                if (_buttonContent != value)
-                {
-                    _buttonContent = value;
-                    OnPropertyChanged(nameof(ButtonContent));
-                }
+                foodOrderController.UpdateOrderStatus(orderId, "Hecho");
+                RefreshParentOrderPage();
+            }
+            else if (combinedOrders.All(order => order.DishStatus == "Entregado"))
+            {
+                foodOrderController.UpdateOrderStatus(orderId, "Entregado");
+                RefreshParentOrderPage();
             }
         }
 
-        public Visibility ButtonVisibility
+        private void RefreshParentOrderPage()
         {
-            get => _buttonVisibility;
-            set
-            {
-                if (_buttonVisibility != value)
-                {
-                    _buttonVisibility = value;
-                    OnPropertyChanged(nameof(ButtonVisibility));
-                }
-            }
+            var parentWindow = Window.GetWindow(this);
+            var parentOrderPage = FindVisualParent<Order>(parentWindow);
+            parentOrderPage?.RefreshLists();
         }
 
-        protected void OnPropertyChanged(string name)
+        private T FindVisualParent<T>(DependencyObject child) where T : DependencyObject
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+            if (parentObject == null)
+                return null;
+
+            if (parentObject is T parent)
+                return parent;
+
+            return FindVisualParent<T>(parentObject);
         }
     }
+    
 }
