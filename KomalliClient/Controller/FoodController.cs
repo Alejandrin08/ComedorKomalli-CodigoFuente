@@ -110,5 +110,59 @@ namespace KomalliClient.Controller {
             }
             return foods;
         }
+
+         /**
+         * <summary>
+         * Este método se encarga de obtener el stock de un menu del dia.
+         * </summary>
+         * <param name="keySetMenu">Identificador del menu. </param>
+         * <returns>Regresa el stock del menu.</returns>
+         */
+
+        public int GetStockSetMenu(string keySetMenu) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var stock = context.SetMenu
+                       .Where(mc => mc.KeySetMenu == keySetMenu)
+                       .Select(mc => mc.Stock)
+                       .SingleOrDefault();
+                    if (stock != null) {
+                        result = stock ?? 0;
+                    }
+
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error al actualizar stock en menu card", ex);
+            }
+            return result;
+        }
+
+        /**
+         * <summary>
+         * Este método se encarga de obtener el stock de un producto de la carta.
+         * </summary>
+         * <param name="keyCard">Identificador del platillo. </param>
+         * <returns>Regresa el stock del platillo.</returns>
+         */
+
+        public int GetStockMenuCard(string keyCard) {
+            int result = 0;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var stock = context.MenuCard
+                       .Where(mc => mc.KeyCard == keyCard)
+                       .Select(mc => mc.Stock)
+                       .SingleOrDefault();
+                    if (stock != null) {
+                        result = stock ?? 0;
+                    }
+
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error al actualizar stock en menu card", ex);
+            }
+            return result;
+        }
     }
 }
