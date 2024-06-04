@@ -266,6 +266,11 @@ namespace KomalliEmployee.Controller {
             return result;
         }
 
+        /// <summary>
+        /// Obtiene todas las órdenes de menú completo (Set Menu) con un estado específico.
+        /// </summary>
+        /// <param name="status">Estado de las órdenes a buscar.</param>
+        /// <returns>Una lista de órdenes con detalles específicos de menú completo.</returns>
         public List<OrderUser> GetStatusOrderSetMenu(string status) {
             List<OrderUser> orders = new List<OrderUser>();
             try {
@@ -299,6 +304,11 @@ namespace KomalliEmployee.Controller {
             return orders;
         }
 
+        /// <summary>
+        /// Obtiene todas las órdenes de menú a la carta con un estado específico.
+        /// </summary>
+        /// <param name="status">Estado de las órdenes a buscar.</param>
+        /// <returns>Una lista de órdenes con detalles específicos de menú a la carta.</returns>
         public List<OrderUser> GetStatusOrderMenuCard(string status) {
             List<OrderUser> orders = new List<OrderUser>();
             try {
@@ -331,8 +341,12 @@ namespace KomalliEmployee.Controller {
             return orders;
         }
 
-        
 
+        /// <summary>
+        /// Obtiene todas las órdenes combinadas de menú completo y menú a la carta con un estado específico.
+        /// </summary>
+        /// <param name="status">Estado de las órdenes a buscar.</param>
+        /// <returns>Una lista de órdenes combinadas con detalles específicos de menú completo y menú a la carta.</returns>
         public List<OrderUser> GetCombinedOrders(string status) {
             var setMenuOrders = GetStatusOrderSetMenu(status);
             var menuCardOrders = GetStatusOrderMenuCard(status);
@@ -342,6 +356,12 @@ namespace KomalliEmployee.Controller {
             return combinedOrders;
         }
 
+        /// <summary>
+        /// Obtiene todos los platos combinados de menú completo y menú a la carta por estado y ID de orden.
+        /// </summary>
+        /// <param name="status">Estado de los platos a buscar.</param>
+        /// <param name="idOrder">ID de la orden específica.</param>
+        /// <returns>Una lista de platos combinados con detalles específicos de menú completo y menú a la carta.</returns>
         public List<OrderUser> GetCombinedDishesByStatus(string status, string idOrder) {
             var setMenuOrders = GetStatusOrderSetMenu(status);
             var menuCardOrders = GetStatusOrderMenuCard(status);
@@ -363,6 +383,12 @@ namespace KomalliEmployee.Controller {
             return filteredOrders;
         }
 
+        /// <summary>
+        /// Verifica si todos los platos de una orden tienen un estado específico.
+        /// </summary>
+        /// <param name="orderId">ID de la orden a verificar.</param>
+        /// <param name="status">Estado que se está verificando.</param>
+        /// <returns>True si todos los platos de la orden tienen el estado especificado, de lo contrario, False.</returns>
         public bool AreAllDishesInStatus(string orderId, string status) {
             using (var context = new KomalliEntities()) {
                 var setMenuDishes = from foodOrder in context.FoodOrder

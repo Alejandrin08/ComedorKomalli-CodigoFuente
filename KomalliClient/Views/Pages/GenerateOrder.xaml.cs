@@ -63,6 +63,7 @@ namespace KomalliClient.Views.Pages
             FoodController foodController = new FoodController();
             int resultRegistryOrderMenu = 1;
             int resultRegistryOrderMenuCard = 1;
+            int resultUpdateStock = 1;
             var order = SingletonClass.Instance.SelectedFoods;
             foreach (var food in order) {
                 FoodModel foodModel = new FoodModel() {
@@ -73,12 +74,14 @@ namespace KomalliClient.Views.Pages
                 };
                 if (food.KeyCard.StartsWith("DES") || food.KeyCard.StartsWith("COM")) {
                     resultRegistryOrderMenu = foodController.RegistryOrderMenu(foodModel, SingletonClass.Instance.NewIdFoodOrder);
+                    resultUpdateStock = foodController.UpdateStockSetMenu(foodModel.KeyCard, foodModel.Quantity);
                 }
                 else {
                     resultRegistryOrderMenuCard = foodController.RegistryOrderMenuCard(foodModel, SingletonClass.Instance.NewIdFoodOrder);
+                    resultUpdateStock = foodController.UpdateStockMenuCard(foodModel.KeyCard, foodModel.Quantity);
                 }
             }
-            return (resultRegistryOrderMenu > 0 && resultRegistryOrderMenuCard > 0) ? 1 : 0;
+            return (resultRegistryOrderMenu > 0 && resultRegistryOrderMenuCard > 0 && resultUpdateStock > 0) ? 1 : 0;
         }
 
         private FoodOrderModel GetInfoOrder() {
@@ -101,13 +104,14 @@ namespace KomalliClient.Views.Pages
         private void ClickGenerateOrder(object sender, RoutedEventArgs e) {
             FoodOrderController foodOrderController = new FoodOrderController();
             SingletonClass.Instance.NewIdFoodOrder = foodOrderController.MakeIdFoodOrder();
-
+          
             int resultRegistryOrder = foodOrderController.RegistryOrder(GetInfoOrder());
 
             if (resultRegistryOrder > 0) {
                 int resultRegisterOrderDetails = RegisterOrderDetails();
                 if(resultRegisterOrderDetails > 0) {
-                    App.ShowMessageInformation("Pedido registrado", "Pedido registrado exitosamente");
+                    string successMessage = $"IMPORTANTE:\n ID de la Orden: {SingletonClass.Instance.NewIdFoodOrder} ";
+                    App.ShowMessageInformation(successMessage, "Pedido realizado exitosamente");
                 } else {
                     App.ShowMessageError("No se pudo registrar el pedido", "Error al registrar el pedido");
                 }
@@ -117,7 +121,7 @@ namespace KomalliClient.Views.Pages
             }
 
             SingletonClass.Instance.SelectedFoods.Clear();
-            HomeMenu homeMenu = new HomeMenu();;
+            HomeMenu homeMenu = new HomeMenu();
             this.NavigationService.Navigate(homeMenu);
         }
     }
