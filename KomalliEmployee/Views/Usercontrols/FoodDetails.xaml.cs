@@ -79,7 +79,7 @@ namespace KomalliEmployee.Views.Usercontrols {
             }
             int quantity = selectedFood.Quantity;
             if (quantity++ >= stock) {
-                App.ShowMessageWarning("No puedes agregar más, ya no hay.", "Advertencia");
+                App.ShowMessageWarning("No puedes agregar más, ya no hay existencias.", "Advertencia");
                 return;
             }
             selectedFood.Quantity++;

@@ -82,9 +82,6 @@ namespace KomalliEmployee.Views.Pages {
             }
         }
 
-
-        
-
         public void SelectedFoodsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
             EnableButtonCollection();
             lstSelectedFoods.Items.Clear();

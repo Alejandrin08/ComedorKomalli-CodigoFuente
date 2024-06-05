@@ -159,8 +159,8 @@ namespace KomalliEmployee.Views.Pages
                 {
                     randomNumber += random.Next(0, 10);
                 }
-                string keyIngredient = namePrefix + randomNumber;
-                return keyIngredient;
+                string keySetMenu = namePrefix + randomNumber;
+                return keySetMenu;
             
         }
 
@@ -171,6 +171,7 @@ namespace KomalliEmployee.Views.Pages
             txbSideDish.Text = "";
             txbSalad.Text = "";
             txbDrink.Text = "";
+            txbStock.Text = "";
             cbxTypeMenu.SelectedItem = null;
             dpDate.SelectedDate = null;
         }
