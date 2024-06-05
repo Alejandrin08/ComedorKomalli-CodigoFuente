@@ -159,8 +159,8 @@ namespace KomalliEmployee.Views.Pages
                 {
                     randomNumber += random.Next(0, 10);
                 }
-                string keyIngredient = namePrefix + randomNumber;
-                return keyIngredient;
+                string keySetMenu = namePrefix + randomNumber;
+                return keySetMenu;
             
         }
 
