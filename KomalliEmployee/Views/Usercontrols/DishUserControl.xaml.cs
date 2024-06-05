@@ -41,7 +41,7 @@ namespace KomalliEmployee.Views.Usercontrols
 
         private void ClickChangeStatus(object sender, RoutedEventArgs e)
         {
-            string dishType = (_order.FoodName.StartsWith("COM") || _order.FoodName.StartsWith("DES")) ? "SetMenu" : "MenuCard";
+            string dishType = (_order.FoodName.StartsWith("COM") || _order.FoodName.StartsWith("Com") || _order.FoodName.StartsWith("DES") || _order.FoodName.StartsWith("Des")) ? "SetMenu" : "MenuCard";
             UpdateStateDish(_order.OrderID, _order.FoodName, dishType);
         }
 
