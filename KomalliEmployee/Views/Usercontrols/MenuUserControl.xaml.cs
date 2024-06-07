@@ -59,12 +59,28 @@ namespace KomalliEmployee.Views.Usercontrols {
 
             var selectedFood = SingletonClass.Instance.SelectedFoods.FirstOrDefault(food => food.Name == menu);
 
-            if (selectedFood != null) {
-                selectedFood.Quantity++;
-                selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
-                UpdateSelectedFoodsCollection(menu, sender);
+            FoodController foodController = new FoodController();
+            int stock = foodController.GetStockSetMenu(keyMenu);
+            if (stock > 0) {
+                if (selectedFood != null) {
+                if (selectedFood.Quantity == 9) {
+                    App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
+                    return;
+                }
+                int quantity = selectedFood.Quantity;
+                if (quantity++ >= stock) {
+                    App.ShowMessageWarning("No puedes agregar más, ya no hay.", "Advertencia");
+                    return;
+                }
+                    selectedFood.Quantity++;
+                    selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
+                    UpdateSelectedFoodsCollection(menu, sender);
+                } else {
+                    SingletonClass.Instance.SelectedFoods.Add(foodModel);
+                }
             } else {
-                SingletonClass.Instance.SelectedFoods.Add(foodModel);
+                App.ShowMessageWarning("Ya no hay.", "Advertencia");
+                return;
             }
             ResetOptions();
         }

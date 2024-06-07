@@ -2,6 +2,7 @@
 using KomalliEmployee.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace KomalliEmployee.Views.Usercontrols
 {
@@ -21,51 +23,64 @@ namespace KomalliEmployee.Views.Usercontrols
     /// Interaction logic for OrdersUserControl.xaml
     /// </summary>
     public partial class OrdersUserControl : UserControl {
+       
+        
         private OrderUser _order;
+        public OrderUser order { get; set; }
 
-        public OrdersUserControl() {
+        public OrdersUserControl()
+        {
             InitializeComponent();
+            ShowDish();
         }
 
-        public void SetData(OrderUser order) {
-            _order = order;
-            lblContentQuantity.Content = order.Quantity;
-            lblContentCategory.Content = order.OrderType;
-            lblContentType.Content = order.FoodName;
-           
-            UpdateButtonContent();
+        public void SetData(OrderUser user)
+        {
+            _order = user;
+            lblIDDishContent.Content = user.OrderID;
+            lblNameContent.Content = user.ClientName;
+            ShowDish();
         }
 
-        private void ClickChangeStatus(object sender, RoutedEventArgs e) {
-            if (_order == null) return;
+        public void AddOrders(OrderUser order) {
+            DishUserControl dishUser = new DishUserControl();
+            dishUser.SetData(order);
+            stkDish.Children.Add(dishUser);
+        }
 
-            string newStatus = GetNextStatus(_order.Status);
-            FoodOrderController controller = new FoodOrderController();
 
-            if (controller.UpdateOrderStatus(_order.OrderID, newStatus)) {   
-                _order.Status = newStatus;
-                UpdateButtonContent();
+        public void ShowDish() {
+            if (_order == null || _order.OrderID == null) {
+                return;
             }
-            else {
-                MessageBox.Show("Error al actualizar el estado de la orden.");
+            FoodOrderController foodOrder = new FoodOrderController();
+            List<OrderUser> orders = foodOrder.GetCombinedDishesByStatus("Pagado", _order.OrderID);
+            stkDish.Children.Clear();
+
+            if (orders.Any()) {
+                foreach (OrderUser order in orders) {
+                    AddOrders(order);
+                }
+            }
+
+            List<OrderUser> doneOrders = foodOrder.GetCombinedDishesByStatus("Hecho", _order.OrderID);
+            if (doneOrders.Any())
+            {
+                foreach (OrderUser order in doneOrders)
+                {
+                    AddOrders(order);
+                }
+            }
+
+            List<OrderUser> deliveredOrders = foodOrder.GetCombinedDishesByStatus("Entregado", _order.OrderID);
+            if (deliveredOrders.Any())
+            {
+                foreach (OrderUser order in deliveredOrders)
+                {
+                    AddOrders(order);
+                }
             }
         }
 
-        private void UpdateButtonContent() {
-            btnStatus.Content = _order.Status;
-        }
-
-        private string GetNextStatus(string currentStatus) {
-            switch (currentStatus) {
-                case "Pendiente":
-                    return "Hecho";
-                case "Hecho":
-                    return "Entregado";
-                case "Entregado":
-                    return "Entregado";
-                default:
-                    return "Pendiente";
-            }
-        }
     }
 }

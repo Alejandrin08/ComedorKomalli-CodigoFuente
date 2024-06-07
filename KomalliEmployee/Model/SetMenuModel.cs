@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace KomalliEmployee.Model
 {
-    public class SetMenuModel
-    {
+    public class SetMenuModel {
         public string KeySetMenu { get; set; }
         public DateTime DateMenu { get; set; }
-        public string Starter {  get; set; }
+        public string Starter { get; set; }
         public string MainFood { get; set; }
-        public string SideDish {  get; set; }
-        public string Salad {  get; set; }
+        public string SideDish { get; set; }
+        public string Salad { get; set; }
         public string Drink { get; set; }
         public int PriceStudent { get; set; }
         public int Pricegeneral { get; set; }
         public TypeMenu Type { get; set; }
+        public int? Stock { get; set; }
     }
 }

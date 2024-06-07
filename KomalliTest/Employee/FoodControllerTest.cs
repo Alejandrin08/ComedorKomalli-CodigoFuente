@@ -224,5 +224,113 @@ namespace KomalliTest.Employee {
             }
         }
 
+        [TestMethod]
+        public void UpdateStockMenuCard_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodController test = new KomalliEmployee.Controller.FoodController();
+                string keyCard = "Pos9";
+                int quantity = 1;
+
+
+                int resultExpected = 1;
+                int result = test.UpdateStockMenuCard(keyCard, quantity);
+                Assert.AreEqual(resultExpected, result);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateStockMenuCard_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodController test = new KomalliEmployee.Controller.FoodController();
+                string keyCard = "Tor8";
+                int quantity = 1;
+
+
+                int resultExpected = 1;
+                int result = test.UpdateStockMenuCard(keyCard, quantity);
+                Assert.AreNotEqual(resultExpected, result);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateStockSetMenu_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodController test = new KomalliEmployee.Controller.FoodController();
+                string keySetMenu = "DES49";
+                int quantity = 1;
+
+
+                int resultExpected = 1;
+                int result = test.UpdateStockSetMenu(keySetMenu, quantity);
+                Assert.AreEqual(resultExpected, result);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateStockSetMenu_Failed() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.FoodController test = new KomalliEmployee.Controller.FoodController();
+                string keySetMenu = "DES47";
+                int quantity = 1;
+
+
+                int resultExpected = 1;
+                int result = test.UpdateStockSetMenu(keySetMenu, quantity);
+                Assert.AreNotEqual(resultExpected, result);
+            }
+        }
+
+        [TestMethod]
+        public void GetStockMenuCard_Sucessfull() {
+            KomalliEmployee.Controller.FoodController test = new KomalliEmployee.Controller.FoodController();
+
+            int resultExpected = 10;
+            string keyCard = "Tor7";
+
+            int result = test.GetStockMenuCard(keyCard);
+
+            Assert.AreEqual(resultExpected, result);
+
+        }
+
+        [TestMethod]
+        public void GetStockMenuCard_Failed() {
+            KomalliEmployee.Controller.FoodController test = new KomalliEmployee.Controller.FoodController();
+
+            int resultExpected = 10;
+            string keyCard = "Tor8";
+
+            int result = test.GetStockMenuCard(keyCard);
+
+            Assert.AreNotEqual(resultExpected, result);
+
+        }
+
+        [TestMethod]
+        public void GetStockSetMenu_Sucessfull() {
+            KomalliEmployee.Controller.FoodController test = new KomalliEmployee.Controller.FoodController();
+
+            int resultExpected = 100;
+            string keySetMenu = "DES49";
+
+            int result = test.GetStockSetMenu(keySetMenu);
+
+            Assert.AreEqual(resultExpected, result);
+
+        }
+
+        [TestMethod]
+        public void GetStockSetMenu_Failed() {
+            KomalliEmployee.Controller.FoodController test = new KomalliEmployee.Controller.FoodController();
+
+            int resultExpected = 10;
+            string keySetMenu = "DES49";
+
+            int result = test.GetStockSetMenu(keySetMenu);
+
+            Assert.AreNotEqual(resultExpected, result);
+
+        }
+
     }
 }

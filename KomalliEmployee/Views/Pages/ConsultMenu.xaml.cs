@@ -31,15 +31,11 @@ namespace KomalliEmployee.Views.Pages {
             MenuModel menuBreakfast = _menuController.GetBreakfastOfTheDay(DateTime.Today);
             if (menuBreakfast != null) {
                 lstBreakfast.ItemsSource = new List<MenuModel> { menuBreakfast };
-            } else {
-                App.ShowMessageError("No se pudo recuperar el menú del desayuno", "Error");
             }
 
             MenuModel menuFood = _menuController.GetFoodOfTheDay(DateTime.Today);
             if (menuFood != null) {
                 lstFood.ItemsSource = new List<MenuModel> { menuFood };
-            } else {
-                App.ShowMessageError("No se pudo recuperar el menú de comida", "Error");
             }
 
             dtpSelectDate.SetValue(DatePicker.SelectedDateProperty, DateTime.Today);

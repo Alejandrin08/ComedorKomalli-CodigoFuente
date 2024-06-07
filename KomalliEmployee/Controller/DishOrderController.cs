@@ -1,6 +1,7 @@
 ﻿using KomalliEmployee.Contracts;
 using KomalliEmployee.Model;
 using KomalliEmployee.Model.Utilities;
+using KomalliEmployee.Views.Pages;
 using KomalliServer;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Data.Entity.Core;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace KomalliEmployee.Controller {
     public class DishOrderController : IDishOrder {
@@ -115,6 +117,75 @@ namespace KomalliEmployee.Controller {
             }
             return dishesMenu;
         }
+
+        public bool UpdateStateDishMenuCard(string idFoodOrder, string newStatus) {
+            try {
+                using (var context = new KomalliEntities()) {
+                    var order = context.FoodOrder_MenuCard.SingleOrDefault(dish => dish.IDFoodOrderFoodOrder == idFoodOrder);
+                    if (order != null) {
+                        order.Status = newStatus;
+                        context.SaveChanges();
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex) {
+                LoggerManager.Instance.LogError("Error al actualizar el estado del platillo", ex);
+                return false;
+            }
+        }
+
+        public bool UpdateDishStatus(string idFoodOrder, string nameFood, string newStatus, string dishType) {
+            try
+            {
+                using (var context = new KomalliEntities())
+                {
+                    if (dishType == "SetMenu")
+                    {
+                        var dish = (from foodOrder in context.FoodOrder
+                                    join foodOrderSetMenu in context.FoodOrder_SetMenu
+                                    on foodOrder.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
+                                    join setMenu in context.SetMenu
+                                    on foodOrderSetMenu.KeySetMenuSetMenu equals setMenu.KeySetMenu
+                                    where foodOrder.IDFoodOrder == idFoodOrder
+                                    select foodOrderSetMenu).FirstOrDefault();
+
+                        if (dish != null)
+                        {
+                            dish.Status = newStatus;
+                            context.SaveChanges();
+                            return true;
+                        }
+                    }
+                    else if (dishType == "MenuCard")
+                    {
+                        var menuCardDish = (from foodOrder in context.FoodOrder
+                                            join unionTable in context.FoodOrder_MenuCard
+                                            on foodOrder.IDFoodOrder equals unionTable.IDFoodOrderFoodOrder
+                                            join menuCard in context.MenuCard
+                                            on unionTable.KeyCardMenuCard equals menuCard.KeyCard
+                                            where foodOrder.IDFoodOrder == idFoodOrder && menuCard.NameFood == nameFood
+                                            select unionTable).FirstOrDefault();
+
+                        if (menuCardDish != null)
+                        {
+                            menuCardDish.Status = newStatus;
+                            context.SaveChanges();
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerManager.Instance.LogError("Error al actualizar el estado del platillo", ex);
+            }
+
+            return false;
+        }
+
+       
 
     }
 }

@@ -41,7 +41,7 @@
                 Width="350"
                 Margin = "400,95,30,455"
                 Style="{StaticResource TextBoxSearchStyle}"
-                Tag="Buscar pedido"
+                Tag="Buscar pedido por id o nombre"
                 Cursor="Hand"
                 TextChanged="TextChangedSearchFoodOrder">
             </TextBox>

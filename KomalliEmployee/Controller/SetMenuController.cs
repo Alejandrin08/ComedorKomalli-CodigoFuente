@@ -41,7 +41,8 @@ namespace KomalliEmployee.Controller {
                         Drink = setMenu.Drink,
                         StudentPrice = setMenu.PriceStudent,
                         GeneralPrice = setMenu.Pricegeneral,
-                        TypeMenu = setMenu.Type.ToString()
+                        TypeMenu = setMenu.Type.ToString(),
+                        Stock = setMenu.Stock
                     };
                     context.SetMenu.Add(newSetMenu);
                     result = context.SaveChanges();
@@ -105,7 +106,9 @@ namespace KomalliEmployee.Controller {
                             Salad = existingMenu.Salad,
                             Pricegeneral = existingMenu.GeneralPrice,
                             PriceStudent = existingMenu.StudentPrice,
+                            Stock = existingMenu.Stock.Value,
                             Type = existingMenu.TypeMenu == "Desayuno" ? TypeMenu.Desayuno : TypeMenu.Comida
+                            
                         };
                     }
                 }
@@ -166,6 +169,7 @@ namespace KomalliEmployee.Controller {
                         existingMenu.StudentPrice = setMenu.PriceStudent;
                         existingMenu.GeneralPrice = setMenu.Pricegeneral;
                         existingMenu.TypeMenu = setMenu.Type.ToString();
+                        existingMenu.Stock = setMenu.Stock;
                         result = context.SaveChanges();
                     }
                 }
@@ -175,6 +179,29 @@ namespace KomalliEmployee.Controller {
             } catch (EntityException ex) {
                 result = -1;
                 LoggerManager.Instance.LogError("Error al modificar un menú", ex);
+            }
+            return result;
+        }
+
+        /**
+         * <summary>
+         * Actualiza la carta 
+         * </summary>
+         * <returns>1 si se modifica correctamente, 0 si hay un error.</returns>
+         */
+        public int UpdateMenuCard() {
+            int result = 0;
+            const int TOTAL_STOCK = 50;
+            try {
+                using (var context = new KomalliEntities()) {
+                    var menuCard = context.MenuCard.ToList();
+                    foreach (var menu in menuCard) {
+                        menu.Stock = TOTAL_STOCK;
+                    }
+                    result = context.SaveChanges();
+                }
+            } catch (EntityException ex) {
+                LoggerManager.Instance.LogError("Error al actualizar la carta", ex);
             }
             return result;
         }

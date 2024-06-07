@@ -24,7 +24,6 @@ namespace KomalliEmployee.Views.Pages {
     public partial class SearchSetMenuToModify : Page {
         public SearchSetMenuToModify() {
             InitializeComponent();
-            dpDate.DisplayDateStart = DateTime.Today;
             dpDate.SelectedDateChanged += DpDate_SelectedDateChanged;
             cbxTypeMenu.SelectionChanged += FieldsChanged;
             dpDate.SelectedDateChanged += FieldsChanged;

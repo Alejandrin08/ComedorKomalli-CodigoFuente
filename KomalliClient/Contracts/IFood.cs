@@ -9,5 +9,8 @@ namespace KomalliClient.Contracts {
     public interface IFood {
 
         public List<FoodModel> GetFoodsPerSection(string sectionName);
+        public int RegistryOrderMenu(FoodModel foodModel, string idOrder);
+        public int RegistryOrderMenuCard(FoodModel foodModel, string idOrder);
+        public List<FoodModel> GetKeyMenu();
     }
 }

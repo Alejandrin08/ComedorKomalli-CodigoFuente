@@ -1,5 +1,7 @@
-﻿using KomalliClient.Model;
+﻿using KomalliClient.Controller;
+using KomalliClient.Model;
 using KomalliClient.Model.Utilities;
+using KomalliServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,9 +75,15 @@ namespace KomalliClient.Views.UserControls {
 
         private void MouseDownAddFood(object sender, MouseButtonEventArgs e) {
             var existingFood = SingletonClass.Instance.SelectedFoods.FirstOrDefault(food => food.Name == Food.Name);
+            int stock = GetStock(Food.KeyCard);
             if (existingFood != null) {
                 if (existingFood.Quantity == 9) {
                     App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
+                    return;
+                }
+                int quantity = existingFood.Quantity;
+                if (quantity++ >= stock) {
+                    App.ShowMessageWarning("Ya no puedes agregar más, ya no hay en existencia.", "Advertencia");
                     return;
                 }
                 existingFood.Quantity++;
@@ -90,6 +98,17 @@ namespace KomalliClient.Views.UserControls {
                     imgDeleteFood.Source = bitmap;
                 }
             }
+        }
+
+        private int GetStock(string keyCard) {
+            FoodController foodController = new FoodController();
+            int stock;
+            if (keyCard.StartsWith("DES") || keyCard.StartsWith("COM")) {
+                stock = foodController.GetStockSetMenu(keyCard);
+            } else {
+                stock = foodController.GetStockMenuCard(keyCard);
+            }
+            return stock;
         }
 
         private void RemoveSelectedFood(FoodModel food) {

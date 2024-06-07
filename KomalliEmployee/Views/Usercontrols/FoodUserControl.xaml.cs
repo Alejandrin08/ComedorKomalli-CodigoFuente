@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using KomalliEmployee.Views.Pages;
 using System.Collections.Specialized;
+using KomalliEmployee.Controller;
 
 namespace KomalliEmployee.Views.Usercontrols {
     /// <summary>
@@ -47,17 +48,31 @@ namespace KomalliEmployee.Views.Usercontrols {
             };
             var selectedFood = SingletonClass.Instance.SelectedFoods.FirstOrDefault(food => food.Name == Food.Name);
 
-            if(selectedFood != null) {
-                if (selectedFood.Quantity == 9) {
-                    App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
-                    return;
+            FoodController foodController = new FoodController();
+            int stock = foodController.GetStockMenuCard(Food.KeyCard);
+            if(stock > 0) {
+                if (selectedFood != null) {
+                    if (selectedFood.Quantity == 9) {
+                        App.ShowMessageWarning("No puedes agregar más de 9 unidades de un mismo producto.", "Advertencia");
+                        return;
+                    }
+                    int quantity = selectedFood.Quantity;
+                    if (quantity++ >= stock) {
+                        App.ShowMessageWarning("No puedes agregar más, ya no hay.", "Advertencia");
+                        return;
+                    }
+                    selectedFood.Quantity++;
+                    selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
+                    UpdateSelectedFoodsCollection(sender);
+                } else {
+                    SingletonClass.Instance.SelectedFoods.Add(foodModel);
                 }
-                selectedFood.Quantity++;
-                selectedFood.Subtotal = selectedFood.Quantity * selectedFood.Price;
-                UpdateSelectedFoodsCollection(sender);
             } else {
-                SingletonClass.Instance.SelectedFoods.Add(foodModel);
-            } 
+                App.ShowMessageWarning("Ya no hay.", "Advertencia");
+                return;
+            }
+
+            
         }
 
         private void UpdateSelectedFoodsCollection(object sender) {

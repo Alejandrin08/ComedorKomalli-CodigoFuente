@@ -63,9 +63,9 @@ namespace KomalliTest.Employee {
 
             KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
             SetMenuModel setMenuModel = new SetMenuModel {
-                KeySetMenu = "Com001",
-                DateMenu = new DateTime(2024, 04, 28),
-                Type = TypeMenu.Comida,
+                KeySetMenu = "DES629",
+                DateMenu = new DateTime(2024, 06, 03),
+                Type = TypeMenu.Desayuno,
             };
 
             int resultExpected = 1;
@@ -95,13 +95,13 @@ namespace KomalliTest.Employee {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
                 SetMenuModel setMenuModelExpected = new SetMenuModel {
-                    KeySetMenu = "Com001",
-                    DateMenu = new DateTime(2024, 04, 28),
-                    Starter = "Crema de coliflor",
-                    MainFood = "Rajas Poblanas",
-                    SideDish = "Arroz Rojo",
-                    Salad = "Ensalada de lechuga",
-                    Drink = "Agua de pepino",
+                    KeySetMenu = "COM843",
+                    DateMenu = new DateTime(2024, 06, 03),
+                    Starter = "Crema de zanahoria",
+                    MainFood = "Pollo Hawaiano",
+                    SideDish = "Arroz blanco",
+                    Salad = "Bastones de pepino",
+                    Drink = "Agua de sandia",
                     PriceStudent = 30,
                     Pricegeneral = 50,
                     Type = TypeMenu.Comida,
@@ -119,6 +119,7 @@ namespace KomalliTest.Employee {
                 Assert.AreEqual(setMenuModelExpected.Type, result.Type);
             }
         }
+
 
         [TestMethod]
         public void ModifySetMenu_Sucessfull() {
@@ -185,5 +186,15 @@ namespace KomalliTest.Employee {
             Assert.AreNotEqual(resultExpected, result);
         }
 
+        [TestMethod]
+        public void UpdateMenu_Sucessfull() {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                KomalliEmployee.Controller.SetMenuController test = new KomalliEmployee.Controller.SetMenuController();
+
+                int resultExpected = 1;
+                int result = test.UpdateMenuCard();
+                Assert.AreEqual(resultExpected, result);
+            }
+        }
     }
 }

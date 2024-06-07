@@ -54,7 +54,7 @@ namespace KomalliEmployee.Views.Pages {
             if (string.IsNullOrWhiteSpace(searchTerm)) {
                 dgFoodOrders.ItemsSource = foodOrders;
             } else {
-                var filteredList = foodOrders.Where(item => item.IdFoodOrder.ToLower().Contains(searchTerm)).ToList();
+                var filteredList = foodOrders.Where(item => item.IdFoodOrder.ToLower().Contains(searchTerm) || item.ClientName.ToLower().Contains(searchTerm)).ToList();
                 dgFoodOrders.ItemsSource = filteredList;
             }
         }

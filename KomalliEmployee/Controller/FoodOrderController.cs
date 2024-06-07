@@ -266,38 +266,36 @@ namespace KomalliEmployee.Controller {
             return result;
         }
 
+        /// <summary>
+        /// Obtiene todas las órdenes de menú completo (Set Menu) con un estado específico.
+        /// </summary>
+        /// <param name="status">Estado de las órdenes a buscar.</param>
+        /// <returns>Una lista de órdenes con detalles específicos de menú completo.</returns>
         public List<OrderUser> GetStatusOrderSetMenu(string status) {
             List<OrderUser> orders = new List<OrderUser>();
-            orders = null;
             try {
-                using (var context = new KomalliEntities())
-                {
+                using (var context = new KomalliEntities()) {
                     var today = DateTime.Today;
                     var currentTime = DateTime.Now;
 
-                    var setMenuOrders = (from food in context.FoodOrder
+                    var setMenuOrders = (from foodOrder in context.FoodOrder
                                          join foodOrderSetMenu in context.FoodOrder_SetMenu
-                                         on food.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
+                                         on foodOrder.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
                                          join setMenu in context.SetMenu
                                          on foodOrderSetMenu.KeySetMenuSetMenu equals setMenu.KeySetMenu
-                                         where DbFunctions.TruncateTime(food.Date) == today && food.Status == status
-                                         select new {
-                                             food.NumberDishes,
-                                             foodOrderSetMenu.KeySetMenuSetMenu,
-                                             food.Status,
-                                             food.IDFoodOrder
-                                         }).ToList()
-                                         .Select(result => new OrderUser {
-                                             Quantity = result.NumberDishes,
-                                             OrderType = "Menú del día",
-                                             Status = result.Status,
-                                             FoodName = result.KeySetMenuSetMenu.StartsWith("Com") ? "Comida" : "Desayuno",
-                                             OrderID = result.IDFoodOrder
+                                         where DbFunctions.TruncateTime(foodOrder.Date) == today && foodOrder.Status == status
+                                         select new OrderUser {
+                                             OrderID = foodOrder.IDFoodOrder,
+                                             DishQuantity = foodOrder.NumberDishes,
+                                             FoodName = foodOrderSetMenu.KeySetMenuSetMenu.StartsWith("Com") ? "Comida" : "Desayuno",
+                                             Quantity = foodOrderSetMenu.Quantity,
+                                             Status = foodOrder.Status,
+                                             DishStatus = foodOrderSetMenu.Status,
+                                             ClientName = foodOrder.ClientName
                                          }).ToList();
 
                     orders = setMenuOrders;
                 }
-                
             }
             catch (EntityException ex) {
                 orders = null;
@@ -306,113 +304,31 @@ namespace KomalliEmployee.Controller {
             return orders;
         }
 
+        /// <summary>
+        /// Obtiene todas las órdenes de menú a la carta con un estado específico.
+        /// </summary>
+        /// <param name="status">Estado de las órdenes a buscar.</param>
+        /// <returns>Una lista de órdenes con detalles específicos de menú a la carta.</returns>
         public List<OrderUser> GetStatusOrderMenuCard(string status) {
             List<OrderUser> orders = new List<OrderUser>();
-            orders = null;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
+            try {
+                using (var context = new KomalliEntities()) {
                     var today = DateTime.Today;
                     var currentTime = DateTime.Now;
-                    var menuCardOrders = (from food in context.FoodOrder
-                                        join unionTable in context.FoodOrder_MenuCard
-                                        on food.IDFoodOrder equals unionTable.IDFoodOrderFoodOrder
-                                        join menuCard in context.MenuCard
-                                        on unionTable.KeyCardMenuCard equals menuCard.KeyCard
-                                        where DbFunctions.TruncateTime(food.Date) == today && food.Status == status
-                                        select new {
-                                            food.NumberDishes,
-                                            menuCard.NameFood,
-                                            food.Status,
-                                            food.IDFoodOrder
-
-                                        }).ToList()
-                                        .Select(result => new OrderUser {
-                                            Quantity = result.NumberDishes,
-                                            OrderType = "Menú a la carta",
-                                            Status = result.Status,
-                                            FoodName = result.NameFood,
-                                            OrderID = result.IDFoodOrder
-                                        }).ToList();
-
-                    orders = menuCardOrders;
-                }
-            }
-            catch (EntityException ex)
-            {
-                orders = null;
-                LoggerManager.Instance.LogError("Error al consultar la orden", ex);
-            }
-            return orders;
-        }
-
-        public List<OrderUser> GetOrdersByStatusesSetMenu(List<string> statuses, DateTime today) {
-            List<OrderUser> orders = new List<OrderUser>();
-            orders = null;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
-                    var currentTime = DateTime.Now;
-                    var setMenuOrders = (from food in context.FoodOrder
-                                         join foodOrderSetMenu in context.FoodOrder_SetMenu
-                                         on food.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
-                                         join setMenu in context.SetMenu
-                                         on foodOrderSetMenu.KeySetMenuSetMenu equals setMenu.KeySetMenu
-                                         where DbFunctions.TruncateTime(food.Date) == today && statuses.Contains(food.Status)
-                                         select new
-                                         {
-                                             food.NumberDishes,
-                                             foodOrderSetMenu.KeySetMenuSetMenu,
-                                             food.Status
-                                         }).ToList()
-                                         .Select(result => new OrderUser
-                                         {
-                                             Quantity = result.NumberDishes,
-                                             OrderType = "Menú del día",
-                                             Status = result.Status,                  
-                                             FoodName = result.KeySetMenuSetMenu.StartsWith("Com") ? "Comida" : "Desayuno"
-                                         }).ToList();
-
-                    orders = setMenuOrders;
-                }
-
-            }
-            catch (EntityException ex){
-                orders = null;
-                LoggerManager.Instance.LogError("Error al consultar la orden", ex);
-            }
-            return orders;
-        }
-
-        public List<OrderUser> GetOrdersByStatusesMenuCard(List<string> statuses, DateTime today) {
-            List<OrderUser> orders = new List<OrderUser>();
-            orders = null;
-            try
-            {
-                using (var context = new KomalliEntities())
-                {
-                    var currentTime = DateTime.Now;
-                    var menuCardOrders = (from food in context.FoodOrder
+                    var menuCardOrders = (from foodOrder in context.FoodOrder
                                           join unionTable in context.FoodOrder_MenuCard
-                                          on food.IDFoodOrder equals unionTable.IDFoodOrderFoodOrder
+                                          on foodOrder.IDFoodOrder equals unionTable.IDFoodOrderFoodOrder
                                           join menuCard in context.MenuCard
                                           on unionTable.KeyCardMenuCard equals menuCard.KeyCard
-                                          where DbFunctions.TruncateTime(food.Date) == today && statuses.Contains(food.Status)
-                                       
-                                          select new
-                                          {
-                                              food.NumberDishes,
-                                              menuCard.NameFood,
-                                              food.Status
-                                          }).ToList()
-                                          .Select(result => new OrderUser
-                                          {
-                                              Quantity = result.NumberDishes,
-                                              OrderType = "Menú a la carta",
-                                              FoodName = result.NameFood,
-                                              Status = result.Status
+                                          where DbFunctions.TruncateTime(foodOrder.Date) == today && foodOrder.Status == status
+                                          select new OrderUser {
+                                              OrderID = foodOrder.IDFoodOrder,
+                                              DishQuantity = foodOrder.NumberDishes,
+                                              FoodName = menuCard.NameFood,
+                                              Quantity = unionTable.Quantity,
+                                              Status = foodOrder.Status,
+                                              DishStatus = unionTable.Status,
+                                              ClientName = foodOrder.ClientName
                                           }).ToList();
 
                     orders = menuCardOrders;
@@ -425,16 +341,86 @@ namespace KomalliEmployee.Controller {
             return orders;
         }
 
-        
-            /**
-            * <summary>
-            * Este método se encarga de eliminar un pedido de la tabla FoodOrder de la base de datos.
-            * </summary>
-            * <param name="orderId">Id que identifica el pedido a actualizar su estado</param>
-            * <param name="newStatus">parametro para actualizar el estado</param>
-            * <returns>Regresa true si se actualizo correctamente, false si ocurre un error.</returns>
-            */
-            public bool UpdateOrderStatus(string orderId, string newStatus) {
+
+        /// <summary>
+        /// Obtiene todas las órdenes combinadas de menú completo y menú a la carta con un estado específico.
+        /// </summary>
+        /// <param name="status">Estado de las órdenes a buscar.</param>
+        /// <returns>Una lista de órdenes combinadas con detalles específicos de menú completo y menú a la carta.</returns>
+        public List<OrderUser> GetCombinedOrders(string status) {
+            var setMenuOrders = GetStatusOrderSetMenu(status);
+            var menuCardOrders = GetStatusOrderMenuCard(status);
+
+            var combinedOrders = setMenuOrders.Concat(menuCardOrders)
+                                      .GroupBy(order => order.OrderID)
+                                      .Select(group => group.First())
+                                      .ToList();
+
+            return combinedOrders;
+        }
+
+        /// <summary>
+        /// Obtiene todos los platos combinados de menú completo y menú a la carta por estado y ID de orden.
+        /// </summary>
+        /// <param name="status">Estado de los platos a buscar.</param>
+        /// <param name="idOrder">ID de la orden específica.</param>
+        /// <returns>Una lista de platos combinados con detalles específicos de menú completo y menú a la carta.</returns>
+        public List<OrderUser> GetCombinedDishesByStatus(string status, string idOrder) {
+            var setMenuOrders = GetStatusOrderSetMenu(status);
+            var menuCardOrders = GetStatusOrderMenuCard(status);
+            var combinedOrders = setMenuOrders.Concat(menuCardOrders)
+                                      .GroupBy(order => new { order.OrderID, order.FoodName })
+                                      .Select(g => new OrderUser {
+                                          OrderID = g.Key.OrderID,
+                                          FoodName = g.Key.FoodName,
+                                          DishQuantity = g.First().DishQuantity, 
+                                          Quantity = g.Sum(o => o.Quantity), 
+                                          Status = g.First().Status,
+                                          DishStatus = g.First().DishStatus, 
+                                          ClientName = g.First().ClientName 
+                                      })
+                                      .ToList();
+
+            var filteredOrders = combinedOrders.Where(order => order.OrderID == idOrder).ToList();
+
+            return filteredOrders;
+        }
+
+        /// <summary>
+        /// Verifica si todos los platos de una orden tienen un estado específico.
+        /// </summary>
+        /// <param name="orderId">ID de la orden a verificar.</param>
+        /// <param name="status">Estado que se está verificando.</param>
+        /// <returns>True si todos los platos de la orden tienen el estado especificado, de lo contrario, False.</returns>
+        public bool AreAllDishesInStatus(string orderId, string status) {
+            using (var context = new KomalliEntities()) {
+                var setMenuDishes = from foodOrder in context.FoodOrder
+                                    join foodOrderSetMenu in context.FoodOrder_SetMenu
+                                    on foodOrder.IDFoodOrder equals foodOrderSetMenu.IDFoodOrderFoodOrder
+                                    where foodOrder.IDFoodOrder == orderId
+                                    select foodOrderSetMenu.Status;
+
+                var menuCardDishes = from foodOrder in context.FoodOrder
+                                     join foodOrderMenuCard in context.FoodOrder_MenuCard
+                                     on foodOrder.IDFoodOrder equals foodOrderMenuCard.IDFoodOrderFoodOrder
+                                     where foodOrder.IDFoodOrder == orderId
+                                     select foodOrderMenuCard.Status;
+
+                var allDishes = setMenuDishes.Concat(menuCardDishes);
+
+                return allDishes.All(d => d == status);
+            }
+        }
+
+        /**
+        * <summary>
+        * Este método se encarga de eliminar un pedido de la tabla FoodOrder de la base de datos.
+        * </summary>
+        * <param name="orderId">Id que identifica el pedido a actualizar su estado</param>
+        * <param name="newStatus">parametro para actualizar el estado</param>
+        * <returns>Regresa true si se actualizo correctamente, false si ocurre un error.</returns>
+        */
+        public bool UpdateOrderStatus(string orderId, string newStatus) {
             try {
                 using (var context = new KomalliEntities()) {
                     var order = context.FoodOrder.SingleOrDefault(o => o.IDFoodOrder == orderId);

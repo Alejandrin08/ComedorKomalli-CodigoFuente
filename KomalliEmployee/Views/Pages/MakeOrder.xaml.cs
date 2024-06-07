@@ -82,9 +82,6 @@ namespace KomalliEmployee.Views.Pages {
             }
         }
 
-
-        
-
         public void SelectedFoodsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
             EnableButtonCollection();
             lstSelectedFoods.Items.Clear();
@@ -289,6 +286,7 @@ namespace KomalliEmployee.Views.Pages {
             FoodController foodController = new FoodController();
             int resultRegistryOrderMenu = 1;
             int resultRegistryOrderMenuCard = 1;
+            int resultUpdateStock = 1;
             var order = SingletonClass.Instance.SelectedFoods;
             foreach (var food in order) {
                 FoodModel foodModel = new FoodModel() {
@@ -299,11 +297,13 @@ namespace KomalliEmployee.Views.Pages {
                 };
                 if (food.KeyCard.StartsWith("DES") || food.KeyCard.StartsWith("COM")) {
                     resultRegistryOrderMenu = foodController.RegistryOrderMenu(foodModel, SingletonClass.Instance.NewIdFoodOrder);
+                    resultUpdateStock = foodController.UpdateStockSetMenu(foodModel.KeyCard, foodModel.Quantity);
                 } else {
                     resultRegistryOrderMenuCard = foodController.RegistryOrderMenuCard(foodModel, SingletonClass.Instance.NewIdFoodOrder);
+                    resultUpdateStock = foodController.UpdateStockMenuCard(foodModel.KeyCard, foodModel.Quantity);
                 }
             }
-            return (resultRegistryOrderMenu > 0 && resultRegistryOrderMenuCard > 0)? 1 : 0;
+            return (resultRegistryOrderMenu > 0 && resultRegistryOrderMenuCard > 0 && resultUpdateStock > 0) ? 1 : 0;
         }
 
         public void ShowPageMakeCollection() {
